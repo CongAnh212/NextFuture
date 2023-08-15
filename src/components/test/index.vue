@@ -1,5 +1,7 @@
 <template>
-  alo alo 
+  <div class="alert alert-primary" role="alert">
+    Đây là phần được kế thừa từ Wrapper
+  </div>
 </template>
 
 <script>
