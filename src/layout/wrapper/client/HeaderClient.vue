@@ -4,8 +4,8 @@
             <nav class="navbar navbar-expand-lg navbar-light p-0">
                 <div class="iq-navbar-logo d-flex justify-content-between">
                     <a href="../dashboard/index.html">
-                        <img src="../../../assets/client/images/logo.png" class="img-fluid" alt="">
-                        <span>Next Future</span>
+                        <img src="https://arzantex.com/assets/uploads/user5b384ce32d8cdef02bc3a139d4cac0a22bb029e8/9a5d6550ff46a3aeb77c8469e30fc64f.png" class="img-fluid" alt="">
+                        <span>Future</span>
                     </a>
                     <div class="iq-menu-bt align-self-center">
                         <div class="wrapper-menu">
@@ -32,9 +32,9 @@
                             </a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a href="#" @click="toggleShow('group-drop')" class="dropdown-toggle" data-bs-toggle="dropdown"
+                            <a href="#" class="dropdown-toggle" id="group-drop" data-bs-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false"><i class="ri-group-line"></i></a>
-                            <div id="group-drop" class="sub-drop sub-drop-large dropdown-menu">
+                            <div class="sub-drop sub-drop-large dropdown-menu" aria-labelledby="group-drop">
                                 <div class="card shadow-none m-0">
                                     <div class="card-header d-flex justify-content-between bg-primary">
                                         <div class="header-title">
@@ -47,8 +47,8 @@
                                             <div
                                                 class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
                                                 <div class="d-flex align-items-center">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/01.jpg" alt="">
+                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/01.jpg"
+                                                        alt="">
                                                     <div class="ms-3">
                                                         <h6 class="mb-0 ">Jaques Amole</h6>
                                                         <p class="mb-0">40 friends</p>
@@ -66,8 +66,8 @@
                                             <div
                                                 class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
                                                 <div class="d-flex align-items-center">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/02.jpg" alt="">
+                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/02.jpg"
+                                                        alt="">
                                                     <div class="ms-3">
                                                         <h6 class="mb-0 ">Lucy Tania</h6>
                                                         <p class="mb-0">12 friends</p>
@@ -85,8 +85,8 @@
                                             <div
                                                 class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
                                                 <div class="d-flex align-items-center">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/03.jpg" alt="">
+                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/03.jpg"
+                                                        alt="">
                                                     <div class=" ms-3">
                                                         <h6 class="mb-0 ">Manny Petty</h6>
                                                         <p class="mb-0">3 friends</p>
@@ -104,8 +104,8 @@
                                             <div
                                                 class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
                                                 <div class="d-flex align-items-center">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/04.jpg" alt="">
+                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/04.jpg"
+                                                        alt="">
                                                     <div class="ms-3">
                                                         <h6 class="mb-0 ">Marsha Mello</h6>
                                                         <p class="mb-0">15 friends</p>
@@ -127,11 +127,11 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a href="#" @click="toggleShow('notification-drop')" class="search-toggle dropdown-toggle"
+                            <a href="#" class="search-toggle   dropdown-toggle" id="notification-drop"
                                 data-bs-toggle="dropdown">
                                 <i class="ri-notification-4-line"></i>
                             </a>
-                            <div id="notification-drop" class="sub-drop dropdown-menu">
+                            <div class="sub-drop dropdown-menu" aria-labelledby="notification-drop">
                                 <div class="card shadow-none m-0">
                                     <div class="card-header d-flex justify-content-between bg-primary">
                                         <div class="header-title bg-primary">
@@ -143,8 +143,8 @@
                                         <a href="#" class="iq-sub-card">
                                             <div class="d-flex align-items-center">
                                                 <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/01.jpg" alt="">
+                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/01.jpg"
+                                                        alt="">
                                                 </div>
                                                 <div class="ms-3 w-100">
                                                     <h6 class="mb-0 ">Emma Watson Bni</h6>
@@ -158,8 +158,8 @@
                                         <a href="#" class="iq-sub-card">
                                             <div class="d-flex align-items-center">
                                                 <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/02.jpg" alt="">
+                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/02.jpg"
+                                                        alt="">
                                                 </div>
                                                 <div class="ms-3 w-100">
                                                     <h6 class="mb-0 ">New customer is join</h6>
@@ -173,8 +173,8 @@
                                         <a href="#" class="iq-sub-card">
                                             <div class="d-flex align-items-center">
                                                 <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/03.jpg" alt="">
+                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/03.jpg"
+                                                        alt="">
                                                 </div>
                                                 <div class="ms-3 w-100">
                                                     <h6 class="mb-0 ">Two customer is left</h6>
@@ -188,8 +188,8 @@
                                         <a href="#" class="iq-sub-card">
                                             <div class="d-flex align-items-center">
                                                 <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/04.jpg" alt="">
+                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/04.jpg"
+                                                        alt="">
                                                 </div>
                                                 <div class="w-100 ms-3">
                                                     <h6 class="mb-0 ">New Mail from Fenny</h6>
@@ -205,11 +205,11 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a href="#" @click="toggleShow('mail-drop')" class="dropdown-toggle" data-bs-toggle="dropdown"
+                            <a href="#" class="dropdown-toggle" id="mail-drop" data-bs-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 <i class="ri-mail-line"></i>
                             </a>
-                            <div id="mail-drop" class="sub-drop dropdown-menu">
+                            <div class="sub-drop dropdown-menu" aria-labelledby="mail-drop">
                                 <div class="card shadow-none m-0">
                                     <div class="card-header d-flex justify-content-between bg-primary">
                                         <div class="header-title bg-primary">
@@ -221,8 +221,8 @@
                                         <a href="#" class="iq-sub-card">
                                             <div class="d-flex  align-items-center">
                                                 <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/01.jpg" alt="">
+                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/01.jpg"
+                                                        alt="">
                                                 </div>
                                                 <div class=" w-100 ms-3">
                                                     <h6 class="mb-0 ">Bni Emma Watson</h6>
@@ -233,8 +233,8 @@
                                         <a href="#" class="iq-sub-card">
                                             <div class="d-flex align-items-center">
                                                 <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/02.jpg" alt="">
+                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/02.jpg"
+                                                        alt="">
                                                 </div>
                                                 <div class="ms-3">
                                                     <h6 class="mb-0 ">Lorem Ipsum Watson</h6>
@@ -245,8 +245,8 @@
                                         <a href="#" class="iq-sub-card">
                                             <div class="d-flex align-items-center">
                                                 <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/03.jpg" alt="">
+                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/03.jpg"
+                                                        alt="">
                                                 </div>
                                                 <div class="ms-3">
                                                     <h6 class="mb-0 ">Why do we use it?</h6>
@@ -257,8 +257,8 @@
                                         <a href="#" class="iq-sub-card">
                                             <div class="d-flex align-items-center">
                                                 <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/04.jpg" alt="">
+                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/04.jpg"
+                                                        alt="">
                                                 </div>
                                                 <div class="ms-3">
                                                     <h6 class="mb-0 ">Variations Passages</h6>
@@ -269,8 +269,8 @@
                                         <a href="#" class="iq-sub-card">
                                             <div class="d-flex align-items-center">
                                                 <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/05.jpg" alt="">
+                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/05.jpg"
+                                                        alt="">
                                                 </div>
                                                 <div class="ms-3">
                                                     <h6 class="mb-0 ">Lorem Ipsum generators</h6>
@@ -283,15 +283,14 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a href="#" @click="toggleShow('drop-down-arrow')" class="d-flex align-items-center dropdown-toggle" 
+                            <a href="#" class="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="../../../assets/client/images/user/1.jpg" class="img-fluid rounded-circle me-3"
-                                    alt="user">
+                                <img src="../../../assets/client/images/user/1.jpg" class="img-fluid rounded-circle me-3" alt="user">
                                 <div class="caption">
                                     <h6 class="mb-0 line-height">Bni Cyst</h6>
                                 </div>
                             </a>
-                            <div id="drop-down-arrow" class="sub-drop dropdown-menu caption-menu" >
+                            <div class="sub-drop dropdown-menu caption-menu" aria-labelledby="drop-down-arrow">
                                 <div class="card shadow-none m-0">
                                     <div class="card-header  bg-primary">
                                         <div class="header-title">
@@ -361,41 +360,8 @@
     </div>
 </template>
 <script>
-import $ from 'jquery';
 export default {
-    data() {
-        return {
-
-        };
-    },
-    methods: {
-        toggleShow(a) {
-            const $element = $("#" + a);
-            if ($element.hasClass('show')) {
-                $element.removeClass('show');
-            } else {
-                $element.addClass('show');
-                if (a == "notification-drop") {
-                    $("#group-drop").removeClass('show');
-                    $("#mail-drop").removeClass('show');
-                    $("#drop-down-arrow").removeClass('show');
-                } else if (a == "group-drop") {
-                    $("#notification-drop").removeClass('show');
-                    $("#mail-drop").removeClass('show');
-                    $("#drop-down-arrow").removeClass('show');
-                } else if (a == "mail-drop") {
-                    $("#notification-drop").removeClass('show');
-                    $("#group-drop").removeClass('show');
-                    $("#drop-down-arrow").removeClass('show');
-                }
-                else if (a == "drop-down-arrow") {
-                    $("#notification-drop").removeClass('show');
-                    $("#group-drop").removeClass('show');
-                    $("#mail-drop").removeClass('show');
-                }
-            }
-        }
-    },
+   
 }
 </script>
 <style></style>

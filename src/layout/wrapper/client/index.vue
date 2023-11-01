@@ -1,7 +1,7 @@
 <template>
      <div class="wrapper">
         <MenuClient></MenuClient>
-        <HeaderClient>  </HeaderClient>
+        <HeaderClient></HeaderClient>
         <right_sidebar></right_sidebar>
         <div id="content-page" class="content-page">
             <div class="container">
@@ -16,14 +16,14 @@ import $ from 'jquery';
 // import "../../../assets/client/js/libs.min.js";
 // import "../../../assets/client/js/charts/weather-chart.js";
 // import "../../../assets/client/js/slider.js";
-
-// import "../../../assets/client/js/sweetalert.js";
-// import "../../../assets/client/js/app.js";
-// import "../../../assets/client/images/favicon.ico";
-// import "../../../assets/client/js/enchanter.js";
-// import "../../../assets/client/js/masonry.pkgd.min.js";
-// import "../../../assets/client/js/lottie.js";
-// import "../../../assets/client/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"
+import 'bootstrap';
+import "../../../assets/client/js/sweetalert.js";
+import "../../../assets/client/js/app.js";
+import "../../../assets/client/images/favicon.ico";
+import "../../../assets/client/js/enchanter.js";
+import "../../../assets/client/js/masonry.pkgd.min.js";
+import "../../../assets/client/js/lottie.js";
+import "../../../assets/client/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"
 
 import HeaderClient from './HeaderClient.vue';
 import MenuClient from './MenuClient.vue';
@@ -39,7 +39,6 @@ export default {
 }
 </script>
 <style>
-
 @import "../../../assets/client/css/libs.min.css";
 @import "../../../assets/client/css/socialv.css"; /* ?v=4.0.0 */
 @import "../../../assets/client/vendor/@fortawesome/fontawesome-free/css/all.min.css";
