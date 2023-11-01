@@ -5,6 +5,7 @@ const routes = [
         path : '/',
         component: ()=>import('../components/home/index.vue')
     },
+
 ]
 
 const router = createRouter({
