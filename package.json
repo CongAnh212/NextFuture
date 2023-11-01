@@ -9,6 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "jquery": "^3.7.1",
+    "rotate-icon": "^1.0.3",
+    "select2": "^4.1.0-rc.0",
+    "sweetalert2": "^11.9.0",
     "vue": "^3.3.4",
     "vue-router": "^4.0.13"
   },

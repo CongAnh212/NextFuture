@@ -24,7 +24,9 @@ Index Of Script
 ------------------------------------------------
 Index Of Script
 ----------------------------------------------*/
-
+import jQuery from 'jquery';
+import $ from 'jquery';
+import "select2";
 (function(jQuery) {
 
   "use strict";
@@ -34,8 +36,8 @@ Index Of Script
     /*---------------------------------------------------------------------
     Tooltip
     -----------------------------------------------------------------------*/
-        jQuery('[data-bs-toggle="popover"]').popover();
-        jQuery('[data-bs-toggle="tooltip"]').tooltip();
+        // jQuery('[data-bs-toggle="popover"]').popover();
+        // jQuery('[data-bs-toggle="tooltip"]').tooltip();
         
         /*---------------------------------------------------------------------
         range Button 
@@ -102,20 +104,20 @@ Index Of Script
     /*---------------------------------------------------------------------
         Scrollbar
     -----------------------------------------------------------------------*/
-        let Scrollbar = window.Scrollbar;
-        if (jQuery('#sidebar-scrollbar').length) {
-            Scrollbar.init(document.querySelector('#sidebar-scrollbar'), 
-            {
-                continuousScrolling: false,
-              });
-        }
-        let Scrollbar1 = window.Scrollbar;
+    //     let Scrollbar = window.Scrollbar;
+    //     if (jQuery('#sidebar-scrollbar').length) {
+    //         Scrollbar.init(document.querySelector('#sidebar-scrollbar'), 
+    //         {
+    //             continuousScrolling: false,
+    //           });
+    //     }
+    //     let Scrollbar1 = window.Scrollbar;
 
-         if (jQuery('[data-scrollbar="init"]').length) {
+    //      if (jQuery('[data-scrollbar="init"]').length) {
 
-          Scrollbar1.init(document.querySelector('[data-scrollbar="init"]'), { continuousScrolling: false });
+    //       Scrollbar1.init(document.querySelector('[data-scrollbar="init"]'), { continuousScrolling: false });
 
-     }
+    //  }
     /*---------------------------------------------------------------------
     chatuser
     -----------------------------------------------------------------------*/
@@ -218,9 +220,9 @@ Index Of Script
         /*---------------------------------------------------------------------
         Select input
         -----------------------------------------------------------------------*/
-        jQuery('.select2jsMultiSelect').select2({
-            tags: true
-        });
+        // jQuery('.select2jsMultiSelect').select2({
+        //     tags: true
+        // });
 
         /*---------------------------------------------------------------------
         Fieldset
