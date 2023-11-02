@@ -4,8 +4,8 @@
             <nav class="navbar navbar-expand-lg navbar-light p-0">
                 <div class="iq-navbar-logo d-flex justify-content-between">
                     <a href="../dashboard/index.html">
-                        <img src="https://arzantex.com/assets/uploads/user5b384ce32d8cdef02bc3a139d4cac0a22bb029e8/9a5d6550ff46a3aeb77c8469e30fc64f.png" class="img-fluid" alt="">
-                        <span>Future</span>
+                        <img src="../../../assets/img/main-logo.png" class="img-fluid" alt="">
+                        <span>Next Future</span>
                     </a>
                     <div class="iq-menu-bt align-self-center">
                         <div class="wrapper-menu">
