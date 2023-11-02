@@ -4,18 +4,10 @@
             <div class="d-flex" style="gap: 14px">
 
                 <div class="bg-primary main-story">
-                    <div class="img-background">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9ZIc2OJOB_NM_uuzfT3zRoS_iiDNRVu_TiA&usqp=CAU"
-                            alt="">
-                    </div>
-                    
-                    <div class="avatar">
+                    <div class="img-client" style="height: 80%; width: 100%; background-color: red;">
                         <img class="img-fluid"
-                            src="https://scontent.fdad4-1.fna.fbcdn.net/v/t39.30808-1/338333033_946568950023627_2177779557611789119_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_ohc=_3gJa5R8OMUAX-xAELa&_nc_ht=scontent.fdad4-1.fna&oh=00_AfAh4mdiFtVF0FUzUYzXYR9nUs4mlZ77l8F4kgnq-bBGHA&oe=6549044F"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9ZIc2OJOB_NM_uuzfT3zRoS_iiDNRVu_TiA&usqp=CAU"
                             alt="">
-                    </div>
-                    <div class="text-light" style="z-index: 1;">
-                        <b class="name-in-story">Lê Công Anh </b>
                     </div>
                 </div>
                 <div class=" bg-primary main-story">
@@ -332,6 +324,7 @@ export default {
 .w-90 {
     width: 83%;
 }
+
 .main-story {
     position: relative;
     display: flex;
@@ -343,7 +336,8 @@ export default {
     cursor: pointer;
     overflow: hidden;
 }
-.main-story:hover .img-background img{
+
+.main-story:hover .img-background img {
     width: 101%;
     height: 101%;
 }
@@ -365,6 +359,12 @@ export default {
     margin: 20px 10px;
 }
 
+.img-client img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .avatar {
     margin: 10px;
     height: 45px;
@@ -379,6 +379,4 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-
-</style>
+}</style>
