@@ -1,15 +1,10 @@
 <template>
-     <div class="wrapper">
-        <MenuClient></MenuClient>
+    <div class="wrapper">
         <HeaderClient></HeaderClient>
-        <right_sidebar></right_sidebar>
-        <div id="content-page" class="content-page">
-            <div class="container">
-                <router-view></router-view>
-            </div>
+        <div class="">
+            <router-view></router-view>
         </div>
     </div>
- 
 </template>
 <script>
 import $ from 'jquery';
@@ -24,23 +19,17 @@ import "../../../assets/client/js/enchanter.js";
 import "../../../assets/client/js/masonry.pkgd.min.js";
 import "../../../assets/client/js/lottie.js";
 import "../../../assets/client/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"
-
 import HeaderClient from './HeaderClient.vue';
-import MenuClient from './MenuClient.vue';
-import right_sidebar from './right_sidebar.vue';
 export default {
     name: "app",
     components: {
-        HeaderClient,
-        MenuClient,
-        right_sidebar
+        HeaderClient
     }
-
 }
 </script>
 <style>
 @import "../../../assets/client/css/libs.min.css";
-@import "../../../assets/client/css/socialv.css"; /* ?v=4.0.0 */
+@import "../../../assets/client/css/socialv.css";
 @import "../../../assets/client/vendor/@fortawesome/fontawesome-free/css/all.min.css";
 @import "../../../assets/client/vendor/remixicon/fonts/remixicon.css";
 @import "../../../assets/client/vendor/vanillajs-datepicker/dist/css/datepicker.min.css";

@@ -1,0 +1,811 @@
+<template>
+    <div class="iq-sidebar  sidebar-default ">
+        <div id="sidebar-scrollbar" data-scrollbar="true" tabindex="-1" style="overflow: hidden; outline: none;">
+            <div class="scroll-content">
+                <nav class="iq-sidebar-menu">
+                    <ul id="iq-sidebar-toggle" class="iq-menu">
+                        <li>
+
+                            <router-link :to="{ name: 'profile-client' }">
+                                <i class="las la-user"></i><span>Profile</span>
+                            </router-link>
+
+                        </li>
+                        <li>
+                            <a href="../app/group.html" class=" ">
+                                <i class="las la-users"></i><span>Group</span>
+                            </a>
+                        </li>
+                        <li class=" ">
+                            <a href="../app/todo.html" class=" ">
+                                <i class="las la-check-circle"></i><span>Todo</span>
+                            </a>
+                        </li>
+                        <li class=" ">
+                            <a href="../dashboard/calendar.html" class=" ">
+                                <i class="las la-calendar"></i><span>Calendar</span>
+                            </a>
+                        </li>
+                        <li class=" ">
+                            <a href="#mailbox" data-bs-toggle="collapse" class="  collapsed" aria-expanded="false">
+                                <i class="ri-mail-line"></i><span>Email</span><i
+                                    class="ri-arrow-right-s-line iq-arrow-right"></i>
+                            </a>
+                            <ul id="mailbox" class="iq-submenu collapse" data-bs-parent="#iq-sidebar-toggle">
+                                <li>
+                                    <a href="../app/email.html"><i class="  ri-inbox-line"></i>Inbox</a>
+                                </li>
+                                <li>
+                                    <a href="../app/email-compose.html"><i class="ri-edit-line"></i>Email
+                                        Compose</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#ui-elements" data-bs-toggle="collapse" class="  collapsed" aria-expanded="false"><i
+                                    class="ri-focus-2-line"></i><span>Ui-Elements</span><i
+                                    class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul id="ui-elements" class="iq-submenu collapse" data-bs-parent="#iq-sidebar-toggle">
+                                <li class="">
+                                    <a href="#ui-kit" data-bs-toggle="collapse" class="  collapsed" aria-expanded="false"><i
+                                            class="ri-pencil-ruler-line"></i><span>UI
+                                            Kit</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                                    <ul id="ui-kit" class="iq-submenu collapse" data-bs-parent="#ui-elements">
+                                        <li class="">
+                                            <a href="../dashboard/ui-color.html"><i class="ri-font-color"></i>Colors</a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="../dashboard/ui-typography.html"><i class="ri-text"></i>Typography</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/ui-alerts.html"><i class="ri-alert-line"></i>Alerts</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/ui-badges.html"><i
+                                                    class="ri-building-3-line"></i>Badges</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/ui-breadcrumb.html"><i
+                                                    class="ri-menu-2-line"></i>Breadcrumb</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/ui-buttons.html"><i
+                                                    class="ri-checkbox-blank-line"></i>Buttons</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/ui-cards.html"><i class="ri-bank-card-line"></i>Cards</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/ui-carousel.html"><i
+                                                    class="ri-slideshow-line"></i>Carousel</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/ui-embed-video.html"><i
+                                                    class="ri-slideshow-2-line"></i>Video</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/ui-grid.html"><i class="ri-grid-line"></i>Grid</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/ui-images.html"><i class="ri-image-line"></i>Images</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/ui-list-group.html"><i
+                                                    class="ri-file-list-3-line"></i>list
+                                                Group</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/ui-modal.html"><i class="ri-stop-mini-line"></i>Modal</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/ui-notifications.html"><i
+                                                    class="ri-notification-line"></i>Notifications</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="ui-pagination.html"><i class="ri-pages-line"></i>Pagination</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/ui-popovers.html"><i
+                                                    class="ri-folder-shield-2-line"></i>Popovers</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/ui-progressbars.html"><i
+                                                    class="ri-battery-low-line"></i>Progressbars</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/ui-tabs.html"><i class="ri-database-line"></i>Tabs</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/ui-tooltips.html"><i
+                                                    class="ri-record-mail-line"></i>Tooltips</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="">
+                                    <a href="#forms" class="  collapsed" data-bs-toggle="collapse" aria-expanded="false"><i
+                                            class="ri-profile-line"></i><span>Forms</span><i
+                                            class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                                    <ul id="forms" class="iq-submenu collapse" data-bs-parent="#ui-elements">
+                                        <li class="">
+                                            <a href="../dashboard/form-layout.html"><i class="ri-tablet-line"></i>Form
+                                                Elements</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/form-validation.html"><i class="ri-device-line"></i>Form
+                                                Validation</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/form-switch.html"><i class="ri-toggle-line"></i>Form
+                                                Switch</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/form-chechbox.html"><i class="ri-checkbox-line"></i>Form
+                                                Checkbox</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/form-radio.html"><i class="ri-radio-button-line"></i>Form
+                                                Radio</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="">
+                                    <a href="#wizard-form" class="  collapsed" data-bs-toggle="collapse"
+                                        aria-expanded="false"><i class="ri-archive-drawer-line"></i><span>Forms
+                                            Wizard</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                                    <ul id="wizard-form" class="iq-submenu collapse" data-bs-parent="#ui-elements">
+                                        <li class="">
+                                            <a href="../dashboard/form-wizard.html"><i class="ri-clockwise-line"></i>Simple
+                                                Wizard</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/form-wizard-validate.html"><i
+                                                    class="ri-clockwise-2-line"></i>Validate Wizard</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/form-wizard-vertical.html"><i
+                                                    class="ri-anticlockwise-line"></i>Vertical Wizard</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="">
+                                    <a href="#tables" class="  collapsed" data-bs-toggle="collapse" aria-expanded="false"><i
+                                            class="ri-table-line"></i><span>Table</span><i
+                                            class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                                    <ul id="tables" class="iq-submenu collapse" data-bs-parent="#ui-elements">
+                                        <li class="">
+                                            <a href="../dashboard/tables-basic.html"><i class="ri-table-line"></i>Basic
+                                                Tables</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/data-table.html"><i class="ri-database-line"></i>Data
+                                                Table</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/table-editable.html"><i
+                                                    class="ri-refund-line"></i>Editable Table</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="">
+                                    <a href="#icons" class="  collapsed" data-bs-toggle="collapse" aria-expanded="false"><i
+                                            class="ri-list-check"></i><span>Icons</span><i
+                                            class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                                    <ul id="icons" class="iq-submenu collapse" data-bs-parent="#ui-elements">
+                                        <li class="">
+                                            <a href="../dashboard/icon-fontawesome-5.html"><i
+                                                    class="ri-facebook-fill"></i>Font Awesome 5</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/icon-lineawesome.html"><i class="ri-keynote-line"></i>line
+                                                Awesome</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/icon-remixicon.html"><i
+                                                    class="ri-remixicon-line"></i>Remixicon</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="#pages" class="  collapsed" data-bs-toggle="collapse" aria-expanded="false"><i
+                                    class="ri-pages-line"></i><span>Pages</span><i
+                                    class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul id="pages" class="iq-submenu collapse" data-bs-parent="#iq-sidebar-toggle">
+                                <li class="">
+                                    <a href="#authentication" class="  collapsed" data-bs-toggle="collapse"
+                                        aria-expanded="false"><i class="ri-pages-line"></i><span>Authentication</span><i
+                                            class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                                    <ul id="authentication" class="iq-submenu collapse" data-bs-parent="#pages">
+                                        <li class="">
+                                            <a href="../dashboard/sign-in.html"><i class="ri-login-box-line"></i>Login</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/sign-up.html"><i
+                                                    class="ri-login-circle-line"></i>Register</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/pages-recoverpw.html"><i
+                                                    class="ri-record-mail-line"></i>Recover Password</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/pages-confirm-mail.html"><i
+                                                    class="ri-file-code-line"></i>Confirm Mail</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/pages-lock-screen.html"><i class="ri-lock-line"></i>Lock
+                                                Screen</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="">
+                                    <a href="#extra-pages" class="  collapsed" data-bs-toggle="collapse"
+                                        aria-expanded="false"><i class="ri-pantone-line"></i><span>Extra
+                                            Pages</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                                    <ul id="extra-pages" class="iq-submenu collapse" data-bs-parent="#pages">
+                                        <li class="">
+                                            <a href="../dashboard/pages-timeline.html"><i
+                                                    class="ri-map-pin-time-line"></i>Timeline</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/pages-invoice.html"><i
+                                                    class="ri-question-answer-line"></i>Invoice</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/blank-page.html"><i class="ri-invision-line"></i>Blank
+                                                Page</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/pages-error.html"><i
+                                                    class="ri-error-warning-line"></i>Error 404</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/pages-error-500.html"><i
+                                                    class="ri-error-warning-line"></i>Error 500</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/pages-pricing.html"><i
+                                                    class="ri-price-tag-line"></i>Pricing</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/pages-pricing-one.html"><i
+                                                    class="ri-price-tag-2-line"></i>Pricing 1</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/pages-maintenance.html"><i
+                                                    class="ri-archive-line"></i>Maintenance</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/pages-comingsoon.html"><i
+                                                    class="ri-mastercard-line"></i>Coming Soon</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="../dashboard/pages-faq.html"><i class="ri-compasses-line"></i>Faq</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="p-5"></div>
+            </div>
+            <div class="scrollbar-track scrollbar-track-x" style="display: none;">
+                <div class="scrollbar-thumb scrollbar-thumb-x" style="width: 250px; transform: translate3d(0px, 0px, 0px);">
+                </div>
+            </div>
+            <div class="scrollbar-track scrollbar-track-y" style="display: none;">
+                <div class="scrollbar-thumb scrollbar-thumb-y"
+                    style="height: 514px; transform: translate3d(0px, 0px, 0px);"></div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-3">
+        <div class="card w-90 shadow-none bg-transparent bg-transparent-card border-0 p-0 mb-0 mx-auto">
+            <div class="d-flex" style="gap: 14px">
+
+                <div class="bg-primary main-story">
+                    <div class="img-background">
+                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Riven_23.jpg" alt="">
+                    </div>
+
+                    <div class="avatar">
+                        <img class="img-fluid"
+                            src="https://scontent.fdad3-6.fna.fbcdn.net/v/t39.30808-1/302423403_608870667293564_7904892244959408177_n.jpg?stp=dst-jpg_p240x240&_nc_cat=111&ccb=1-7&_nc_sid=5f2048&_nc_ohc=DY0KzXqOGRYAX_Gt9Dk&_nc_ht=scontent.fdad3-6.fna&oh=00_AfBNtl1o-U22eW6kqvSXlgr6t2iTTwDjKVRu9iVNminFqA&oe=65480E24"
+                            alt="">
+                    </div>
+                    <div class="text-light" style="z-index: 1;">
+                        <b class="name-in-story">Phan Công Tánh </b>
+                    </div>
+                </div>
+                <div class=" bg-primary main-story">
+                    <div class="img-background">
+                        <img src="https://www.lockheedmartin.com/content/dam/lockheed-martin/eo/photo/sustainability/2022-Sustainability-Report-1920.jpg.pc-adaptive.full.medium.jpg"
+                            alt="">
+                    </div>
+                    <div class="avatar">
+                        <img class="img-fluid" src="../../../assets/client/images/user/1.jpg" alt="">
+
+                    </div>
+                    <div class="text-light" style="z-index: 1;">
+                        <b class="name-in-story">Phan Công Tánh</b>
+                    </div>
+                </div>
+                <div class=" bg-primary main-story">
+                    <div class="img-background">
+                        <img src="https://www.lockheedmartin.com/content/dam/lockheed-martin/eo/photo/sustainability/2022-Sustainability-Report-1920.jpg.pc-adaptive.full.medium.jpg"
+                            alt="">
+                    </div>
+                    <div class="avatar">
+                        <img class="img-fluid" src="../../../assets/client/images/user/1.jpg" alt="">
+
+                    </div>
+                    <div class="text-light" style="z-index: 1;">
+                        <b class="name-in-story">Phan Công Tánh</b>
+                    </div>
+                </div>
+                <div class=" bg-primary main-story">
+                    <div class="img-background">
+                        <img src="https://www.lockheedmartin.com/content/dam/lockheed-martin/eo/photo/sustainability/2022-Sustainability-Report-1920.jpg.pc-adaptive.full.medium.jpg"
+                            alt="">
+                    </div>
+                    <div class="avatar">
+                        <img class="img-fluid" src="../../../assets/client/images/user/1.jpg" alt="">
+
+                    </div>
+                    <div class="text-light" style="z-index: 1;">
+                        <b class="name-in-story">Phan Công Tánh</b>
+                    </div>
+                </div>
+                <div class=" bg-primary main-story">
+                    <div class="img-background">
+                        <img src="https://www.lockheedmartin.com/content/dam/lockheed-martin/eo/photo/sustainability/2022-Sustainability-Report-1920.jpg.pc-adaptive.full.medium.jpg"
+                            alt="">
+                    </div>
+                    <div class="avatar">
+                        <img class="img-fluid" src="../../../assets/client/images/user/1.jpg" alt="">
+
+                    </div>
+                    <div class="text-light" style="z-index: 1;">
+                        <b class="name-in-story">Phan Công Tánh</b>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-lg-1 row m-0 p-0"></div>
+            <div class="col-lg-10 row m-0 p-0">
+                <div class="col-sm-12">
+                    <div class="card card-block card-stretch card-height">
+                        <div class="card-body">
+                            <div class="post-item">
+                                <div class="d-flex justify-content-between">
+                                    <div class="me-3">
+                                        <img class="rounded-circle img-fluid avatar-60"
+                                            src="../../../assets/client/images/user/1.jpg" alt="">
+                                    </div>
+                                    <div class="w-100">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="">
+                                                <h5 class="mb-0 d-inline-block">Bni Cyst</h5>
+                                                <p class="ms-1 mb-0 d-inline-block">Changed Profile Picture</p>
+                                                <p class="mb-0">3 day ago</p>
+                                            </div>
+                                            <div class="card-post-toolbar">
+                                                <div class="dropdown">
+                                                    <span class="dropdown-toggle" data-bs-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false" role="button">
+                                                        <i class="ri-more-fill"></i>
+                                                    </span>
+                                                    <div class="dropdown-menu m-0 p-0">
+                                                        <a class="dropdown-item p-3" href="#">
+                                                            <div class="d-flex align-items-top">
+                                                                <i class="ri-save-line h4"></i>
+                                                                <div class="data ms-2">
+                                                                    <h6>Save Post</h6>
+                                                                    <p class="mb-0">Add this to your saved items</p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                        <a class="dropdown-item p-3" href="#">
+                                                            <div class="d-flex align-items-top">
+                                                                <i class="ri-close-circle-line h4"></i>
+                                                                <div class="data ms-2">
+                                                                    <h6>Hide Post</h6>
+                                                                    <p class="mb-0">See fewer posts like this.</p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                        <a class="dropdown-item p-3" href="#">
+                                                            <div class="d-flex align-items-top">
+                                                                <i class="ri-user-unfollow-line h4"></i>
+                                                                <div class="data ms-2">
+                                                                    <h6>Unfollow User</h6>
+                                                                    <p class="mb-0">Stop seeing posts but stay friends.</p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                        <a class="dropdown-item p-3" href="#">
+                                                            <div class="d-flex align-items-top">
+                                                                <i class="ri-notification-line h4"></i>
+                                                                <div class="data ms-2">
+                                                                    <h6>Notifications</h6>
+                                                                    <p class="mb-0">Turn on notifications for this post</p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="user-post text-center">
+                                <a href="javascript:void();"><img src="../../../assets/client/images/page-img/p5.jpg"
+                                        alt="post-image" class="img-fluid rounded w-100 mt-3"></a>
+                            </div>
+                            <div class="comment-area mt-3">
+                                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                    <div class="like-block position-relative d-flex align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <div class="like-data">
+                                                <div class="dropdown">
+                                                    <span class="dropdown-toggle" data-bs-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false" role="button">
+                                                        <img src="../../../assets/client/images/icon/01.png"
+                                                            class="img-fluid" alt="">
+                                                    </span>
+                                                    <div class="dropdown-menu py-2">
+                                                        <a class="ms-2 me-2" href="#" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="" data-bs-original-title="Like"
+                                                            aria-label="Like"><img
+                                                                src="../../../assets/client/images/icon/01.png"
+                                                                class="img-fluid" alt=""></a>
+                                                        <a class="me-2" href="#" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="" data-bs-original-title="Love"
+                                                            aria-label="Love"><img
+                                                                src="../../../assets/client/images/icon/02.png"
+                                                                class="img-fluid" alt=""></a>
+                                                        <a class="me-2" href="#" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="" data-bs-original-title="Happy"
+                                                            aria-label="Happy"><img
+                                                                src="../../../assets/client/images/icon/03.png"
+                                                                class="img-fluid" alt=""></a>
+                                                        <a class="me-2" href="#" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="" data-bs-original-title="HaHa"
+                                                            aria-label="HaHa"><img
+                                                                src="../../../assets/client/images/icon/04.png"
+                                                                class="img-fluid" alt=""></a>
+                                                        <a class="me-2" href="#" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="" data-bs-original-title="Think"
+                                                            aria-label="Think"><img
+                                                                src="../../../assets/client/images/icon/05.png"
+                                                                class="img-fluid" alt=""></a>
+                                                        <a class="me-2" href="#" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="" data-bs-original-title="Sade"
+                                                            aria-label="Sade"><img
+                                                                src="../../../assets/client/images/icon/06.png"
+                                                                class="img-fluid" alt=""></a>
+                                                        <a class="me-2" href="#" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="" data-bs-original-title="Lovely"
+                                                            aria-label="Lovely"><img
+                                                                src="../../../assets/client/images/icon/07.png"
+                                                                class="img-fluid" alt=""></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="total-like-block ms-2 me-3">
+                                                <div class="dropdown">
+                                                    <span class="dropdown-toggle" data-bs-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false" role="button">
+                                                        140 Likes
+                                                    </span>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">Max Emum</a>
+                                                        <a class="dropdown-item" href="#">Bill Yerds</a>
+                                                        <a class="dropdown-item" href="#">Hap E. Birthday</a>
+                                                        <a class="dropdown-item" href="#">Tara Misu</a>
+                                                        <a class="dropdown-item" href="#">Midge Itz</a>
+                                                        <a class="dropdown-item" href="#">Sal Vidge</a>
+                                                        <a class="dropdown-item" href="#">Other</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="total-comment-block">
+                                            <div class="dropdown">
+                                                <span class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false" role="button">
+                                                    20 Comment
+                                                </span>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#">Max Emum</a>
+                                                    <a class="dropdown-item" href="#">Bill Yerds</a>
+                                                    <a class="dropdown-item" href="#">Hap E. Birthday</a>
+                                                    <a class="dropdown-item" href="#">Tara Misu</a>
+                                                    <a class="dropdown-item" href="#">Midge Itz</a>
+                                                    <a class="dropdown-item" href="#">Sal Vidge</a>
+                                                    <a class="dropdown-item" href="#">Other</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="share-block d-flex align-items-center feather-icon mt-2 mt-md-0">
+                                        <a href="javascript:void();" data-bs-toggle="offcanvas" data-bs-target="#share-btn"
+                                            aria-controls="share-btn"><i class="ri-share-line"></i>
+                                            <span class="ms-1">99 Share</span></a>
+                                    </div>
+                                </div>
+                                <hr>
+                                <ul class="post-comments list-inline p-0 m-0">
+                                    <li class="mb-2">
+                                        <div class="d-flex">
+                                            <div class="user-img">
+                                                <img src="../../../assets/client/images/user/02.jpg" alt="userimg"
+                                                    class="avatar-35 rounded-circle img-fluid">
+                                            </div>
+                                            <div class="comment-data-block ms-3">
+                                                <h6>Monty Carlo</h6>
+                                                <p class="mb-0">Lorem ipsum dolor sit amet</p>
+                                                <div class="d-flex flex-wrap align-items-center comment-activity">
+                                                    <a href="javascript:void();">like</a>
+                                                    <a href="javascript:void();">reply</a>
+                                                    <a href="javascript:void();">translate</a>
+                                                    <span> 5 min </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="d-flex">
+                                            <div class="user-img">
+                                                <img src="../../../assets/client/images/user/03.jpg" alt="userimg"
+                                                    class="avatar-35 rounded-circle img-fluid">
+                                            </div>
+                                            <div class="comment-data-block ms-3">
+                                                <h6>Paul Molive</h6>
+                                                <p class="mb-0">Lorem ipsum dolor sit amet</p>
+                                                <div class="d-flex flex-wrap align-items-center comment-activity">
+                                                    <a href="javascript:void();">like</a>
+                                                    <a href="javascript:void();">reply</a>
+                                                    <a href="javascript:void();">translate</a>
+                                                    <span> 5 min </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">
+                                    <input type="text" class="form-control rounded" placeholder="Enter Your Comment">
+                                    <div class="comment-attagement d-flex">
+                                        <a href="javascript:void();"><i class="ri-link me-3"></i></a>
+                                        <a href="javascript:void();"><i class="ri-user-smile-line me-3"></i></a>
+                                        <a href="javascript:void();"><i class="ri-camera-line me-3"></i></a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 text-center">
+                <img src="../../../assets/client/images/page-img/page-load-loader.gif" alt="loader" style="height: 100px;">
+            </div>
+        </div>
+
+    </div>
+    <div class="right-sidebar-mini">
+        <div class="right-sidebar-panel p-0">
+            <div class="card shadow-none">
+                <div class="card-body p-0 ">
+                    <div class="media-height p-3" data-scrollbar="true" tabindex="-1"
+                        style="overflow: hidden; outline: none;">
+                        <div class="scroll-content">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="iq-profile-avatar status-online">
+                                    <img class="rounded-circle avatar-50" src="../../../assets/client/images/user/01.jpg"
+                                        alt="">
+                                </div>
+                                <div class="ms-3">
+                                    <h6 class="mb-0">Anna Sthesia</h6>
+                                    <p class="mb-0">Just Now</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="iq-profile-avatar status-online">
+                                    <img class="rounded-circle avatar-50" src="../../../assets/client/images/user/02.jpg"
+                                        alt="">
+                                </div>
+                                <div class="ms-3">
+                                    <h6 class="mb-0">Paul Molive</h6>
+                                    <p class="mb-0">Admin</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="iq-profile-avatar status-online">
+                                    <img class="rounded-circle avatar-50" src="../../../assets/client/images/user/03.jpg"
+                                        alt="">
+                                </div>
+                                <div class="ms-3">
+                                    <h6 class="mb-0">Anna Mull</h6>
+                                    <p class="mb-0">Admin</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="iq-profile-avatar status-online">
+                                    <img class="rounded-circle avatar-50" src="../../../assets/client/images/user/04.jpg"
+                                        alt="">
+                                </div>
+                                <div class="ms-3">
+                                    <h6 class="mb-0">Paige Turner</h6>
+                                    <p class="mb-0">Admin</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="iq-profile-avatar status-online">
+                                    <img class="rounded-circle avatar-50" src="../../../assets/client/images/user/11.jpg"
+                                        alt="">
+                                </div>
+                                <div class="ms-3">
+                                    <h6 class="mb-0">Bob Frapples</h6>
+                                    <p class="mb-0">Admin</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="iq-profile-avatar status-online">
+                                    <img class="rounded-circle avatar-50" src="../../../assets/client/images/user/02.jpg"
+                                        alt="">
+                                </div>
+                                <div class="ms-3">
+                                    <h6 class="mb-0">Barb Ackue</h6>
+                                    <p class="mb-0">Admin</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="iq-profile-avatar status-online">
+                                    <img class="rounded-circle avatar-50" src="../../../assets/client/images/user/03.jpg"
+                                        alt="">
+                                </div>
+                                <div class="ms-3">
+                                    <h6 class="mb-0">Greta Life</h6>
+                                    <p class="mb-0">Admin</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="iq-profile-avatar status-away">
+                                    <img class="rounded-circle avatar-50" src="../../../assets/client/images/user/12.jpg"
+                                        alt="">
+                                </div>
+                                <div class="ms-3">
+                                    <h6 class="mb-0">Ira Membrit</h6>
+                                    <p class="mb-0">Admin</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="iq-profile-avatar status-away">
+                                    <img class="rounded-circle avatar-50" src="../../../assets/client/images/user/01.jpg"
+                                        alt="">
+                                </div>
+                                <div class="ms-3">
+                                    <h6 class="mb-0">Pete Sariya</h6>
+                                    <p class="mb-0">Admin</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="iq-profile-avatar">
+                                    <img class="rounded-circle avatar-50" src="../../../assets/client/images/user/02.jpg"
+                                        alt="">
+                                </div>
+                                <div class="ms-3">
+                                    <h6 class="mb-0">Monty Carlo</h6>
+                                    <p class="mb-0">Admin</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scrollbar-track scrollbar-track-x" style="display: none;">
+                            <div class="scrollbar-thumb scrollbar-thumb-x"
+                                style="width: 260px; transform: translate3d(0px, 0px, 0px);"></div>
+                        </div>
+                        <div class="scrollbar-track scrollbar-track-y" style="display: block;">
+                            <div class="scrollbar-thumb scrollbar-thumb-y"
+                                style="height: 328.611px; transform: translate3d(0px, 0px, 0px);"></div>
+                        </div>
+                    </div>
+                    <div class="right-sidebar-toggle bg-primary text-white mt-3">
+                        <i class="ri-arrow-left-line side-left-icon"></i>
+                        <i class="ri-arrow-right-line side-right-icon"><span class="ms-3 d-inline-block">Close
+                                Menu</span></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+import $ from 'jquery';
+import axios from 'axios';
+
+export default {
+    data() {
+        return {
+        };
+    },
+    mounted() {
+
+    },
+    methods: {
+        toggleShow(a) {
+            const $element = $("#" + a);
+            // alert($element)
+            if ($element.hasClass('show')) {
+                $element.removeClass('show');
+                $element.css('display', 'none');
+            } else {
+                $element.css('display', 'block');
+                $element.addClass('show');
+
+            }
+        },
+
+
+    },
+}
+</script>
+<style>
+.w-90 {
+    width: 83%;
+}
+
+.main-story {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 250px;
+    width: 149px;
+    border-radius: 12px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.main-story:hover .img-background img {
+    width: 101%;
+    height: 101%;
+}
+
+.img-background {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.img-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.name-in-story {
+    font-family: 'Segoe UI';
+    margin: 20px 10px;
+}
+
+.avatar {
+    margin: 10px;
+    height: 45px;
+    width: 45px;
+    background-color: red;
+    border-radius: 100%;
+    border: 4px solid var(--bs-primary);
+    overflow: hidden;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+</style>

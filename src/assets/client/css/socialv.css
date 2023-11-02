@@ -14630,7 +14630,7 @@ fieldset:disabled .btn {
     position: fixed;
     z-index: 1000;
     top: 4.688rem;
-    width: 325px;
+    width: 250px;
     height: 100%;
     background: #fff;
     -webkit-transition: all .3s ease-in-out;
@@ -15103,7 +15103,7 @@ body.sidebar-main .iq-menu-bt-sidebar .iq-menu-bt {
     top: 4.688rem;
     z-index: 100;
     position: fixed;
-    width: 21.25rem;
+    width: 16.25rem;
     right: 0;
     -webkit-transform: translateX(-webkit-calc(111% + -2em));
     -ms-transform: translateX(calc(111% + -2em));
