@@ -352,6 +352,8 @@ export default {
     height: 101%;
 }
 
+
+
 .img-background {
     position: absolute;
     height: 100%;
