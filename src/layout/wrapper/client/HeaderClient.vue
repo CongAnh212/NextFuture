@@ -3,15 +3,10 @@
         <div class="iq-navbar-custom">
             <nav class="navbar navbar-expand-lg navbar-light p-0">
                 <div class="iq-navbar-logo d-flex justify-content-between">
-                    <a href="../dashboard/index.html">
+                    <router-link to="/">
                         <img src="../../../assets/img/main-logo.png" class="img-fluid" alt="">
-                        <span>Next Future</span>
-                    </a>
-                    <div class="iq-menu-bt align-self-center">
-                        <div class="wrapper-menu">
-                            <div class="main-circle"><i class="ri-menu-line"></i></div>
-                        </div>
-                    </div>
+                        <span>NextFuture</span>
+                    </router-link>
                 </div>
                 <div class="iq-search-bar device-search">
                     <form action="#" class="searchbox">
@@ -26,11 +21,6 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav  ms-auto navbar-list">
-                        <li>
-                            <a href="../dashboard/index.html" class="  d-flex align-items-center">
-                                <i class="ri-home-line"></i>
-                            </a>
-                        </li>
                         <li class="nav-item dropdown">
                             <a href="#" class="dropdown-toggle" id="group-drop" data-bs-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false"><i class="ri-group-line"></i></a>
@@ -47,8 +37,8 @@
                                             <div
                                                 class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
                                                 <div class="d-flex align-items-center">
-                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/01.jpg"
-                                                        alt="">
+                                                    <img class="avatar-40 rounded"
+                                                        src="../../../assets/client/images/user/01.jpg" alt="">
                                                     <div class="ms-3">
                                                         <h6 class="mb-0 ">Jaques Amole</h6>
                                                         <p class="mb-0">40 friends</p>
@@ -66,8 +56,8 @@
                                             <div
                                                 class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
                                                 <div class="d-flex align-items-center">
-                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/02.jpg"
-                                                        alt="">
+                                                    <img class="avatar-40 rounded"
+                                                        src="../../../assets/client/images/user/02.jpg" alt="">
                                                     <div class="ms-3">
                                                         <h6 class="mb-0 ">Lucy Tania</h6>
                                                         <p class="mb-0">12 friends</p>
@@ -85,8 +75,8 @@
                                             <div
                                                 class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
                                                 <div class="d-flex align-items-center">
-                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/03.jpg"
-                                                        alt="">
+                                                    <img class="avatar-40 rounded"
+                                                        src="../../../assets/client/images/user/03.jpg" alt="">
                                                     <div class=" ms-3">
                                                         <h6 class="mb-0 ">Manny Petty</h6>
                                                         <p class="mb-0">3 friends</p>
@@ -104,8 +94,8 @@
                                             <div
                                                 class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
                                                 <div class="d-flex align-items-center">
-                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/04.jpg"
-                                                        alt="">
+                                                    <img class="avatar-40 rounded"
+                                                        src="../../../assets/client/images/user/04.jpg" alt="">
                                                     <div class="ms-3">
                                                         <h6 class="mb-0 ">Marsha Mello</h6>
                                                         <p class="mb-0">15 friends</p>
@@ -143,8 +133,8 @@
                                         <a href="#" class="iq-sub-card">
                                             <div class="d-flex align-items-center">
                                                 <div class="">
-                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/01.jpg"
-                                                        alt="">
+                                                    <img class="avatar-40 rounded"
+                                                        src="../../../assets/client/images/user/01.jpg" alt="">
                                                 </div>
                                                 <div class="ms-3 w-100">
                                                     <h6 class="mb-0 ">Emma Watson Bni</h6>
@@ -158,8 +148,8 @@
                                         <a href="#" class="iq-sub-card">
                                             <div class="d-flex align-items-center">
                                                 <div class="">
-                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/02.jpg"
-                                                        alt="">
+                                                    <img class="avatar-40 rounded"
+                                                        src="../../../assets/client/images/user/02.jpg" alt="">
                                                 </div>
                                                 <div class="ms-3 w-100">
                                                     <h6 class="mb-0 ">New customer is join</h6>
@@ -173,8 +163,8 @@
                                         <a href="#" class="iq-sub-card">
                                             <div class="d-flex align-items-center">
                                                 <div class="">
-                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/03.jpg"
-                                                        alt="">
+                                                    <img class="avatar-40 rounded"
+                                                        src="../../../assets/client/images/user/03.jpg" alt="">
                                                 </div>
                                                 <div class="ms-3 w-100">
                                                     <h6 class="mb-0 ">Two customer is left</h6>
@@ -188,8 +178,8 @@
                                         <a href="#" class="iq-sub-card">
                                             <div class="d-flex align-items-center">
                                                 <div class="">
-                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/04.jpg"
-                                                        alt="">
+                                                    <img class="avatar-40 rounded"
+                                                        src="../../../assets/client/images/user/04.jpg" alt="">
                                                 </div>
                                                 <div class="w-100 ms-3">
                                                     <h6 class="mb-0 ">New Mail from Fenny</h6>
@@ -221,8 +211,8 @@
                                         <a href="#" class="iq-sub-card">
                                             <div class="d-flex  align-items-center">
                                                 <div class="">
-                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/01.jpg"
-                                                        alt="">
+                                                    <img class="avatar-40 rounded"
+                                                        src="../../../assets/client/images/user/01.jpg" alt="">
                                                 </div>
                                                 <div class=" w-100 ms-3">
                                                     <h6 class="mb-0 ">Bni Emma Watson</h6>
@@ -233,8 +223,8 @@
                                         <a href="#" class="iq-sub-card">
                                             <div class="d-flex align-items-center">
                                                 <div class="">
-                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/02.jpg"
-                                                        alt="">
+                                                    <img class="avatar-40 rounded"
+                                                        src="../../../assets/client/images/user/02.jpg" alt="">
                                                 </div>
                                                 <div class="ms-3">
                                                     <h6 class="mb-0 ">Lorem Ipsum Watson</h6>
@@ -245,8 +235,8 @@
                                         <a href="#" class="iq-sub-card">
                                             <div class="d-flex align-items-center">
                                                 <div class="">
-                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/03.jpg"
-                                                        alt="">
+                                                    <img class="avatar-40 rounded"
+                                                        src="../../../assets/client/images/user/03.jpg" alt="">
                                                 </div>
                                                 <div class="ms-3">
                                                     <h6 class="mb-0 ">Why do we use it?</h6>
@@ -257,8 +247,8 @@
                                         <a href="#" class="iq-sub-card">
                                             <div class="d-flex align-items-center">
                                                 <div class="">
-                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/04.jpg"
-                                                        alt="">
+                                                    <img class="avatar-40 rounded"
+                                                        src="../../../assets/client/images/user/04.jpg" alt="">
                                                 </div>
                                                 <div class="ms-3">
                                                     <h6 class="mb-0 ">Variations Passages</h6>
@@ -269,8 +259,8 @@
                                         <a href="#" class="iq-sub-card">
                                             <div class="d-flex align-items-center">
                                                 <div class="">
-                                                    <img class="avatar-40 rounded" src="../../../assets/client/images/user/05.jpg"
-                                                        alt="">
+                                                    <img class="avatar-40 rounded"
+                                                        src="../../../assets/client/images/user/05.jpg" alt="">
                                                 </div>
                                                 <div class="ms-3">
                                                     <h6 class="mb-0 ">Lorem Ipsum generators</h6>
@@ -285,7 +275,8 @@
                         <li class="nav-item dropdown">
                             <a href="#" class="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="../../../assets/client/images/user/1.jpg" class="img-fluid rounded-circle me-3" alt="user">
+                                <img src="../../../assets/client/images/user/1.jpg" class="img-fluid rounded-circle me-3"
+                                    alt="user">
                                 <div class="caption">
                                     <h6 class="mb-0 line-height">Bni Cyst</h6>
                                 </div>
@@ -299,17 +290,19 @@
                                         </div>
                                     </div>
                                     <div class="card-body p-0 ">
-                                        <a href="../app/profile.html" class="iq-sub-card iq-bg-primary-hover">
-                                            <div class="d-flex align-items-center">
-                                                <div class="rounded card-icon bg-soft-primary">
-                                                    <i class="ri-file-user-line"></i>
+                                        <div class="iq-sub-card iq-bg-primary-hover">
+                                            <router-link :to="{ name: 'profile-client' }">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="rounded card-icon bg-soft-primary">
+                                                        <i class="ri-file-user-line"></i>
+                                                    </div>
+                                                    <div class="ms-3">
+                                                        <h6 class="mb-0 ">My Profile</h6>
+                                                        <p class="mb-0 font-size-12">View personal profile details.</p>
+                                                    </div>
                                                 </div>
-                                                <div class="ms-3">
-                                                    <h6 class="mb-0 ">My Profile</h6>
-                                                    <p class="mb-0 font-size-12">View personal profile details.</p>
-                                                </div>
-                                            </div>
-                                        </a>
+                                            </router-link>
+                                        </div>
                                         <a href="../app/profile-edit.html" class="iq-sub-card iq-bg-warning-hover">
                                             <div class="d-flex align-items-center">
                                                 <div class="rounded card-icon bg-soft-warning">
@@ -361,7 +354,7 @@
 </template>
 <script>
 export default {
-   
+
 }
 </script>
 <style></style>
