@@ -4,11 +4,20 @@
             <div class="d-flex" style="gap: 14px">
 
                 <div class="bg-primary main-story">
-                    <div class="img-client" style="height: 80%; width: 100%; background-color: red;">
+                    <div class="img-background" style="height: 80%; width: 100%; background-color: red;">
                         <img class="img-fluid"
                             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9ZIc2OJOB_NM_uuzfT3zRoS_iiDNRVu_TiA&usqp=CAU"
                             alt="">
                     </div>
+                    <div
+                        style="position: absolute; bottom: 0; height: 20%; width: 100%; background-color: #fff; display: flex; justify-content: center;">
+                        <div class="btn-create-story d-flex justify-content-center align-items-center" style="color: #fff;">
+                            <i class="las la-plus la-2x"></i>
+                        </div>
+                        <div class="mb-1" style="z-index: 1; position: absolute; bottom: 0px; color: #333;">
+                            <b class="name-in-story ">Create Story</b>
+                        </div>
+                    </div>
                 </div>
                 <div class=" bg-primary main-story">
                     <div class="img-background">
@@ -17,9 +26,8 @@
                     </div>
                     <div class="avatar">
                         <img class="img-fluid" src="../../assets/client/images/user/1.jpg" alt="">
-
                     </div>
-                    <div class="text-light" style="z-index: 1;">
+                    <div class="text-light mb-1" style="z-index: 1;">
                         <b class="name-in-story">Lê Công Anh</b>
                     </div>
                 </div>
@@ -32,7 +40,7 @@
                         <img class="img-fluid" src="../../assets/client/images/user/1.jpg" alt="">
 
                     </div>
-                    <div class="text-light" style="z-index: 1;">
+                    <div class="text-light mb-1" style="z-index: 1;">
                         <b class="name-in-story">Lê Công Anh</b>
                     </div>
                 </div>
@@ -45,7 +53,7 @@
                         <img class="img-fluid" src="../../assets/client/images/user/1.jpg" alt="">
 
                     </div>
-                    <div class="text-light" style="z-index: 1;">
+                    <div class="text-light mb-1" style="z-index: 1;">
                         <b class="name-in-story">Lê Công Anh</b>
                     </div>
                 </div>
@@ -58,7 +66,7 @@
                         <img class="img-fluid" src="../../assets/client/images/user/1.jpg" alt="">
 
                     </div>
-                    <div class="text-light" style="z-index: 1;">
+                    <div class="text-light mb-1" style="z-index: 1;">
                         <b class="name-in-story">Lê Công Anh</b>
                     </div>
                 </div>
@@ -335,6 +343,8 @@ export default {
     border-radius: 12px;
     cursor: pointer;
     overflow: hidden;
+    /* Tạo bóng đổ chỉ ở phía dưới */
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
 }
 
 .main-story:hover .img-background img {
@@ -379,4 +389,16 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}</style>
+}
+
+.btn-create-story {
+    height: 45px;
+    width: 45px;
+    background-color: var(--bs-primary);
+    border-radius: 100%;
+    border: 4px solid #fff;
+    overflow: hidden;
+    position: absolute;
+    bottom: 27px;
+}
+</style>
