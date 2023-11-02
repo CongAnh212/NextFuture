@@ -300,22 +300,36 @@
             </div>
         </div>
     </div>
-    <div class="container mt-3">
+    <div class="container">
         <div class="card w-90 shadow-none bg-transparent bg-transparent-card border-0 p-0 mb-0 mx-auto">
             <div class="d-flex" style="gap: 14px">
 
                 <div class="bg-primary main-story">
-                    <div class="img-background">
-                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Riven_23.jpg" alt="">
-                    </div>
-
-                    <div class="avatar">
+                    <div class="img-background" style="height: 80%; width: 100%; background-color: red;">
                         <img class="img-fluid"
-                            src="https://scontent.fdad3-6.fna.fbcdn.net/v/t39.30808-1/302423403_608870667293564_7904892244959408177_n.jpg?stp=dst-jpg_p240x240&_nc_cat=111&ccb=1-7&_nc_sid=5f2048&_nc_ohc=DY0KzXqOGRYAX_Gt9Dk&_nc_ht=scontent.fdad3-6.fna&oh=00_AfBNtl1o-U22eW6kqvSXlgr6t2iTTwDjKVRu9iVNminFqA&oe=65480E24"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9ZIc2OJOB_NM_uuzfT3zRoS_iiDNRVu_TiA&usqp=CAU"
                             alt="">
                     </div>
-                    <div class="text-light" style="z-index: 1;">
-                        <b class="name-in-story">Phan Công Tánh </b>
+                    <div
+                        style="position: absolute; bottom: 0; height: 20%; width: 100%; background-color: #fff; display: flex; justify-content: center;">
+                        <div class="btn-create-story d-flex justify-content-center align-items-center" style="color: #fff;">
+                            <i class="las la-plus la-2x"></i>
+                        </div>
+                        <div class="mb-1" style="z-index: 1; position: absolute; bottom: 0px; color: #333;">
+                            <b class="name-in-story ">Create Story</b>
+                        </div>
+                    </div>
+                </div>
+                <div class=" bg-primary main-story">
+                    <div class="img-background">
+                        <img src="https://www.lockheedmartin.com/content/dam/lockheed-martin/eo/photo/sustainability/2022-Sustainability-Report-1920.jpg.pc-adaptive.full.medium.jpg"
+                            alt="">
+                    </div>
+                    <div class="avatar">
+                        <img class="img-fluid" src="../../../assets/client/images/user/1.jpg" alt="">
+                    </div>
+                    <div class="text-light mb-1" style="z-index: 1;">
+                        <b class="name-in-story">Lê Công Anh</b>
                     </div>
                 </div>
                 <div class=" bg-primary main-story">
@@ -327,8 +341,8 @@
                         <img class="img-fluid" src="../../../assets/client/images/user/1.jpg" alt="">
 
                     </div>
-                    <div class="text-light" style="z-index: 1;">
-                        <b class="name-in-story">Phan Công Tánh</b>
+                    <div class="text-light mb-1" style="z-index: 1;">
+                        <b class="name-in-story">Lê Công Anh</b>
                     </div>
                 </div>
                 <div class=" bg-primary main-story">
@@ -340,8 +354,8 @@
                         <img class="img-fluid" src="../../../assets/client/images/user/1.jpg" alt="">
 
                     </div>
-                    <div class="text-light" style="z-index: 1;">
-                        <b class="name-in-story">Phan Công Tánh</b>
+                    <div class="text-light mb-1" style="z-index: 1;">
+                        <b class="name-in-story">Lê Công Anh</b>
                     </div>
                 </div>
                 <div class=" bg-primary main-story">
@@ -353,21 +367,8 @@
                         <img class="img-fluid" src="../../../assets/client/images/user/1.jpg" alt="">
 
                     </div>
-                    <div class="text-light" style="z-index: 1;">
-                        <b class="name-in-story">Phan Công Tánh</b>
-                    </div>
-                </div>
-                <div class=" bg-primary main-story">
-                    <div class="img-background">
-                        <img src="https://www.lockheedmartin.com/content/dam/lockheed-martin/eo/photo/sustainability/2022-Sustainability-Report-1920.jpg.pc-adaptive.full.medium.jpg"
-                            alt="">
-                    </div>
-                    <div class="avatar">
-                        <img class="img-fluid" src="../../../assets/client/images/user/1.jpg" alt="">
-
-                    </div>
-                    <div class="text-light" style="z-index: 1;">
-                        <b class="name-in-story">Phan Công Tánh</b>
+                    <div class="text-light mb-1" style="z-index: 1;">
+                        <b class="name-in-story">Lê Công Anh</b>
                     </div>
                 </div>
 
@@ -455,8 +456,8 @@
                                                 <div class="dropdown">
                                                     <span class="dropdown-toggle" data-bs-toggle="dropdown"
                                                         aria-haspopup="true" aria-expanded="false" role="button">
-                                                        <img src="../../../assets/client/images/icon/01.png"
-                                                            class="img-fluid" alt="">
+                                                        <img src="../../../assets/client/images/icon/01.png" class="img-fluid"
+                                                            alt="">
                                                     </span>
                                                     <div class="dropdown-menu py-2">
                                                         <a class="ms-2 me-2" href="#" data-bs-toggle="tooltip"
@@ -769,12 +770,16 @@ export default {
     border-radius: 12px;
     cursor: pointer;
     overflow: hidden;
+    /* Tạo bóng đổ chỉ ở phía dưới */
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
 }
 
 .main-story:hover .img-background img {
     width: 101%;
     height: 101%;
 }
+
+
 
 .img-background {
     position: absolute;
@@ -793,6 +798,12 @@ export default {
     margin: 20px 10px;
 }
 
+.img-client img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .avatar {
     margin: 10px;
     height: 45px;
@@ -807,5 +818,16 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.btn-create-story {
+    height: 45px;
+    width: 45px;
+    background-color: var(--bs-primary);
+    border-radius: 100%;
+    border: 4px solid #fff;
+    overflow: hidden;
+    position: absolute;
+    bottom: 27px;
 }
 </style>
