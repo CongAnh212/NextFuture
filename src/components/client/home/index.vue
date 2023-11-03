@@ -5,7 +5,6 @@
                 <nav class="iq-sidebar-menu">
                     <ul id="iq-sidebar-toggle" class="iq-menu">
                         <li>
-
                             <router-link :to="{ name: 'profile-client' }">
                                 <i class="las la-user"></i><span>Profile</span>
                             </router-link>
@@ -300,11 +299,14 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container mt-3">
         <div class="card w-90 shadow-none bg-transparent bg-transparent-card border-0 p-0 mb-0 mx-auto">
             <div class="d-flex" style="gap: 14px">
 
                 <div class="bg-primary main-story">
+                    <div class="hover-background">
+
+                    </div>
                     <div class="img-background" style="height: 80%; width: 100%; background-color: red;">
                         <img class="img-fluid"
                             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9ZIc2OJOB_NM_uuzfT3zRoS_iiDNRVu_TiA&usqp=CAU"
@@ -321,6 +323,9 @@
                     </div>
                 </div>
                 <div class=" bg-primary main-story">
+                    <div class="hover-background">
+
+                    </div>
                     <div class="img-background">
                         <img src="https://www.lockheedmartin.com/content/dam/lockheed-martin/eo/photo/sustainability/2022-Sustainability-Report-1920.jpg.pc-adaptive.full.medium.jpg"
                             alt="">
@@ -333,6 +338,9 @@
                     </div>
                 </div>
                 <div class=" bg-primary main-story">
+                    <div class="hover-background">
+
+                    </div>
                     <div class="img-background">
                         <img src="https://www.lockheedmartin.com/content/dam/lockheed-martin/eo/photo/sustainability/2022-Sustainability-Report-1920.jpg.pc-adaptive.full.medium.jpg"
                             alt="">
@@ -346,6 +354,9 @@
                     </div>
                 </div>
                 <div class=" bg-primary main-story">
+                    <div class="hover-background">
+
+                    </div>
                     <div class="img-background">
                         <img src="https://www.lockheedmartin.com/content/dam/lockheed-martin/eo/photo/sustainability/2022-Sustainability-Report-1920.jpg.pc-adaptive.full.medium.jpg"
                             alt="">
@@ -359,6 +370,9 @@
                     </div>
                 </div>
                 <div class=" bg-primary main-story">
+                    <div class="hover-background">
+
+                    </div>
                     <div class="img-background">
                         <img src="https://www.lockheedmartin.com/content/dam/lockheed-martin/eo/photo/sustainability/2022-Sustainability-Report-1920.jpg.pc-adaptive.full.medium.jpg"
                             alt="">
@@ -456,8 +470,8 @@
                                                 <div class="dropdown">
                                                     <span class="dropdown-toggle" data-bs-toggle="dropdown"
                                                         aria-haspopup="true" aria-expanded="false" role="button">
-                                                        <img src="../../../assets/client/images/icon/01.png" class="img-fluid"
-                                                            alt="">
+                                                        <img src="../../../assets/client/images/icon/01.png"
+                                                            class="img-fluid" alt="">
                                                     </span>
                                                     <div class="dropdown-menu py-2">
                                                         <a class="ms-2 me-2" href="#" data-bs-toggle="tooltip"
@@ -779,6 +793,17 @@ export default {
     height: 101%;
 }
 
+.main-story:hover .hover-background {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.hover-background {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.0);
+    z-index: 1;
+}
 
 
 .img-background {
