@@ -302,26 +302,29 @@
     <div class="container mt-3">
         <div class="card w-90 shadow-none bg-transparent bg-transparent-card border-0 p-0 mb-0 mx-auto">
             <div class="d-flex" style="gap: 14px">
+                <router-link :to="{ name : 'story' }">
+                    <div class="bg-primary main-story">
+                        <div class="hover-background">
 
-                <div class="bg-primary main-story">
-                    <div class="hover-background">
+                        </div>
+                        <div class="img-background" style="height: 80%; width: 100%; background-color: red;">
+                            <img class="img-fluid"
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9ZIc2OJOB_NM_uuzfT3zRoS_iiDNRVu_TiA&usqp=CAU"
+                                alt="">
+                        </div>
+                        <div
+                            style="position: absolute; bottom: 0; height: 20%; width: 100%; background-color: #fff; display: flex; justify-content: center;">
+                            <div class="btn-create-story d-flex justify-content-center align-items-center"
+                                style="color: #fff;">
+                                <i class="las la-plus la-2x"></i>
+                            </div>
+                            <div class="mb-1" style="z-index: 1; position: absolute; bottom: 0px; color: #333;">
+                                <b class="name-in-story ">Create Story</b>
+                            </div>
+                        </div>
+                    </div>
+                </router-link>
 
-                    </div>
-                    <div class="img-background" style="height: 80%; width: 100%; background-color: red;">
-                        <img class="img-fluid"
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9ZIc2OJOB_NM_uuzfT3zRoS_iiDNRVu_TiA&usqp=CAU"
-                            alt="">
-                    </div>
-                    <div
-                        style="position: absolute; bottom: 0; height: 20%; width: 100%; background-color: #fff; display: flex; justify-content: center;">
-                        <div class="btn-create-story d-flex justify-content-center align-items-center" style="color: #fff;">
-                            <i class="las la-plus la-2x"></i>
-                        </div>
-                        <div class="mb-1" style="z-index: 1; position: absolute; bottom: 0px; color: #333;">
-                            <b class="name-in-story ">Create Story</b>
-                        </div>
-                    </div>
-                </div>
                 <div class=" bg-primary main-story">
                     <div class="hover-background">
 

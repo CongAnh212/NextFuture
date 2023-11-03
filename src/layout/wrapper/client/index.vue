@@ -34,4 +34,5 @@ export default {
 @import "../../../assets/client/vendor/remixicon/fonts/remixicon.css";
 @import "../../../assets/client/vendor/vanillajs-datepicker/dist/css/datepicker.min.css";
 @import "../../../assets/client/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css";
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css");
 </style>
