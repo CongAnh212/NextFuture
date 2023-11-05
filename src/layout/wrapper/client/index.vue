@@ -12,6 +12,20 @@ import $ from 'jquery';
 // import "../../../assets/client/js/charts/weather-chart.js";
 // import "../../../assets/client/js/slider.js";
 import 'bootstrap';
+
+import 'bootstrap-fileinput';
+import 'bootstrap-fileinput/css/fileinput.css';
+import "https://code.jquery.com/jquery-3.6.0.min.js";
+import "https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/buffer.min.js";
+import "https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/filetype.min.js";
+import "https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/piexif.min.js";
+import "https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/sortable.min.js";
+import "https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js";
+import "https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/fileinput.min.js";
+import "https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/locales/LANG.js";
+
+
+
 import "../../../assets/client/js/sweetalert.js";
 import "../../../assets/client/js/app.js";
 import "../../../assets/client/images/favicon.ico";
