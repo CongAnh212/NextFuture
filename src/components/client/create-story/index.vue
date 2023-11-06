@@ -23,11 +23,27 @@
                         </li>
                         <hr>
                     </ul>
+                    <div class="px-3">
+                        <div class="mb-3">
+                            <textarea v-model="textt" class="form-control pt-3" name="" id="" rows="7"
+                                placeholder="Start typing ..."></textarea>
+                        </div>
+                        <div class="mb-3 p-2 radius-10" style="border: 1px solid #e4e4e4;">
+                            <label class="text-dark">Background</label>
+                            <div class="mt-2 d-flex flex-wrap flex-limit">
+                                <template v-for="(v, k) in list_background">
+                                    <div :id="'bg-' + k" @click="changeBackground(k, v)" class="rounded-circle bg-check"
+                                        :style="{ background: v }" style="width: 25px; height: 25px; cursor: pointer;">
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
                 </nav>
                 <div class="p-5"></div>
                 <div v-if="isCreate" class="nav-bottom d-flex align-items-center justify-content-center">
                     <button class="btn btn-light me-2 px-4" @click="closeModal">Cancel</button>
-                    <button @click="captureScreen" class="btn btn-primary px-4">Share the story</button>
+                    <button @click="screenCapture" class="btn btn-primary px-4">Share the story</button>
                 </div>
             </div>
             <div class="scrollbar-track scrollbar-track-x" style="display: none;">
@@ -36,7 +52,8 @@
             </div>
             <div class="scrollbar-track scrollbar-track-y" style="display: none;">
                 <div class="scrollbar-thumb scrollbar-thumb-y"
-                    style="height: 514px; transform: translate3d(0px, 0px, 0px);"></div>
+                    style="height: 514px; transform: translate3d(0px, 0px, 0px);">
+                </div>
             </div>
         </div>
     </div>
@@ -47,11 +64,7 @@
             <div class="radius-10 make-color1 d-flex justify-content-center align-items-center left"
                 style="height: 100%; width: 50%; position: relative; cursor: pointer; flex-direction: column;">
                 <div class="hover-background"></div>
-
-
                 <input @change="handleFileChange" id="input-b5" name="input-b5[]" type="file" ref="fileInput">
-
-
                 <div class="d-flex justify-content-center align-items-center"
                     style="flex-direction: column; position: absolute;">
                     <div class="rounded-circle d-flex justify-content-center align-items-center hello mb-2"
@@ -59,12 +72,10 @@
                         <i class="fa-regular fa-images " style="font-size: 20px; color: rgb(0, 0, 0);"></i>
                     </div>
                     <b style="color: #ffffff; font-size: 12px;">Create Photo Stories</b>
-
                 </div>
 
             </div>
-
-            <div class="radius-10 make-color2 d-flex justify-content-center align-items-center left"
+            <div class="radius-10 make-color2 d-flex justify-content-center align-items-center left" @click="openModal"
                 style="height: 100%; width: 50%; position: relative; cursor: pointer; flex-direction: column;">
                 <div class="hover-background"></div>
                 <div class="rounded-circle d-flex justify-content-center align-items-center hello mb-2"
@@ -75,7 +86,7 @@
             </div>
         </div>
 
-        <div class="modal fade  " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true"
+        <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true"
             role="dialog" style="position: absolute; display: none; height: 90vh;">
             <div class="modal-dialog modal-lg border_modal radius-10" role="document">
                 <div class="modal-content" style="border: 0px solid !important;">
@@ -86,8 +97,8 @@
                             <div class="container-content row" style="overflow: hidden;">
                                 <div class="col-3 cover" style="background-color: rgba(36, 36, 36, 0.4);z-index: 10;"></div>
                                 <div id="content" @dragover.prevent @dragover="drop" ref="captureDiv"
-                                    class="d-flex justify-content-center align-items-center col-6 p-0">
-                                    <div
+                                    class="d-flex justify-content-center align-items-center col-6 p-0 ">
+                                    <div class="radius-10"
                                         style="width: 100%; height: 100%; border: 1px solid #fff; z-index: 6; pointer-events: none;">
                                     </div>
                                     <img id="mainImage" class="draggable" :src="mainImg" draggable="true"
@@ -107,6 +118,35 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade " id="storyText" tabindex="-1" aria-labelledby="storyTextLabel" aria-modal="true"
+            role="dialog" style="position: absolute; display: none; height: 90vh;">
+            <div class="modal-dialog modal-lg border_modal radius-10" role="document">
+                <div class="modal-content" style="border: 0px solid !important;">
+                    <div class="modal-body" style="padding-top: 10px;">
+                        <h1 class="modal-title fs-5" id="storyTextLabel" style="padding-bottom: 10px; color: black;">
+                            Preview</h1>
+                        <div class="make-modal radius-10 d-flex justify-content-center align-items-center"
+                            style=" position: relative;">
+                            <div class="container-content-right row d-flex justify-content-center align-items-center"
+                                style="overflow: hidden;" ref="content-text">
+                                <div class="col-3 "></div>
+                                <div id="content-text" style="overflow: hidden;"
+                                    class="d-flex justify-content-center align-items-center col-6 p-0 text-content" 
+                                    ref="contentText">
+                                    <p class="px-3 text-center"  style="font-family: 'Helvetica Neue', sans-serif; /* Sử dụng một font family phổ biến */
+                                        font-size: 26px; /* Đặt kích thước font là 36px */
+                                        font-weight: bold; /* Đặt độ đậm là đậm (bold) */
+                                        color: #ffffff;
+                                        word-wrap: break-word;" 
+                                        >{{ textt }}</p>
+                                </div>
+                                <div class="col-3 "></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -119,7 +159,6 @@ export default {
         return {
             mainImg: '',
             abc: 10,
-            text: 'Văn bản 1',
             x: 0,
             y: 0,
             x_drag: 0,
@@ -129,6 +168,25 @@ export default {
             origin_y: 0,
             isCreate: false,
             capturedImage: null,
+            list_background: [
+                "rgb(100, 107, 245)",
+                "rgb(92, 181, 233)",
+                "rgb(203, 233, 92)",
+                "rgb(248, 124, 57)",
+                "linear-gradient(180deg, rgb(0,0,0), red, blue)",
+                "linear-gradient(130deg, rgb(0,0,0), red, blue)",
+                "linear-gradient(180deg, rgb(121, 121, 121), rgb(243, 113, 113), rgb(80, 80, 248))",
+                "linear-gradient(131deg, rgba(41, 187, 124, 0.8), rgba(255, 0, 0, 0) 70.71%), linear-gradient(210deg, rgba(165, 243, 168, 0.8), rgba(255, 0, 0, 0) 70.71%), linear-gradient(336deg, rgba(34, 227, 12, 0.8), rgba(0, 0, 255, 0) 70.71%)",
+                "linear-gradient(131deg, rgba(255, 255, 255, 0.8), rgba(255, 0, 0, 0) 70.71%),linear-gradient(210deg, rgba(0, 0, 0, 0.8), rgba(255, 0, 0, 0) 70.71%),linear-gradient(336deg, rgba(190, 76, 76, 0.8), rgba(0, 0, 255, 0) 70.71%)",
+                "linear-gradient(131deg, rgba(245, 12, 241, 0.8), rgba(255, 0, 0, 0) 70.71%),linear-gradient(210deg, rgba(252, 186, 3, 0.8), rgba(255, 0, 0, 0) 70.71%),linear-gradient(336deg, rgba(0, 217, 255, 0.8), rgba(0, 0, 255, 0) 70.71%)",
+                "linear-gradient(131deg, rgba(245, 12, 167, 0.8), rgba(255, 0, 0, 0) 70.71%),linear-gradient(210deg, rgba(3, 252, 86, 0.8), rgba(255, 0, 0, 0) 70.71%),linear-gradient(336deg, rgba(44, 85, 92, 0.8), rgba(0, 0, 255, 0) 70.71%)",
+                "linear-gradient(200deg, rgba(105, 18, 246, 0.8), rgba(255, 0, 0, 0) 70.71%),linear-gradient(280deg, rgba(225, 162, 162, 0.8), rgba(255, 0, 0, 0) 70.71%),linear-gradient(0deg, rgba(227, 144, 144, 0.8), rgba(0, 0, 255, 0) 70.71%)",
+                "linear-gradient(30deg, rgba(105, 18, 246, 0.5),rgba(174, 228, 127, 0.5),rgba(230, 204, 230, 0.5), rgba(255, 0, 0, 0)),linear-gradient(300deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5), rgba(255, 0, 255, 0.5), rgba(0, 51, 255, 0.793))",
+                "linear-gradient(30deg, rgb(255, 0, 0), rgb(174, 228, 127),rgb(230, 204, 230), rgb(255, 0, 0))",
+                "linear-gradient(240deg, rgb(255, 0, 0), rgb(246, 255, 0),rgb(60, 255, 0), rgb(0, 247, 255), rgb(0, 72, 255), rgb(123, 0, 255), rgb(123, 0, 255), rgb(255, 0, 221), rgb(255, 0, 0))"
+            ],
+            textt: "",
+            isTextStory: false,
         }
     },
     mounted() {
@@ -137,9 +195,23 @@ export default {
         $('.fileinput-remove-button').addClass('hide-important');
         $('.fileinput-upload-button').addClass('hide-important');
         $('.file-preview').css('display', 'none');
+        $('#bg-0').addClass('bg-active');
         // $('.file-input').css('display', 'none');
     },
     methods: {
+        openModal() {
+            $('#storyText').addClass("show");
+            this.isCreate = true;
+            $('#storyText').css("display", 'block');
+            this.isTextStory = true;
+        },
+        screenCapture() {
+            if (!this.isTextStory) {
+                this.captureScreen();
+            } else {
+                this.captureScreenText();
+            }
+        },
         async captureScreen() {
             const divToCapture = this.$refs.captureDiv;
             html2canvas(divToCapture).then((canvas) => {
@@ -166,6 +238,13 @@ export default {
             } catch (error) {
                 console.error('Lỗi tải ảnh:', error);
             }
+        },
+        async captureScreenText() {
+            const divToCapture = this.$refs.contentText;
+            html2canvas(divToCapture).then((canvas) => {
+                this.capturedImage = canvas.toDataURL('image/png');
+                this.uploadFile();
+            });
         },
         handleFileChange(event) {
             $('#exampleModal').addClass("show");
@@ -215,7 +294,17 @@ export default {
             $('#exampleModal').removeClass("show");
             $('#exampleModal').css("display", 'none');
             this.isCreate = false;
+            $('#storyText').removeClass("show");
+            $('#storyText').css("display", 'none');
+            this.isTextStory = false;
+        },
+        changeBackground(index, v) {
+            $('.bg-check.bg-active').removeClass('bg-active');
+            $('#bg-' + index).addClass('bg-active');
+            $('#content-text').css('background', v);
+
         }
+
     }
 }
 </script >
