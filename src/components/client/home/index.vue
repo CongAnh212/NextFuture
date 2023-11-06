@@ -302,7 +302,7 @@
     <div class="container mt-3">
         <div class="card w-90 shadow-none bg-transparent bg-transparent-card border-0 p-0 mb-0 mx-auto">
             <div class="d-flex" style="gap: 14px">
-                <router-link :to="{ name : 'story' }">
+                <router-link :to="{ name: 'story' }">
                     <div class="bg-primary main-story">
                         <div class="hover-background">
 

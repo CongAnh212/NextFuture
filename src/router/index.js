@@ -5,11 +5,21 @@ const routes = [
   //   path: "/client",
   //   component: () => import("../layout/wrapper/client/index.vue"),
   //   children: [
-      
+
   //   ],
   // },
   {
     path: "/",
+    meta: { layout: "account" },
+    component: () => import("../components/client/account/signIn/index.vue"),
+  },
+  {
+    path: "/sign-up",
+    meta: { layout: "account" },
+    component: () => import("../components/client/account/signUp/index.vue"),
+  },
+  {
+    path: "/newfeeds",
     component: () => import("../components/client/home/index.vue"),
   },
   {
@@ -19,15 +29,15 @@ const routes = [
   },
   {
     path: "/story",
-    name : 'story',
-    meta: { layout : 'story' },
-    component: () => import("../components/client/create-story/index.vue"),
+    name: "story",
+    meta: { layout: "story" },
+    component: () => import("../components/client/story/index.vue"),
   },
   {
     path: "/story/test",
-    name : 'a',
-    meta: { layout : 'story' },
-    component: () => import("../components/client/create-story/test.vue"),
+    name: "a",
+    meta: { layout: "story" },
+    component: () => import("../components/client/story/test.vue"),
   },
 ];
 
