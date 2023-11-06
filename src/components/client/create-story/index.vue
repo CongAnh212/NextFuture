@@ -110,6 +110,7 @@
     </div>
 </template>
 <script>
+
 import html2canvas from "html2canvas";
 import axios from 'axios';
 
@@ -156,7 +157,8 @@ export default {
                     .then((res) => {
                         if (res.data.status) {
                             console.log(res.data.message);
-                            this.$router.push('/');
+                            // this.$router.push('/');
+                            window.location.href = '/';
                         } else {
                             console.log(res.data.message);
                         }
