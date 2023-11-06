@@ -3,7 +3,7 @@
         <div class="iq-navbar-custom">
             <nav class="navbar navbar-expand-lg navbar-light p-0">
 
-                <div class="iq-navbar-logo d-flex justify-content-between" >
+                <div class="iq-navbar-logo d-flex justify-content-between">
                     <router-link to="/">
                         <div class="rounded-circle d-flex justify-content-center align-items-center close me-2"
                             style="height: 45px; width: 45px; background-color: #9c9c9c; cursor: pointer;">
@@ -187,8 +187,8 @@ export default {
 }
 </script>
 <style>
-.close:hover{
+.close:hover {
     background-color: rgba(0, 0, 0, 0.45) !important;
-    
+
 }
 </style>
