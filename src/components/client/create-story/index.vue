@@ -25,9 +25,9 @@
                     </ul>
                 </nav>
                 <div class="p-5"></div>
-                <div v-if="isCreate" class="nav-bottom d-flex align-items-center justify-content-center" >
+                <div v-if="isCreate" class="nav-bottom d-flex align-items-center justify-content-center">
                     <button class="btn btn-light me-2 px-4" @click="closeModal">Cancel</button>
-                    <button class="btn btn-primary px-4">Share the story</button>
+                    <button @click="captureScreen" class="btn btn-primary px-4">Share the story</button>
                 </div>
             </div>
             <div class="scrollbar-track scrollbar-track-x" style="display: none;">
@@ -85,14 +85,14 @@
                         <div class="make-modal radius-10 d-flex justify-content-center" style=" position: relative;">
                             <div class="container-content row" style="overflow: hidden;">
                                 <div class="col-3 cover" style="background-color: rgba(36, 36, 36, 0.4);z-index: 10;"></div>
-                                <div id="content" @dragover.prevent @dragover="drop"
+                                <div id="content" @dragover.prevent @dragover="drop" ref="captureDiv"
                                     class="d-flex justify-content-center align-items-center col-6 p-0">
                                     <div
                                         style="width: 100%; height: 100%; border: 1px solid #fff; z-index: 6; pointer-events: none;">
                                     </div>
-                                    <img id="mainImage" class="draggable" :src="mainImg"
-                                        draggable="true" :style="{ left: x + 'px', top: y + 'px' }"
-                                        @dragstart="getCoordinates" @dragend="close()">
+                                    <img id="mainImage" class="draggable" :src="mainImg" draggable="true"
+                                        :style="{ left: x + 'px', top: y + 'px' }" @dragstart="getCoordinates"
+                                        @dragend="close()">
                                 </div>
                                 <div class="col-3 cover" style="background-color: rgba(36, 36, 36, 0.4);z-index: 10;"></div>
 
@@ -110,6 +110,9 @@
     </div>
 </template>
 <script>
+import html2canvas from "html2canvas";
+import axios from 'axios';
+
 export default {
     data() {
         return {
@@ -124,6 +127,7 @@ export default {
             origin_x: 0,
             origin_y: 0,
             isCreate: false,
+            capturedImage: null,
         }
     },
     mounted() {
@@ -135,6 +139,32 @@ export default {
         // $('.file-input').css('display', 'none');
     },
     methods: {
+        async captureScreen() {
+            const divToCapture = this.$refs.captureDiv;
+            html2canvas(divToCapture).then((canvas) => {
+                this.capturedImage = canvas.toDataURL('image/png');
+                this.uploadFile();
+            });
+        },
+        async uploadFile() {
+            var payload = {
+                image: this.capturedImage,
+                status: 1
+            }
+            try {
+                axios.post('http://127.0.0.1:8000/api/story/create', payload)
+                    .then((res) => {
+                        if (res.data.status) {
+                            console.log(res.data.message);
+                            this.$router.push('/');
+                        } else {
+                            console.log(res.data.message);
+                        }
+                    })
+            } catch (error) {
+                console.error('Lỗi tải ảnh:', error);
+            }
+        },
         handleFileChange(event) {
             $('#exampleModal').addClass("show");
             this.isCreate = true;
