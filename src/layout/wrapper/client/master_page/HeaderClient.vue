@@ -4,7 +4,7 @@
             <nav class="navbar navbar-expand-lg navbar-light p-0">
                 <div class="iq-navbar-logo d-flex justify-content-between">
                     <router-link to="/">
-                        <img src="../../../assets/img/main-logo.png" class="img-fluid" alt="">
+                        <img src="../../../../assets/img/main-logo.png" class="img-fluid" alt="">
                         <span>NextFuture</span>
                     </router-link>
                 </div>
@@ -38,7 +38,7 @@
                                                 class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
                                                 <div class="d-flex align-items-center">
                                                     <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/01.jpg" alt="">
+                                                        src="../../../../assets/client/images/user/01.jpg" alt="">
                                                     <div class="ms-3">
                                                         <h6 class="mb-0 ">Jaques Amole</h6>
                                                         <p class="mb-0">40 friends</p>
@@ -57,7 +57,7 @@
                                                 class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
                                                 <div class="d-flex align-items-center">
                                                     <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/02.jpg" alt="">
+                                                        src="../../../../assets/client/images/user/02.jpg" alt="">
                                                     <div class="ms-3">
                                                         <h6 class="mb-0 ">Lucy Tania</h6>
                                                         <p class="mb-0">12 friends</p>
@@ -76,7 +76,7 @@
                                                 class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
                                                 <div class="d-flex align-items-center">
                                                     <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/03.jpg" alt="">
+                                                        src="../../../../assets/client/images/user/03.jpg" alt="">
                                                     <div class=" ms-3">
                                                         <h6 class="mb-0 ">Manny Petty</h6>
                                                         <p class="mb-0">3 friends</p>
@@ -95,7 +95,7 @@
                                                 class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
                                                 <div class="d-flex align-items-center">
                                                     <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/04.jpg" alt="">
+                                                        src="../../../../assets/client/images/user/04.jpg" alt="">
                                                     <div class="ms-3">
                                                         <h6 class="mb-0 ">Marsha Mello</h6>
                                                         <p class="mb-0">15 friends</p>
@@ -134,7 +134,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="">
                                                     <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/01.jpg" alt="">
+                                                        src="../../../../assets/client/images/user/01.jpg" alt="">
                                                 </div>
                                                 <div class="ms-3 w-100">
                                                     <h6 class="mb-0 ">Emma Watson Bni</h6>
@@ -149,7 +149,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="">
                                                     <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/02.jpg" alt="">
+                                                        src="../../../../assets/client/images/user/02.jpg" alt="">
                                                 </div>
                                                 <div class="ms-3 w-100">
                                                     <h6 class="mb-0 ">New customer is join</h6>
@@ -164,7 +164,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="">
                                                     <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/03.jpg" alt="">
+                                                        src="../../../../assets/client/images/user/03.jpg" alt="">
                                                 </div>
                                                 <div class="ms-3 w-100">
                                                     <h6 class="mb-0 ">Two customer is left</h6>
@@ -179,7 +179,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="">
                                                     <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/04.jpg" alt="">
+                                                        src="../../../../assets/client/images/user/04.jpg" alt="">
                                                 </div>
                                                 <div class="w-100 ms-3">
                                                     <h6 class="mb-0 ">New Mail from Fenny</h6>
@@ -212,7 +212,7 @@
                                             <div class="d-flex  align-items-center">
                                                 <div class="">
                                                     <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/01.jpg" alt="">
+                                                        src="../../../../assets/client/images/user/01.jpg" alt="">
                                                 </div>
                                                 <div class=" w-100 ms-3">
                                                     <h6 class="mb-0 ">Bni Emma Watson</h6>
@@ -224,7 +224,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="">
                                                     <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/02.jpg" alt="">
+                                                        src="../../../../assets/client/images/user/02.jpg" alt="">
                                                 </div>
                                                 <div class="ms-3">
                                                     <h6 class="mb-0 ">Lorem Ipsum Watson</h6>
@@ -236,7 +236,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="">
                                                     <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/03.jpg" alt="">
+                                                        src="../../../../assets/client/images/user/03.jpg" alt="">
                                                 </div>
                                                 <div class="ms-3">
                                                     <h6 class="mb-0 ">Why do we use it?</h6>
@@ -248,7 +248,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="">
                                                     <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/04.jpg" alt="">
+                                                        src="../../../../assets/client/images/user/04.jpg" alt="">
                                                 </div>
                                                 <div class="ms-3">
                                                     <h6 class="mb-0 ">Variations Passages</h6>
@@ -260,7 +260,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="">
                                                     <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/05.jpg" alt="">
+                                                        src="../../../../assets/client/images/user/05.jpg" alt="">
                                                 </div>
                                                 <div class="ms-3">
                                                     <h6 class="mb-0 ">Lorem Ipsum generators</h6>
@@ -275,7 +275,7 @@
                         <li class="nav-item dropdown">
                             <a href="#" class="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="../../../assets/client/images/user/1.jpg" class="img-fluid rounded-circle me-3"
+                                <img src="../../../../assets/client/images/user/1.jpg" class="img-fluid rounded-circle me-3"
                                     alt="user">
                                 <div class="caption">
                                     <h6 class="mb-0 line-height">Bni Cyst</h6>

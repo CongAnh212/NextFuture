@@ -11,7 +11,7 @@
                         </div>
                     </router-link>
                     <router-link to="/">
-                        <img src="../../../assets/img/main-logo.png" class="img-fluid" alt="">
+                        <img src="../../../../assets/img/main-logo.png" class="img-fluid" alt="">
                     </router-link>
                 </div>
 
@@ -40,7 +40,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="">
                                                     <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/01.jpg" alt="">
+                                                        src="../../../../assets/client/images/user/01.jpg" alt="">
                                                 </div>
                                                 <div class="ms-3 w-100">
                                                     <h6 class="mb-0 ">Emma Watson Bni</h6>
@@ -55,7 +55,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="">
                                                     <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/02.jpg" alt="">
+                                                        src="../../../../assets/client/images/user/02.jpg" alt="">
                                                 </div>
                                                 <div class="ms-3 w-100">
                                                     <h6 class="mb-0 ">New customer is join</h6>
@@ -70,7 +70,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="">
                                                     <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/03.jpg" alt="">
+                                                        src="../../../../assets/client/images/user/03.jpg" alt="">
                                                 </div>
                                                 <div class="ms-3 w-100">
                                                     <h6 class="mb-0 ">Two customer is left</h6>
@@ -85,7 +85,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="">
                                                     <img class="avatar-40 rounded"
-                                                        src="../../../assets/client/images/user/04.jpg" alt="">
+                                                        src="../../../../assets/client/images/user/04.jpg" alt="">
                                                 </div>
                                                 <div class="w-100 ms-3">
                                                     <h6 class="mb-0 ">New Mail from Fenny</h6>
@@ -104,7 +104,7 @@
                         <li class="nav-item dropdown">
                             <a href="#" class="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="../../../assets/client/images/user/1.jpg" class="img-fluid rounded-circle me-3"
+                                <img src="../../../../assets/client/images/user/1.jpg" class="img-fluid rounded-circle me-3"
                                     alt="user">
                                 <div class="caption">
                                     <h6 class="mb-0 line-height">Bni Cyst</h6>
