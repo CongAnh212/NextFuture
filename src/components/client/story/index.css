@@ -98,14 +98,14 @@
 }
 
 .draggable {
-
     width: 100%;
     background-color: #3498db;
     color: #3d2020;
     text-align: center;
     line-height: 30px;
     cursor: move;
-    position: absolute;
+    position: relative;
+    user-select: none;
 }
 
 .container-content {
@@ -146,9 +146,7 @@
     outline: 3px solid rgb(33, 43, 232);
 }
 
-.text-content {
-    
-}
+.text-content {}
 
 #content-text {
     width: 50%;
@@ -156,5 +154,5 @@
     position: relative;
     z-index: 2;
     background: rgb(100, 107, 245);
- 
+
 }
