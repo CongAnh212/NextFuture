@@ -24,7 +24,7 @@
                 </div>
                 <div class="sign-info">
                     <span class="dark-color d-inline-block line-height-2">Don't have an account?
-                        <router-link to="/sign-up">
+                        <router-link :to="{ name : 'sign-up' }">
                             Sign up
                         </router-link>
                     </span>
@@ -48,7 +48,6 @@ export default {
         }
     },
     mounted() {
-        this.checkLogin();
     },
     methods: {
         singIn() {
@@ -59,7 +58,7 @@ export default {
                         var token = res.data.token;
                         // Lưu token vào localStorage
                         localStorage.setItem('token', token);
-                        this.$router.push('/newfeeds');
+                        this.$router.push({ name: "homepage" });
                         // window.location.href = "/newfeeds";
                     } else {
                         Swal.fire({
@@ -70,17 +69,7 @@ export default {
                     }
                 })
         },
-        checkLogin() {
-            // axios
-            //     .post('http://127.0.0.1:8000/api/check')
-            //     .then((res) => {
-            //         if (res.status == 200) {
-            //             this.$router.push('/')
-            //         } else {
-
-            //         }
-            //     });
-        }
+      
     },
 
 }

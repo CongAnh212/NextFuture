@@ -3,7 +3,7 @@
         <div class="iq-navbar-custom">
             <nav class="navbar navbar-expand-lg navbar-light p-0">
                 <div class="iq-navbar-logo d-flex justify-content-between">
-                    <router-link to="/">
+                    <router-link :to="{name : 'homepage'}">
                         <img src="../../../../assets/img/main-logo.png" class="img-fluid" alt="">
                         <span>NextFuture</span>
                     </router-link>
