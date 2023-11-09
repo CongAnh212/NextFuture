@@ -4,13 +4,13 @@
             <nav class="navbar navbar-expand-lg navbar-light p-0">
 
                 <div class="iq-navbar-logo d-flex justify-content-between">
-                    <router-link to="/newfeeds">
+                    <router-link :to="{ name: 'homepage' }">
                         <div class="rounded-circle d-flex justify-content-center align-items-center close me-2"
                             style="height: 45px; width: 45px; background-color: #9c9c9c; cursor: pointer;">
                             <i class="fa-solid fa-xmark " style="font-size: 25px; color: rgb(255, 255, 255);"></i>
                         </div>
                     </router-link>
-                    <router-link to="/newfeeds">
+                    <router-link :to="{ name: 'homepage' }">
                         <img src="../../../../assets/img/main-logo.png" class="img-fluid" alt="">
                     </router-link>
                 </div>

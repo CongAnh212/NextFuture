@@ -9,7 +9,8 @@ const routes = [
   //   ],
   // },
   {
-    path: "/",
+    path: "/sign-in",
+    name: 'sign-in',
     meta: { layout: "account" },
     component: () => import("../components/client/account/signIn/index.vue"),
   },
@@ -19,7 +20,8 @@ const routes = [
     component: () => import("../components/client/account/signUp/index.vue"),
   },
   {
-    path: "/newfeeds",
+    path: "/",
+    name: "homepage",
     component: () => import("../components/client/home/index.vue"),
   },
   {

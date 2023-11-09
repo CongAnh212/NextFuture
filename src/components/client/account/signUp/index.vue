@@ -59,7 +59,7 @@
                 </div>
                 <div class="sign-info text-center">
                     <span class="dark-color d-inline-block line-height-2">Already Have Account ?
-                        <router-link to="/">
+                        <router-link :to="{ name: 'sign-in' }">
                             Sign In
                         </router-link>
                     </span>
