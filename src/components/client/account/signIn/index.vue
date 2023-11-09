@@ -17,7 +17,7 @@
                 </div>
                 <div class="d-inline-block w-100">
                     <div class="form-check d-inline-block mt-2 pt-1">
-                        <input type="checkbox" class="form-check-input" id="customCheck11">
+                        <input v-model="sign_in.remember" type="checkbox" class="form-check-input" id="customCheck11">
                         <label class="form-check-label" for="customCheck11">Remember Me</label>
                     </div>
                     <button type="button" class="btn btn-primary float-end" @click="singIn()">Sign in</button>
@@ -47,13 +47,20 @@ export default {
             sign_in: {},
         }
     },
+    mounted() {
+        this.checkLogin();
+    },
     methods: {
         singIn() {
             axios
                 .post('http://127.0.0.1:8000/api/sign-in', this.sign_in)
                 .then((res) => {
                     if (res.data.status) {
-                        this.$router.push('/newfeeds')
+                        var token = res.data.token;
+                        // Lưu token vào localStorage
+                        localStorage.setItem('token', token);
+                        this.$router.push('/newfeeds');
+                        // window.location.href = "/newfeeds";
                     } else {
                         Swal.fire({
                             icon: "error",
@@ -62,7 +69,17 @@ export default {
                         });
                     }
                 })
+        },
+        checkLogin() {
+            // axios
+            //     .post('http://127.0.0.1:8000/api/check')
+            //     .then((res) => {
+            //         if (res.status == 200) {
+            //             this.$router.push('/')
+            //         } else {
 
+            //         }
+            //     });
         }
     },
 

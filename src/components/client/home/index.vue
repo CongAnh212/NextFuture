@@ -596,6 +596,8 @@
                                         </div>
                                     </li>
                                 </ul>
+
+
                                 <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">
                                     <input type="text" class="form-control rounded" placeholder="Enter Your Comment">
                                     <div class="comment-attagement d-flex">
@@ -744,15 +746,16 @@
 </template>
 <script>
 import $ from 'jquery';
-import axios from 'axios';
-
+import coreFunction from '../../../core/coreFunction';
+import axios from '../../../core/coreRequest'
 export default {
     data() {
         return {
         };
     },
     mounted() {
-
+        console.log(window.localStorage.getItem('token'));
+        this.dataClient();
     },
     methods: {
         toggleShow(a) {
@@ -767,95 +770,17 @@ export default {
 
             }
         },
-
+        dataClient() {
+            axios
+                .get('story')
+                .then((res) => {
+                    console.log(res.data);
+                });
+        }
 
     },
 }
 </script>
 <style>
-.w-90 {
-    width: 83%;
-}
-
-.main-story {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 250px;
-    width: 149px;
-    border-radius: 12px;
-    cursor: pointer;
-    overflow: hidden;
-    /* Tạo bóng đổ chỉ ở phía dưới */
-    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
-}
-
-.main-story:hover .img-background img {
-    width: 101%;
-    height: 101%;
-}
-
-.main-story:hover .hover-background {
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-.hover-background {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.0);
-    z-index: 1;
-}
-
-
-.img-background {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-}
-
-.img-background img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.name-in-story {
-    font-family: 'Segoe UI';
-    margin: 20px 10px;
-}
-
-.img-client img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.avatar {
-    margin: 10px;
-    height: 45px;
-    width: 45px;
-    background-color: red;
-    border-radius: 100%;
-    border: 4px solid var(--bs-primary);
-    overflow: hidden;
-}
-
-.avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.btn-create-story {
-    height: 45px;
-    width: 45px;
-    background-color: var(--bs-primary);
-    border-radius: 100%;
-    border: 4px solid #fff;
-    overflow: hidden;
-    position: absolute;
-    bottom: 27px;
-}
+@import './style.css'
 </style>
