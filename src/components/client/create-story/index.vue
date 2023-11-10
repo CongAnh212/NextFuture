@@ -234,7 +234,7 @@ export default {
                     .then((res) => {
                         if (res.data.status) {
                             console.log(res.data.message);
-                            this.$router.push('/newfeeds');
+                            this.$router.push({ name : 'homepage' });
                             // window.location.href = '/';
                         } else {
                             console.log(res.data.message);
