@@ -10,12 +10,13 @@ const routes = [
   // },
   {
     path: "/sign-in",
-    name: 'sign-in',
+    name: "sign-in",
     meta: { layout: "account" },
     component: () => import("../components/client/account/signIn/index.vue"),
   },
   {
     path: "/sign-up",
+    name: "sign-up",
     meta: { layout: "account" },
     component: () => import("../components/client/account/signUp/index.vue"),
   },
@@ -36,6 +37,11 @@ const routes = [
     component: () => import("../components/client/story/index.vue"),
   },
   {
+    path: "/friends",
+    name: "friends",
+    component: () => import("../components/client/friend/index.vue"),
+  },
+  {
     path: "/story/test",
     name: "a",
     meta: { layout: "story" },
@@ -50,12 +56,12 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   // Kiểm tra quyền truy cập ở đây, ví dụ kiểm tra xem người dùng đã đăng nhập chưa
-  const isLoggedIn = "";// Kiểm tra xem người dùng đã đăng nhập chưa (có thể sử dụng localStorage, Vuex state, hoặc API request)
+  const isLoggedIn = ""; // Kiểm tra xem người dùng đã đăng nhập chưa (có thể sử dụng localStorage, Vuex state, hoặc API request)
 
   if (to.meta.requiresAuth && !isLoggedIn) {
     next("/"); // Chuyển hướng đến trang đăng nhập
   } else {
-    next();
+    next(); 
   }
 });
 
