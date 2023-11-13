@@ -352,33 +352,13 @@
                 </div>
             </nav>
         </div>
-        <p style="margin-left: 1000px;" v-if="connected">Socket is connected!</p>
-        <p style="margin-left: 1000px;" v-else>Socket is not connected!</p>
 
-        <button @click="sendMessage" style="margin-left: 1000px;">Send Message</button>
     </div>
 </template>
 <script>
-import { state, socket } from "../../../../socket";
 
 export default {
-    name: "ConnectionState",
 
-    computed: {
-        connected() {
-            return state.connected;
-        }
-    },
-    methods: {
-        sendMessage() {
-            if (state.connected) {
-                // Gửi sự kiện "message" đến server khi người dùng nhấn nút
-                socket.emit("message", "Hello, server!");
-            } else {
-                console.log("Socket is not connected!");
-            }
-        }
-    }
 
 }
 </script>
