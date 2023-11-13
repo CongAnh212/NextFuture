@@ -22,6 +22,23 @@ export default {
                 : "")
         );
     },
+    hoursDifference(time) {
+        const currentTime = new Date(); // Thời điểm hiện tại
+        const startTime = new Date(time);
+        const timeDiff = currentTime - startTime; // Hiệu giữa hai thời điểm tính bằng mili giây
+
+        if (timeDiff < 60 * 60 * 1000) { // Nếu thời gian giữa hai điểm ít hơn 1 giờ
+            const minutes = timeDiff / (1000 * 60); // Chuyển đổi thành phút
+            return `${Math.round(minutes)} minutes`;
+        } else {
+            const hours = timeDiff / (1000 * 60 * 60); // Chuyển đổi thành giờ
+            return `${this.roundToDecimal(hours, 0)} hours`;
+        }
+    },
+    roundToDecimal(number, decimalPlaces) {
+        const multiplier = 10 ** decimalPlaces;
+        return Math.round(number * multiplier) / multiplier;
+    },
     // displaySuccess(res) {
     //     var message = res.data.message;
     //     if(res.data.status == 1) {

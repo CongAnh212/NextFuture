@@ -36,7 +36,26 @@ const routes = [
       default: () => import('../components/client/story/list_user.vue'),
       content: () => import('../components/client/story/content.vue'),
     },
-  }
+    props: {
+      default: true,
+      content: true,
+    },
+    children: [
+      {
+        path: ':idStory',
+        name: "detailStory",
+        props: true,
+        components: {
+          default: () => import('../components/client/story/list_user.vue'),
+          content: () => import('../components/client/story/content.vue'),
+        },
+        props: {
+          default: true,
+          content: true,
+        },
+      },
+    ]
+  },
 ];
 
 const router = createRouter({

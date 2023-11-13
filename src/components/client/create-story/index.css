@@ -82,7 +82,7 @@
 }
 
 #content {
-    width: 50%;
+    width: 45%;
     height: 100%;
     position: relative;
     z-index: 2;
@@ -149,7 +149,7 @@
 .text-content {}
 
 #content-text {
-    width: 50%;
+    width: 45%;
     height: 100%;
     position: relative;
     z-index: 2;

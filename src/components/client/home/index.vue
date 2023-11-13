@@ -325,7 +325,7 @@
                     </div>
                 </router-link>
                 <div v-for="(v, k) in stories" class=" bg-primary main-story">
-                    <router-link :to="{ name: 'view-story' }">
+                    <router-link :to="{ name: 'detailStory', params: { idStory: v.id } }">
 
                         <div class="hover-background">
 

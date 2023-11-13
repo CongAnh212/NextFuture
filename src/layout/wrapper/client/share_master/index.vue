@@ -95,7 +95,7 @@
                             </li>
                             <li class="nav-item dropdown"><a href="#" class="d-flex align-items-center dropdown-toggle"
                                     id="drop-down-arrow" data-bs-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false"><img src="/src/assets/client/images/user/1.jpg"
+                                    aria-expanded="false"><img :src="urlImg + myData.avatar"
                                         class="img-fluid rounded-circle me-3" alt="user">
 
                                 </a>
@@ -103,7 +103,7 @@
                                     <div class="card shadow-none m-0">
                                         <div class="card-header bg-primary">
                                             <div class="header-title">
-                                                <h5 class="mb-0 text-white">Hello Bni Cyst</h5><span
+                                                <h5 class="mb-0 text-white">Hello {{ myData.fullname }}</h5><span
                                                     class="text-white font-size-12">Available</span>
                                             </div>
                                         </div>
@@ -162,9 +162,28 @@
     </div>
 </template>
 <script>
+import axios, { url } from '../../../../core/coreRequest';
 export default {
     name: 'app',
-
+    data() {
+        return {
+            myData: {},
+            urlImg: url
+        }
+    },
+    mounted() {
+        this.getInfo();
+    },
+    methods: {
+        getInfo() {
+            axios
+                .get('profile/data')
+                .then((res) => {
+                    this.myData = res.data.myData;
+                    console.log(this.myData);
+                });
+        }
+    },
 }
 </script>
 <style >
