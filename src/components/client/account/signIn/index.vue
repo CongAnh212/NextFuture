@@ -39,7 +39,7 @@
     </div>
 </template>
 <script>
-import axios from 'axios';
+import axios from '../../../../core/coreRequest';
 import Swal from 'sweetalert2'
 export default {
     data() {
@@ -52,7 +52,7 @@ export default {
     methods: {
         signIn() {
             axios
-                .post('http://127.0.0.1:8000/api/sign-in', this.sign_in)
+                .post('sign-in', this.sign_in)
                 .then((res) => {
                     if (res.data.status) {
                         var token = res.data.token;

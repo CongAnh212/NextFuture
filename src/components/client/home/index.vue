@@ -85,9 +85,9 @@
 
                         </div>
                         <div class="img-background" style="height: 80%; width: 100%; background-color: red;">
-                            <img class="img-fluid"
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9ZIc2OJOB_NM_uuzfT3zRoS_iiDNRVu_TiA&usqp=CAU"
-                                alt="">
+                            <img v-if="!myData.avatar" class="img-fluid"
+                                src="https://i.pinimg.com/236x/93/a0/0a/93a00a3684652031a0c398c5d54d3d10.jpg" alt="">
+                            <img v-else class="img-fluid" :src="urlImg + myData.avatar" alt="">
                         </div>
                         <div
                             style="position: absolute; bottom: 0; height: 20%; width: 100%; background-color: #fff; display: flex; justify-content: center;">
@@ -101,70 +101,27 @@
                         </div>
                     </div>
                 </router-link>
+                <div v-for="(v, k) in stories" class=" bg-primary main-story">
+                    <router-link :to="{ name: 'detailStory', params: { idStory: v.id } }">
 
-                <div class=" bg-primary main-story">
-                    <div class="hover-background">
+                        <div class="hover-background">
 
-                    </div>
-                    <div class="img-background">
-                        <img src="https://www.lockheedmartin.com/content/dam/lockheed-martin/eo/photo/sustainability/2022-Sustainability-Report-1920.jpg.pc-adaptive.full.medium.jpg"
-                            alt="">
-                    </div>
-                    <div class="avatar">
-                        <img class="img-fluid" src="../../../assets/client/images/user/1.jpg" alt="">
-                    </div>
-                    <div class="text-light mb-1" style="z-index: 1;">
-                        <b class="name-in-story">Lê Công Anh</b>
-                    </div>
+                        </div>
+                        <div class="img-background">
+                            <img :src="urlImg + v.image" alt="">
+                        </div>
+                        <div class="avatar">
+                            <img v-if="!v.avatar" class="img-fluid"
+                                src="https://i.pinimg.com/236x/93/a0/0a/93a00a3684652031a0c398c5d54d3d10.jpg" alt="">
+                            <img v-else class="img-fluid" :src="urlImg + v.avatar" alt="">
+                        </div>
+                        <div class="text-light mb-1" style="z-index: 1;">
+                            <b class="name-in-story">{{ v.fullname }}</b>
+                        </div>
+                    </router-link>
+
                 </div>
-                <div class=" bg-primary main-story">
-                    <div class="hover-background">
 
-                    </div>
-                    <div class="img-background">
-                        <img src="https://www.lockheedmartin.com/content/dam/lockheed-martin/eo/photo/sustainability/2022-Sustainability-Report-1920.jpg.pc-adaptive.full.medium.jpg"
-                            alt="">
-                    </div>
-                    <div class="avatar">
-                        <img class="img-fluid" src="../../../assets/client/images/user/1.jpg" alt="">
-
-                    </div>
-                    <div class="text-light mb-1" style="z-index: 1;">
-                        <b class="name-in-story">Lê Công Anh</b>
-                    </div>
-                </div>
-                <div class=" bg-primary main-story">
-                    <div class="hover-background">
-
-                    </div>
-                    <div class="img-background">
-                        <img src="https://www.lockheedmartin.com/content/dam/lockheed-martin/eo/photo/sustainability/2022-Sustainability-Report-1920.jpg.pc-adaptive.full.medium.jpg"
-                            alt="">
-                    </div>
-                    <div class="avatar">
-                        <img class="img-fluid" src="../../../assets/client/images/user/1.jpg" alt="">
-
-                    </div>
-                    <div class="text-light mb-1" style="z-index: 1;">
-                        <b class="name-in-story">Lê Công Anh</b>
-                    </div>
-                </div>
-                <div class=" bg-primary main-story">
-                    <div class="hover-background">
-
-                    </div>
-                    <div class="img-background">
-                        <img src="https://www.lockheedmartin.com/content/dam/lockheed-martin/eo/photo/sustainability/2022-Sustainability-Report-1920.jpg.pc-adaptive.full.medium.jpg"
-                            alt="">
-                    </div>
-                    <div class="avatar">
-                        <img class="img-fluid" src="../../../assets/client/images/user/1.jpg" alt="">
-
-                    </div>
-                    <div class="text-light mb-1" style="z-index: 1;">
-                        <b class="name-in-story">Lê Công Anh</b>
-                    </div>
-                </div>
 
             </div>
         </div>
@@ -524,15 +481,20 @@
 <script>
 import $ from 'jquery';
 import coreFunction from '../../../core/coreFunction';
-import axios from '../../../core/coreRequest'
+import axios, { url } from '../../../core/coreRequest'
 export default {
     data() {
         return {
+            myData: {},
+            stories: [],
+            urlImg: '',
         };
     },
     mounted() {
         console.log(window.localStorage.getItem('token'));
-        this.dataClient();
+        this.getInfo();
+        this.dataStory();
+        this.urlImg = url;
     },
     methods: {
         toggleShow(a) {
@@ -547,11 +509,18 @@ export default {
 
             }
         },
-        dataClient() {
+        getInfo() {
             axios
-                .get('story')
+                .get('profile/data')
                 .then((res) => {
-                    console.log(res.data);
+                    this.myData = res.data.myData;
+                });
+        },
+        dataStory() {
+            axios
+                .get('story/data?3=1')
+                .then((res) => {
+                    this.stories = res.data.dataStory.data;
                 });
         }
 

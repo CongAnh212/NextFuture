@@ -16,7 +16,7 @@
                         </div>
                         <li>
                             <router-link :to="{ name: 'profile-client' }">
-                                <img style="height: 55px; width: 55px;;" src="/src/assets/client/images/user/1.jpg"
+                                <img style="height: 55px; width: 55px;" :src="urlImg + myData.avatar"
                                     class="img-fluid rounded-circle me-3" alt="user">
                                 <span><b class="text-dark">Lê Công Anh</b></span>
                             </router-link>
@@ -94,13 +94,12 @@
                         <h1 class="modal-title fs-5" id="exampleModalLabel" style="padding-bottom: 10px; color: black;">
                             Preview</h1>
                         <div class="make-modal radius-10 d-flex justify-content-center" style=" position: relative;">
-                            <div class="container-content row" style="overflow: hidden;">
-                                <div class="col-3 cover" style="background-color: rgba(36, 36, 36, 0.4);z-index: 10;"></div>
+                            <div class="container-content row d-flex justify-content-center" style="overflow: hidden;">
+                                <div class="col-3 cover ps-3"
+                                    style="background-color: rgba(36, 36, 36, 0.4);z-index: 10; width: 27.5%;"></div>
                                 <div id="content" @dragover.prevent @dragover="drop" ref="captureDiv"
-                                    class="d-flex justify-content-center align-items-center col-6 p-0 "
-                                    >
-                                    <div class="radius-10"
-                                        style="width: 100%; height: 100%; border: 1px solid #fff; z-index: 6; pointer-events: none;
+                                    class="d-flex justify-content-center align-items-center col-6 p-0 ">
+                                    <div class="radius-10" style="width: 100%; height: 100%; border: 1px solid #fff; z-index: 6; pointer-events: none;
                                         position: absolute;">
                                     </div>
                                     <div id="mainImage" class="draggable" draggable="true"
@@ -111,7 +110,8 @@
                                     </div>
 
                                 </div>
-                                <div class="col-3 cover" style="background-color: rgba(36, 36, 36, 0.4);z-index: 10;"></div>
+                                <div class="col-3 cover"
+                                    style="background-color: rgba(36, 36, 36, 0.4);z-index: 10; width: 27.5%"></div>
 
                             </div>
 
@@ -157,11 +157,12 @@
 <script>
 
 import html2canvas from "html2canvas";
-import axios from '../../../core/coreRequest';
+import axios, { url } from '../../../core/coreRequest';
 
 export default {
     data() {
         return {
+            urlImg : url,
             mainImg: '',
             abc: 10,
             x: 0,
@@ -192,6 +193,7 @@ export default {
             ],
             textt: "",
             isTextStory: false,
+            myData: {},
         }
     },
     mounted() {
@@ -202,8 +204,14 @@ export default {
         $('.file-preview').css('display', 'none');
         $('#bg-0').addClass('bg-active');
         // $('.file-input').css('display', 'none');
+        axios
+            .get('profile/data')
+            .then((res) => {
+                this.myData = res.data.myData;
+            });
     },
     methods: {
+
         openModal() {
             $('#storyText').addClass("show");
             this.isCreate = true;
@@ -234,7 +242,7 @@ export default {
                     .then((res) => {
                         if (res.data.status) {
                             console.log(res.data.message);
-                            this.$router.push('/newfeeds');
+                            this.$router.push({ name: 'homepage' });
                             // window.location.href = '/';
                         } else {
                             console.log(res.data.message);

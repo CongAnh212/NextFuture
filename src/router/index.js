@@ -1,13 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router"; // cài vue-router: npm install vue-router@next --save
-
 const routes = [
-  // {
-  //   path: "/client",
-  //   component: () => import("../layout/wrapper/client/index.vue"),
-  //   children: [
-
-  //   ],
-  // },
   {
     path: "/sign-in",
     name: "sign-in",
@@ -31,10 +23,10 @@ const routes = [
     component: () => import("../components/client/profile/index.vue"),
   },
   {
-    path: "/story",
+    path: "/create-story",
     name: "story",
     meta: { layout: "story" },
-    component: () => import("../components/client/story/index.vue"),
+    component: () => import("../components/client/create-story/index.vue"),
   },
 
   {
@@ -47,10 +39,32 @@ const routes = [
     },
   },
   {
-    path: "/story/test",
-    name: "a",
-    meta: { layout: "story" },
-    component: () => import("../components/client/story/test2.vue"),
+    path: "/stories",
+    name: "view-story",
+    meta: { layout: "share" },
+    components: {
+      default: () => import('../components/client/story/list_user.vue'),
+      content: () => import('../components/client/story/content.vue'),
+    },
+    props: {
+      default: true,
+      content: true,
+    },
+    children: [
+      {
+        path: ':idStory',
+        name: "detailStory",
+        props: true,
+        components: {
+          default: () => import('../components/client/story/list_user.vue'),
+          content: () => import('../components/client/story/content.vue'),
+        },
+        props: {
+          default: true,
+          content: true,
+        },
+      },
+    ]
   },
 ];
 

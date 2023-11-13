@@ -7,7 +7,7 @@
 <script>
 // import "https://code.jquery.com/jquery-3.6.0.min.js";
 import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js";
-import 'bootstrap-fileinput';
+// import 'bootstrap-fileinput';
 import 'bootstrap-fileinput/css/fileinput.css';
 import "https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/buffer.min.js";
 import "https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/filetype.min.js";

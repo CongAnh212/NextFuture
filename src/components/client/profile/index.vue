@@ -15,11 +15,13 @@
                             </div>
                             <div class="user-detail text-center mb-3">
                                 <div class="profile-img">
-                                    <img src="../../../assets/client/images/user/11.png" alt="profile-img"
-                                        class="avatar-130 img-fluid">
+                                    <img v-if="!myData.avatar"
+                                        src="https://i.pinimg.com/236x/93/a0/0a/93a00a3684652031a0c398c5d54d3d10.jpg"
+                                        alt="profile-img" class="avatar-130 img-fluid">
+                                    <img v-else :src="urlImg + myData.avatar" alt="profile-img" style='width: 130px; height: 130px; object-fit:cover' class="avatar-130 img-fluid">
                                 </div>
                                 <div class="profile-detail">
-                                    <h3 class="">Bni Cyst</h3>
+                                    <h3 class="">{{ myData.fullname }}</h3>
                                 </div>
                             </div>
                             <div
@@ -157,7 +159,7 @@
                                                 <li class=""><a href="#"><img
                                                             src="../../../assets/client/images/page-img/g1.jpg"
                                                             alt="gallary-image" class="img-fluid"></a></li>
-                                               
+
                                             </ul>
                                         </div>
                                     </div>
@@ -178,7 +180,7 @@
                                                             alt="gallary-image" class="img-fluid"></a>
                                                     <h6 class="mt-2 text-center">Anna Rexia</h6>
                                                 </li>
-                                            
+
                                             </ul>
                                         </div>
                                     </div>
@@ -644,7 +646,7 @@
                                                     </form>
                                                 </div>
                                             </div>
-                                           
+
                                         </div>
                                     </div>
                                 </div>
@@ -1050,7 +1052,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                 
+
                                                 </div>
                                             </div>
                                         </div>
@@ -2509,7 +2511,7 @@
                                         <div class="tab-pane fade active show" id="photosofyou" role="tabpanel">
                                             <div class="card-body p-0">
                                                 <div class="d-grid gap-2 d-grid-template-1fr-13">
-                                                    
+
                                                     <div class="">
                                                         <div class="user-images position-relative overflow-hidden">
                                                             <a href="#">
@@ -2614,7 +2616,7 @@
                                                                     class="ri-edit-2-fill"></i></a>
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -2742,8 +2744,27 @@
     </div>
 </template>
 <script>
+import axios, { url } from '../../../core/coreRequest'
 export default {
-
+    data() {
+        return {
+            myData: {},
+            urlImg: url
+        }
+    },
+    mounted() {
+        this.getInfo();
+    },
+    methods: {
+        getInfo() {
+            axios
+                .get('profile/data')
+                .then((res) => {
+                    this.myData = res.data.myData;
+                    console.log(this.myData);
+                });
+        }
+    },
 }
 </script>
 <style></style>
