@@ -20,11 +20,11 @@
                         <input v-model="sign_in.remember" type="checkbox" class="form-check-input" id="customCheck11">
                         <label class="form-check-label" for="customCheck11">Remember Me</label>
                     </div>
-                    <button type="button" class="btn btn-primary float-end" @click="singIn()">Sign in</button>
+                    <button type="button" class="btn btn-primary float-end" @click="signIn()">Sign in</button>
                 </div>
                 <div class="sign-info">
                     <span class="dark-color d-inline-block line-height-2">Don't have an account?
-                        <router-link :to="{ name : 'sign-up' }">
+                        <router-link :to="{ name: 'sign-up' }">
                             Sign up
                         </router-link>
                     </span>
@@ -50,7 +50,7 @@ export default {
     mounted() {
     },
     methods: {
-        singIn() {
+        signIn() {
             axios
                 .post('sign-in', this.sign_in)
                 .then((res) => {
@@ -69,7 +69,7 @@ export default {
                     }
                 })
         },
-      
+
     },
 
 }
