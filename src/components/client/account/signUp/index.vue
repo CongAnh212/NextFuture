@@ -94,7 +94,7 @@ export default {
                             confirmButtonText: 'OK'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                this.$router.push('/');
+                                this.$router.push({ name: 'sign-in' });
                             }
                         })
                     } else {
@@ -105,7 +105,6 @@ export default {
                         });
                     }
                 })
-
         },
         selectRadio(value) {
             this.selectedGender = value;
