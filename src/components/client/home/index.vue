@@ -5,11 +5,20 @@
                 <nav class="iq-sidebar-menu">
                     <ul id="iq-sidebar-toggle" class="iq-menu">
                         <li>
+                            <a href="/profile-client" class="px-0">
+                                <img src="https://i.pinimg.com/236x/93/a0/0a/93a00a3684652031a0c398c5d54d3d10.jpg"
+                                    class="img-fluid rounded-circle me-3 " alt="user"
+                                    style="height: 27px; width: 27px;margin-left: 5px;">
+                                <div>
+                                    <span class="text-dark" style="font-weight: 600; font-size: 14px;">Phan Tánh</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
                             <router-link :to="{ name: 'friends' }">
                                 <i class="fa-solid fa-user " style="font-size: 17px;"></i>
                                 <span>Friends</span>
                             </router-link>
-
                         </li>
                         <li>
                             <a href="../app/group.html" class=" ">

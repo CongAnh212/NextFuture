@@ -36,10 +36,15 @@ const routes = [
     meta: { layout: "story" },
     component: () => import("../components/client/story/index.vue"),
   },
+
   {
     path: "/friends",
     name: "friends",
-    component: () => import("../components/client/friend/index.vue"),
+    meta: { layout: "main" },
+    components: {
+      default: () => import("../components/client/friend/list.vue"),
+      content: () => import("../components/client/friend/content.vue"),
+    },
   },
   {
     path: "/story/test",
@@ -61,7 +66,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth && !isLoggedIn) {
     next("/"); // Chuyển hướng đến trang đăng nhập
   } else {
-    next(); 
+    next();
   }
 });
 
