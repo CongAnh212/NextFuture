@@ -1,0 +1,25 @@
+.iq-sidebar-fix {
+  -webkit-box-shadow: 0 0 1.25rem 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 1.25rem 0 rgba(0, 0, 0, 0.1);
+  position: fixed;
+  z-index: 1000;
+  top: 4.688rem;
+  width: 21%;
+  height: 100%;
+  background: #fff;
+  padding-bottom: 10px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  max-height: calc(100vh - 75px);
+  overflow-y: auto;
+}
+
+.iq-sidebar-fix::-webkit-scrollbar {
+  width: 8; /* Độ rộng của thanh cuộn */
+}
+
+.iq-sidebar-fix::-webkit-scrollbar-thumb {
+  background-color: #888; /* Màu của thanh cuộn */
+  border-radius: 4px; /* Độ cong góc */
+}

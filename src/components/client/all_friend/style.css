@@ -1,0 +1,19 @@
+.hello:hover {
+  background-color: rgba(119, 125, 116, 0.11);
+  border-radius: 5px;
+}
+.arrow {
+  position: relative;
+  display: inline-block;
+}
+
+.arrow:hover::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 100%;
+  background-color: rgba(119, 125, 116, 0.11);
+}

@@ -2,7 +2,7 @@
     <div class="wrapper">
         <HeaderClient></HeaderClient>
         <div class="">
-            <div class=" iq-sidebar sidebar-default">
+            <div class=" iq-sidebar-fix sidebar-default ">
                 <div id="sidebar-scrollbar" data-scrollbar="true" tabindex="-1" style="overflow: hidden; outline: none;">
                     <div class="scroll-content">
                         <nav class="iq-sidebar-menu">
@@ -24,14 +24,16 @@
                 </div>
             </div>
         </div>
-        <div class="px-0 mx-0" style="position: absolute; right: 0; width: 82vw;top: 4.25rem">
+        <div class="px-0 mx-0" style="position: absolute; right: 0; width: 78%;top: 4.25rem;">
             <router-view name="content">
             </router-view>
         </div>
     </div>
 </template>
 <script>
+
 import $ from 'jquery';
+
 // import "../../../assets/client/js/libs.min.js";
 // import "../../../assets/client/js/charts/weather-chart.js";
 // import "../../../assets/client/js/slider.js";
@@ -57,6 +59,7 @@ import "../../../../assets/client/js/enchanter.js";
 import "../../../../assets/client/js/masonry.pkgd.min.js";
 import "../../../../assets/client/js/lottie.js";
 import "../../../../assets/client/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"
+
 import HeaderClient from './HeaderClient.vue';
 export default {
     name: "app",
@@ -66,11 +69,11 @@ export default {
 }
 </script>
 <style>
+@import './style.css';
 @import "../../../../assets/client/css/libs.min.css";
 @import "../../../../assets/client/css/socialv.css";
 @import "../../../../assets/client/vendor/@fortawesome/fontawesome-free/css/all.min.css";
 @import "../../../../assets/client/vendor/remixicon/fonts/remixicon.css";
 @import "../../../../assets/client/vendor/vanillajs-datepicker/dist/css/datepicker.min.css";
 @import "../../../../assets/client/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css";
-@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css");
 </style>
