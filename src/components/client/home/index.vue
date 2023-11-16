@@ -6,11 +6,11 @@
                     <ul id="iq-sidebar-toggle" class="iq-menu">
                         <li>
                             <a href="/profile-client" class="px-0">
-                                <img src="https://i.pinimg.com/236x/93/a0/0a/93a00a3684652031a0c398c5d54d3d10.jpg"
-                                    class="img-fluid rounded-circle me-3 " alt="user"
+                                <img :src="urlImg + myData.avatar" class="img-fluid rounded-circle me-3 " alt="user"
                                     style="height: 27px; width: 27px;margin-left: 5px;">
                                 <div>
-                                    <span class="text-dark" style="font-weight: 600; font-size: 14px;">Phan Tánh</span>
+                                    <span class="text-dark" style="font-weight: 600; font-size: 14px;">{{ myData.fullname
+                                    }}</span>
                                 </div>
                             </a>
                         </li>
@@ -127,6 +127,167 @@
         </div>
 
         <div class="row mt-3">
+            <div class="col-lg-1 row m-0 p-0"></div>
+            <div class="col-lg-10 row m-0 p-0">
+                <div class="col-sm-12">
+                    <div id="post-modal-data" class="card card-block card-stretch card-height">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="user-img">
+                                    <img src="../../../assets/client/images/user/1.jpg" alt="userimg"
+                                        class="avatar-60 rounded-circle">
+                                </div>
+                                <form class="post-text ms-3 w-100 " data-bs-toggle="modal" data-bs-target="#post-modal"
+                                    action="javascript:void();">
+                                    <input type="text" class="form-control rounded" placeholder="Write something here..."
+                                        style="border:none;">
+                                </form>
+                            </div>
+                            <hr>
+                            <ul class=" post-opt-block d-flex list-inline m-0 p-0 flex-wrap">
+                                <li class="me-3 mb-md-0 mb-2">
+                                    <a href="#" class="btn btn-soft-primary">
+                                        <img src="../../../assets/client/images/small/07.png" alt="icon"
+                                            class="img-fluid me-2">
+                                        Photo/Video
+                                    </a>
+                                </li>
+                                <li class="me-3 mb-md-0 mb-2">
+                                    <a href="#" class="btn btn-soft-primary">
+                                        <img src="../../../assets/client/images/small/08.png" alt="icon"
+                                            class="img-fluid me-2"> Tag
+                                        Friend
+                                    </a>
+                                </li>
+                                <li class="me-3">
+                                    <a href="#" class="btn btn-soft-primary">
+                                        <img src="../../../assets/client/images/small/09.png" alt="icon"
+                                            class="img-fluid me-2">
+                                        Feeling/Activity
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="modal fade" id="post-modal" tabindex="-1" aria-labelledby="post-modalLabel"
+                            style="display: none;" aria-hidden="true">
+                            <div class="modal-dialog   modal-fullscreen-sm-down">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="post-modalLabel">Create Post</h5>
+                                        <button ref="btnCloseModal" type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal"><i class="ri-close-fill"></i></button>
+                                    </div>
+                                    <div class="modal-body" style="overflow: auto;">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <div class="user-img">
+                                                <img src="../../../assets/client/images/user/1.jpg" alt="userimg"
+                                                    class=" rounded-circle " style="width: 50px; height: 50px;">
+                                            </div>
+                                            <form class="post-text ms-3 w-100" action="javascript:void();">
+                                                <input v-model="post.caption" type="text" class="form-control rounded"
+                                                    placeholder="Write something here..." style="border:none;">
+
+                                            </form>
+
+                                        </div>
+                                        <input @change="getImage" id="input-b3" name="input-b3[]" type="file" class="file"
+                                            multiple data-show-upload="false" data-show-caption="true"
+                                            data-msg-placeholder="Select {files} for upload..." accept="image/*">
+                                        <!-- ****************************************************************** -->
+                                        <hr>
+                                        <ul class="d-flex flex-wrap align-items-center list-inline m-0 p-0">
+                                            <li class="col-md-6 mb-3">
+                                                <div @click='show()' style="cursor: pointer; "
+                                                    class="bg-soft-primary rounded p-2 pointer me-3"><a></a><img
+                                                        src="../../../assets/client/images/small/07.png" alt="icon"
+                                                        class="img-fluid">
+                                                    Photo/Video</div>
+                                            </li>
+                                            <li class="col-md-6 mb-3">
+                                                <div style="cursor: pointer; "
+                                                    class="bg-soft-primary rounded p-2 pointer me-3"><a></a><img
+                                                        src="../../../assets/client/images/small/08.png" alt="icon"
+                                                        class="img-fluid">
+                                                    Tag
+                                                    Friend</div>
+                                            </li>
+                                            <li class="col-md-6">
+                                                <div style="cursor: pointer; "
+                                                    class="bg-soft-primary rounded p-2 pointer me-3"><a></a><img
+                                                        src="../../../assets/client/images/small/09.png" alt="icon"
+                                                        class="img-fluid">
+                                                    Feeling/Activity</div>
+                                            </li>
+
+                                        </ul>
+                                        <hr>
+                                        <div class="other-option">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="user-img me-3">
+                                                        <img src="../../../assets/client/images/user/1.jpg" alt="userimg"
+                                                            class="rounded-circle" style="width: 50px; height: 50px">
+                                                    </div>
+                                                    <h6>Your Story</h6>
+                                                </div>
+                                                <div class="card-post-toolbar">
+                                                    <div class="dropdown">
+                                                        <span class="dropdown-toggle" data-bs-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false" role="button">
+                                                            <span class="btn btn-primary">Privacy</span>
+                                                        </span>
+                                                        <div class="dropdown-menu m-0 p-0">
+                                                            <a class="dropdown-item p-3" href="#">
+                                                                <div class="d-flex align-items-top">
+                                                                    <i class="ri-save-line h4"></i>
+                                                                    <div class="data ms-2">
+                                                                        <h6>Public</h6>
+                                                                        <p class="mb-0">Anyone on or off Facebook</p>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                            <a class="dropdown-item p-3" href="#">
+                                                                <div class="d-flex align-items-top">
+                                                                    <i class="ri-close-circle-line h4"></i>
+                                                                    <div class="data ms-2">
+                                                                        <h6>Friends</h6>
+                                                                        <p class="mb-0">Your Friend on facebook</p>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                            <a class="dropdown-item p-3" href="#">
+                                                                <div class="d-flex align-items-top">
+                                                                    <i class="ri-user-unfollow-line h4"></i>
+                                                                    <div class="data ms-2">
+                                                                        <h6>Friends except</h6>
+                                                                        <p class="mb-0">Don't show to some friends</p>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                            <a class="dropdown-item p-3" href="#">
+                                                                <div class="d-flex align-items-top">
+                                                                    <i class="ri-notification-line h4"></i>
+                                                                    <div class="data ms-2">
+                                                                        <h6>Only Me</h6>
+                                                                        <p class="mb-0">Only me</p>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button @click="posting()" class="btn btn-primary d-block w-100 mt-3">Post</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-1 row m-0 p-0"></div>
+
             <div class="col-lg-1 row m-0 p-0"></div>
             <div class="col-lg-10 row m-0 p-0">
                 <div class="col-sm-12">
@@ -330,8 +491,6 @@
                                         </div>
                                     </li>
                                 </ul>
-
-
                                 <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">
                                     <input type="text" class="form-control rounded" placeholder="Enter Your Comment">
                                     <div class="comment-attagement d-flex">
@@ -479,22 +638,31 @@
     </div>
 </template>
 <script>
-import $ from 'jquery';
 import coreFunction from '../../../core/coreFunction';
 import axios, { url } from '../../../core/coreRequest'
+
 export default {
     data() {
         return {
             myData: {},
             stories: [],
-            urlImg: '',
+            urlImg: url,
+            post: {
+                images: []
+            },
         };
     },
     mounted() {
-        console.log(window.localStorage.getItem('token'));
+        $("#input-b3").fileinput();
+        $("#input-b3").fileinput({ 'showUpload': false, 'previewFileType': 'any' });
+        console.log(window.localStorage.getItem('token')); //check token
         this.getInfo();
         this.dataStory();
-        this.urlImg = url;
+        $('.file-input').addClass('hide-important');
+        $('.close').addClass('btn btn-secondary');
+        $('.fileinput-remove').on('click', function () {
+            $('.file-input').addClass('hide-important');
+        });
     },
     methods: {
         toggleShow(a) {
@@ -522,11 +690,51 @@ export default {
                 .then((res) => {
                     this.stories = res.data.dataStory.data;
                 });
+        },
+        show() {
+            if ($('.file-input').hasClass('hide-important')) {
+                $('.file-input').removeClass('hide-important');
+            } else {
+                $('.file-input').addClass('hide-important');
+            }
+        },
+        getImage(event) {
+            const files = event.target.files;
+            for (let i = 0; i < files.length; i++) {
+                this.post.images.push(files[i]);
+            }
+        },
+        posting() {
+            const formData = new FormData();
+            this.post.images.forEach((file, index) => {
+                formData.append('images[]', file);
+            });
+            Object.entries(this.post).forEach(([key, value]) => {
+                formData.append(key, value);
+            });
+            axios
+                .post('post/create', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                })
+                .then((res) => {
+                    console.log(res.data);
+                    this.post = {
+                        images: []
+                    };
+                    this.$refs.btnCloseModal.click();
+                    $('.fileinput-remove-button').click();
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         }
 
     },
 }
 </script>
 <style>
-@import './style.css'
+@import './style.css';
+@import './bs-input.css';
 </style>
