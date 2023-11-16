@@ -25,92 +25,41 @@
                     <ul class="navbar-nav  ms-auto navbar-list">
                         <li class="nav-item dropdown">
                             <a href="#" class="dropdown-toggle" id="group-drop" data-bs-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false"><i class="ri-group-line"></i></a>
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="ri-group-line"></i>
+                            </a>
                             <div class="sub-drop sub-drop-large dropdown-menu" aria-labelledby="group-drop">
                                 <div class="card shadow-none m-0">
                                     <div class="card-header d-flex justify-content-between bg-primary">
                                         <div class="header-title">
                                             <h5 class="mb-0 text-white">Friend Request</h5>
                                         </div>
-                                        <small class="badge  bg-light text-dark ">4</small>
+                                        <small class="badge  bg-light text-dark ">
+                                            {{ Object.keys(request_friend).length }}
+                                        </small>
                                     </div>
                                     <div class="card-body p-0">
-                                        <div class="iq-friend-request">
-                                            <div
-                                                class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
-                                                <div class="d-flex align-items-center">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../../assets/client/images/user/01.jpg" alt="">
-                                                    <div class="ms-3">
-                                                        <h6 class="mb-0 ">Jaques Amole</h6>
-                                                        <p class="mb-0">40 friends</p>
+                                        <template v-for="(v, k) in request_friend">
+                                            <div class="iq-friend-request">
+                                                <div
+                                                    class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
+                                                    <div class="d-flex align-items-center">
+                                                        <img class="avatar-40 rounded" :src="urlImg + v.avatar" alt="">
+                                                        <div class="ms-3">
+                                                            <h6 class="mb-0 ">{{ v.fullname }}</h6>
+                                                            <p class="mb-0">1 mutual</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex align-items-center">
+                                                        <a href="javascript:void();" class="me-3 btn btn-primary rounded"
+                                                            style="width: 60%;" @click="confirm(v)">Confirm</a>
+                                                        <a href="javascript:void();" class="me-3 btn btn-secondary rounded"
+                                                            style="width: 60%;">Delete</a>
                                                     </div>
                                                 </div>
-                                                <div class="d-flex align-items-center">
-                                                    <a href="javascript:void();"
-                                                        class="me-3 btn btn-primary rounded">Confirm</a>
-                                                    <a href="javascript:void();"
-                                                        class="me-3 btn btn-secondary rounded">Delete Request</a>
-                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="iq-friend-request">
-                                            <div
-                                                class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
-                                                <div class="d-flex align-items-center">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../../assets/client/images/user/02.jpg" alt="">
-                                                    <div class="ms-3">
-                                                        <h6 class="mb-0 ">Lucy Tania</h6>
-                                                        <p class="mb-0">12 friends</p>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center">
-                                                    <a href="javascript:void();"
-                                                        class="me-3 btn btn-primary rounded">Confirm</a>
-                                                    <a href="javascript:void();"
-                                                        class="me-3 btn btn-secondary rounded">Delete Request</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="iq-friend-request">
-                                            <div
-                                                class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
-                                                <div class="d-flex align-items-center">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../../assets/client/images/user/03.jpg" alt="">
-                                                    <div class=" ms-3">
-                                                        <h6 class="mb-0 ">Manny Petty</h6>
-                                                        <p class="mb-0">3 friends</p>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center">
-                                                    <a href="javascript:void();"
-                                                        class="me-3 btn btn-primary rounded">Confirm</a>
-                                                    <a href="javascript:void();"
-                                                        class="me-3 btn btn-secondary rounded">Delete Request</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="iq-friend-request">
-                                            <div
-                                                class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
-                                                <div class="d-flex align-items-center">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../../assets/client/images/user/04.jpg" alt="">
-                                                    <div class="ms-3">
-                                                        <h6 class="mb-0 ">Marsha Mello</h6>
-                                                        <p class="mb-0">15 friends</p>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center">
-                                                    <a href="javascript:void();"
-                                                        class="me-3 btn btn-primary rounded">Confirm</a>
-                                                    <a href="javascript:void();"
-                                                        class="me-3 btn btn-secondary rounded">Delete Request</a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </template>
+
                                         <div class="text-center">
                                             <a href="#" class=" btn text-primary">View More Request</a>
                                         </div>
@@ -147,51 +96,6 @@
                                                 </div>
                                             </div>
                                         </a>
-                                        <a href="#" class="iq-sub-card">
-                                            <div class="d-flex align-items-center">
-                                                <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../../assets/client/images/user/02.jpg" alt="">
-                                                </div>
-                                                <div class="ms-3 w-100">
-                                                    <h6 class="mb-0 ">New customer is join</h6>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <p class="mb-0">Cyst Bni</p>
-                                                        <small class="float-right font-size-12">5 days ago</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="iq-sub-card">
-                                            <div class="d-flex align-items-center">
-                                                <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../../assets/client/images/user/03.jpg" alt="">
-                                                </div>
-                                                <div class="ms-3 w-100">
-                                                    <h6 class="mb-0 ">Two customer is left</h6>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <p class="mb-0">Cyst Bni</p>
-                                                        <small class="float-right font-size-12">2 days ago</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="iq-sub-card">
-                                            <div class="d-flex align-items-center">
-                                                <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../../assets/client/images/user/04.jpg" alt="">
-                                                </div>
-                                                <div class="w-100 ms-3">
-                                                    <h6 class="mb-0 ">New Mail from Fenny</h6>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <p class="mb-0">Cyst Bni</p>
-                                                        <small class="float-right font-size-12">3 days ago</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -222,54 +126,6 @@
                                                 </div>
                                             </div>
                                         </a>
-                                        <a href="#" class="iq-sub-card">
-                                            <div class="d-flex align-items-center">
-                                                <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../../assets/client/images/user/02.jpg" alt="">
-                                                </div>
-                                                <div class="ms-3">
-                                                    <h6 class="mb-0 ">Lorem Ipsum Watson</h6>
-                                                    <small class="float-left font-size-12">20 Apr</small>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="iq-sub-card">
-                                            <div class="d-flex align-items-center">
-                                                <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../../assets/client/images/user/03.jpg" alt="">
-                                                </div>
-                                                <div class="ms-3">
-                                                    <h6 class="mb-0 ">Why do we use it?</h6>
-                                                    <small class="float-left font-size-12">30 Jun</small>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="iq-sub-card">
-                                            <div class="d-flex align-items-center">
-                                                <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../../assets/client/images/user/04.jpg" alt="">
-                                                </div>
-                                                <div class="ms-3">
-                                                    <h6 class="mb-0 ">Variations Passages</h6>
-                                                    <small class="float-left font-size-12">12 Sep</small>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="iq-sub-card">
-                                            <div class="d-flex align-items-center">
-                                                <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../../assets/client/images/user/05.jpg" alt="">
-                                                </div>
-                                                <div class="ms-3">
-                                                    <h6 class="mb-0 ">Lorem Ipsum generators</h6>
-                                                    <small class="float-left font-size-12">5 Dec</small>
-                                                </div>
-                                            </div>
-                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -277,17 +133,16 @@
                         <li class="nav-item dropdown">
                             <a href="#" class="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="../../../../assets/client/images/user/1.jpg" class="img-fluid rounded-circle me-3"
-                                    alt="user">
+                                <img :src="urlImg + myData.avatar" class="img-fluid rounded-circle me-3" alt="user">
                                 <div class="caption">
-                                    <h6 class="mb-0 line-height">Bni Cyst</h6>
+                                    <h6 class="mb-0 line-height">{{ myData.fullname }}</h6>
                                 </div>
                             </a>
                             <div class="sub-drop dropdown-menu caption-menu" aria-labelledby="drop-down-arrow">
                                 <div class="card shadow-none m-0">
                                     <div class="card-header  bg-primary">
                                         <div class="header-title">
-                                            <h5 class="mb-0 text-white">Hello Bni Cyst</h5>
+                                            <h5 class="mb-0 text-white">Hello, {{ myData.fullname }}</h5>
                                             <span class="text-white font-size-12">Available</span>
                                         </div>
                                     </div>
@@ -352,32 +207,25 @@
                 </div>
             </nav>
         </div>
-        <p style="margin-left: 1000px;" v-if="connected">Socket is connected!</p>
-        <p style="margin-left: 1000px;" v-else>Socket is not connected!</p>
 
-        <button @click="sendMessage" style="margin-left: 1000px;">Send Message</button>
     </div>
 </template>
 <script>
-import { state, socket } from "../../../../socket";
 
+import axios, { url } from '../../../../core/coreRequest';
 export default {
-    name: "ConnectionState",
-
-    computed: {
-        connected() {
-            return state.connected;
+    data() {
+        return {
+            myData: {},
+            urlImg: url,
+            request_friend: [],
         }
     },
+    mounted() {
+        this.getRequestFriend();
+        this.getInfo();
+    },
     methods: {
-        sendMessage() {
-            if (state.connected) {
-                // Gửi sự kiện "message" đến server khi người dùng nhấn nút
-                socket.emit("message", "Hello, server!");
-            } else {
-                console.log("Socket is not connected!");
-            }
-        },
         signOut() {
             axios
                 .get('sign-out')
@@ -388,9 +236,43 @@ export default {
                 .catch((error) => {
                     console.error('Đăng xuất không thành công:', error);
                 });
-        }
-    }
+        },
+ 
+        getInfo() {
+            axios
+                .get('profile/data')
+                .then((res) => {
+                    this.myData = res.data.myData;
+                });
+        },
+        getRequestFriend() {
+            axios
+                .get('follower/request-friend')
+                .then((res) => {
+                    if (res.data.status == 1) {
+                        this.request_friend = res.data.data;
+                    } else {
 
+                    }
+                });
+        },
+        confirm(v) {
+            axios
+                .post('follower/accept-friend', v)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.getRequestFriend();
+                    } else {
+
+                    }
+                })
+                .catch((res) => {
+                    $.each(res.response.data.errors, function (k, v) {
+                        toastr.error(v[0], 'Error');
+                    });
+                });
+        }
+    },
 }
 </script>
 <style></style>

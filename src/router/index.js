@@ -22,12 +22,6 @@ const routes = [
     name: "profile-client",
     component: () => import("../components/client/profile/index.vue"),
   },
-  {
-    path: "/create-story",
-    name: "story",
-    meta: { layout: "story" },
-    component: () => import("../components/client/create-story/index.vue"),
-  },
 
   {
     path: "/friends",
@@ -38,13 +32,47 @@ const routes = [
       content: () => import("../components/client/friend/content.vue"),
     },
   },
+
+  {
+    path: "/friends/suggestions",
+    name: "suggestions",
+    meta: { layout: "main" },
+    components: {
+      default: () => import("../components/client/suggestion/list.vue"),
+      content: () => import("../components/client/suggestion/content.vue"),
+    },
+  },
+  {
+    path: "/friends/requests",
+    name: "requests",
+    meta: { layout: "main" },
+    components: {
+      default: () => import("../components/client/request_friend/list.vue"),
+      content: () => import("../components/client/request_friend/content.vue"),
+    },
+  },
+  {
+    path: "/friends/list",
+    name: "list",
+    meta: { layout: "main" },
+    components: {
+      default: () => import("../components/client/all_friend/list.vue"),
+      content: () => import("../components/client/all_friend/content.vue"),
+    },
+  },
+  {
+    path: "/create-story",
+    name: "story",
+    meta: { layout: "story" },
+    component: () => import("../components/client/create-story/index.vue"),
+  },
   {
     path: "/stories",
     name: "view-story",
     meta: { layout: "share" },
     components: {
-      default: () => import('../components/client/story/list_user.vue'),
-      content: () => import('../components/client/story/content.vue'),
+      default: () => import("../components/client/story/list_user.vue"),
+      content: () => import("../components/client/story/content.vue"),
     },
     props: {
       default: true,
@@ -52,19 +80,19 @@ const routes = [
     },
     children: [
       {
-        path: ':idStory',
+        path: ":idStory",
         name: "detailStory",
         props: true,
         components: {
-          default: () => import('../components/client/story/list_user.vue'),
-          content: () => import('../components/client/story/content.vue'),
+          default: () => import("../components/client/story/list_user.vue"),
+          content: () => import("../components/client/story/content.vue"),
         },
         props: {
           default: true,
           content: true,
         },
       },
-    ]
+    ],
   },
   {
     path: "/test",

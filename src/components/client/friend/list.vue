@@ -10,22 +10,23 @@
 
     </li>
     <li>
-        <a href="../app/group.html" class=" ">
-            <i class="fa-solid fa-user-check" style="font-size: 17px;"></i>
+        <router-link :to="{ name: 'requests' }">
+            <i class=" fa-solid fa-user-check" style="font-size: 17px;"></i>
             <span>Friend request</span>
-        </a>
+        </router-link>
+
     </li>
     <li>
-        <a href="../app/group.html" class=" ">
+        <router-link :to="{ name: 'suggestions' }">
             <i class="fa-solid fa-user-plus" style="font-size: 17px;"></i>
             <span>Suggest</span>
-        </a>
+        </router-link>
     </li>
     <li class=" ">
-        <a href="../app/todo.html" class=" ">
+        <router-link :to="{ name: 'list' }">
             <i class="fa-solid fa-users-gear" style="font-size: 17px;"></i>
-            <span>All Friends</span>
-        </a>
+            <span>All friends</span>
+        </router-link>
     </li>
 </template>
 <script>

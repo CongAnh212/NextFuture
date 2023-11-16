@@ -1,25 +1,31 @@
 <template>
     <div class=" mt-3 mb-1 d-flex justify-content-between">
         <h3 class="">Friend request</h3>
-        <button type="button" class="me-3 btn seeall text-primary"><b>See all</b></button>
+        <router-link :to="{ name: 'requests' }">
+            <button type="button" class="me-3 btn seeall text-primary">
+                <b>See all</b>
+            </button>
+        </router-link>
     </div>
     <div class="row mx-0 ">
         <div class="d-flex" style="gap: 7px; flex-wrap: wrap;">
-            <template v-for="(v, k) in list_friend">
+            <template v-for="(v, k) in request_friend">
                 <div class="card mb-3" style="border-radius: 8px !important; width: 19%;">
                     <div style="width: 100%; height: 236px; overflow: hidden;">
                         <img :src="urlImage + v.avatar" class="card-img-top" alt="#" style="object-fit: cover;">
                     </div>
-                    <div class="card-body" style="padding: 0.5rem 1.25rem">
-                        <b>{{ v.fullname }}</b>
+                    <div class="card-body " style="padding: 0.5rem 1.25rem;">
+                        <div class="w-100" style="overflow: hidden;">
+                            <b class="text-nowrap">{{ v.fullname }}</b>
+                        </div>
                         <div class="mb-1">
                             <span>1 mutual</span>
                         </div>
                         <div class="mt-1">
-                            <button class="btn btn-primary w-100">Accept</button>
+                            <button class="btn btn-primary w-100" @click="confirm(v)">Confirm</button>
                         </div>
                         <div class="mt-1">
-                            <button class="btn btn-secondary w-100">Delete</button>
+                            <button class="btn btn-secondary w-100" @click="delRequest(v)">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -39,28 +45,45 @@
         <h3>
             People you may know
         </h3>
-        <button type="button" class="me-3 btn seeall text-primary"><b>See all</b></button>
+        <router-link :to="{ name: 'suggestions' }">
+            <button type="button" class="me-3 btn seeall text-primary">
+                <b>See all</b>
+            </button>
+        </router-link>
     </div>
     <div class="row mx-0 ">
         <div class="d-flex" style="gap: 7px; flex-wrap: wrap;">
-            <div class="card mb-3" style="border-radius: 8px !important; width: 19%;">
-                <div style="width: 100%; height: 236px; overflow: hidden;">
-                    <img src="https://scontent.fdad3-6.fna.fbcdn.net/v/t39.30808-6/302423403_608870667293564_7904892244959408177_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=5f2048&_nc_ohc=Yn5IEYPr6UUAX8-hA4v&_nc_ht=scontent.fdad3-6.fna&oh=00_AfCq3Z8BkaGRw4uB999iH-kFDnjxxGdM0rvtaNLw-59Lyg&oe=65525FA6"
-                        class="card-img-top" alt="#" style="object-fit: cover;">
+            <template v-for="(v, k) in list_friend">
+                <div class="card mb-3" style="border-radius: 8px !important; width: 19%;">
+                    <div style="width: 100%; height: 236px; overflow: hidden;">
+                        <img :src="urlImage + v.avatar" class="card-img-top" alt="#" style="object-fit: cover;">
+                    </div>
+                    <div class="card-body" style="padding: 0.5rem 1.25rem; ">
+                        <div class="w-100" style="overflow: hidden;">
+                            <b class="text-nowrap">{{ v.fullname }}</b>
+                        </div>
+                        <div class="mb-1">
+                            <span>1 mutual</span>
+                        </div>
+                        <template v-if="v.friendStatus == false">
+                            <div class="mt-1">
+                                <button class="btn btn-primary w-100" @click="addFriend(v, k)">Add friend</button>
+                            </div>
+                            <div class="mt-1">
+                                <button class="btn btn-secondary w-100" @click="delSuggest(k)">Delete</button>
+                            </div>
+                        </template>
+                        <template v-else>
+                            <div class="mt-1">
+                                <button class="btn" style="background-color: transparent; color: transparent;">1</button>
+                            </div>
+                            <div class="mt-1">
+                                <button class="btn btn-secondary w-100" @click="unRequest(v, k)">Cancel</button>
+                            </div>
+                        </template>
+                    </div>
                 </div>
-                <div class="card-body" style="padding: 0.5rem 1.25rem">
-                    <b>Phan Tánh</b>
-                    <div class="mb-1">
-                        <span>1 mutual</span>
-                    </div>
-                    <div class="mt-1">
-                        <button class="btn btn-primary w-100">Add friends</button>
-                    </div>
-                    <div class="mt-1">
-                        <button class="btn btn-secondary w-100">Delete</button>
-                    </div>
-                </div>
-            </div>
+            </template>
         </div>
     </div>
 </template>
@@ -70,19 +93,77 @@ export default {
     data() {
         return {
             list_friend: [],
+            request_friend: [],
             urlImage: url,
         }
     },
     mounted() {
         this.getFull();
+        this.getRequestFriend();
     },
     methods: {
         getFull() {
+            axios.get('dataFull').then((res) => {
+                // Khởi tạo friendStatus cho mỗi người bạn là 'notAdded'
+                this.list_friend = res.data.data.map((friend) => ({
+                    ...friend,
+                    friendStatus: false,
+                }));
+            });
+        },
+        getRequestFriend() {
             axios
-                .get('dataFull')
+                .get('follower/request-friend')
                 .then((res) => {
-                    this.list_friend = res.data.data;
+                    if (res.data.status == 1) {
+                        this.request_friend = res.data.data;
+                    } else {
+
+                    }
                 });
+        },
+        addFriend(v, k) {
+            this.list_friend[k].friendStatus = true
+            axios
+                .post('follower/add-friend', v)
+                .then((res) => {
+                    if (res.data.status) {
+                    }
+                })
+        },
+        unRequest(v, k) {
+            this.list_friend[k].friendStatus = false
+            axios
+                .post('follower/cancel-friend', v)
+                .then((res) => {
+                    if (res.data.status) {
+                    }
+                })
+        },
+        confirm(v) {
+            axios
+                .post('follower/accept-friend', v)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.getRequestFriend();
+                    } else {
+
+                    }
+                })
+        },
+        delRequest(v) {
+            axios
+                .post('follower/delete-friend', v)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.getRequestFriend();
+                    } else {
+
+                    }
+                });
+        },
+        delSuggest(k) {
+            this.list_friend.splice(k, 1);
         }
     },
 }
