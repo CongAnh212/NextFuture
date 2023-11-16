@@ -83,3 +83,6 @@
     position: absolute;
     bottom: 27px;
 }
+.hide-important {
+    display: none !important;
+}

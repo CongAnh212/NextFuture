@@ -340,7 +340,7 @@
                                             </div>
                                         </a>
                                         <div class="d-inline-block w-100 text-center p-3">
-                                            <a class="btn btn-primary iq-sign-btn" href="../dashboard/sign-in.html"
+                                            <a @click="signOut()" class="btn btn-primary iq-sign-btn" 
                                                 role="button">Sign
                                                 out<i class="ri-login-box-line ms-2"></i></a>
                                         </div>
@@ -377,6 +377,17 @@ export default {
             } else {
                 console.log("Socket is not connected!");
             }
+        },
+        signOut() {
+            axios
+                .get('sign-out')
+                .then((res) => {
+                    localStorage.removeItem('token');
+                    this.$router.push({ name: "sign-in" });
+                })
+                .catch((error) => {
+                    console.error('Đăng xuất không thành công:', error);
+                });
         }
     }
 

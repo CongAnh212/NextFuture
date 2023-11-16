@@ -13,18 +13,15 @@ import $ from 'jquery';
 // import "../../../assets/client/js/slider.js";
 import 'bootstrap';
 
+import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js";
 // import 'bootstrap-fileinput';
-// import 'bootstrap-fileinput/css/fileinput.css';
-// import "https://code.jquery.com/jquery-3.6.0.min.js";
-// import "https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/buffer.min.js";
-// import "https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/filetype.min.js";
-// import "https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/piexif.min.js";
-// import "https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/sortable.min.js";
-// import "https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js";
-// import "https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/fileinput.min.js";
-// import "https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/locales/LANG.js";
-
-
+import "https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/buffer.min.js";
+import "https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/filetype.min.js";
+import "https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/piexif.min.js";
+import "https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/sortable.min.js";
+// import "https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"; //đcmm
+import "https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/fileinput.min.js";
+import "https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/locales/LANG.js";
 
 import "../../../../assets/client/js/sweetalert.js";
 import "../../../../assets/client/js/app.js";
@@ -32,7 +29,8 @@ import "../../../../assets/client/images/favicon.ico";
 import "../../../../assets/client/js/enchanter.js";
 import "../../../../assets/client/js/masonry.pkgd.min.js";
 import "../../../../assets/client/js/lottie.js";
-import "../../../../assets/client/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"
+import "../../../../assets/client/vendor/vanillajs-datepicker/dist/js/datepicker.min.js";
+
 import HeaderClient from './HeaderClient.vue';
 export default {
     name: "app",
@@ -42,6 +40,11 @@ export default {
 }
 </script>
 <style>
+/* @import 'bootstrap-fileinput/css/fileinput.css'; */
+@import 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css';
+@import 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css';
+@import 'https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/css/fileinput.min.css';
+
 @import "../../../../assets/client/css/libs.min.css";
 @import "../../../../assets/client/css/socialv.css";
 @import "../../../../assets/client/vendor/@fortawesome/fontawesome-free/css/all.min.css";

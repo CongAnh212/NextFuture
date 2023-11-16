@@ -66,6 +66,13 @@ const routes = [
       },
     ]
   },
+  {
+    path: "/test",
+    meta: { layout: "story" },
+    components: {
+      default: () => import("../components/client/create-story/test.vue"),
+    },
+  },
 ];
 
 const router = createRouter({
