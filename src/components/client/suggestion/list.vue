@@ -14,7 +14,7 @@
         People you may know
     </div>
     <div class="mt-2" v-for="(v, k) in list_friend">
-        <router-link :to="{ name: 'friends' }">
+        <router-link :to="{ name: 'detailProfile', params: { username: v.username } }">
             <div class="hello d-flex p-2 w-100 h-100" style="overflow: hidden;">
                 <div class="d-flex ">
                     <img :src="urlImage + v.avatar" class="img-fluid rounded-circle me-2" alt="user"

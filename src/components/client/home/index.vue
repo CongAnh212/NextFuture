@@ -85,9 +85,9 @@
 
                         </div>
                         <div class="img-background" style="height: 80%; width: 100%; background-color: red;">
-                            <img v-if="!myData.avatar" class="img-fluid"
+                            <img v-if="!myInfo.avatar" class="img-fluid"
                                 src="https://i.pinimg.com/236x/93/a0/0a/93a00a3684652031a0c398c5d54d3d10.jpg" alt="">
-                            <img v-else class="img-fluid" :src="urlImg + myData.avatar" alt="">
+                            <img v-else class="img-fluid" :src="urlImg + myInfo.avatar" alt="">
                         </div>
                         <div
                             style="position: absolute; bottom: 0; height: 20%; width: 100%; background-color: #fff; display: flex; justify-content: center;">
@@ -644,7 +644,7 @@ import axios, { url } from '../../../core/coreRequest'
 export default {
     data() {
         return {
-            myData: {},
+            myInfo: {},
             stories: [],
             urlImg: url,
             post: {
@@ -681,7 +681,7 @@ export default {
             axios
                 .get('profile/data')
                 .then((res) => {
-                    this.myData = res.data.myData;
+                    this.myInfo = res.data.myInfo;
                 });
         },
         dataStory() {

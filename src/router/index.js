@@ -17,11 +17,6 @@ const routes = [
     name: "homepage",
     component: () => import("../components/client/home/index.vue"),
   },
-  {
-    path: "/profile-client",
-    name: "profile-client",
-    component: () => import("../components/client/profile/index.vue"),
-  },
 
   {
     path: "/friends",
@@ -39,9 +34,30 @@ const routes = [
     meta: { layout: "main" },
     components: {
       default: () => import("../components/client/suggestion/list.vue"),
-      content: () => import("../components/client/suggestion/content.vue"),
+      content: () => import("../components/client/profile/index.vue"),
     },
   },
+  {
+    path: "/profile-client",
+    name: "profile-client",
+    component: () => import("../components/client/profile/index.vue"),
+  },
+
+  {
+    path: "/:username",
+    name: "detailProfile",
+    component: () => import("../components/client/profile/index.vue"),
+  },
+  {
+    path: "/:username",
+    name: "detailProfile.default",
+    components: {
+      default: () => import("../components/client/all_friend/list.vue"),
+      content: () => import("../components/client/profile/index.vue"),
+    },
+    meta: { layout: "main" },
+  },
+  
   {
     path: "/friends/requests",
     name: "requests",
@@ -57,7 +73,7 @@ const routes = [
     meta: { layout: "main" },
     components: {
       default: () => import("../components/client/all_friend/list.vue"),
-      content: () => import("../components/client/all_friend/content.vue"),
+      content: () => import("../components/client/profile/index.vue"),
     },
   },
   {
