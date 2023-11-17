@@ -21,7 +21,7 @@
     <hr style="margin-top: 15px; margin-bottom: 4px;">
     <span>{{ Object.keys(all_friend).length }} friends</span>
     <div class="mt-2" v-for="(v, k) in all_friend">
-        <router-link :to="{ name: 'friends' }">
+        <router-link :to="{ name: 'detailProfile.default', params: { username: v.username } }">
             <div class="hello d-flex p-2 w-100 h-100" style="overflow: hidden;">
                 <div class="d-flex  ">
                     <img :src="urlImage + v.avatar" class="img-fluid rounded-circle me-2" alt="user"

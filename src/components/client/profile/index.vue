@@ -1,5 +1,6 @@
 <template>
     <div class='container'>
+
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
@@ -15,13 +16,14 @@
                             </div>
                             <div class="user-detail text-center mb-3">
                                 <div class="profile-img">
-                                    <img v-if="!myData.avatar"
+                                    <img v-if="!info.avatar"
                                         src="https://i.pinimg.com/236x/93/a0/0a/93a00a3684652031a0c398c5d54d3d10.jpg"
                                         alt="profile-img" class="avatar-130 img-fluid">
-                                    <img v-else :src="urlImg + myData.avatar" alt="profile-img" style='width: 130px; height: 130px; object-fit:cover' class="avatar-130 img-fluid">
+                                    <img v-else :src="urlImg + info.avatar" alt="profile-img"
+                                        style='width: 130px; height: 130px; object-fit:cover' class="avatar-130 img-fluid">
                                 </div>
                                 <div class="profile-detail">
-                                    <h3 class="">{{ myData.fullname }}</h3>
+                                    <h3 class="">{{ info.fullname }}</h3>
                                 </div>
                             </div>
                             <div
@@ -31,27 +33,33 @@
                                         class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
                                         <li class="text-center pe-3">
                                             <a href="#"><img src="../../../assets/client/images/icon/08.png"
-                                                    class="img-fluid rounded" alt="facebook"></a>
+                                                    class="img-fluid rounded" alt="facebook"
+                                                    style="width:32px; height:32px">
+                                            </a>
                                         </li>
-                                        <li class="text-center pe-3">
-                                            <a href="#"><img src="../../../assets/client/images/icon/09.png"
-                                                    class="img-fluid rounded" alt="Twitter"></a>
-                                        </li>
+
                                         <li class="text-center pe-3">
                                             <a href="#"><img src="../../../assets/client/images/icon/10.png"
-                                                    class="img-fluid rounded" alt="Instagram"></a>
+                                                    class="img-fluid rounded" alt="Instagram"
+                                                    style="width:32px; height:32px">
+                                            </a>
                                         </li>
                                         <li class="text-center pe-3">
                                             <a href="#"><img src="../../../assets/client/images/icon/11.png"
-                                                    class="img-fluid rounded" alt="Google plus"></a>
+                                                    class="img-fluid rounded" alt="Google plus"
+                                                    style="width:32px; height:32px">
+                                            </a>
                                         </li>
-                                        <li class="text-center pe-3">
-                                            <a href="#"><img src="../../../assets/client/images/icon/12.png"
-                                                    class="img-fluid rounded" alt="You tube"></a>
+                                        <li class="text-center pe-3 ">
+                                            <a href="#"><img src="../../../assets/client/images/icon/13.png"
+                                                    class="img-fluid rounded" alt="tiktok" style="width:32px; height:32px">
+                                            </a>
                                         </li>
                                         <li class="text-center md-pe-3 pe-0">
-                                            <a href="#"><img src="../../../assets/client/images/icon/13.png"
-                                                    class="img-fluid rounded" alt="linkedin"></a>
+                                            <a href="#">
+                                                <img src="../../../assets/client/images/icon/12.png"
+                                                    class="img-fluid rounded" alt="Youtube" style="width:32px; height:32px">
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -67,7 +75,7 @@
                                             <p class="mb-0">206</p>
                                         </li>
                                         <li class="text-center ps-3">
-                                            <h6>Following</h6>
+                                            <h6>Friends</h6>
                                             <p class="mb-0">100</p>
                                         </li>
                                     </ul>
@@ -112,7 +120,7 @@
                                         <div class="card-body">
                                             <a href="#"><span
                                                     class="badge badge-pill bg-primary font-weight-normal ms-auto me-1"><i
-                                                        class="ri-star-line"></i></span> 27 Items for yoou</a>
+                                                        class="ri-star-line"></i></span> 27 Items for you</a>
                                         </div>
                                     </div>
                                     <div class="card">
@@ -2748,23 +2756,34 @@ import axios, { url } from '../../../core/coreRequest'
 export default {
     data() {
         return {
-            myData: {},
-            urlImg: url
+            info: {},
+            urlImg: url,
+            username: null,
         }
     },
     mounted() {
+        this.username = this.$route.params.username;
         this.getInfo();
+    },
+    watch: {
+        '$route.params.username'(username) {
+            this.username = username;
+            this.getInfo();
+            // console.log(this.username);
+        }
     },
     methods: {
         getInfo() {
             axios
-                .get('profile/data')
+                .get(this.username + '/data-info')
                 .then((res) => {
-                    this.myData = res.data.myData;
-                    console.log(this.myData);
+                    this.info = res.data.info
+                    // console.log(this.info)
                 });
-        }
+        },
+
     },
 }
+
 </script>
 <style></style>

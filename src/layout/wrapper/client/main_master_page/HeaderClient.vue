@@ -133,22 +133,22 @@
                         <li class="nav-item dropdown">
                             <a href="#" class="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img :src="urlImg + myData.avatar" class="img-fluid rounded-circle me-3" alt="user">
+                                <img :src="urlImg + myInfo.avatar" class="img-fluid rounded-circle me-3" alt="user">
                                 <div class="caption">
-                                    <h6 class="mb-0 line-height">{{ myData.fullname }}</h6>
+                                    <h6 class="mb-0 line-height">{{ myInfo.fullname }}</h6>
                                 </div>
                             </a>
                             <div class="sub-drop dropdown-menu caption-menu" aria-labelledby="drop-down-arrow">
                                 <div class="card shadow-none m-0">
                                     <div class="card-header  bg-primary">
                                         <div class="header-title">
-                                            <h5 class="mb-0 text-white">Hello, {{ myData.fullname }}</h5>
+                                            <h5 class="mb-0 text-white">Hello, {{ myInfo.fullname }}</h5>
                                             <span class="text-white font-size-12">Available</span>
                                         </div>
                                     </div>
                                     <div class="card-body p-0 ">
                                         <div class="iq-sub-card iq-bg-primary-hover">
-                                            <router-link :to="{ name: 'profile-client' }">
+                                            <router-link to="/" @click="myProfile()">
                                                 <div class="d-flex align-items-center">
                                                     <div class="rounded card-icon bg-soft-primary">
                                                         <i class="ri-file-user-line"></i>
@@ -216,7 +216,7 @@ import axios, { url } from '../../../../core/coreRequest';
 export default {
     data() {
         return {
-            myData: {},
+            myInfo: {},
             urlImg: url,
             request_friend: [],
         }
@@ -230,8 +230,12 @@ export default {
             axios
                 .get('profile/data')
                 .then((res) => {
-                    this.myData = res.data.myData;
+                    this.myInfo = res.data.myInfo;
+                    // console.log(this.myInfo);
                 });
+        },
+        myProfile() {
+            this.$router.push({ name: 'detailProfile', params: { username: this.myInfo.username } });
         },
         getRequestFriend() {
             axios
