@@ -1,0 +1,66 @@
+.alignDivImg {
+    position: relative;
+}
+
+.alignDiv {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.alignDot {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 10px;
+    z-index: 2;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.dotSlide {
+    position: relative;
+    z-index: 3;
+    background-color: #ffffff9b;
+    width: 5px;
+    height: 5px;
+    bottom: 10px;
+    border-radius: 100%;
+    margin-right: 5px;
+}
+
+.left {
+    position: absolute;
+    height: 100%;
+    width: 10%;
+    left: 0px;
+}
+.prev{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 100%;
+    background-color: #6d6d6d;
+    cursor: pointer;
+}
+.right {
+    position: absolute;
+    height: 100%;
+    width: 10%;
+    right: 0px;
+}
+.next{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 100%;
+    background-color: #6d6d6d;
+    cursor: pointer;
+}
+
+.dotActive{
+    background-color: #fff;
+}

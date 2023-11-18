@@ -234,7 +234,7 @@ export default {
                     this.$router.push({ name: "sign-in" });
                 })
                 .catch((error) => {
-                    console.error('Đăng xuất không thành công:', error);
+                    console.error('Logout failed:', error);
                 });
         },
  
