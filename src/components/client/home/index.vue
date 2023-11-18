@@ -134,8 +134,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="user-img">
-                                    <img src="../../../assets/client/images/user/1.jpg" alt="userimg"
-                                        class="avatar-60 rounded-circle">
+                                    <img :src="urlImg + myData.avatar" alt="userimg" class="avatar-60 rounded-circle">
                                 </div>
                                 <form class="post-text ms-3 w-100 " data-bs-toggle="modal" data-bs-target="#post-modal"
                                     action="javascript:void();">
@@ -232,12 +231,15 @@
                                                 </div>
                                                 <div class="card-post-toolbar">
                                                     <div class="dropdown">
-                                                        <span class="dropdown-toggle" data-bs-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false" role="button">
+                                                        <span @click="setDropdown()" class="dropdown-toggle"
+                                                            data-bs-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false" role="button">
                                                             <span class="btn btn-primary">Privacy</span>
                                                         </span>
-                                                        <div class="dropdown-menu m-0 p-0">
-                                                            <a class="dropdown-item p-3" href="#">
+                                                        <div class="dropdown-menu m-0 p-0 dropdownn"
+                                                            style="inset: auto 0px 0px auto !important;">
+                                                            <a @click="setPrivacyIndex(1)" id="privacy-1"
+                                                                class="dropdown-item px-3 py-2" href="#">
                                                                 <div class="d-flex align-items-top">
                                                                     <i class="ri-save-line h4"></i>
                                                                     <div class="data ms-2">
@@ -246,7 +248,8 @@
                                                                     </div>
                                                                 </div>
                                                             </a>
-                                                            <a class="dropdown-item p-3" href="#">
+                                                            <a @click="setPrivacyIndex(2)" id="privacy-2"
+                                                                class="dropdown-item px-3 py-2" href="#">
                                                                 <div class="d-flex align-items-top">
                                                                     <i class="ri-close-circle-line h4"></i>
                                                                     <div class="data ms-2">
@@ -255,7 +258,8 @@
                                                                     </div>
                                                                 </div>
                                                             </a>
-                                                            <a class="dropdown-item p-3" href="#">
+                                                            <a @click="setPrivacyIndex(3)" id="privacy-3"
+                                                                class="dropdown-item px-3 py-2" href="#">
                                                                 <div class="d-flex align-items-top">
                                                                     <i class="ri-user-unfollow-line h4"></i>
                                                                     <div class="data ms-2">
@@ -264,7 +268,8 @@
                                                                     </div>
                                                                 </div>
                                                             </a>
-                                                            <a class="dropdown-item p-3" href="#">
+                                                            <a @click="setPrivacyIndex(4)" id="privacy-4"
+                                                                class="dropdown-item px-3 py-2" href="#">
                                                                 <div class="d-flex align-items-top">
                                                                     <i class="ri-notification-line h4"></i>
                                                                     <div class="data ms-2">
@@ -290,21 +295,20 @@
 
             <div class="col-lg-1 row m-0 p-0"></div>
             <div class="col-lg-10 row m-0 p-0">
-                <div class="col-sm-12">
+                <div v-for="(v, k) in list_post" class="col-sm-12">
                     <div class="card card-block card-stretch card-height">
                         <div class="card-body">
                             <div class="post-item">
                                 <div class="d-flex justify-content-between">
                                     <div class="me-3">
-                                        <img class="rounded-circle img-fluid avatar-60"
-                                            src="../../../assets/client/images/user/1.jpg" alt="">
+                                        <img class="rounded-circle img-fluid avatar-60" :src="urlImg + v.avatar" alt="">
                                     </div>
                                     <div class="w-100">
                                         <div class="d-flex justify-content-between">
                                             <div class="">
-                                                <h5 class="mb-0 d-inline-block">Bni Cyst</h5>
+                                                <h5 class="mb-0 d-inline-block">{{ v.fullname }}</h5>
                                                 <p class="ms-1 mb-0 d-inline-block">Changed Profile Picture</p>
-                                                <p class="mb-0">3 day ago</p>
+                                                <p class="mb-0">{{ hoursDifference(v.created_at) }} ago</p>
                                             </div>
                                             <div class="card-post-toolbar">
                                                 <div class="dropdown">
@@ -353,13 +357,15 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <span style="font-weight: 500;">{{ v.caption }}</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="user-post text-center">
-                                <a href="javascript:void();"><img src="../../../assets/client/images/page-img/p5.jpg"
+                            <router-view v-if="v.images" :post="v"></router-view>
+                            <!-- <div v-if="v.images" class="user-post text-center">
+                                <a href="javascript:void();"><img :src="urlImg + 'post/' +  v.images"
                                         alt="post-image" class="img-fluid rounded w-100 mt-3"></a>
-                            </div>
+                            </div> -->
                             <div class="comment-area mt-3">
                                 <div class="d-flex justify-content-between align-items-center flex-wrap">
                                     <div class="like-block position-relative d-flex align-items-center">
@@ -414,7 +420,7 @@
                                                 <div class="dropdown">
                                                     <span class="dropdown-toggle" data-bs-toggle="dropdown"
                                                         aria-haspopup="true" aria-expanded="false" role="button">
-                                                        140 Likes
+                                                        {{ v.react }} Likes
                                                     </span>
                                                     <div class="dropdown-menu">
                                                         <a class="dropdown-item" href="#">Max Emum</a>
@@ -472,24 +478,7 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li>
-                                        <div class="d-flex">
-                                            <div class="user-img">
-                                                <img src="../../../assets/client/images/user/03.jpg" alt="userimg"
-                                                    class="avatar-35 rounded-circle img-fluid">
-                                            </div>
-                                            <div class="comment-data-block ms-3">
-                                                <h6>Paul Molive</h6>
-                                                <p class="mb-0">Lorem ipsum dolor sit amet</p>
-                                                <div class="d-flex flex-wrap align-items-center comment-activity">
-                                                    <a href="javascript:void();">like</a>
-                                                    <a href="javascript:void();">reply</a>
-                                                    <a href="javascript:void();">translate</a>
-                                                    <span> 5 min </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
+
                                 </ul>
                                 <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">
                                     <input type="text" class="form-control rounded" placeholder="Enter Your Comment">
@@ -517,106 +506,17 @@
                     <div class="media-height p-3" data-scrollbar="true" tabindex="-1"
                         style="overflow: hidden; outline: none;">
                         <div class="scroll-content">
-                            <div class="d-flex align-items-center mb-4">
+                            <div v-for="(v, k) in list_friend" class="d-flex align-items-center mb-4">
                                 <div class="iq-profile-avatar status-online">
-                                    <img class="rounded-circle avatar-50" src="../../../assets/client/images/user/01.jpg"
+                                    <img class="rounded-circle avatar-50" :src="urlImg + v.avatar"
                                         alt="">
                                 </div>
                                 <div class="ms-3">
-                                    <h6 class="mb-0">Anna Sthesia</h6>
+                                    <h6 class="mb-0">{{ v.fullname }}</h6>
                                     <p class="mb-0">Just Now</p>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="iq-profile-avatar status-online">
-                                    <img class="rounded-circle avatar-50" src="../../../assets/client/images/user/02.jpg"
-                                        alt="">
-                                </div>
-                                <div class="ms-3">
-                                    <h6 class="mb-0">Paul Molive</h6>
-                                    <p class="mb-0">Admin</p>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="iq-profile-avatar status-online">
-                                    <img class="rounded-circle avatar-50" src="../../../assets/client/images/user/03.jpg"
-                                        alt="">
-                                </div>
-                                <div class="ms-3">
-                                    <h6 class="mb-0">Anna Mull</h6>
-                                    <p class="mb-0">Admin</p>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="iq-profile-avatar status-online">
-                                    <img class="rounded-circle avatar-50" src="../../../assets/client/images/user/04.jpg"
-                                        alt="">
-                                </div>
-                                <div class="ms-3">
-                                    <h6 class="mb-0">Paige Turner</h6>
-                                    <p class="mb-0">Admin</p>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="iq-profile-avatar status-online">
-                                    <img class="rounded-circle avatar-50" src="../../../assets/client/images/user/11.jpg"
-                                        alt="">
-                                </div>
-                                <div class="ms-3">
-                                    <h6 class="mb-0">Bob Frapples</h6>
-                                    <p class="mb-0">Admin</p>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="iq-profile-avatar status-online">
-                                    <img class="rounded-circle avatar-50" src="../../../assets/client/images/user/02.jpg"
-                                        alt="">
-                                </div>
-                                <div class="ms-3">
-                                    <h6 class="mb-0">Barb Ackue</h6>
-                                    <p class="mb-0">Admin</p>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="iq-profile-avatar status-online">
-                                    <img class="rounded-circle avatar-50" src="../../../assets/client/images/user/03.jpg"
-                                        alt="">
-                                </div>
-                                <div class="ms-3">
-                                    <h6 class="mb-0">Greta Life</h6>
-                                    <p class="mb-0">Admin</p>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="iq-profile-avatar status-away">
-                                    <img class="rounded-circle avatar-50" src="../../../assets/client/images/user/12.jpg"
-                                        alt="">
-                                </div>
-                                <div class="ms-3">
-                                    <h6 class="mb-0">Ira Membrit</h6>
-                                    <p class="mb-0">Admin</p>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="iq-profile-avatar status-away">
-                                    <img class="rounded-circle avatar-50" src="../../../assets/client/images/user/01.jpg"
-                                        alt="">
-                                </div>
-                                <div class="ms-3">
-                                    <h6 class="mb-0">Pete Sariya</h6>
-                                    <p class="mb-0">Admin</p>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <div class="iq-profile-avatar">
-                                    <img class="rounded-circle avatar-50" src="../../../assets/client/images/user/02.jpg"
-                                        alt="">
-                                </div>
-                                <div class="ms-3">
-                                    <h6 class="mb-0">Monty Carlo</h6>
-                                    <p class="mb-0">Admin</p>
-                                </div>
-                            </div>
+
                         </div>
                         <div class="scrollbar-track scrollbar-track-x" style="display: none;">
                             <div class="scrollbar-thumb scrollbar-thumb-x"
@@ -650,6 +550,15 @@ export default {
             post: {
                 images: []
             },
+            privacy: '1',
+            privacyMapping: {
+                1: '#privacy-1',
+                2: '#privacy-2',
+                3: '#privacy-3',
+                4: '#privacy-4'
+            },
+            list_post: [],
+            list_friend: [],
         };
     },
     mounted() {
@@ -660,11 +569,36 @@ export default {
         this.dataStory();
         $('.file-input').addClass('hide-important');
         $('.close').addClass('btn btn-secondary');
-        $('.fileinput-remove').on('click', function () {
+        $('.fileinput-remove').on('click', () => {
             $('.file-input').addClass('hide-important');
+            this.post.images = [];
         });
+        this.setPrivacy();
+        this.loadPost();
+        this.getFriend();
     },
     methods: {
+        getFriend() {
+            axios
+                .get('data-all-friend')
+                .then((res) => {
+                    this.list_friend = res.data.data;
+                    console.log(this.list_friend);
+                });
+        },
+        hoursDifference(a) {
+            return coreFunction.hoursDifference(a);
+        },
+        setPrivacy() {
+            $('.active-privacy').removeClass('active-privacy');
+            if (this.privacyMapping[this.privacy]) {
+                $(this.privacyMapping[this.privacy]).addClass('active-privacy');
+            }
+        },
+        setPrivacyIndex(i) {
+            this.privacy = i;
+            this.setPrivacy();
+        },
         toggleShow(a) {
             const $element = $("#" + a);
             // alert($element)
@@ -712,6 +646,7 @@ export default {
             Object.entries(this.post).forEach(([key, value]) => {
                 formData.append(key, value);
             });
+            formData.append('privacy', this.privacy);
             axios
                 .post('post/create', formData, {
                     headers: {
@@ -719,17 +654,39 @@ export default {
                     },
                 })
                 .then((res) => {
-                    console.log(res.data);
-                    this.post = {
-                        images: []
-                    };
-                    this.$refs.btnCloseModal.click();
-                    $('.fileinput-remove-button').click();
+                    if (res.data.status) {
+                        this.post = {
+                            images: []
+                        };
+                        this.$refs.btnCloseModal.click();
+                        $('.fileinput-remove-button').click();
+                        this.loadPost();
+
+                    } else {
+                        console.log(res.data.message);
+                    }
+
                 })
                 .catch((err) => {
                     console.log(err);
                 });
-        }
+        },
+        setDropdown() {
+            $('.dropdownn').css('inset', 'auto 0px 0px auto');
+            $('.dropdownn').css('transform', 'translate(0px, -29px)');
+        },
+        loadPost() {
+            axios
+                .get('post/data')
+                .then((res) => {
+                    if (res.data.status) {
+                        this.list_post = res.data.dataPost;
+                    } else {
+                        console.log(res.data.message);
+
+                    }
+                });
+        },
 
     },
 }
