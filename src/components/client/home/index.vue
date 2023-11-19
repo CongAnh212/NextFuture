@@ -6,10 +6,10 @@
                     <ul id="iq-sidebar-toggle" class="iq-menu">
                         <li>
                             <a href="/profile-client" class="px-0">
-                                <img :src="urlImg + myData.avatar" class="img-fluid rounded-circle me-3 " alt="user"
+                                <img :src="urlImg + myInfo.avatar" class="img-fluid rounded-circle me-3 " alt="user"
                                     style="height: 27px; width: 27px;margin-left: 5px;">
                                 <div>
-                                    <span class="text-dark" style="font-weight: 600; font-size: 14px;">{{ myData.fullname
+                                    <span class="text-dark" style="font-weight: 600; font-size: 14px;">{{ myInfo.fullname
                                     }}</span>
                                 </div>
                             </a>
@@ -134,7 +134,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="user-img">
-                                    <img :src="urlImg + myData.avatar" alt="userimg" class="avatar-60 rounded-circle">
+                                    <img :src="urlImg + myInfo.avatar" alt="userimg" class="avatar-60 rounded-circle">
                                 </div>
                                 <form class="post-text ms-3 w-100 " data-bs-toggle="modal" data-bs-target="#post-modal"
                                     action="javascript:void();">
