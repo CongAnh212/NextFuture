@@ -104,8 +104,7 @@
                         <li class="nav-item dropdown">
                             <a href="#" class="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img :src="urlImg + myData.avatar" class="img-fluid rounded-circle me-3"
-                                    alt="user">
+                                <img :src="urlImg + myData.avatar" class="img-fluid rounded-circle me-3" alt="user">
                                 <div class="caption">
                                     <h6 class="mb-0 line-height">{{ myData.fullname }}</h6>
                                 </div>
@@ -167,9 +166,10 @@
                                             </div>
                                         </a>
                                         <div class="d-inline-block w-100 text-center p-3">
-                                            <a class="btn btn-primary iq-sign-btn" href="../dashboard/sign-in.html"
-                                                role="button">Sign
-                                                out<i class="ri-login-box-line ms-2"></i></a>
+                                            <router-link to="">
+                                                <a @click="signOut()" class="btn btn-primary iq-sign-btn" role="button">Sign
+                                                    out<i class="ri-login-box-line ms-2"></i></a>
+                                            </router-link>
                                         </div>
                                     </div>
                                 </div>
@@ -199,6 +199,17 @@ export default {
                 .get('profile/data')
                 .then((res) => {
                     this.myData = res.data.myData;
+                });
+        },
+        signOut() {
+            axios
+                .get('sign-out')
+                .then((res) => {
+                    localStorage.removeItem('token');
+                    this.$router.push({ name: "sign-in" });
+                })
+                .catch((error) => {
+                    console.error('Đăng xuất không thành công:', error);
                 });
         }
     },

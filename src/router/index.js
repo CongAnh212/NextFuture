@@ -16,6 +16,12 @@ const routes = [
     path: "/",
     name: "homepage",
     component: () => import("../components/client/home/index.vue"),
+    children: [ // tạo thêm 1 class để xử lý ảnh cho dễ
+      {
+        path: '',
+        component: () => import('../components/client/home/viewImage.vue')
+      }
+    ]
   },
 
   {
@@ -124,6 +130,13 @@ const routes = [
         },
       },
     ],
+  },
+  {
+    path: "/test",
+    meta: { layout: "story" },
+    components: {
+      default: () => import("../components/client/create-story/test.vue"),
+    },
   },
 ];
 

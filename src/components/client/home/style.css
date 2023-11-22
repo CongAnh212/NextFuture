@@ -83,3 +83,9 @@
     position: absolute;
     bottom: 27px;
 }
+.hide-important {
+    display: none !important;
+}
+.active-privacy{
+    background-color: #48484829;
+}
