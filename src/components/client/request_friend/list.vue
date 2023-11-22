@@ -13,7 +13,7 @@
     <hr style="margin-top: 4px; margin-bottom: 4px;">
     <div>{{ Object.keys(request_friend).length }} friend requests</div>
     <div class="mt-2" v-for="(v, k) in request_friend">
-        <router-link :to="{ name: 'friends' }">
+        <router-link :to="{ name: 'detailProfile.request_friend', params: { username: v.username } }">
             <div class="d-flex align-items-center ">
                 <div class="hello d-flex p-2  w-100 h-100" style="overflow: hidden;">
                     <img :src="urlImage + v.avatar" class="img-fluid rounded-circle me-2" alt="user"

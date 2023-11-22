@@ -31,41 +31,6 @@
                                 <div class="social-links">
                                     <ul
                                         class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
-                                        <li class="text-center pe-3">
-                                            <a href="#"><img src="../../../assets/client/images/icon/08.png"
-                                                    class="img-fluid rounded" alt="facebook"
-                                                    style="width:32px; height:32px">
-                                            </a>
-                                        </li>
-
-                                        <li class="text-center pe-3">
-                                            <a href="#"><img src="../../../assets/client/images/icon/10.png"
-                                                    class="img-fluid rounded" alt="Instagram"
-                                                    style="width:32px; height:32px">
-                                            </a>
-                                        </li>
-                                        <li class="text-center pe-3">
-                                            <a href="#"><img src="../../../assets/client/images/icon/11.png"
-                                                    class="img-fluid rounded" alt="Google plus"
-                                                    style="width:32px; height:32px">
-                                            </a>
-                                        </li>
-                                        <li class="text-center pe-3 ">
-                                            <a href="#"><img src="../../../assets/client/images/icon/13.png"
-                                                    class="img-fluid rounded" alt="tiktok" style="width:32px; height:32px">
-                                            </a>
-                                        </li>
-                                        <li class="text-center md-pe-3 pe-0">
-                                            <a href="#">
-                                                <img src="../../../assets/client/images/icon/12.png"
-                                                    class="img-fluid rounded" alt="Youtube" style="width:32px; height:32px">
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="social-info">
-                                    <ul
-                                        class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
                                         <li class="text-center ps-3">
                                             <h6>Posts</h6>
                                             <p class="mb-0">690</p>
@@ -77,6 +42,77 @@
                                         <li class="text-center ps-3">
                                             <h6>Friends</h6>
                                             <p class="mb-0">100</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="social-info">
+                                    <ul
+                                        class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
+                                        <li v-if="status == 'friend'" class='d-flex'>
+                                            <div class="dropdown">
+                                                <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown"
+                                                    aria-expanded="false" style='width:130px'>
+                                                    <i class="fa-solid fa-user-check me-1"></i>
+                                                    Friend
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <button class="dropdown-item">Unfriend</button>
+                                                    </li>
+                                                    <li>
+                                                        <button class="dropdown-item">Unfollow</button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <button class='btn btn-primary ms-1' style='width:130px'>
+                                                <i class="fa-brands fa-facebook-messenger me-1"></i>
+                                                Messenger
+                                            </button>
+                                        </li>
+                                        <li v-if="status == 'follower'" class='d-flex'>
+                                            <div class="dropdown">
+                                                <button class="btn btn-primary" type="button" data-bs-toggle="dropdown"
+                                                    aria-expanded="false" style='width:130px'>
+                                                    <i class="fa-solid fa-user-check me-1"></i>
+                                                    Confirm
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <button class="dropdown-item" @click='confirm()'>
+                                                            Confirm request
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button class="dropdown-item" @click='delRequest()'>
+                                                            Delete request
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <button class='btn btn-secondary ms-1' style='width:130px'>
+                                                <i class="fa-brands fa-facebook-messenger me-1"></i>
+                                                Messenger
+                                            </button>
+                                        </li>
+                                        <li v-if="status == 'request_friend'" class='d-flex'>
+                                            <button class='btn btn-primary ms-1' style='width:130px' @click='unRequest()'>
+                                                <i class="fa-solid fa-user-xmark me-1"></i>
+                                                Cancel
+                                            </button>
+                                            <button class='btn btn-secondary ms-1' style='width:130px'>
+                                                <i class="fa-brands fa-facebook-messenger me-1"></i>
+                                                Messenger
+                                            </button>
+                                        </li>
+                                        <li v-if="status == 'stranger'" class='d-flex'>
+                                            <button class='btn btn-primary ms-1' style='width:130px' @click="addFriend()">
+                                                <i class="fa-solid fa-user-plus me-1"></i>
+                                                Add friend
+                                            </button>
+                                            <button class='btn btn-secondary ms-1' style='width:130px'>
+                                                <i class="fa-brands fa-facebook-messenger me-1"></i>
+                                                Messenger
+                                            </button>
                                         </li>
                                     </ul>
                                 </div>
@@ -2759,6 +2795,7 @@ export default {
             info: {},
             urlImg: url,
             username: null,
+            status: '',
         }
     },
     mounted() {
@@ -2778,10 +2815,50 @@ export default {
                 .get(this.username + '/data-info')
                 .then((res) => {
                     this.info = res.data.info
-                    // console.log(this.info)
+                    this.status = res.data.status
+                    console.log(this.status)
                 });
         },
+        confirm() {
+            axios
+                .post('follower/accept-friend', this.info)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.getInfo();
+                    } else {
 
+                    }
+                })
+        },
+        delRequest() {
+            axios
+                .post('follower/delete-friend', this.info)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.getInfo();
+                    } 
+                });
+           
+        },
+        addFriend() {
+            axios
+                .post('follower/add-friend', this.info)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.getInfo();
+                    }
+                })
+        },
+        unRequest() {
+            axios
+                .post('follower/cancel-friend', this.info)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.getInfo();
+                    }
+                })
+
+        },
     },
 }
 

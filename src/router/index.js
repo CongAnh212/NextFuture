@@ -34,7 +34,22 @@ const routes = [
     meta: { layout: "main" },
     components: {
       default: () => import("../components/client/suggestion/list.vue"),
-      content: () => import("../components/client/profile/index.vue"),
+    },
+  },
+  {
+    path: "/friends/requests",
+    name: "requests",
+    meta: { layout: "main" },
+    components: {
+      default: () => import("../components/client/request_friend/list.vue"),
+    },
+  },
+  {
+    path: "/friends/list",
+    name: "list",
+    meta: { layout: "main" },
+    components: {
+      default: () => import("../components/client/all_friend/list.vue"),
     },
   },
   {
@@ -50,32 +65,32 @@ const routes = [
   },
   {
     path: "/:username",
-    name: "detailProfile.default",
+    name: "detailProfile.all_friends",
     components: {
       default: () => import("../components/client/all_friend/list.vue"),
       content: () => import("../components/client/profile/index.vue"),
     },
     meta: { layout: "main" },
   },
-  
   {
-    path: "/friends/requests",
-    name: "requests",
+    path: "/:username",
+    name: "detailProfile.suggestion",
+    components: {
+      default: () => import("../components/client/suggestion/list.vue"),
+      content: () => import("../components/client/profile/index.vue"),
+    },
     meta: { layout: "main" },
+  },
+  {
+    path: "/:username",
+    name: "detailProfile.request_friend",
     components: {
       default: () => import("../components/client/request_friend/list.vue"),
-      content: () => import("../components/client/request_friend/content.vue"),
-    },
-  },
-  {
-    path: "/friends/list",
-    name: "list",
-    meta: { layout: "main" },
-    components: {
-      default: () => import("../components/client/all_friend/list.vue"),
       content: () => import("../components/client/profile/index.vue"),
     },
+    meta: { layout: "main" },
   },
+
   {
     path: "/create-story",
     name: "story",
