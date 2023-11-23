@@ -17,14 +17,14 @@
                 </div>
                 <div class="d-inline-block w-100">
                     <div class="form-check d-inline-block mt-2 pt-1">
-                        <input type="checkbox" class="form-check-input" id="customCheck11">
+                        <input v-model="sign_in.remember" type="checkbox" class="form-check-input" id="customCheck11">
                         <label class="form-check-label" for="customCheck11">Remember Me</label>
                     </div>
-                    <button type="button" class="btn btn-primary float-end" @click="singIn()">Sign in</button>
+                    <button type="button" class="btn btn-primary float-end" @click="signIn()">Sign in</button>
                 </div>
                 <div class="sign-info">
                     <span class="dark-color d-inline-block line-height-2">Don't have an account?
-                        <router-link to="/sign-up">
+                        <router-link :to="{ name: 'sign-up' }">
                             Sign up
                         </router-link>
                     </span>
@@ -39,7 +39,7 @@
     </div>
 </template>
 <script>
-import axios from 'axios';
+import axios from '../../../../core/coreRequest';
 import Swal from 'sweetalert2'
 export default {
     data() {
@@ -47,13 +47,19 @@ export default {
             sign_in: {},
         }
     },
+    mounted() {
+    },
     methods: {
-        singIn() {
+        signIn() {
             axios
-                .post('http://127.0.0.1:8000/api/sign-in', this.sign_in)
+                .post('sign-in', this.sign_in)
                 .then((res) => {
                     if (res.data.status) {
-                        this.$router.push('/newfeeds')
+                        var token = res.data.token;
+                        // Lưu token vào localStorage
+                        localStorage.setItem('token', token);
+                        this.$router.push({ name: "homepage" });
+                        // window.location.href = "/newfeeds";
                     } else {
                         Swal.fire({
                             icon: "error",
@@ -62,8 +68,8 @@ export default {
                         });
                     }
                 })
+        },
 
-        }
     },
 
 }

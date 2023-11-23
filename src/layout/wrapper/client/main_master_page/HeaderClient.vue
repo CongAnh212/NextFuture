@@ -1,20 +1,21 @@
 <template>
-    <div class="iq-top-navbar">
-        <div class="iq-navbar-custom">
-            <nav class="navbar navbar-expand-lg navbar-light p-0">
+    <div class="iq-top-navbar" style="position: fixed;">
 
+        <div class="iq-navbar-custom">
+
+            <nav class="navbar navbar-expand-lg navbar-light p-0">
                 <div class="iq-navbar-logo d-flex justify-content-between">
                     <router-link :to="{ name: 'homepage' }">
-                        <div class="rounded-circle d-flex justify-content-center align-items-center close me-2"
-                            style="height: 45px; width: 45px; background-color: #9c9c9c; cursor: pointer;">
-                            <i class="fa-solid fa-xmark " style="font-size: 25px; color: rgb(255, 255, 255);"></i>
-                        </div>
-                    </router-link>
-                    <router-link :to="{ name: 'homepage' }">
                         <img src="../../../../assets/img/main-logo.png" class="img-fluid" alt="">
+                        <span>NextFuture</span>
                     </router-link>
                 </div>
-
+                <div class="iq-search-bar device-search">
+                    <form action="#" class="searchbox">
+                        <a class="search-link" href="#"><i class="ri-search-line"></i></a>
+                        <input type="text" class="text search-input" placeholder="Search here...">
+                    </form>
+                </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-label="Toggle navigation">
@@ -22,6 +23,50 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav  ms-auto navbar-list">
+                        <li class="nav-item dropdown">
+                            <a href="#" class="dropdown-toggle" id="group-drop" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="ri-group-line"></i>
+                            </a>
+                            <div class="sub-drop sub-drop-large dropdown-menu" aria-labelledby="group-drop">
+                                <div class="card shadow-none m-0">
+                                    <div class="card-header d-flex justify-content-between bg-primary">
+                                        <div class="header-title">
+                                            <h5 class="mb-0 text-white">Friend Request</h5>
+                                        </div>
+                                        <small class="badge  bg-light text-dark ">
+                                            {{ Object.keys(request_friend).length }}
+                                        </small>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <template v-for="(v, k) in request_friend">
+                                            <div class="iq-friend-request">
+                                                <div
+                                                    class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
+                                                    <div class="d-flex align-items-center">
+                                                        <img class="avatar-40 rounded" :src="urlImg + v.avatar" alt="">
+                                                        <div class="ms-3">
+                                                            <h6 class="mb-0 ">{{ v.fullname }}</h6>
+                                                            <p class="mb-0">1 mutual</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex align-items-center">
+                                                        <a href="javascript:void();" class="me-3 btn btn-primary rounded"
+                                                            style="width: 60%;" @click="confirm(v)">Confirm</a>
+                                                        <a href="javascript:void();" class="me-3 btn btn-secondary rounded"
+                                                            style="width: 60%;">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </template>
+
+                                        <div class="text-center">
+                                            <a href="#" class=" btn text-primary">View More Request</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
                         <li class="nav-item dropdown">
                             <a href="#" class="search-toggle   dropdown-toggle" id="notification-drop"
                                 data-bs-toggle="dropdown">
@@ -51,48 +96,33 @@
                                                 </div>
                                             </div>
                                         </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="dropdown-toggle" id="mail-drop" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="ri-mail-line"></i>
+                            </a>
+                            <div class="sub-drop dropdown-menu" aria-labelledby="mail-drop">
+                                <div class="card shadow-none m-0">
+                                    <div class="card-header d-flex justify-content-between bg-primary">
+                                        <div class="header-title bg-primary">
+                                            <h5 class="mb-0 text-white">All Message</h5>
+                                        </div>
+                                        <small class="badge bg-light text-dark">4</small>
+                                    </div>
+                                    <div class="card-body p-0 ">
                                         <a href="#" class="iq-sub-card">
-                                            <div class="d-flex align-items-center">
+                                            <div class="d-flex  align-items-center">
                                                 <div class="">
                                                     <img class="avatar-40 rounded"
-                                                        src="../../../../assets/client/images/user/02.jpg" alt="">
+                                                        src="../../../../assets/client/images/user/01.jpg" alt="">
                                                 </div>
-                                                <div class="ms-3 w-100">
-                                                    <h6 class="mb-0 ">New customer is join</h6>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <p class="mb-0">Cyst Bni</p>
-                                                        <small class="float-right font-size-12">5 days ago</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="iq-sub-card">
-                                            <div class="d-flex align-items-center">
-                                                <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../../assets/client/images/user/03.jpg" alt="">
-                                                </div>
-                                                <div class="ms-3 w-100">
-                                                    <h6 class="mb-0 ">Two customer is left</h6>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <p class="mb-0">Cyst Bni</p>
-                                                        <small class="float-right font-size-12">2 days ago</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="iq-sub-card">
-                                            <div class="d-flex align-items-center">
-                                                <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../../assets/client/images/user/04.jpg" alt="">
-                                                </div>
-                                                <div class="w-100 ms-3">
-                                                    <h6 class="mb-0 ">New Mail from Fenny</h6>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <p class="mb-0">Cyst Bni</p>
-                                                        <small class="float-right font-size-12">3 days ago</small>
-                                                    </div>
+                                                <div class=" w-100 ms-3">
+                                                    <h6 class="mb-0 ">Bni Emma Watson</h6>
+                                                    <small class="float-left font-size-12">13 Jun</small>
                                                 </div>
                                             </div>
                                         </a>
@@ -100,26 +130,25 @@
                                 </div>
                             </div>
                         </li>
-
                         <li class="nav-item dropdown">
                             <a href="#" class="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img :src="urlImg + myData.avatar" class="img-fluid rounded-circle me-3" alt="user">
+                                <img :src="urlImg + myInfo.avatar" class="img-fluid rounded-circle me-3" alt="user">
                                 <div class="caption">
-                                    <h6 class="mb-0 line-height">{{ myData.fullname }}</h6>
+                                    <h6 class="mb-0 line-height">{{ myInfo.fullname }}</h6>
                                 </div>
                             </a>
                             <div class="sub-drop dropdown-menu caption-menu" aria-labelledby="drop-down-arrow">
                                 <div class="card shadow-none m-0">
                                     <div class="card-header  bg-primary">
                                         <div class="header-title">
-                                            <h5 class="mb-0 text-white">Hello {{ myData.fullname }}</h5>
+                                            <h5 class="mb-0 text-white">Hello, {{ myInfo.fullname }}</h5>
                                             <span class="text-white font-size-12">Available</span>
                                         </div>
                                     </div>
                                     <div class="card-body p-0 ">
                                         <div class="iq-sub-card iq-bg-primary-hover">
-                                            <router-link :to="{ name: 'profile-client' }">
+                                            <router-link to="/" @click="myProfile()">
                                                 <div class="d-flex align-items-center">
                                                     <div class="rounded card-icon bg-soft-primary">
                                                         <i class="ri-file-user-line"></i>
@@ -166,10 +195,9 @@
                                             </div>
                                         </a>
                                         <div class="d-inline-block w-100 text-center p-3">
-                                            <router-link to="">
-                                                <a @click="signOut()" class="btn btn-primary iq-sign-btn" role="button">Sign
-                                                    out<i class="ri-login-box-line ms-2"></i></a>
-                                            </router-link>
+                                            <a @click="signOut()" class="btn btn-primary iq-sign-btn" 
+                                                role="button">Sign
+                                                out<i class="ri-login-box-line ms-2"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -179,28 +207,25 @@
                 </div>
             </nav>
         </div>
+
     </div>
 </template>
 <script>
+
 import axios, { url } from '../../../../core/coreRequest';
 export default {
     data() {
         return {
-            myData: {},
-            urlImg: url
+            myInfo: {},
+            urlImg: url,
+            request_friend: [],
         }
     },
     mounted() {
+        this.getRequestFriend();
         this.getInfo();
     },
     methods: {
-        getInfo() {
-            axios
-                .get('profile/data')
-                .then((res) => {
-                    this.myData = res.data.myData;
-                });
-        },
         signOut() {
             axios
                 .get('sign-out')
@@ -209,17 +234,49 @@ export default {
                     this.$router.push({ name: "sign-in" });
                 })
                 .catch((error) => {
-                    console.error('Đăng xuất không thành công:', error);
+                    console.error('Logout failed:', error);
+                });
+        },
+ 
+        getInfo() {
+            axios
+                .get('profile/data')
+                .then((res) => {
+                    this.myInfo = res.data.myInfo;
+                    // console.log(this.myInfo);
+                });
+        },
+        myProfile() {
+            this.$router.push({ name: 'detailProfile', params: { username: this.myInfo.username } });
+        },
+        getRequestFriend() {
+            axios
+                .get('follower/request-friend')
+                .then((res) => {
+                    if (res.data.status == 1) {
+                        this.request_friend = res.data.data;
+                    } else {
+
+                    }
+                });
+        },
+        confirm(v) {
+            axios
+                .post('follower/accept-friend', v)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.getRequestFriend();
+                    } else {
+
+                    }
+                })
+                .catch((res) => {
+                    $.each(res.response.data.errors, function (k, v) {
+                        toastr.error(v[0], 'Error');
+                    });
                 });
         }
     },
 }
-
 </script>
-
-<style>
-.close:hover {
-    background-color: rgba(0, 0, 0, 0.45) !important;
-
-}
-</style>
+<style></style>

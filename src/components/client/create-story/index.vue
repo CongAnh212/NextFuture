@@ -16,7 +16,7 @@
                         </div>
                         <li>
                             <router-link :to="{ name: 'profile-client' }">
-                                <img style="height: 55px; width: 55px;;" src="/src/assets/client/images/user/1.jpg"
+                                <img style="height: 55px; width: 55px;" :src="urlImg + myData.avatar"
                                     class="img-fluid rounded-circle me-3" alt="user">
                                 <span><b class="text-dark">Lê Công Anh</b></span>
                             </router-link>
@@ -94,18 +94,24 @@
                         <h1 class="modal-title fs-5" id="exampleModalLabel" style="padding-bottom: 10px; color: black;">
                             Preview</h1>
                         <div class="make-modal radius-10 d-flex justify-content-center" style=" position: relative;">
-                            <div class="container-content row" style="overflow: hidden;">
-                                <div class="col-3 cover" style="background-color: rgba(36, 36, 36, 0.4);z-index: 10;"></div>
+                            <div class="container-content row d-flex justify-content-center" style="overflow: hidden;">
+                                <div class="col-3 cover ps-3"
+                                    style="background-color: rgba(36, 36, 36, 0.4);z-index: 10; width: 27.5%;"></div>
                                 <div id="content" @dragover.prevent @dragover="drop" ref="captureDiv"
                                     class="d-flex justify-content-center align-items-center col-6 p-0 ">
-                                    <div class="radius-10"
-                                        style="width: 100%; height: 100%; border: 1px solid #fff; z-index: 6; pointer-events: none;">
+                                    <div class="radius-10" style="width: 100%; height: 100%; border: 1px solid #fff; z-index: 6; pointer-events: none;
+                                        position: absolute;">
                                     </div>
-                                    <img id="mainImage" class="draggable" :src="mainImg" draggable="true"
+                                    <div id="mainImage" class="draggable" draggable="true"
                                         :style="{ left: x + 'px', top: y + 'px' }" @dragstart="getCoordinates"
                                         @dragend="close()">
+                                        <img :src="mainImg" draggable="false"
+                                            style="height: 100%; width: 100%; pointer-events: none; ">
+                                    </div>
+
                                 </div>
-                                <div class="col-3 cover" style="background-color: rgba(36, 36, 36, 0.4);z-index: 10;"></div>
+                                <div class="col-3 cover"
+                                    style="background-color: rgba(36, 36, 36, 0.4);z-index: 10; width: 27.5%"></div>
 
                             </div>
 
@@ -131,14 +137,13 @@
                                 style="overflow: hidden;" ref="content-text">
                                 <div class="col-3 "></div>
                                 <div id="content-text" style="overflow: hidden;"
-                                    class="d-flex justify-content-center align-items-center col-6 p-0 text-content" 
+                                    class="d-flex justify-content-center align-items-center col-6 p-0 text-content"
                                     ref="contentText">
-                                    <p class="px-3 text-center"  style="font-family: 'Helvetica Neue', sans-serif; /* Sử dụng một font family phổ biến */
+                                    <p class="px-3 text-center" style="font-family: 'Helvetica Neue', sans-serif; /* Sử dụng một font family phổ biến */
                                         font-size: 26px; /* Đặt kích thước font là 36px */
                                         font-weight: bold; /* Đặt độ đậm là đậm (bold) */
                                         color: #ffffff;
-                                        word-wrap: break-word;" 
-                                        >{{ textt }}</p>
+                                        word-wrap: break-word;">{{ textt }}</p>
                                 </div>
                                 <div class="col-3 "></div>
                             </div>
@@ -152,11 +157,12 @@
 <script>
 
 import html2canvas from "html2canvas";
-import axios from 'axios';
+import axios, { url } from '../../../core/coreRequest';
 
 export default {
     data() {
         return {
+            urlImg : url,
             mainImg: '',
             abc: 10,
             x: 0,
@@ -187,6 +193,7 @@ export default {
             ],
             textt: "",
             isTextStory: false,
+            myData: {},
         }
     },
     mounted() {
@@ -197,8 +204,14 @@ export default {
         $('.file-preview').css('display', 'none');
         $('#bg-0').addClass('bg-active');
         // $('.file-input').css('display', 'none');
+        axios
+            .get('profile/data')
+            .then((res) => {
+                this.myData = res.data.myData;
+            });
     },
     methods: {
+
         openModal() {
             $('#storyText').addClass("show");
             this.isCreate = true;
@@ -225,12 +238,12 @@ export default {
                 status: 1
             }
             try {
-                axios.post('http://127.0.0.1:8000/api/story/create', payload)
+                axios.post('story/create', payload)
                     .then((res) => {
                         if (res.data.status) {
                             console.log(res.data.message);
-                            // this.$router.push('/');
-                            window.location.href = '/';
+                            this.$router.push({ name: 'homepage' });
+                            // window.location.href = '/';
                         } else {
                             console.log(res.data.message);
                         }

@@ -3,7 +3,7 @@
         <div class="iq-navbar-custom">
             <nav class="navbar navbar-expand-lg navbar-light p-0">
                 <div class="iq-navbar-logo d-flex justify-content-between">
-                    <router-link to="/">
+                    <router-link :to="{ name: 'homepage' }">
                         <img src="../../../../assets/img/main-logo.png" class="img-fluid" alt="">
                         <span>NextFuture</span>
                     </router-link>
@@ -275,17 +275,16 @@
                         <li class="nav-item dropdown">
                             <a href="#" class="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="../../../../assets/client/images/user/1.jpg" class="img-fluid rounded-circle me-3"
-                                    alt="user">
+                                <img :src="urlImg + myInfo.avatar" class="img-fluid rounded-circle me-3" alt="user">
                                 <div class="caption">
-                                    <h6 class="mb-0 line-height">Bni Cyst</h6>
+                                    <h6 class="mb-0 line-height">{{ myInfo.fullname }}</h6>
                                 </div>
                             </a>
                             <div class="sub-drop dropdown-menu caption-menu" aria-labelledby="drop-down-arrow">
                                 <div class="card shadow-none m-0">
                                     <div class="card-header  bg-primary">
                                         <div class="header-title">
-                                            <h5 class="mb-0 text-white">Hello Bni Cyst</h5>
+                                            <h5 class="mb-0 text-white">Hello {{ myInfo.fullname }}</h5>
                                             <span class="text-white font-size-12">Available</span>
                                         </div>
                                     </div>
@@ -338,7 +337,7 @@
                                             </div>
                                         </a>
                                         <div class="d-inline-block w-100 text-center p-3">
-                                            <a class="btn btn-primary iq-sign-btn" href="../dashboard/sign-in.html"
+                                            <a @click="signOut()" class="btn btn-primary iq-sign-btn" 
                                                 role="button">Sign
                                                 out<i class="ri-login-box-line ms-2"></i></a>
                                         </div>
@@ -353,8 +352,37 @@
     </div>
 </template>
 <script>
+import axios, { url } from '../../../../core/coreRequest';
 export default {
-
+    data() {
+        return {
+            myInfo: {},
+            urlImg: url
+        }
+    },
+    mounted() {
+        this.getInfo();
+    },
+    methods: {
+        getInfo() {
+            axios
+                .get('profile/data')
+                .then((res) => {
+                    this.myInfo = res.data.myInfo;
+                });
+        },
+        signOut() {
+            axios
+                .get('sign-out')
+                .then((res) => {
+                    localStorage.removeItem('token');
+                    this.$router.push({ name: "sign-in" });
+                })
+                .catch((error) => {
+                    console.error('Đăng xuất không thành công:', error);
+                });
+        }
+    },
 }
 </script>
 <style></style>

@@ -59,7 +59,7 @@
                 </div>
                 <div class="sign-info text-center">
                     <span class="dark-color d-inline-block line-height-2">Already Have Account ?
-                        <router-link to="/">
+                        <router-link :to="{ name: 'sign-in' }">
                             Sign In
                         </router-link>
                     </span>
@@ -94,7 +94,7 @@ export default {
                             confirmButtonText: 'OK'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                this.$router.push('/');
+                                this.$router.push({ name: 'sign-in' });
                             }
                         })
                     } else {
@@ -105,7 +105,6 @@ export default {
                         });
                     }
                 })
-
         },
         selectRadio(value) {
             this.selectedGender = value;

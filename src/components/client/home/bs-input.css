@@ -1,0 +1,30 @@
+.rotatable {
+    width: 190px;
+    /* height: 200px; */
+}
+
+.file-thumbnail-footer {
+    display: none;
+}
+
+.kv-file-content {
+    width: 175px !important;
+    display: flex;
+    justify-content: center;
+}
+
+.file-preview-thumbnails {
+    max-height: 280px;
+    overflow: auto;
+
+}
+
+#post-modal {
+    /* width: 20px !important; */
+    /* top: -70px; */
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% ;
+    transform: translate(-50%, -50%) !important;
+    width: 50%;
+}
