@@ -1,6 +1,5 @@
 <template>
     <div class='container'>
-
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
@@ -57,7 +56,7 @@
                                                 </button>
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <button class="dropdown-item">Unfriend</button>
+                                                        <button class="dropdown-item" @click="unFriend()">Unfriend</button>
                                                     </li>
                                                     <li>
                                                         <button class="dropdown-item">Unfollow</button>
@@ -113,6 +112,9 @@
                                                 <i class="fa-brands fa-facebook-messenger me-1"></i>
                                                 Messenger
                                             </button>
+                                        </li>
+                                        <li v-if="status == 'self'" class='d-flex'>
+
                                         </li>
                                     </ul>
                                 </div>
@@ -2836,9 +2838,9 @@ export default {
                 .then((res) => {
                     if (res.data.status) {
                         this.getInfo();
-                    } 
+                    }
                 });
-           
+
         },
         addFriend() {
             axios
@@ -2857,8 +2859,16 @@ export default {
                         this.getInfo();
                     }
                 })
-
         },
+        unFriend() {
+            axios
+                .post('delete-friend', this.info)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.getInfo();
+                    }
+                })
+        }
     },
 }
 
