@@ -179,8 +179,8 @@
                                     <div class="modal-body" style="overflow: auto;">
                                         <div class="d-flex align-items-center mb-3">
                                             <div class="user-img">
-                                                <img src="../../../assets/client/images/user/1.jpg" alt="userimg"
-                                                    class=" rounded-circle " style="width: 50px; height: 50px;">
+                                                <img :src="urlImg + myInfo.avatar" alt="userimg" class=" rounded-circle "
+                                                    style="width: 50px; height: 50px;">
                                             </div>
                                             <form class="post-text ms-3 w-100" action="javascript:void();">
                                                 <input v-model="post.caption" type="text" class="form-control rounded"
@@ -224,7 +224,7 @@
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <div class="d-flex align-items-center">
                                                     <div class="user-img me-3">
-                                                        <img src="../../../assets/client/images/user/1.jpg" alt="userimg"
+                                                        <img :src="urlImg + myInfo.avatar" alt="userimg"
                                                             class="rounded-circle" style="width: 50px; height: 50px">
                                                     </div>
                                                     <h6>Your Story</h6>
@@ -295,13 +295,15 @@
 
             <div class="col-lg-1 row m-0 p-0"></div>
             <div class="col-lg-10 row m-0 p-0">
+
                 <div v-for="(v, k) in list_post" class="col-sm-12">
                     <div class="card card-block card-stretch card-height">
                         <div class="card-body">
                             <div class="post-item">
                                 <div class="d-flex justify-content-between">
                                     <div class="me-3">
-                                        <img class="rounded-circle img-fluid avatar-60" :src="urlImg + v.avatar" alt="">
+                                        <img class="rounded-circle" style="width: 60px; height:60px;"
+                                            :src="urlImg + v.avatar" alt="">
                                     </div>
                                     <div class="w-100">
                                         <div class="d-flex justify-content-between">
@@ -383,36 +385,6 @@
                                                             aria-label="Like"><img
                                                                 src="../../../assets/client/images/icon/01.png"
                                                                 class="img-fluid" alt=""></a>
-                                                        <a class="me-2" href="#" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" title="" data-bs-original-title="Love"
-                                                            aria-label="Love"><img
-                                                                src="../../../assets/client/images/icon/02.png"
-                                                                class="img-fluid" alt=""></a>
-                                                        <a class="me-2" href="#" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" title="" data-bs-original-title="Happy"
-                                                            aria-label="Happy"><img
-                                                                src="../../../assets/client/images/icon/03.png"
-                                                                class="img-fluid" alt=""></a>
-                                                        <a class="me-2" href="#" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" title="" data-bs-original-title="HaHa"
-                                                            aria-label="HaHa"><img
-                                                                src="../../../assets/client/images/icon/04.png"
-                                                                class="img-fluid" alt=""></a>
-                                                        <a class="me-2" href="#" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" title="" data-bs-original-title="Think"
-                                                            aria-label="Think"><img
-                                                                src="../../../assets/client/images/icon/05.png"
-                                                                class="img-fluid" alt=""></a>
-                                                        <a class="me-2" href="#" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" title="" data-bs-original-title="Sade"
-                                                            aria-label="Sade"><img
-                                                                src="../../../assets/client/images/icon/06.png"
-                                                                class="img-fluid" alt=""></a>
-                                                        <a class="me-2" href="#" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" title="" data-bs-original-title="Lovely"
-                                                            aria-label="Lovely"><img
-                                                                src="../../../assets/client/images/icon/07.png"
-                                                                class="img-fluid" alt=""></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -424,12 +396,6 @@
                                                     </span>
                                                     <div class="dropdown-menu">
                                                         <a class="dropdown-item" href="#">Max Emum</a>
-                                                        <a class="dropdown-item" href="#">Bill Yerds</a>
-                                                        <a class="dropdown-item" href="#">Hap E. Birthday</a>
-                                                        <a class="dropdown-item" href="#">Tara Misu</a>
-                                                        <a class="dropdown-item" href="#">Midge Itz</a>
-                                                        <a class="dropdown-item" href="#">Sal Vidge</a>
-                                                        <a class="dropdown-item" href="#">Other</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -438,16 +404,11 @@
                                             <div class="dropdown">
                                                 <span class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
                                                     aria-expanded="false" role="button">
-                                                    20 Comment
+                                                    {{ totalComments(v.id) }} Comments
+
                                                 </span>
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item" href="#">Max Emum</a>
-                                                    <a class="dropdown-item" href="#">Bill Yerds</a>
-                                                    <a class="dropdown-item" href="#">Hap E. Birthday</a>
-                                                    <a class="dropdown-item" href="#">Tara Misu</a>
-                                                    <a class="dropdown-item" href="#">Midge Itz</a>
-                                                    <a class="dropdown-item" href="#">Sal Vidge</a>
-                                                    <a class="dropdown-item" href="#">Other</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -460,32 +421,53 @@
                                 </div>
                                 <hr>
                                 <ul class="post-comments list-inline p-0 m-0">
-                                    <li class="mb-2">
-                                        <div class="d-flex">
-                                            <div class="user-img">
-                                                <img src="../../../assets/client/images/user/02.jpg" alt="userimg"
-                                                    class="avatar-35 rounded-circle img-fluid">
-                                            </div>
-                                            <div class="comment-data-block ms-3">
-                                                <h6>Monty Carlo</h6>
-                                                <p class="mb-0">Lorem ipsum dolor sit amet</p>
-                                                <div class="d-flex flex-wrap align-items-center comment-activity">
-                                                    <a href="javascript:void();">like</a>
-                                                    <a href="javascript:void();">reply</a>
-                                                    <a href="javascript:void();">translate</a>
-                                                    <span> 5 min </span>
+                                    <template v-for="(value, key) in list_comment">
+                                        <li v-if="value.id_post == v.id" class="mb-2">
+                                            <div class="d-flex">
+                                                <div class="user-img">
+                                                    <img :src="urlImg + value.avatar" alt="userimg"
+                                                        class="avatar-35 rounded-circle img-fluid">
+                                                </div>
+                                                <div class="comment-data-block ms-3">
+                                                    <h6>{{ value.fullname }}</h6>
+                                                    <p v-html="value.content" class="mb-0"></p>
+                                                    <div class="d-flex flex-wrap align-items-center comment-activity">
+                                                        <a href="javascript:void();">like</a>
+                                                        <a href="javascript:void();">reply</a>
+                                                        <a href="javascript:void();">translate</a>
+                                                        <span> {{ hoursDifference(value.created_at) }} </span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    </template>
 
                                 </ul>
                                 <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">
-                                    <input type="text" class="form-control rounded" placeholder="Enter Your Comment">
+                                    <input v-model="comments[k]" @keyup.enter="createComment(v.id, k)"
+                                        @input="handleClick(k)" class="editable-content form-control"
+                                        placeholder="Enter Your Comment">
                                     <div class="comment-attagement d-flex">
+                                        <!-- <span class=" bg-danger">Lê Công Anh</span> -->
                                         <a href="javascript:void();"><i class="ri-link me-3"></i></a>
                                         <a href="javascript:void();"><i class="ri-user-smile-line me-3"></i></a>
                                         <a href="javascript:void();"><i class="ri-camera-line me-3"></i></a>
+                                    </div>
+                                    <div class="dropdown " id="dropdownList" style="position: absolute; inset: 0px auto auto 0px;
+                                        z-index: 1; margin: 0px; transform: translate(0px, 40px);">
+                                        <div class="dropdown-menu" :id="'listFriend-' + k"
+                                            aria-labelledby="dropdownMenuButton">
+                                            <div v-for="(value, key) in list_friend" @click="tagFriend(value, k, key)"
+                                                style="cursor: pointer;"
+                                                class="dropdown-item d-flex align-items-center ps-2">
+                                                <div class="circle me-2 "
+                                                    style="width: 30px; height: 30px; background: #000; overflow: hidden;">
+                                                    <img :src="urlImg + value.avatar" class="img-fluid" alt="">
+                                                </div>
+                                                <span>{{ value.fullname }}</span>
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
@@ -508,8 +490,7 @@
                         <div class="scroll-content">
                             <div v-for="(v, k) in list_friend" class="d-flex align-items-center mb-4">
                                 <div class="iq-profile-avatar status-online">
-                                    <img class="rounded-circle avatar-50" :src="urlImg + v.avatar"
-                                        alt="">
+                                    <img class="rounded-circle avatar-50" :src="urlImg + v.avatar" alt="">
                                 </div>
                                 <div class="ms-3">
                                     <h6 class="mb-0">{{ v.fullname }}</h6>
@@ -559,31 +540,74 @@ export default {
             },
             list_post: [],
             list_friend: [],
+            list_comment: [],
+            comments: [],
+            index_friend_tags: [],
+            id_tags : '',
         };
+    },
+    computed: {
+
+    },
+    created() {
+        console.log(window.localStorage.getItem('token')); //check token
+        this.getInfo();
+        this.dataStory();
+        this.setPrivacy();
+        this.loadPost();
+        this.getFriend();
+        this.loadComment();
     },
     mounted() {
         $("#input-b3").fileinput();
         $("#input-b3").fileinput({ 'showUpload': false, 'previewFileType': 'any' });
-        console.log(window.localStorage.getItem('token')); //check token
-        this.getInfo();
-        this.dataStory();
         $('.file-input').addClass('hide-important');
         $('.close').addClass('btn btn-secondary');
         $('.fileinput-remove').on('click', () => {
             $('.file-input').addClass('hide-important');
             this.post.images = [];
         });
-        this.setPrivacy();
-        this.loadPost();
-        this.getFriend();
     },
     methods: {
+        tagFriend(v, k, key) {
+            this.comments[k] += v.fullname;
+            // this.comments[k].lenght;
+            this.index_friend_tags.push(key);
+            $('#listFriend-' + k).removeClass('show');
+            if (this.id_tags.length > 0) {
+                this.id_tags += ',';
+            }
+            this.id_tags += v.id;
+            console.log(this.id_tags);
+        },
+        handleClick(k) {
+            const currentComment = this.comments[k];
+            const lastChar = currentComment.slice(-1);
+            let showDropdown = false;
+            if (lastChar === "@") {
+                showDropdown = true;
+            }
+            if (lastChar === " " || currentComment.trim() === "" || currentComment.length === 0) {
+                showDropdown = false;
+            }
+            if (showDropdown) {
+                $('#listFriend-' + k).addClass('show');
+            }
+            if (currentComment.length === 0) {
+                $('#listFriend-' + k).removeClass('show');
+            }
+            if (lastChar === " " && !showDropdown) {
+                $('#listFriend-' + k).removeClass('show');
+            }
+        },
+        totalComments(a) {
+            return this.list_comment.filter(value => value.id_post == a).length;
+        },
         getFriend() {
             axios
                 .get('data-all-friend')
                 .then((res) => {
                     this.list_friend = res.data.data;
-                    console.log(this.list_friend);
                 });
         },
         hoursDifference(a) {
@@ -686,6 +710,44 @@ export default {
 
                     }
                 });
+        },
+        loadComment() {
+            axios
+                .get('comment/data')
+                .then((res) => {
+                    this.list_comment = res.data.dataComment;
+                });
+        },
+        createComment(id, k) {
+            if (!event.shiftKey && this.comments[k] != null) {
+                var comment = this.comments[k];
+                this.index_friend_tags.forEach(i => {
+                    comment = comment.replace('@' + this.list_friend[i].fullname,
+                        "<a href='/" + this.list_friend[i].username + "' class='custom-span'>" + this.list_friend[i].fullname + "</a>");
+                    // console.log(this.list_friend[i].fullname);
+                });
+                var payload = {
+                    'content': comment,
+                    'id_post': id,
+                    'id_tag': this.id_tags
+                }
+                axios
+                    .post('comment/create', payload)
+                    .then((res) => {
+                        if (res.data.status) {
+                            this.comments = [];
+                            this.loadComment();
+                        } else {
+                            console.log(res.data.message);
+                        }
+                    })
+                    .catch((res) => {
+                        $.each(res.response.data.errors, function (k, v) {
+                            toastr.error(v[0], 'error');
+                        });
+                    });
+            }
+
         },
 
     },

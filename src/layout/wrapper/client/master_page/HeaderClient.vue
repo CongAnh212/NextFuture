@@ -360,7 +360,7 @@ export default {
             urlImg: url
         }
     },
-    mounted() {
+    created() {
         this.getInfo();
     },
     methods: {
