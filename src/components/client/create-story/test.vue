@@ -1,41 +1,37 @@
 <template>
-    <input id="input-b5" name="input-b5[]" type="file" ref="fileInput">
-    <input id="input-b3" name="input-b3[]" type="file" class="file" multiple data-show-upload="false"
-        data-show-caption="true" data-msg-placeholder="Select {files} for upload...">
+    <div>
+        <div ref="editableContent" @keyup.enter="comment" @input="handleClick" contenteditable="true"
+            class="editable-content form-control" placeholder="Enter Your Comment">
+            <span>hello</span>
+        </div>
+    </div>
 </template>
 
 <script>
-import axios from 'axios';
-import html2canvas from "html2canvas";
-
 export default {
-    data() {
-        return {
-            selectedFile: '',
-            myImage: '',
-            capturedImage: null,
-        };
-    },
-    mounted() {
-        $("#input-b5").fileinput({ showCaption: false, dropZoneEnabled: false });
-        $("#input-b3").fileinput();
-
-        // with plugin options
-        $("#input-b3").fileinput({ 'showUpload': false, 'previewFileType': 'any' });
-        // setTimeout(() => {
-        //     $('.file-input').addClass("file-input-new");
-
-        // }, 5000);
-        // $('.fileinput-cancel-button').addClass('hide-important');
-        // $('.fileinput-remove-button').addClass('hide-important');
-        // $('.fileinput-upload-button').addClass('hide-important');
-        // $('.file-preview').css('display', 'none');
-        // $('.file-input').css('display', 'none');
-    },
     methods: {
+        comment() {
+            // Xử lý logic bình luận khác
+        },
+        handleClick() {
+            const content = this.$refs.editableContent.innerHTML;
+            const textContent = this.stripHTML(content);
 
-    },
+            console.log('Content of editableContent:', content);
+            console.log('Content of editableContent:', textContent);
+        },
+        stripHTML(html) {
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+            return doc.body.textContent || "";
+        }
+    }
 };
 </script>
 
-<style></style>
+<style>
+.editable-content {
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-height: 50px;
+}
+</style>

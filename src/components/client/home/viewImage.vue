@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex w-100 justify-content-around" style="object-fit: cover; position: relative;">
         <div :id="'divImg' + post.id" class="alignDivImg" style="width: 100%; overflow: hidden; background-color: rgb(0, 0, 0);">
-            <img :src="urlImg + 'post/' + img[i]" class="w-100 alignDiv" ref="postImage">
+            <img :src="urlImg + img[i]" class="w-100 alignDiv" ref="postImage">
             <div v-if="img.length > 1" class="alignDot justify-content-center">
                 <span v-for="i in img.length" :id="'dot' + post.id + i" class="dotSlide"></span>
             </div>
@@ -32,7 +32,20 @@ export default {
             i: 0,
         }
     },
-    mounted() {
+    watch: {
+        post: {
+            handler(newPost, oldPost) {
+                // Xử lý khi thuộc tính post thay đổi
+                this.img = newPost.images.split(',');
+                this.setSize();
+                setTimeout(() => {
+                    this.dotActive(0);
+                }, 500);
+            },
+            deep: true, 
+        },
+    },
+    created() {
         this.img = this.post.images.split(',');
         this.setSize();
         setTimeout(() => {
@@ -72,7 +85,7 @@ export default {
             const img = new Image();
             const imgLoaded = new Promise((resolve) => {
                 img.onload = resolve;
-                img.src = this.urlImg + 'post/' + this.img[0];
+                img.src = this.urlImg + this.img[0];
             });
             await imgLoaded;
 

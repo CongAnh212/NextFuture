@@ -1,4 +1,5 @@
 <template >
+   
     <div class="iq-sidebar sidebar-default" style="width: 20vw;">
         <div id="sidebar-scrollbar" data-scrollbar="true" tabindex="-1"
             style="overflow: hidden; outline: none;position: relative;">
@@ -9,21 +10,113 @@
                             <h4 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: 500;">
                                 <b>Privacy</b>
                             </h4>
-                            <div class="rounded-circle d-flex justify-content-center align-items-center gear"
+                            <div @click="openPrivacyModal()"
+                                class="rounded-circle d-flex justify-content-center align-items-center gear"
                                 style="height: 35px; width: 35px; background-color: #e4e4e4; cursor: pointer;">
                                 <i class="fa-solid fa-gear" style="font-size: 20px; color: black;"></i>
+                            </div>
+                            <!-- Modal -->
+                            <div style="z-index: 10; display: none;" class="modal fade" id="privacyModal" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content privacyModalMain">
+                                        <div class="modal-header d-flex justify-content-center">
+                                            <h1 class="modal-title fs-5"><b>Story privacy</b></h1>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h5><b style="font-weight: 500;">Who can see your story?</b></h5>
+                                            <p>Your story will be visible on NF for 24 hours.</p>
+                                            <div class=" w-100 h-100 ">
+                                                <div @click="setPrivacy('rdoPublic')"
+                                                    class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center"
+                                                    style="height: 65px;">
+                                                    <div class=" bg-light circle d-flex me-2
+                                                    justify-content-center align-items-center"
+                                                        style="width: 55px; height: 55px;">
+                                                        <i class="fas fa-globe-asia fa-2x text-dark "></i>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between
+                                                    align-items-center" style="width: calc(100% - 60px);">
+                                                        <div class="d-flex flex-column pt-3" style="user-select: none;">
+                                                            <h5>
+                                                                <b style="font-weight: 500;">Public</b>
+                                                            </h5>
+                                                            <p>anyone on NF social networks</p>
+                                                        </div>
+                                                        <div>
+                                                            <input class="form-check-input me-2" value="1"
+                                                                style="cursor: pointer;" name="privacy" type="radio"
+                                                                id="rdoPublic">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div @click="setPrivacy('rdoFriend')"
+                                                    class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center"
+                                                    style="height: 65px;">
+                                                    <div class=" bg-light circle d-flex me-2
+                                                    justify-content-center align-items-center"
+                                                        style="width: 55px; height: 55px;">
+                                                        <i class="fas fa-users fa-2x text-dark"></i>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between
+                                                    align-items-center" style="width: calc(100% - 60px);">
+                                                        <div class="d-flex flex-column pt-3" style="user-select: none;">
+                                                            <h5>
+                                                                <b style="font-weight: 500;">Friends</b>
+                                                            </h5>
+                                                            <p>only your friends on the NF social network</p>
+                                                        </div>
+                                                        <div>
+                                                            <input class="form-check-input me-2" value="2"
+                                                                style="cursor: pointer;" name="privacy" type="radio"
+                                                                id="rdoFriend">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div @click="setPrivacy('rdoPrivate')"
+                                                    class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center"
+                                                    style="height: 65px;">
+                                                    <div class=" bg-light circle d-flex me-2
+                                                    justify-content-center align-items-center"
+                                                        style="width: 55px; height: 55px;">
+                                                        <i class="fas fa-lock fa-2x text-dark "></i>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between
+                                                    align-items-center" style="width: calc(100% - 60px);">
+                                                        <div class="d-flex flex-column pt-3" style="user-select: none;">
+                                                            <h5>
+                                                                <b style="font-weight: 500;">Private</b>
+                                                            </h5>
+                                                            <p>only you see on social networks</p>
+                                                        </div>
+                                                        <div>
+                                                            <input class="form-check-input me-2" value="4"
+                                                                style="cursor: pointer;" name="privacy" type="radio"
+                                                                id="rdoPrivate">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                @click="closePrivacyModal()">Close</button>
+                                            <button @click="savePrivacy()" type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <li>
                             <router-link :to="{ name: 'profile-client' }">
                                 <img style="height: 55px; width: 55px;" :src="urlImg + myData.avatar"
                                     class="img-fluid rounded-circle me-3" alt="user">
-                                <span><b class="text-dark">Lê Công Anh</b></span>
+                                <span><b class="text-dark">{{ myData.fullname }}</b></span>
                             </router-link>
                         </li>
                         <hr>
                     </ul>
-                    <div class="px-3">
+                    <div v-if="isTextStory" class="px-3">
                         <div class="mb-3">
                             <textarea v-model="textt" class="form-control pt-3" name="" id="" rows="7"
                                 placeholder="Start typing ..."></textarea>
@@ -99,16 +192,16 @@
                                     style="background-color: rgba(36, 36, 36, 0.4);z-index: 10; width: 27.5%;"></div>
                                 <div id="content" @dragover.prevent @dragover="drop" ref="captureDiv"
                                     class="d-flex justify-content-center align-items-center col-6 p-0 ">
+                                    <!-- d-flex justify-content-center align-items-center-->
                                     <div class="radius-10" style="width: 100%; height: 100%; border: 1px solid #fff; z-index: 6; pointer-events: none;
                                         position: absolute;">
                                     </div>
-                                    <div id="mainImage" class="draggable" draggable="true"
-                                        :style="{ left: x + 'px', top: y + 'px' }" @dragstart="getCoordinates"
-                                        @dragend="close()">
-                                        <img :src="mainImg" draggable="false"
-                                            style="height: 100%; width: 100%; pointer-events: none; ">
+                                    <div id="mainImage" style="overflow: visible; max-width: 10000px; position: relative;" class="draggable"
+                                        draggable="true" :style="{ left: x + 'px', top: y + 'px' }"
+                                        @dragstart="getCoordinates" @dragend="close()">
+                                        <img id="mainImg" :src="mainImg" draggable="false"
+                                            style="height: 100%; width: 100%; pointer-events: none; object-fit: cover">
                                     </div>
-
                                 </div>
                                 <div class="col-3 cover"
                                     style="background-color: rgba(36, 36, 36, 0.4);z-index: 10; width: 27.5%"></div>
@@ -118,12 +211,12 @@
                             <div class="range_form mt-2 " style="z-index: 5;">
                                 <input v-model="abc" @input="check()" type="range" style="width: 100%;">
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="modal fade " id="storyText" tabindex="-1" aria-labelledby="storyTextLabel" aria-modal="true"
             role="dialog" style="position: absolute; display: none; height: 90vh;">
             <div class="modal-dialog modal-lg border_modal radius-10" role="document">
@@ -162,7 +255,7 @@ import axios, { url } from '../../../core/coreRequest';
 export default {
     data() {
         return {
-            urlImg : url,
+            urlImg: url,
             mainImg: '',
             abc: 10,
             x: 0,
@@ -194,6 +287,8 @@ export default {
             textt: "",
             isTextStory: false,
             myData: {},
+            namePrivacy: '',
+            privacy: 1,
         }
     },
     mounted() {
@@ -207,11 +302,36 @@ export default {
         axios
             .get('profile/data')
             .then((res) => {
-                this.myData = res.data.myData;
+                this.myData = res.data.myInfo;
             });
+        $('#rdoPublic').prop('checked', true);
+
     },
     methods: {
-
+        savePrivacy() {
+            this.openPrivacyModal();
+            if (this.namePrivacy == 'rdoPublic') {
+                this.privacy = 1;
+            } else if (this.namePrivacy == 'rdoFriend') {
+                this.privacy = 2;
+            } else {
+                this.privacy = 4;
+            }
+        },
+        closePrivacyModal() {
+            this.openPrivacyModal();
+        },
+        setPrivacy(a) {
+            $('#' + a).prop('checked', true);
+            this.namePrivacy = a;
+            // if (a == 'rdoPublic') {
+            //     this.privacy = 1;
+            // } else if (a == 'rdoFriend') {
+            //     this.privacy = 2;
+            // } else {
+            //     this.privacy = 4;
+            // }
+        },
         openModal() {
             $('#storyText').addClass("show");
             this.isCreate = true;
@@ -235,7 +355,7 @@ export default {
         async uploadFile() {
             var payload = {
                 image: this.capturedImage,
-                status: 1
+                privacy: this.privacy
             }
             try {
                 axios.post('story/create', payload)
@@ -270,13 +390,15 @@ export default {
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     this.mainImg = e.target.result;
-                    console.log(this.mainImg);
                 };
                 reader.readAsDataURL(fileInput.files[0]);
             }
         },
         check() {
             $('#mainImage').css('width', (this.abc * 100 / 20) + "%");
+            // $('#mainImage').css('height', (this.abc * 100 / 20) + "%");
+            // $('#mainImage').css('width', "200%");
+            console.log($('#mainImage').width());
         },
         getCoordinates(event) {
             $('#content').css('overflow', 'visible');
@@ -316,11 +438,25 @@ export default {
             $('#bg-' + index).addClass('bg-active');
             $('#content-text').css('background', v);
 
-        }
+        },
+        openPrivacyModal() {
+            if (!$('#privacyModal').hasClass("show")) {
+                $('#privacyModal').addClass('show');
+                $('#privacyModal').css('display', 'block');
+            } else {
+                $('#privacyModal').removeClass('show');
+                $('#privacyModal').css('display', 'none');
+            }
+            if (this.privacy == 1) {
+                $('#rdoPublic').prop('checked', true);
+            } else if (this.privacy == 2) {
+                $('#rdoFriend').prop('checked', true);
+            } else {
+                $('#rdoPrivate').prop('checked', true);
+            }
+        },
 
     }
 }
 </script >
-<style >
-@import "./index.css";
-</style>   
+<style >@import "./index.css";</style>   

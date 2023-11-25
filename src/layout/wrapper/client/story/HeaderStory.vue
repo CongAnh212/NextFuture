@@ -198,7 +198,8 @@ export default {
             axios
                 .get('profile/data')
                 .then((res) => {
-                    this.myData = res.data.myData;
+                    this.myData = res.data.myInfo;
+                    console.log(this.myData);
                 });
         },
         signOut() {

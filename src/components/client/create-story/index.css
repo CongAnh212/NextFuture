@@ -146,7 +146,6 @@
     outline: 3px solid rgb(33, 43, 232);
 }
 
-.text-content {}
 
 #content-text {
     width: 45%;
@@ -155,4 +154,23 @@
     z-index: 2;
     background: rgb(100, 107, 245);
 
+}
+
+#privacyModal {
+    margin-top: 18vh;
+    /* Set height to 100% of the viewport height */
+}
+.privacyModalMain{
+
+    box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.5);
+    border: none;
+}
+
+.privacy-hover {
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.privacy-hover:hover {
+    background-color: #e6e6e65c;
 }
