@@ -15,10 +15,13 @@ const routes = [
   {
     path: "/",
     name: "homepage",
+    props: true,
     component: () => import("../components/client/home/index.vue"),
     children: [ // tạo thêm 1 class để xử lý ảnh cho dễ
       {
         path: '',
+        props: true,
+
         component: () => import('../components/client/home/viewImage.vue')
       }
     ]
@@ -130,6 +133,14 @@ const routes = [
         },
       },
     ],
+  },
+  {
+    path: "/group",
+    meta: { layout: "main" },
+    components: {
+      default: () => import("../components/client/group/list.vue"),
+      content: () => import("../components/client/home/index.vue"),
+    },
   },
   {
     path: "/test",

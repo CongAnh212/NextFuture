@@ -1,0 +1,17 @@
+.active-group {
+    background-color: #33333312;
+    border-radius: 10px;
+}
+
+.active-group>.circle {
+    background-color: var(--bs-blue) !important;
+}
+
+.active-group>.circle>i {
+    color: #fff !important;
+}
+
+.group-hover:hover{
+    background-color: #33333312;
+    border-radius: 10px;
+}

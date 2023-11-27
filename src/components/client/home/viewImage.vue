@@ -51,6 +51,7 @@ export default {
         setTimeout(() => {
             this.dotActive(0);
         }, 500);
+        console.log(this.post);
     },
     methods: {
         next() {

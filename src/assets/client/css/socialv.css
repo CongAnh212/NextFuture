@@ -10003,10 +10003,6 @@ fieldset:disabled .btn {
   -webkit-border-radius: 50% !important;
   border-radius: 50% !important;
 }
-.circle {
-  -webkit-border-radius: 50% !important;
-  border-radius: 50% !important;
-}
 
 .rounded-pill {
   -webkit-border-radius: 50rem !important;
@@ -30056,6 +30052,15 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-right {
   left: auto;
 }
 
-h-100{
+.h-100{
   height: 100%;
+}
+.circle {
+  -webkit-border-radius: 50% !important;
+  border-radius: 50% !important;
+}
+.flex-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

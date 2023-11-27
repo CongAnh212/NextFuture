@@ -27,10 +27,10 @@
                             </a>
                         </li>
                         <li>
-                            <a href="../app/group.html" class=" ">
+                            <router-link to="/group">
                                 <i class="fa-solid fa-users" style="font-size: 17px;"></i>
                                 <span>Group</span>
-                            </a>
+                            </router-link>
                         </li>
                         <li class=" ">
                             <a href="../app/todo.html" class=" ">
@@ -308,7 +308,8 @@
                                     <div class="w-100">
                                         <div class="d-flex justify-content-between">
                                             <div class="">
-                                                <h5 class="mb-0 d-inline-block">{{ v.fullname }}</h5>
+                                                <h5 class="mb-0 d-inline-block" style="font-weight: bold;">{{ v.fullname }}
+                                                </h5>
                                                 <p class="ms-1 mb-0 d-inline-block">Changed Profile Picture</p>
                                                 <p class="mb-0">{{ hoursDifference(v.created_at) }} ago</p>
                                             </div>
@@ -363,29 +364,24 @@
                                     </div>
                                 </div>
                             </div>
-                            <router-view v-if="v.images" :post="v"></router-view>
-                            <!-- <div v-if="v.images" class="user-post text-center">
-                                <a href="javascript:void();"><img :src="urlImg + 'post/' +  v.images"
-                                        alt="post-image" class="img-fluid rounded w-100 mt-3"></a>
-                            </div> -->
+                            <!-- routerr -->
+                            <template v-if="v.images">
+                                <router-view v-slot="{ Component }">
+                                    <keep-alive>
+                                        <component :is="Component" :key="$route.fullPath" :post="v"></component>
+                                    </keep-alive>
+                                </router-view>
+                            </template>
+
                             <div class="comment-area mt-3">
                                 <div class="d-flex justify-content-between align-items-center flex-wrap">
                                     <div class="like-block position-relative d-flex align-items-center">
                                         <div class="d-flex align-items-center">
                                             <div class="like-data">
-                                                <div class="dropdown">
-                                                    <span class="dropdown-toggle" data-bs-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false" role="button">
-                                                        <img src="../../../assets/client/images/icon/01.png"
-                                                            class="img-fluid" alt="">
+                                                <div class="contain-heart  flex-center" style="width: 30px; height: 30px;">
+                                                    <span role="button">
+                                                        <i class="far fa-heart heart"></i>
                                                     </span>
-                                                    <div class="dropdown-menu py-2">
-                                                        <a class="ms-2 me-2" href="#" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" title="" data-bs-original-title="Like"
-                                                            aria-label="Like"><img
-                                                                src="../../../assets/client/images/icon/01.png"
-                                                                class="img-fluid" alt=""></a>
-                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="total-like-block ms-2 me-3">
@@ -429,7 +425,7 @@
                                                         class="avatar-35 rounded-circle img-fluid">
                                                 </div>
                                                 <div class="comment-data-block ms-3">
-                                                    <h6>{{ value.fullname }}</h6>
+                                                    <h6 style="font-weight: 550;">{{ value.fullname }}</h6>
                                                     <p v-html="value.content" class="mb-0"></p>
                                                     <div class="d-flex flex-wrap align-items-center comment-activity">
                                                         <a href="javascript:void();">like</a>
@@ -543,7 +539,10 @@ export default {
             list_comment: [],
             comments: [],
             index_friend_tags: [],
-            id_tags : '',
+            id_tags: '',
+            check: {
+                images: "post/1700648799_3-29.jpg,post/1700648799_login.jpg",
+            },
         };
     },
     computed: {

@@ -12,7 +12,7 @@
     </div>
     <div class="iq-search-bar device-search w-100 mt-1 mb-1">
         <div action="#" class="searchbox w-100">
-            <a class="search-link" href="#">
+            <a class="search-link flex-center h-100" href="#">
                 <i class="ri-search-line"></i>
             </a>
             <input type="text" class="text search-input" placeholder="Search friend..." style="border-radius: 50px;">
