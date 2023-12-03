@@ -36,7 +36,6 @@ const routes = [
       content: () => import("../components/client/friend/content.vue"),
     },
   },
-
   {
     path: "/friends/suggestions",
     name: "suggestions",
@@ -136,11 +135,29 @@ const routes = [
   },
   {
     path: "/group",
+    name: "group",
     meta: { layout: "main" },
     components: {
       default: () => import("../components/client/group/list.vue"),
-      content: () => import("../components/client/home/index.vue"),
+      // content: () => import("../components/client/home/index.vue"),
     },
+  },
+  {
+    path: "/group-create",
+    name: "create-group",
+    meta: { layout: "empty"},
+    components: {
+      default: () => import("../components/client/group/create/index.vue"),
+    },
+  },
+  {
+    path: "/group/a",
+    name: "home-group",
+    meta: { layout: "main" },
+    components: {
+      default: () => import("../components/client/group/home/list.vue"),
+      content: () => import("../components/client/group/home/content.vue"),
+    }
   },
   {
     path: "/test",

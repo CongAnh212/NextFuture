@@ -27,7 +27,7 @@
                             </a>
                         </li>
                         <li>
-                            <router-link to="/group">
+                            <router-link :to="{ name: 'group' }">
                                 <i class="fa-solid fa-users" style="font-size: 17px;"></i>
                                 <span>Group</span>
                             </router-link>
