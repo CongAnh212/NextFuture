@@ -1,0 +1,19 @@
+.button-container {
+  position: absolute;
+  top: 10px; /* Thay đổi giá trị top để điều chỉnh vị trí theo mong muốn của bạn */
+  right: 10px; /* Thay đổi giá trị right để điều chỉnh vị trí theo mong muốn của bạn */
+  z-index: 1; /* Đảm bảo button hiển thị trên ảnh */
+  overflow: hidden;
+  color: #fff; /* Màu của icon và văn bản */
+  background-color: rgba(11, 11, 11, 0.759);
+}
+
+.icon-button {
+  font-size: 16px;
+  cursor: pointer;
+  width: 2em;
+  height: 2em;
+}
+.button-container:hover {
+  background-color: rgba(56, 51, 51, 0.562);
+}

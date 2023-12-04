@@ -325,8 +325,7 @@
                 <div class="w-100 border-preview d-flex flex-column" style="">
                     <div class="w-100" style="background-color: #fff;">
                         <div class=" w-100 bg-primary" style="overflow: hidden; border-radius: 10px;">
-                            <img src="https://tiny-img.com/images/blog/meta/how-to-convert-webp-to-jpg.png"
-                                class="w-100 image-cover" style="">
+                            <img :src="urlImg + 'cover/cover_image.png'" class="w-100 image-cover" style="">
                         </div>
                         <div class="w-100 px-2 pt-3 pb-2 c">
                             <h3 v-if="!group_name"><b style="color: #9c9c9c;">Group name</b></h3>
@@ -482,20 +481,20 @@ export default {
         createGroup() {
             var payload = {
                 name_group: this.group_name,
-                privacy : this.privacy,
+                privacy: this.privacy,
                 display: this.display,
                 id_invites: this.id_invites
             }
-           axios
-            .post('groups/create', payload)
-            .then((res) => {
-                console.log(res.data);
-            })
-            .catch((res) => {
-                $.each(res.response.data.errors, function(k, v) {
-                    toastr.error(v[0] , 'error');
+            axios
+                .post('groups/create', payload)
+                .then((res) => {
+                    console.log(res.data);
+                })
+                .catch((res) => {
+                    $.each(res.response.data.errors, function (k, v) {
+                        toastr.error(v[0], 'error');
+                    });
                 });
-            }); 
         },
         addInvite(a) {
             const divElement = document.querySelector('.invite-friends');
@@ -531,7 +530,7 @@ export default {
             if (indexToRemove !== -1) {
                 this.id_invites.splice(indexToRemove, 1);
             }
-             const divToRemove = document.getElementById("custom-div-" + id);
+            const divToRemove = document.getElementById("custom-div-" + id);
             if (divToRemove) {
                 divToRemove.remove();
             }
