@@ -17,13 +17,14 @@ const routes = [
     name: "homepage",
     props: true,
     component: () => import("../components/client/home/index.vue"),
-    children: [ // tạo thêm 1 class để xử lý ảnh cho dễ
+    children: [
+      // tạo thêm 1 class để xử lý ảnh cho dễ
       {
-        path: '',
+        path: "",
         props: true,
-        component: () => import('../components/client/home/viewImage.vue')
-      }
-    ]
+        component: () => import("../components/client/home/viewImage.vue"),
+      },
+    ],
   },
 
   {
@@ -133,18 +134,28 @@ const routes = [
     ],
   },
   {
-    path: "/group",
+    path: "/group/discover",
     name: "group",
     meta: { layout: "main" },
     components: {
       default: () => import("../components/client/group/list.vue"),
-      // content: () => import("../components/client/home/index.vue"),
+      content: () => import("../components/client/group/discover/content.vue"),
+    },
+  },
+  {
+    path: "/group/your-group",
+    name: "your_group",
+    meta: { layout: "main" },
+    components: {
+      default: () => import("../components/client/group/list.vue"),
+      content: () =>
+        import("../components/client/group/your-group/content.vue"),
     },
   },
   {
     path: "/group-create",
     name: "create-group",
-    meta: { layout: "empty"},
+    meta: { layout: "empty" },
     components: {
       default: () => import("../components/client/group/create/index.vue"),
     },
@@ -156,7 +167,7 @@ const routes = [
     components: {
       default: () => import("../components/client/group/home/list.vue"),
       content: () => import("../components/client/group/home/content.vue"),
-    }
+    },
   },
   {
     path: "/test",

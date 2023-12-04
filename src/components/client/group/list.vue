@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="w-100 mt-3" style="overflow: auto;">
-        <div @click="setActive('discover')" id="discover"
+        <div @click="setActive('group')" id="discover"
             class="w-100 d-flex  bg-hover ps-2 align-items-center active-group mb-1" style="height: 45px; cursor: pointer;">
             <div class="bg-light circle me-2 flex-center" style="width:35px;height:35px;">
                 <i class="fas fa-compass text-dark" style="font-size: 1.25rem;"></i>
@@ -98,6 +98,7 @@ export default {
         setActive(a) {
             $('.active-group').removeClass('active-group');
             $('#' + a).addClass('active-group');
+            this.$router.push({ name: a });
         },
         viewCreate() {
             this.$router.push({ name: 'create-group' });

@@ -176,9 +176,11 @@
                     </div>
                 </div>
             </div>
+
             <div class=" col-5">
                 <div class="card " style="border-radius: 10px;">
                     <div class="card-body b " style="border-radius: 10px; box-shadow: 0px 0px 5px #33333324;">
+
                         <span style="font-weight: 600;">Introduct</span>
                         <div class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center"
                             style="height: 65px; line-height: 18px;">
