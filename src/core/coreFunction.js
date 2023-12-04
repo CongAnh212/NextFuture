@@ -27,17 +27,29 @@ export default {
         const startTime = new Date(time);
         const timeDiff = currentTime - startTime; // Hiệu giữa hai thời điểm tính bằng mili giây
 
-        if (timeDiff < 60 * 60 * 1000) { // Nếu thời gian giữa hai điểm ít hơn 1 giờ
+        if (timeDiff < 60 * 1000) { // Nếu thời gian giữa hai điểm ít hơn 1 phút
+            return `${Math.round(timeDiff / 1000)} seconds`;
+        } else if (timeDiff < 60 * 60 * 1000) { // Nếu thời gian giữa hai điểm ít hơn 1 giờ
             const minutes = timeDiff / (1000 * 60); // Chuyển đổi thành phút
             return `${Math.round(minutes)} minutes`;
         } else if (timeDiff < 24 * 60 * 60 * 1000) { // Nếu thời gian giữa hai điểm ít hơn 24 giờ
             const hours = timeDiff / (1000 * 60 * 60); // Chuyển đổi thành giờ
-            return `${this.roundToDecimal(hours, 0)} hours`;
-        } else {
+            return `${Math.round(hours)} hours`;
+        } else if (timeDiff < 7 * 24 * 60 * 60 * 1000) { // Nếu thời gian giữa hai điểm ít hơn 7 ngày
             const days = timeDiff / (1000 * 60 * 60 * 24); // Chuyển đổi thành ngày
-            return `${Math.round(days)} days`; // Sử dụng Math.round để làm tròn số ngày
+            return `${Math.round(days)} days`;
+        } else if (timeDiff < 30 * 24 * 60 * 60 * 1000) { // Nếu thời gian giữa hai điểm ít hơn 30 ngày (1 tháng)
+            const weeks = timeDiff / (1000 * 60 * 60 * 24 * 7); // Chuyển đổi thành tuần
+            return `${Math.round(weeks)} weeks`;
+        } else if (timeDiff < 365 * 24 * 60 * 60 * 1000) { // Nếu thời gian giữa hai điểm ít hơn 365 ngày (1 năm)
+            const months = timeDiff / (1000 * 60 * 60 * 24 * 30); // Chuyển đổi thành tháng
+            return `${Math.round(months)} months`;
+        } else {
+            const years = timeDiff / (1000 * 60 * 60 * 24 * 365); // Chuyển đổi thành năm
+            return `${Math.round(years)} years`;
         }
     },
+
     roundToDecimal(number, decimalPlaces) {
         const multiplier = 10 ** decimalPlaces;
         return Math.round(number * multiplier) / multiplier;

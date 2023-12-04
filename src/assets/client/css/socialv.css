@@ -30044,3 +30044,12 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-right {
 .f-500{
   font-weight: 500;
 }
+.radius-10{
+  border-radius: 10px;
+}
+.radius-7{
+  border-radius: 7px;
+}
+.radius-5 {
+  border-radius: 5px;
+}
