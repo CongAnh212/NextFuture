@@ -3,8 +3,8 @@
         <div class="me-2" style="overflow: hidden; width: 53px; height: 53px; border-radius: 15px;"><img
                 src="http://127.0.0.1:8000/img/cover/cover_image.png" alt="" style="object-fit: cover; height: 100%;"></div>
         <div class="d-flex justify-content-center" style="flex: 1 1 0%; flex-direction: column; line-height: 1.25rem;"><b
-                style="font-size: 15px;">Hội Wibu Tiềm Năng</b>
-            <p class="p-0 m-0">Public group - 1 tỷ thành viên</p>
+                style="font-size: 15px;">{{ data.group_name }}</b>
+            <p class="p-0 m-0"> {{ data.privacy == 1 ? 'Public' : 'Private' }} group - {{ data.member }} thành viên</p>
         </div>
     </div>
     <div class="w-100 d-flex">
@@ -27,27 +27,42 @@
     </div>
     <hr class="mt-0 pt-0">
     <div @click="community" class="w-100  d-flex p-2 community-active" style="border-radius: 7px; cursor: pointer;">
-        <i class=" del-event fas fa-home  me-2 "
-            style="font-size: 20px; padding-top: 0.2rem;"></i>
+        <i class=" del-event fas fa-home  me-2 " style="font-size: 20px; padding-top: 0.2rem;"></i>
         <span class="del-event">Community homepage</span>
     </div>
     <div @click="community" class="w-100  d-flex p-2 " style="border-radius: 7px; cursor: pointer;">
-        <i class=" del-event fas fa-layer-group me-2 "
-            style="font-size: 20px; padding-top: 0.2rem;"></i>
+        <i class=" del-event fas fa-layer-group me-2 " style="font-size: 20px; padding-top: 0.2rem;"></i>
         <span class="del-event">Overview</span>
     </div>
 </template>
 <script>
+import axios, { url } from '../../../../core/coreRequest';
 export default {
     data() {
         return {
-            //
+            id_group: '',
+            data: {},
+            urlImg: url,
         }
     },
     mounted() {
-        //
+        this.id_group = this.$route.params.id_group;
+        this.getInfo();
+    },
+    watch: {
+        '$route.params.id_group'(id_group) {
+            this.id_group = id_group;
+            this.getInfo();
+        }
     },
     methods: {
+        getInfo() {
+            axios
+                .get('groups/' + this.id_group)
+                .then((res) => {
+                    this.data = res.data.info;
+                });
+        },
         community(event) {
             const el = event.target;
             $('.community-active').removeClass('community-active')
@@ -68,4 +83,5 @@ export default {
 }
 </script>
 <style>
-@import './style.css';</style>
+@import './style.css';
+</style>

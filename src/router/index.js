@@ -22,7 +22,6 @@ const routes = [
       {
         path: "",
         props: true,
-
         component: () => import("../components/client/home/viewImage.vue"),
       },
     ],
@@ -162,7 +161,7 @@ const routes = [
     },
   },
   {
-    path: "/group/a",
+    path: "/group/:id_group",
     name: "home-group",
     meta: { layout: "main" },
     components: {

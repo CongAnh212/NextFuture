@@ -44,8 +44,8 @@
         </div>
         <div class="w-100" v-if="list_manager.length > 0">
             <h5 style="font-weight: 500;">Groups you manage</h5>
-            <div v-for="(v, k) in list_manager" class="w-100 d-flex bg-hover"
-                style="border-radius: 10px; padding: 0.45rem 0.5rem;">
+            <div @click="detail(v.id)" v-for="(v, k) in list_manager" class="w-100 d-flex bg-hover"
+                style="border-radius: 10px; padding: 0.45rem 0.5rem; cursor: pointer;">
                 <div class="me-2 flex-center" style="overflow: hidden; width: 53px; height: 53px; border-radius: 15px;">
                     <img :src="urlImg + v.cover_image" style="object-fit: cover; height: 100%;" alt="">
                 </div>
@@ -58,8 +58,8 @@
         </div>
         <div class="w-100" v-if="list_join.length > 0">
             <h5 style="font-weight: 500;">Group you have joined</h5>
-            <div v-for="(v, k) in list_join" class="w-100 d-flex bg-hover"
-                style="border-radius: 10px; padding: 0.45rem 0.5rem;">
+            <div @click="detail(v.id)" v-for="(v, k) in list_join" class="w-100 d-flex bg-hover"
+                style="border-radius: 10px; padding: 0.45rem 0.5rem; cursor: pointer;">
                 <div class="me-2 flex-center" style="overflow: hidden; width: 53px; height: 53px; border-radius: 15px;">
                     <img :src="urlImg + v.cover_image" style="object-fit: cover; height: 100%;" alt="">
                 </div>
@@ -82,13 +82,19 @@ export default {
             list_manager: [],
             urlImg: url,
             list_join: [],
+
         }
     },
+
     created() {
-        this.getManager()
-        this.getJoin()
+        this.getManager();
+        this.getJoin();
+
     },
     methods: {
+        detail(z) {
+            this.$router.push({ name: 'home-group', params: { id_group: z } })
+        },
         setActive(a) {
             $('.active-group').removeClass('active-group');
             $('#' + a).addClass('active-group');
