@@ -1,7 +1,7 @@
 <template >
     <div class="w-100 ps-4">
         <div class=" mt-3 mb-1 d-flex justify-content-between">
-            <b class="text-dark">All the groups you have joined (3)</b>
+            <b class="text-dark">All the groups you have joined ({{ this.group_participated.length }})</b>
         </div>
         <div class="row mx-0">
             <div class="d-flex" style="gap: 7px; flex-direction: row; flex-wrap: wrap; position: relative;">
@@ -48,7 +48,7 @@ export default {
     methods: {
         getGroupParticipate() {
             axios
-                .get('groups/data-group-participated')
+                .get('groups/data-all-group-participated')
                 .then((res) => {
                     this.group_participated = res.data.data
                 });

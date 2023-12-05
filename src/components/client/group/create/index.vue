@@ -488,7 +488,7 @@ export default {
             axios
                 .post('groups/create', payload)
                 .then((res) => {
-                    console.log(res.data);
+                    this.$router.push({ name: 'home-group', params: { 'id_group': res.data.id_group } });
                 })
                 .catch((res) => {
                     $.each(res.response.data.errors, function (k, v) {
