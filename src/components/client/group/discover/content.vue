@@ -98,7 +98,8 @@
         <div class="row mx-0">
             <div class="d-flex" style="gap: 7px; flex-direction: row; flex-wrap: wrap;">
                 <template v-for="(v, k) in all_group">
-                    <div class="card mb-3" style="border-radius: 8px !important; width: 32%; cursor: pointer;">
+                    <div @click="viewHome(v)" class="card mb-3"
+                        style="border-radius: 8px !important; width: 32%; cursor: pointer;">
                         <div style="width: 100%; height: 65%; overflow: hidden;">
                             <img :src="urlImg + v.cover_image" class="card-img-top" alt="#"
                                 style="object-fit: cover; height: 100%; ">
@@ -117,7 +118,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button class="btn btn-secondary w-100">Join group</button>
+                            <button @click="joinGroup(v, k, $event)" class="btn btn-light w-100 f-500">Join group</button>
                         </div>
                     </div>
                 </template>
@@ -128,6 +129,8 @@
 </template>
 <script>
 import axios, { url } from "../../../../core/coreRequest";
+import Toasted from 'vue-toasted';
+
 export default {
     data() {
         return {
@@ -145,6 +148,23 @@ export default {
                 .then((res) => {
                     this.all_group = res.data.data
                 });
+        },
+        joinGroup(v, k, event) {
+            event.stopPropagation();
+            axios
+                .post('groups/come-in-group', v)
+                .then((res) => {
+                    this.$toasted.show('Thông báo của bạn đã được hiển thị!');
+
+                })
+                .catch((res) => {
+                    $.each(res.response.data.errors, function (k, v) {
+                        toastr.error(v[0], 'error');
+                    });
+                });
+        },
+        viewHome(v) {
+            this.$router.push({ name: 'home-group', params: { id_group: v.id } });
         }
     },
 }
