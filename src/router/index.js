@@ -170,10 +170,12 @@ const routes = [
     },
   },
   {
-    path: "/test",
-    meta: { layout: "story" },
+    path: "/group/:id_group",
+    name: "setting",
+    meta: { layout: "main" },
     components: {
-      default: () => import("../components/client/create-story/test.vue"),
+      default: () => import("../components/client/group/home/list.vue"),
+      content: () => import("../components/client/group/settingg/setting.vue"),
     },
   },
 ];

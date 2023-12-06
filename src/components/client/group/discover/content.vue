@@ -118,7 +118,12 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button @click="joinGroup(v, k, $event)" class="btn btn-light w-100 f-500">Join group</button>
+                            <button v-if="v.status_button == 0" @click="joinGroup(v, k, $event)"
+                                class="btn btn-light w-100 f-500">Join group</button>
+                            <button v-else-if="v.status_button == 1" class="btn btn-light w-100 f-500 py-0 my-0" disabled>
+                                <img src="../../../../assets/client/images/page-img/page-load-loader.gif" alt="loader"
+                                    style="height: 37px;">Join group</button>
+                            <button v-else class="btn btn-primary w-100 f-500">Access the group</button>
                         </div>
                     </div>
                 </template>
@@ -129,7 +134,7 @@
 </template>
 <script>
 import axios, { url } from "../../../../core/coreRequest";
-import Toasted from 'vue-toasted';
+import baseFunction from "../../../../core/coreFunction";
 
 export default {
     data() {
@@ -146,21 +151,26 @@ export default {
             axios
                 .get('groups/data-discover')
                 .then((res) => {
-                    this.all_group = res.data.data
+                    this.all_group =
+                        this.all_group = res.data.data.map((item) => ({
+                            ...item,
+                            status_button: 0
+                        }))
                 });
         },
         joinGroup(v, k, event) {
             event.stopPropagation();
+            this.all_group[k].status_button = 1
             axios
                 .post('groups/come-in-group', v)
                 .then((res) => {
-                    this.$toasted.show('Thông báo của bạn đã được hiển thị!');
+                    // this.$toasted.show('Thông báo của bạn đã được hiển thị!');
+                    this.all_group[k].status_button = 2
 
+                    baseFunction.displaySuccess(res)
                 })
                 .catch((res) => {
-                    $.each(res.response.data.errors, function (k, v) {
-                        toastr.error(v[0], 'error');
-                    });
+                    console.log('res: ', res);
                 });
         },
         viewHome(v) {
