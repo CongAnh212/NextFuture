@@ -545,8 +545,8 @@ export default {
             },
         };
     },
-    computed: {
-
+    watch: {
+        
     },
     created() {
         console.log(window.localStorage.getItem('token')); //check token

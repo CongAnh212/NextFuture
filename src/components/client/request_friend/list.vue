@@ -22,10 +22,10 @@
                         <b class="text-secondary text-nowrap">{{ v.fullname }}</b> <br>
                         <span class="text-secondary">1 mutual</span>
                         <div class="text-nowrap">
-                            <button class="btn btn-primary me-1" style="width: 100px;" @click="confirm(v, $event)">
+                            <button class="btn btn-primary me-1" style="width: 100px;" @click="confirm(v, k)">
                                 Confirm
                             </button>
-                            <button class="btn btn-secondary" style="width: 100px;" @click="delRequest(v, $event)">
+                            <button class="btn btn-secondary" style="width: 100px;" @click="delRequest(v, k)">
                                 Delete
                             </button>
                         </div>
@@ -44,6 +44,20 @@ export default {
             urlImage: url,
         }
     },
+    props: {
+        sentFriendProfileSuggest: {
+            type: Object,
+            required: true,
+        }
+    },
+    watch: {
+        sentFriendProfileSuggest(newData, oldData) {
+            // console.log('newData: ', newData);
+            // console.log('oldData: ', oldData);
+            const newIndex = this.request_friend.findIndex(friend => friend.id === newData.info.id);
+            this.request_friend.splice(newIndex, 1);
+        },
+    },
     mounted() {
         this.getRequestFriend();
     },
@@ -59,7 +73,13 @@ export default {
                     }
                 });
         },
-        confirm(v, event) {
+        confirm(v, k) {
+            this.request_friend[k].friendStatus = true
+            const infoFriend = {
+                info: this.request_friend[k],
+                status: true
+            }
+            this.$emit("suggest", infoFriend)
             axios
                 .post('follower/accept-friend', v)
                 .then((res) => {
@@ -69,11 +89,17 @@ export default {
 
                     }
                 })
-            if (event) {
-                event.preventDefault();
-            }
+            // if (event) {
+            //     event.preventDefault();
+            // }
         },
-        delRequest(v, event) {
+        delRequest(v, k) {
+            this.request_friend[k].friendStatus = true
+            const infoFriend = {
+                info: this.request_friend[k],
+                status: true
+            }
+            this.$emit("del_suggest", infoFriend)
             axios
                 .post('follower/delete-friend', v)
                 .then((res) => {
@@ -83,9 +109,9 @@ export default {
 
                     }
                 });
-            if (event) {
-                event.preventDefault();
-            }
+            // if (event) {
+            //     event.preventDefault();
+            // }
         },
     },
 }
