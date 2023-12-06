@@ -1,7 +1,7 @@
-// import { createToaster } from '@meforma/vue-toaster'
-// const toastr =  createToaster({
-//     position: 'top-right'
-// })
+import { createToaster } from '@meforma/vue-toaster'
+const toastr =  createToaster({
+    position: 'bottom-left'
+})
 export default {
     date_format(now) {
         return moment(now).format('DD/MM/yyyy');
@@ -54,16 +54,16 @@ export default {
         const multiplier = 10 ** decimalPlaces;
         return Math.round(number * multiplier) / multiplier;
     },
-    // displaySuccess(res) {
-    //     var message = res.data.message;
-    //     if(res.data.status == 1) {
-    //         toastr.success(message);
-    //     } else if(res.data.status == 0) {
-    //         toastr.error(message);
-    //     } else {
-    //         toastr.warning(message);
-    //     }
-    // },
+    displaySuccess(res) {
+        var message = res.data.message;
+        if(res.data.status == 1) {
+            toastr.show(message);
+        } else if(res.data.status == 0) {
+            toastr.error(message);
+        } else {
+            toastr.warning(message);
+        }
+    },
 
     // displayErrors(err) {
     //     const time = 500;

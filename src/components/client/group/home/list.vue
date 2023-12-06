@@ -26,13 +26,18 @@
         </div>
     </div>
     <hr class="mt-0 pt-0">
-    <div @click="community" class="w-100  d-flex p-2 community-active" style="border-radius: 7px; cursor: pointer;">
+    <div @click="community('home-group', $event)" class="w-100  d-flex p-2 community-active" style="border-radius: 7px; cursor: pointer;">
         <i class=" del-event fas fa-home  me-2 " style="font-size: 20px; padding-top: 0.2rem;"></i>
         <span class="del-event">Community homepage</span>
     </div>
-    <div @click="community" class="w-100  d-flex p-2 " style="border-radius: 7px; cursor: pointer;">
+    <div @click="community('overview', $event)" class="w-100  d-flex p-2 " style="border-radius: 7px; cursor: pointer;">
         <i class=" del-event fas fa-layer-group me-2 " style="font-size: 20px; padding-top: 0.2rem;"></i>
         <span class="del-event">Overview</span>
+    </div>
+    <hr class="pt-0">
+    <div @click="community('setting', $event)" class="w-100  d-flex p-2 " style="border-radius: 7px; cursor: pointer;">
+        <i class=" del-event fas fa-cog me-2 " style="font-size: 20px; padding-top: 0.2rem;"></i>
+        <span class="del-event">Group management</span>
     </div>
 </template>
 <script>
@@ -63,11 +68,11 @@ export default {
                     this.data = res.data.info;
                 });
         },
-        community(event) {
+        community(a, event) {
             const el = event.target;
             $('.community-active').removeClass('community-active')
             el.classList.add('community-active');
-
+            this.$router.push({ name: a, params: { id_group: this.id_group } })
         },
         setList(event) {
             const e = event.target;
