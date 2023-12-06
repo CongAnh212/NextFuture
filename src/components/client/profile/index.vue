@@ -1061,7 +1061,7 @@
                                         <div class="tab-pane fade active show" id="all-friends" role="tabpanel">
                                             <div class="card-body p-0">
                                                 <div class="row">
-                                                 
+
                                                 </div>
                                             </div>
                                         </div>
@@ -1148,7 +1148,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -1235,7 +1235,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                  
+
                                                 </div>
                                             </div>
                                         </div>
@@ -1507,16 +1507,53 @@ export default {
             status: '',
         }
     },
+    props: {
+        sentFriend: {
+            type: Object,
+            required: true,
+        },
+        sentFriendSuggest: {
+            type: Object,
+            required: true,
+        },
+        delFriendSuggest: {
+            type: Object,
+            required: true,
+        }
+    },
     mounted() {
         this.username = this.$route.params.username;
         this.getInfo();
     },
     watch: {
+        sentFriend(newData, oldData) {
+            // console.log('newData: ', newData);
+            // console.log('oldData: ', oldData);
+            if (newData.status == true) {
+                this.status = 'request_friend';
+            } else {
+                this.status = 'stranger';
+            }
+        },
+        sentFriendSuggest(newData, oldData) {
+            // console.log('newData: ', newData);
+            // console.log('oldData: ', oldData);
+            if (newData.status == true) {
+                this.status = 'friend';
+            }
+        },
+        delFriendSuggest(newData, oldData) {
+            if (newData.status == true) {
+                this.status = 'stranger';
+            }
+        },
+
         '$route.params.username'(username) {
             this.username = username;
             this.getInfo();
             // console.log(this.username);
         }
+
     },
     methods: {
         getInfo() {
@@ -1529,6 +1566,11 @@ export default {
                 });
         },
         confirm() {
+            const infoFriend = {
+                info: this.info,
+                status: true
+            }
+            this.$emit("profile_suggest", infoFriend)
             axios
                 .post('follower/accept-friend', this.info)
                 .then((res) => {
@@ -1540,6 +1582,11 @@ export default {
                 })
         },
         delRequest() {
+            const infoFriend = {
+                info: this.info,
+                status: true
+            }
+            this.$emit("profile_suggest", infoFriend)
             axios
                 .post('follower/delete-friend', this.info)
                 .then((res) => {
@@ -1550,6 +1597,11 @@ export default {
 
         },
         addFriend() {
+            const infoFriend = {
+                info: this.info,
+                status: true
+            }
+            this.$emit("profile_request_friend", infoFriend)
             axios
                 .post('follower/add-friend', this.info)
                 .then((res) => {
@@ -1559,6 +1611,11 @@ export default {
                 })
         },
         unRequest() {
+            const infoFriend = {
+                info: this.info,
+                status: false
+            }
+            this.$emit("profile_request_friend", infoFriend)
             axios
                 .post('follower/cancel-friend', this.info)
                 .then((res) => {
@@ -1568,6 +1625,11 @@ export default {
                 })
         },
         unFriend() {
+            const infoFriend = {
+                info: this.info,
+                status: true
+            }
+            this.$emit("profile_del_friend", infoFriend)
             axios
                 .post('delete-friend', this.info)
                 .then((res) => {
