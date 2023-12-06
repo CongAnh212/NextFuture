@@ -45,6 +45,20 @@ export default {
             urlImage: url,
         }
     },
+    props: {
+        delFriendProfile: {
+            type: Object,
+            required: true,
+        }
+    },
+    watch: {
+        delFriendProfile(newData, oldData) {
+            // console.log('newData: ', newData);
+            // console.log('oldData: ', oldData);
+            const newIndex = this.all_friend.findIndex(friend => friend.id === newData.info.id);
+            this.all_friend.splice(newIndex, 1)
+        },
+    },
     mounted() {
         this.getAllFriend();
     },

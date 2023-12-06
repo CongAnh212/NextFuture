@@ -7,7 +7,10 @@
                     <div class="scroll-content">
                         <nav class="iq-sidebar-menu">
                             <ul id="iq-sidebar-toggle" class="iq-menu">
-                                <router-view>
+                                <router-view @request_friend="handleRequestFriend"
+                                    :sentFriendProfile="dataProfileRequestFriend" @suggest="handleSuggest"
+                                    :sentFriendProfileSuggest="dataProfileSuggest" @del_suggest="handleDelSuggest"
+                                    :delFriendProfile="delDataProfileAllFriend">
                                 </router-view>
                             </ul>
                         </nav>
@@ -25,7 +28,9 @@
             </div>
         </div>
         <div class="px-0 mx-0" style="position: absolute; right: 0; width: 79%;top: 4.25rem;">
-            <router-view name="content">
+            <router-view name="content" :sentFriend="dataRequestFriend" @profile_request_friend="handleProfileRequestFriend"
+                :sentFriendSuggest="dataSuggest" @profile_suggest="handleProfileSuggest" :delFriendSuggest="delDataSuggest"
+                @profile_del_friend="handleDelProfileAllFriend">
             </router-view>
         </div>
     </div>
@@ -45,6 +50,39 @@ export default {
     name: "app",
     components: {
         HeaderClient
+    },
+    data() {
+        return {
+            dataRequestFriend: null,        // cái này là từ list gửi cho profile đọc bên mục Suggest
+            dataProfileRequestFriend: null, // cài này là từ profile gửi cho list đọc bên mục Suggest
+            //--------------------------------------------------------------------------------------------//
+            dataSuggest: null,              // cái này là từ list gửi cho profile đọc bên mục Friend_Request
+            dataProfileSuggest: null,       // cái này là từ profile gửi cho list đọc bên mục Friend_Request
+            delDataSuggest: null,           // cài này là xóa từ list gửi cho profile đọc bên mục Friend_Request
+            //--------------------------------------------------------------------------------------------//
+            delDataProfileAllFriend: null,  // cài này là xóa từ profile gửi cho list đọc bên mục All_Friend
+
+        }
+    },
+    methods: {
+        handleRequestFriend(value) {
+            this.dataRequestFriend = value
+        },
+        handleProfileRequestFriend(value) {
+            this.dataProfileRequestFriend = value
+        },
+        handleSuggest(value) {
+            this.dataSuggest = value
+        },
+        handleProfileSuggest(value) {
+            this.dataProfileSuggest = value
+        },
+        handleDelSuggest(value) {
+            this.delDataSuggest = value
+        },
+        handleDelProfileAllFriend(value) {
+            this.delDataProfileAllFriend = value
+        },
     }
 }
 </script>

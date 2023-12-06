@@ -25,7 +25,7 @@
                         <div class="text-nowrap d-flex w-100">
                             <template v-if="v.friendStatus == false">
                                 <div class="me-1">
-                                    <button class="btn btn-primary" @click="addFriend(v, k, $event)" style="width: 100px">
+                                    <button class="btn btn-primary" @click="addFriend(v, k)" style="width: 100px">
                                         Add friend</button>
                                 </div>
                                 <div class="me-1">
@@ -35,7 +35,7 @@
                             </template>
                             <template v-else>
                                 <div class="me-1 w-100">
-                                    <button class="btn btn-secondary w-100" @click="unRequest(v, k, $event)">
+                                    <button class="btn btn-secondary w-100" @click="unRequest(v, k)">
                                         Cancel
                                     </button>
                                 </div>
@@ -54,7 +54,23 @@ export default {
         return {
             list_friend: [],
             urlImage: url,
+            a: 0,
         }
+    },
+    props: {
+        sentFriendProfile: {
+            type: Object,
+            required: true,
+        }
+    },
+    watch: {
+        sentFriendProfile(newData, oldData) {
+            // console.log('newData: ', newData);
+            // console.log('oldData: ', oldData);
+            const newIndex = this.list_friend.findIndex(friend => friend.id === newData.info.id);
+            // const oldIndex = this.list_friend.findIndex(friend => friend.id === oldData.info.id);
+            this.list_friend[newIndex].friendStatus = newData.status
+        },
     },
     mounted() {
         this.getSuggest();
@@ -69,29 +85,34 @@ export default {
                 }));
             });
         },
-        addFriend(v, k, event) {
+        addFriend(v, k) {
             this.list_friend[k].friendStatus = true
+            const infoFriend = {
+                info: this.list_friend[k],
+                status: true
+            }
+            this.$emit("request_friend", infoFriend)
             axios
                 .post('follower/add-friend', v)
                 .then((res) => {
                     if (res.data.status) {
                     }
                 })
-            if (event) {
-                event.preventDefault();
-            }
         },
-        unRequest(v, k, event) {
+        unRequest(v, k) {
             this.list_friend[k].friendStatus = false
+            const infoFriend = {
+                info: this.list_friend[k],
+                status: false
+            }
+            this.$emit('request_friend', infoFriend)
             axios
                 .post('follower/cancel-friend', v)
                 .then((res) => {
                     if (res.data.status) {
                     }
                 })
-            if (event) {
-                event.preventDefault();
-            }
+
         },
         del(k, event) {
             this.list_friend.splice(k, 1);
