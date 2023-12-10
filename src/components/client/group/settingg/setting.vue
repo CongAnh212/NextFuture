@@ -100,7 +100,7 @@
             </div>
         </main>
         <main class=" mt-2 px-2 radius-7 box-shadow py-2" style="width: 35%;">
-            <h5><b>manage member</b></h5>
+            <h5><b>Manage member</b></h5>
             <div v-if="viewApproval" class="flex-between mt-2">
                 <div class="d-flex" style="flex-direction: column; line-height: 1.5rem;">
                     <span class="f-500 text-dark">Need approval to join the group</span>

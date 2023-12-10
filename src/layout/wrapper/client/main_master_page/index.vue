@@ -103,7 +103,7 @@ export default {
 
         handlePrivacy(value) {
             this.dataPrivacy = value
-
+        },
         handleApproveConnection(value) {
             this.dataApproveConnection = value
         },

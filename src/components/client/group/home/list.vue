@@ -72,9 +72,7 @@ export default {
         refuse_Connection: {
             type: Object,
             required: true,
-        }
-    },
-    props: {
+        },
         getPrivacy: {
             type: Number,
             required: true
