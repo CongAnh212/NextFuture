@@ -167,6 +167,7 @@
 </template>
 <script>
 import axios, { url } from '../../../../core/coreRequest';
+import baseFunction from '../../../../core/coreFunction';
 export default {
     data() {
         return {
@@ -187,9 +188,6 @@ export default {
         },
         data: {
             handler(newValue, oldValue) {
-                // Xử lý khi giá trị của data thay đổi
-                //  console.log('New data value:', newValue);
-                // console.log('Old data value:', oldValue);
                 if (oldValue) {
                     this.isView = true;
                     setTimeout(() => {
@@ -221,7 +219,7 @@ export default {
             axios
                 .post('groups/send-invite', payload)
                 .then((res) => {
-                    console.log(res.data);
+                    baseFunction.displaySuccess(res);
                 })
                 .catch((res) => {
                     $.each(res.response.data.errors, function (k, v) {

@@ -30053,3 +30053,6 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-right {
 .radius-5 {
   border-radius: 5px;
 }
+.box-shadow {
+  box-shadow: 0 0 5px #3333334e;
+}

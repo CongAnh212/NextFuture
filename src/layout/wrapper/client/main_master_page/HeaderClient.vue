@@ -72,29 +72,75 @@
                                 data-bs-toggle="dropdown">
                                 <i class="ri-notification-4-line"></i>
                             </a>
-                            <div class="sub-drop dropdown-menu" aria-labelledby="notification-drop">
+                            <div class="sub-drop dropdown-menu" aria-labelledby="notification-drop" style="width: 32rem;">
                                 <div class="card shadow-none m-0">
                                     <div class="card-header d-flex justify-content-between bg-primary">
                                         <div class="header-title bg-primary">
                                             <h5 class="mb-0 text-white">All Notifications</h5>
                                         </div>
-                                        <small class="badge  bg-light text-dark">4</small>
+                                        <small class="badge  bg-light text-dark">9</small>
                                     </div>
                                     <div class="card-body p-0">
-                                        <a href="#" class="iq-sub-card">
-                                            <div class="d-flex align-items-center">
-                                                <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../../assets/client/images/user/01.jpg" alt="">
-                                                </div>
-                                                <div class="ms-3 w-100">
-                                                    <h6 class="mb-0 ">Emma Watson Bni</h6>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <p class="mb-0">95 MB</p>
-                                                        <small class="float-right font-size-12">Just Now</small>
+                                        <a v-for="(v, k) in list_notifications" class="iq-sub-card bg-hover">
+                                            <router-link v-if="v.type == 2" to="">
+                                                <div class="d-flex align-items-center">
+                                                    <div style="overflow: hidden; width: 3rem; height: 3rem;"
+                                                        class="flex-center">
+                                                        <img class="avatar-40 rounded" :src="urlImg + v.cover_image"
+                                                            style="object-fit: cover;">
                                                     </div>
+                                                    <div class="ms-3 w-100" style="flex: 1;">
+                                                        <h6 class="mb-0 f-500 text-primary">{{ v.sender }}</h6>
+                                                        <div
+                                                            class="d-flex text-dark justify-content-between align-items-center">
+                                                            <p class="mb-0">Invited you to the <b class="text-primary"> {{
+                                                                v.group_name }} </b>
+                                                                group</p>
+                                                        </div>
+                                                    </div>
+                                                    <small class="float-right font-size-12">{{ formatTime(v.created_at) }}
+                                                        agos</small>
                                                 </div>
-                                            </div>
+                                            </router-link>
+                                            <router-link v-if="v.type == 7" to="">
+                                                <div class="d-flex align-items-center">
+                                                    <div style="overflow: hidden; width: 3rem; height: 3rem;"
+                                                        class="flex-center">
+                                                        <img class="avatar-40 rounded" :src="urlImg + v.avatar"
+                                                            style="object-fit: cover;">
+                                                    </div>
+                                                    <div class="ms-3 w-100" style="flex: 1;">
+                                                        <h6 class="mb-0 f-500 text-primary">{{ v.sender }}</h6>
+                                                        <div
+                                                            class="d-flex text-dark justify-content-between align-items-center">
+                                                            <p class="mb-0">Tagged you in a post by
+                                                                <b class="text-primary"> {{ v.name_poster }} </b>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <small class="float-right font-size-12">{{ formatTime(v.created_at) }}
+                                                        agos</small>
+                                                </div>
+                                            </router-link>
+                                            <router-link v-if="v.type == 1" to="">
+                                                <div class="d-flex align-items-center">
+                                                    <div style="overflow: hidden; width: 3rem; height: 3rem;"
+                                                        class="flex-center">
+                                                        <img class="avatar-40 rounded" :src="urlImg + v.avatar"
+                                                            style="object-fit: cover;">
+                                                    </div>
+                                                    <div class="ms-3 w-100" style="flex: 1;">
+                                                        <h6 class="mb-0 f-500 text-primary">{{ v.sender }}</h6>
+                                                        <div
+                                                            class="d-flex text-dark justify-content-between align-items-center">
+                                                            <p class="mb-0">sent you a friend request
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <small class="float-right font-size-12">{{ formatTime(v.created_at) }}
+                                                        agos</small>
+                                                </div>
+                                            </router-link>
                                         </a>
                                     </div>
                                 </div>
@@ -195,8 +241,7 @@
                                             </div>
                                         </a>
                                         <div class="d-inline-block w-100 text-center p-3">
-                                            <a @click="signOut()" class="btn btn-primary iq-sign-btn" 
-                                                role="button">Sign
+                                            <a @click="signOut()" class="btn btn-primary iq-sign-btn" role="button">Sign
                                                 out<i class="ri-login-box-line ms-2"></i></a>
                                         </div>
                                     </div>
@@ -213,19 +258,32 @@
 <script>
 
 import axios, { url } from '../../../../core/coreRequest';
+import baseFunction from '../../../../core/coreFunction';
 export default {
     data() {
         return {
             myInfo: {},
             urlImg: url,
             request_friend: [],
+            list_notifications: [],
         }
     },
     mounted() {
         this.getRequestFriend();
         this.getInfo();
+        this.getNotification();
     },
     methods: {
+        formatTime(a) {
+            return baseFunction.hoursDifference(a);
+        },
+        getNotification() {
+            axios
+                .get('notification/data')
+                .then((res) => {
+                    this.list_notifications = res.data.data;
+                })
+        },
         signOut() {
             axios
                 .get('sign-out')
@@ -237,13 +295,12 @@ export default {
                     console.error('Logout failed:', error);
                 });
         },
- 
+
         getInfo() {
             axios
                 .get('profile/data')
                 .then((res) => {
                     this.myInfo = res.data.myInfo;
-                    // console.log(this.myInfo);
                 });
         },
         myProfile() {

@@ -187,7 +187,7 @@ const routes = [
     ],
   },
   {
-    path: "/group/:id_group",
+    path: "/group/:id_group/setting",
     name: "setting",
     meta: { layout: "main" },
     components: {
