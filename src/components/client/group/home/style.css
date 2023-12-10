@@ -1,23 +1,30 @@
 .border-bottomm {
-    border-bottom: 3px solid var(--bs-primary);
+  border-bottom: 3px solid var(--bs-primary);
 }
 
-.community-active>i,
-.community-active>span {
-    color: var(--bs-primary);
+.community-active > i,
+.community-active > span {
+  color: var(--bs-primary);
 }
 
 .community-active {
-    background-color: rgba(12, 237, 237, 0.151);
+  background-color: rgba(12, 237, 237, 0.151);
 }
 
 .main-group {
-    font-size: 15px;
-    width: 120px;
-    padding: 0px 7%;
-    background-color: #fff;
-    opacity: 1;
+  font-size: 15px;
+  width: 120px;
+  padding: 0px 7%;
+  background-color: #fff;
+  opacity: 1;
 }
-/* @media (max-width: 1800px) {
-   
-} */
+.respon_cover {
+  overflow: hidden;
+  border-radius: 0px 0px 10px 10px;
+  height: 30em;
+}
+@media (max-width: 1600px) {
+  .respon_cover {
+    height: 27em;
+  }
+}
