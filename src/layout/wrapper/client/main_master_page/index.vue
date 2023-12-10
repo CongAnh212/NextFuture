@@ -9,10 +9,11 @@
                             <ul id="iq-sidebar-toggle" class="iq-menu">
                                 <router-view @request_friend="handleRequestFriend"
                                     :sentFriendProfile="dataProfileRequestFriend" @suggest="handleSuggest"
-                                    :sentFriendProfileSuggest="dataProfileSuggest" @del_suggest="handleDelSuggest"
-                                    :delFriendProfile="delDataProfileAllFriend"
+                                    :sentFriendProfileSuggest="dataProfileSuggest" @del_suggest="handleDelSuggest"                                    
                                     :getPrivacy="dataPrivacy"
-                                    >
+                                    :delFriendProfile="delDataProfileAllFriend" 
+                                    :approve_Connection="dataApproveConnection"
+                                    :refuse_Connection="dataRefuseConnection">
                                 </router-view>
                             </ul>
                         </nav>
@@ -32,9 +33,12 @@
         <div class="px-0 mx-0" style="position: absolute; right: 0; width: 79%;top: 4.25rem;">
             <router-view name="content" :sentFriend="dataRequestFriend" @profile_request_friend="handleProfileRequestFriend"
                 :sentFriendSuggest="dataSuggest" @profile_suggest="handleProfileSuggest" :delFriendSuggest="delDataSuggest"
+
                 @profile_del_friend="handleDelProfileAllFriend"
                 @sentPrivacy="handlePrivacy"
-                >
+                @approve_connection="handleApproveConnection"
+                @refuse_connection="handleRefuseConnection">
+
             </router-view>
         </div>
     </div>
@@ -64,8 +68,17 @@ export default {
             dataProfileSuggest: null,       // cái này là từ profile gửi cho list đọc bên mục Friend_Request
             delDataSuggest: null,           // cài này là xóa từ list gửi cho profile đọc bên mục Friend_Request
             //--------------------------------------------------------------------------------------------//
+
             delDataProfileAllFriend: null,  // cài này là xóa từ profile gửi cho list đọc bên mục All_Friend
             dataPrivacy: null,
+
+            delDataProfileAllFriend: null,  // cái này là xóa từ profile gửi cho list đọc bên mục All_Friend
+            //--------------------------------------------------------------------------------------------//
+            dataApproveConnection: null,    // cái này là duyệt lời mời từ Request_Group qua list đọc của mục Group
+            //--------------------------------------------------------------------------------------------//
+            dataRefuseConnection: null,     // cái này là từ chối lời mời từ Request_Group qua list đọc mục Group
+
+
         }
     },
     methods: {
@@ -87,8 +100,16 @@ export default {
         handleDelProfileAllFriend(value) {
             this.delDataProfileAllFriend = value
         },
+
         handlePrivacy(value) {
             this.dataPrivacy = value
+
+        handleApproveConnection(value) {
+            this.dataApproveConnection = value
+        },
+        handleRefuseConnection(value) {
+            this.dataRefuseConnection = value
+
         }
     }
 }

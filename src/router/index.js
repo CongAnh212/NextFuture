@@ -168,6 +168,23 @@ const routes = [
       default: () => import("../components/client/group/home/list.vue"),
       content: () => import("../components/client/group/home/content.vue"),
     },
+    children: [
+      {
+        path: "",
+        name: "discuss",
+        components: {
+          discuss: () =>
+            import("../components/client/group/discuss/discuss.vue"),
+        },
+      },
+      {
+        path: "member",
+        name: "member",
+        components: {
+          member: () => import("../components/client/group/member/member.vue"),
+        },
+      },
+    ],
   },
   {
     path: "/group/:id_group/setting",
@@ -176,6 +193,17 @@ const routes = [
     components: {
       default: () => import("../components/client/group/home/list.vue"),
       content: () => import("../components/client/group/settingg/setting.vue"),
+    },
+  },
+  {
+    path: "/group/:id_group/member-requests",
+    name: "request_group",
+
+    meta: { layout: "main" },
+    components: {
+      default: () => import("../components/client/group/home/list.vue"),
+      content: () =>
+        import("../components/client/group/request_group/request_group.vue"),
     },
   },
 ];

@@ -4,7 +4,7 @@
                 :src="urlImg + data.cover_image" alt="" style="object-fit: cover; height: 100%;"></div>
         <div class="d-flex justify-content-center" style="flex: 1 1 0%; flex-direction: column; line-height: 1.25rem;"><b
                 style="font-size: 15px;">{{ data.group_name }}</b>
-            <p class="p-0 m-0"> {{ data.privacy == 1 ? 'Public' : 'Private' }} group - {{ data.member }} thành viên</p>
+            <p class="p-0 m-0"> {{ data.privacy == 1 ? 'Public' : 'Private' }} group - {{ data.member }} members</p>
         </div>
     </div>
     <div class="w-100 d-flex">
@@ -26,7 +26,8 @@
         </div>
     </div>
     <hr class="mt-0 pt-0">
-    <div @click="community('home-group', $event)" class="w-100  d-flex p-2 community-active" style="border-radius: 7px; cursor: pointer;">
+    <div @click="community('home-group', $event)" class="w-100  d-flex p-2 community-active"
+        style="border-radius: 7px; cursor: pointer;">
         <i class=" del-event fas fa-home  me-2 " style="font-size: 20px; padding-top: 0.2rem;"></i>
         <span class="del-event">Community homepage</span>
     </div>
@@ -39,6 +40,11 @@
         <i class=" del-event fas fa-cog me-2 " style="font-size: 20px; padding-top: 0.2rem;"></i>
         <span class="del-event">Group management</span>
     </div>
+    <div @click="community('request_group', $event)" class="w-100  d-flex p-2 "
+        style="border-radius: 7px; cursor: pointer;">
+        <i class="fa-solid fa-user-pen me-2" style="font-size: 20px; padding-top: 0.2rem;"></i>
+        <span class="del-event">Request to join the group ({{ count }})</span>
+    </div>
 </template>
 <script>
 import axios, { url } from '../../../../core/coreRequest';
@@ -48,11 +54,25 @@ export default {
             id_group: '',
             data: {},
             urlImg: url,
+            data_come_in: [],
+            count: 0,
         }
     },
+
     mounted() {
         this.id_group = this.$route.params.id_group;
         this.getInfo();
+        this.getDataComeIn();
+    },
+    props: {
+        approve_Connection: {
+            type: Object,
+            required: true,
+        },
+        refuse_Connection: {
+            type: Object,
+            required: true,
+        }
     },
     props: {
         getPrivacy: {
@@ -61,6 +81,26 @@ export default {
         }
     },
     watch: {
+        approve_Connection(newData, oldData) {
+            // console.log('newData: ', newData);
+            // console.log('oldData: ', oldData);
+            if (newData.status == false) {
+                this.count -= 1
+                this.data.member += 1;
+            } else {
+                this.count = 0;
+                this.data.member += newData.add_member
+            }
+        },
+        refuse_Connection(newData, oldData) {
+            // console.log('newData: ', newData);
+            // console.log('oldData: ', oldData);
+            if (newData.status == false) {
+                this.count -= 1
+            } else {
+                this.count = 0;
+            }
+        },
         '$route.params.id_group'(id_group) {
             this.id_group = id_group;
             this.getInfo();
@@ -79,6 +119,14 @@ export default {
                     this.data = res.data.info;
                 });
         },
+        getDataComeIn() {
+            axios
+                .post('groups/data-come-in-group', { id_group: this.id_group })
+                .then((res) => {
+                    this.data_come_in = res.data.data
+                    this.count = this.data_come_in.length
+                })
+        },
         community(a, event) {
             const el = event.target;
             $('.community-active').removeClass('community-active')
@@ -92,9 +140,7 @@ export default {
             parentElement.classList.add('border-bottomm');
             $('.aa:not(.bg-hover)').addClass('bg-hover');
             e.classList.remove('bg-hover');
-
-
-        }
+        },
     },
 }
 </script>

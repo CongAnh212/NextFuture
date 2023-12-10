@@ -1,0 +1,278 @@
+<template>
+    <div class="flex-center" style="width: 100%;">
+        <div class="d-flex" style="gap: 20px; width: 80%;">
+            <div class="card mt-3" style="border-radius: 15px; width: 60%;">
+                <div class="card-body">
+                    <b class="text-dark">All Member
+                        ({{ total_member }})</b>
+                    <div class="iq-search-bar device-search mt-2 mb-2">
+                        <div action="#" class="searchbox">
+                            <a class="search-link flex-center h-100" href="#">
+                                <i class="ri-search-line"></i>
+                            </a>
+                            <input type="text" class="text search-input " placeholder="Search member..."
+                                style="border-radius: 20px;">
+                        </div>
+                    </div>
+                    <template v-if="member_friend.length > 0">
+                        <b class="text-dark">Friends ({{ member_friend.length }})</b>
+                        <div v-for="(v, k) in member_friend" class="d-flex align-items-center mb-2 mt-2" style=" ">
+                            <div class="d-flex" style="flex: 1;">
+                                <div>
+                                    <img :src="urlImg + v.avatar" alt="" class="img-fluid circle me-2"
+                                        style="width: 60px; height: 60px;">
+
+                                </div>
+                                <div style="line-height: 1.5rem;">
+                                    <b class="text-dark">{{ v.fullname }}</b>
+                                    <p class="mt-0 px-1"
+                                        style="width: fit-content;background-color: #33333315; color: var(--bs-primary); border-radius: 5px;">
+                                        {{ v.role }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li v-if="v.role != 'Post moderator' && v.role != 'Moderator'">
+                                        <a class="dropdown-item" href="#">
+                                            Grant permission to browse articles
+                                        </a>
+                                    </li>
+                                    <li v-else>
+                                        <a class="dropdown-item" href="#">
+                                            Remove permission to articles browse
+                                        </a>
+                                    </li>
+                                    <li v-if="v.role != 'Member moderator' && v.role != 'Moderator'">
+                                        <a class="dropdown-item" href="#">
+                                            Grant permission to approve members
+                                        </a>
+                                    </li>
+                                    <li v-else>
+                                        <a class="dropdown-item" href="#">
+                                            Remove permission to approve members
+                                        </a>
+                                    </li>
+                                    <li v-if="v.role == 'Moderator'">
+                                        <a class="dropdown-item" href="#">
+                                            Remove moderator permissions
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                            data-bs-target="#staticBackdrop" @click="check_member = v">
+                                            Remove member
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </template>
+                    <hr>
+                    <b class="text-dark">Other members ({{ member_newbie.length }})</b>
+                    <div v-for="(v, k) in member_newbie" class="d-flex align-items-center mb-2 mt-2" style=" ">
+                        <div class="d-flex" style="flex: 1;">
+                            <div>
+                                <img :src="urlImg + v.avatar" alt="" class="img-fluid circle me-2"
+                                    style="width: 60px; height: 60px;">
+                            </div>
+                            <div style="line-height: 1.5rem;">
+                                <b class="text-dark">{{ v.fullname }}</b>
+                                <p class="mt-0 px-1"
+                                    style="width: fit-content;background-color: #33333315; color: var(--bs-primary); border-radius: 5px;">
+                                    {{ v.role }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-ellipsis"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item">
+                                        Grant permission to browse articles
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item">
+                                        Grant permission to approve members
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                        @click="check_member = v" href="#">
+                                        Remove member
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+
+            </div>
+            <div class="card mt-3" style="border-radius: 15px; width: 40%;">
+                <div class="card-body">
+                    <b class="text-dark">Administrators ({{ member_admin.length }})</b>
+                    <div v-for='(v, k) in member_admin' class="d-flex align-items-center mb-2 mt-2" style=" ">
+                        <div class="d-flex" style="flex: 1">
+                            <div>
+                                <img :src="urlImg + v.avatar" alt="" class="img-fluid circle me-2"
+                                    style="width: 60px; height: 60px;">
+                            </div>
+                            <div style="line-height: 1.25rem;">
+                                <b class="text-dark">{{ v.fullname }}</b>
+                                <p class="mt-0 px-1"
+                                    style="width: fit-content;background-color: #33333315; color: var(--bs-primary); border-radius: 5px;">
+                                    {{ v.role }}
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn btn-light btn-sm">
+                                <i class="fa-solid fa-ellipsis"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
+                    <b class="text-dark">Moderation ({{ member_moderation.length }})</b>
+                    <div v-for="(v, k) in member_moderation" class="d-flex align-items-center mb-2 mt-2" style=" ">
+                        <div class="d-flex" style="flex: 1;">
+                            <div>
+                                <img :src="urlImg + v.avatar" alt="" class="img-fluid circle me-2"
+                                    style="width: 60px; height: 60px;">
+
+                            </div>
+                            <div style="line-height: 1.25rem;">
+                                <b class="text-dark">{{ v.fullname }}</b>
+                                <p class="mt-0 px-1"
+                                    style="width: fit-content;background-color: #33333315; color: var(--bs-primary); border-radius: 5px;">
+                                    {{ v.role }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-ellipsis"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li v-if="v.role != 'Post moderator' && v.role != 'Moderator'">
+                                    <a class="dropdown-item">
+                                        Grant permission to browse articles
+                                    </a>
+                                </li>
+                                <li v-else>
+                                    <a class="dropdown-item">
+                                        Remove permission to articles browse
+                                    </a>
+                                </li>
+                                <li v-if="v.role != 'Member moderator' && v.role != 'Moderator'">
+                                    <a class="dropdown-item">
+                                        Grant permission to approve members
+                                    </a>
+                                </li>
+                                <li v-else>
+                                    <a class="dropdown-item">
+                                        Remove permission to approve members
+                                    </a>
+                                </li>
+                                <li v-if="v.role == 'Moderator'">
+                                    <a class="dropdown-item">
+                                        Remove moderator permissions
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                        @click="check_member = v" href="#">
+                                        Remove member
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Remove member</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to remove
+                            <b class="text-danger">{{ check_member.fullname }}</b>
+                            from the group?
+                        </p>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger">Remove</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+import axios, { url } from '../../../../core/coreRequest'
+export default {
+    data() {
+        return {
+            member_newbie: [],
+            member_friend: [],
+            member_admin: [],
+            member_moderation: [],
+            urlImg: url,
+            total_member: 0,
+            check_member: {},                   // gắn index = k để tìm id của thành viên đó
+        }
+    },
+    mounted() {
+        this.getMember();
+        this.getMemberFriend();
+        this.getMemberAdmin();
+        this.getMemberModeration();
+    },
+    methods: {
+        getMember() {
+            axios
+                .post('groups/members/data', { id_group: this.$route.params.id_group })
+                .then((res) => {
+                    this.member_newbie = res.data.data
+                    this.total_member = res.data.count
+                })
+        },
+        getMemberFriend() {
+            axios
+                .post('groups/members/data-friend', { id_group: this.$route.params.id_group })
+                .then((res) => {
+                    this.member_friend = res.data.data
+                })
+        },
+        getMemberAdmin() {
+            axios
+                .post('groups/members/data-admin', { id_group: this.$route.params.id_group })
+                .then((res) => {
+                    this.member_admin = res.data.data
+                })
+        },
+        getMemberModeration() {
+            axios
+                .post('groups/members/data-moderation', { id_group: this.$route.params.id_group })
+                .then((res) => {
+                    this.member_moderation = res.data.data
+                })
+        },
+
+    },
+}
+</script>
+<style></style>
