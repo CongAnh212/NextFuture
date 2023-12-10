@@ -21,7 +21,6 @@
                             <li class="breadcrumb-item">
                                 <router-link :to="{ name: 'group' }">
                                     <a href="#">Group</a>
-
                                 </router-link>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">Create group</li>
