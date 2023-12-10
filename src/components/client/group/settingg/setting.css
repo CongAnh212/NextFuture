@@ -1,0 +1,7 @@
+.setting>main {
+    background-color: #fff;
+}
+.btn_cancel:hover{
+    background-color: var(--bs-light);
+    color: #333 !important;
+}

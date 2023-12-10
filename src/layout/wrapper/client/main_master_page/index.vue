@@ -10,7 +10,9 @@
                                 <router-view @request_friend="handleRequestFriend"
                                     :sentFriendProfile="dataProfileRequestFriend" @suggest="handleSuggest"
                                     :sentFriendProfileSuggest="dataProfileSuggest" @del_suggest="handleDelSuggest"
-                                    :delFriendProfile="delDataProfileAllFriend">
+                                    :delFriendProfile="delDataProfileAllFriend"
+                                    :getPrivacy="dataPrivacy"
+                                    >
                                 </router-view>
                             </ul>
                         </nav>
@@ -30,7 +32,9 @@
         <div class="px-0 mx-0" style="position: absolute; right: 0; width: 79%;top: 4.25rem;">
             <router-view name="content" :sentFriend="dataRequestFriend" @profile_request_friend="handleProfileRequestFriend"
                 :sentFriendSuggest="dataSuggest" @profile_suggest="handleProfileSuggest" :delFriendSuggest="delDataSuggest"
-                @profile_del_friend="handleDelProfileAllFriend">
+                @profile_del_friend="handleDelProfileAllFriend"
+                @sentPrivacy="handlePrivacy"
+                >
             </router-view>
         </div>
     </div>
@@ -61,7 +65,7 @@ export default {
             delDataSuggest: null,           // cài này là xóa từ list gửi cho profile đọc bên mục Friend_Request
             //--------------------------------------------------------------------------------------------//
             delDataProfileAllFriend: null,  // cài này là xóa từ profile gửi cho list đọc bên mục All_Friend
-
+            dataPrivacy: null,
         }
     },
     methods: {
@@ -83,6 +87,9 @@ export default {
         handleDelProfileAllFriend(value) {
             this.delDataProfileAllFriend = value
         },
+        handlePrivacy(value) {
+            this.dataPrivacy = value
+        }
     }
 }
 </script>

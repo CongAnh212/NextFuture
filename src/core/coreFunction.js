@@ -57,7 +57,7 @@ export default {
     displaySuccess(res) {
         var message = res.data.message;
         if(res.data.status == 1) {
-            toastr.show(message);
+            toastr.info(message);
         } else if(res.data.status == 0) {
             toastr.error(message);
         } else {
