@@ -164,6 +164,7 @@ const routes = [
     path: "/group/:id_group",
     name: "home-group",
     meta: { layout: "main" },
+    props: true,
     components: {
       default: () => import("../components/client/group/home/list.vue"),
       content: () => import("../components/client/group/home/content.vue"),

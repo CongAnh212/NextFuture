@@ -82,7 +82,7 @@
                                     </div>
                                     <div class="card-body p-0">
                                         <a v-for="(v, k) in list_notifications" class="iq-sub-card bg-hover">
-                                            <router-link v-if="v.type == 2" to="">
+                                            <router-link v-if="v.type == 2" :to="{ name: 'home-group', params: { id_group: v.id_group }, query: { id_notification: 'abc' } }">
                                                 <div class="d-flex align-items-center">
                                                     <div style="overflow: hidden; width: 3rem; height: 3rem;"
                                                         class="flex-center">
@@ -122,7 +122,7 @@
                                                         agos</small>
                                                 </div>
                                             </router-link>
-                                            <router-link v-if="v.type == 1" to="">
+                                            <router-link v-if="v.type == 1" :to="{ name: 'detailProfile', params: { username: v.username } }">
                                                 <div class="d-flex align-items-center">
                                                     <div style="overflow: hidden; width: 3rem; height: 3rem;"
                                                         class="flex-center">
