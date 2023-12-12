@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-center" style="width: 100%;">
+    <div v-if="isView" class="flex-center" style="width: 100%;">
         <div class="d-flex" style="gap: 20px; width: 80%;">
             <div class="card mt-3" style="border-radius: 15px; width: 60%;">
                 <div class="card-body">
@@ -31,9 +31,14 @@
                                     </p>
                                 </div>
                             </div>
+
                             <div class="dropdown">
-                                <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa-solid fa-ellipsis"></i>
+                                <button class="btn btn-light" style="position: relative; " type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <div v-if="k == indexx && role == 'friend'" style="position: relative;">
+                                        <LoadingComponent />
+                                    </div>
+                                    <i v-else class="fa-solid fa-ellipsis"></i>
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li v-if="v.role != 'Post moderator' && v.role != 'Moderator'">
@@ -63,7 +68,8 @@
                                     </li>
                                     <li>
                                         <a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                            data-bs-target="#staticBackdrop" @click="check_member = v">
+                                            data-bs-target="#staticBackdrop"
+                                            @click="check_member = v; index = k; role = 'friend'">
                                             Remove member
                                         </a>
                                     </li>
@@ -89,7 +95,10 @@
                         </div>
                         <div class="dropdown">
                             <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-ellipsis"></i>
+                                <div v-if="k == indexx && role == 'other'" style="position: relative;">
+                                    <LoadingComponent />
+                                </div>
+                                <i v-else class="fa-solid fa-ellipsis"></i>
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
@@ -104,7 +113,7 @@
                                 </li>
                                 <li>
                                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                        @click="check_member = v" href="#">
+                                        @click="check_member = v; index = k; role = 'other'" href="#">
                                         Remove member
                                     </a>
                                 </li>
@@ -157,7 +166,10 @@
                         </div>
                         <div class="dropdown">
                             <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-ellipsis"></i>
+                                <div v-if="k == indexx && role == 'moderator'" style="position: relative;">
+                                    <LoadingComponent />
+                                </div>
+                                <i v-else class="fa-solid fa-ellipsis"></i>
                             </button>
                             <ul class="dropdown-menu">
                                 <li v-if="v.role != 'Post moderator' && v.role != 'Moderator'">
@@ -187,7 +199,7 @@
                                 </li>
                                 <li>
                                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                        @click="check_member = v" href="#">
+                                        @click="check_member = v; index = k; role = 'moderator'" href="#">
                                         Remove member
                                     </a>
                                 </li>
@@ -207,23 +219,34 @@
                     </div>
                     <div class="modal-body">
                         <p>Are you sure you want to remove
-                            <b class="text-danger">{{ check_member.fullname }}</b>
+                            <b class="text-red">{{ check_member.fullname }}</b>
                             from the group?
                         </p>
 
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-danger">Remove</button>
+                        <button type="button" class="btn btn-red" @click="removeMember()"
+                            data-bs-dismiss="modal">Remove</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div v-else>
+        <div class="col-sm-12 text-center">
+            <img src="../../../../assets/client/images/page-img/page-load-loader.gif" alt="loader" style="height: 100px;">
+        </div>
+    </div>
 </template>
 <script>
+import baseFunction from '../../../../core/coreFunction'
 import axios, { url } from '../../../../core/coreRequest'
+import LoadingComponent from '../../../loading/loading.vue'
 export default {
+    components: {
+        LoadingComponent
+    },
     data() {
         return {
             member_newbie: [],
@@ -232,7 +255,11 @@ export default {
             member_moderation: [],
             urlImg: url,
             total_member: 0,
-            check_member: {},                   // gắn index = k để tìm id của thành viên đó
+            check_member: {},
+            index: 0,   // gắn index = k để lấy id 
+            isView: false,
+            role: null,
+            indexx: null,
         }
     },
     mounted() {
@@ -240,6 +267,18 @@ export default {
         this.getMemberFriend();
         this.getMemberAdmin();
         this.getMemberModeration();
+    },
+    watch: {
+        member_friend: {
+            handler(newValue, oldValue) {
+                this.indexx = -1
+                if (oldValue) {
+                    this.isView = true
+                }
+            },
+            deep: true,
+            immediate: true,
+        }
     },
     methods: {
         getMember() {
@@ -271,8 +310,26 @@ export default {
                     this.member_moderation = res.data.data
                 })
         },
+        removeMember() {
+            this.indexx = this.index;
+            var payload = {
+                ...this.check_member,
+                id_group: this.$route.params.id_group,
+            }
+            axios
+                .post('groups/members/remove-member', payload)
+                .then((res) => {
+                    this.getMember();
+                    this.getMemberFriend();
+                    this.getMemberModeration();
+                    baseFunction.displaySuccess(res)
+                })
+
+        },
 
     },
 }
 </script>
-<style></style>
+<style>
+@import './style.css'
+</style>
