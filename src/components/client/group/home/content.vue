@@ -179,6 +179,7 @@ export default {
             member: [],
             isView: false,
             view: 'discuss',
+            id_notification : null,
         }
     },
     watch: {
@@ -189,6 +190,8 @@ export default {
         data: {
             handler(newValue, oldValue) {
                 if (oldValue) {
+                    this.id_notification = this.$route.query.id_notification;
+
                     this.isView = true;
                     setTimeout(() => {
                         const currentPath = this.$route.fullPath.toString().split('/').pop()
@@ -209,6 +212,7 @@ export default {
         this.id_group = this.$route.params.id_group;
         this.getInfo();
         this.getListFriend();
+        // console.log('id_notification from propsádads:', this.$route.params.id_notification);
     },
     methods: {
         sendInvite() {
