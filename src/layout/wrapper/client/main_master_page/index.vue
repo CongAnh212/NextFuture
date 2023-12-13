@@ -14,7 +14,7 @@
                                     :delFriendProfile="delDataProfileAllFriend" 
                                     :approve_Connection="dataApproveConnection"
                                     :refuse_Connection="dataRefuseConnection">
-                                </router-view>
+                                </router-view> 
                             </ul>
                         </nav>
                     </div>
