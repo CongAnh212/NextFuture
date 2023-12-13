@@ -1,17 +1,18 @@
 <template>
-    <div class="w-100 ps-4">
+    <div v-if="isView" class="w-100 ps-4">
         <div class=" mt-3 mb-1 d-flex justify-content-between">
             <h3 class="">Friend request</h3>
             <router-link :to="{ name: 'requests' }">
-                <button type="button" class="me-3 btn seeall text-primary">
+                <button v-if="request_friend.length >= 6" type="button" class="me-3 btn seeall text-primary">
                     <b>See all</b>
                 </button>
             </router-link>
         </div>
         <div class="row mx-0 ">
             <div class="d-flex" style="gap: 7px; flex-direction: row; flex-wrap: wrap;">
-                <template v-for="(v, k) in request_friend">
-                    <div class="card mb-3" style="border-radius: 8px !important; width: 19%; cursor: pointer;">
+                <template v-if="request_friend.length >= 1" v-for="(v, k) in request_friend">
+                    <div v-if="isView" class="card mb-3"
+                        style="border-radius: 8px !important; width: 19%; cursor: pointer;">
                         <router-link :to="{ name: 'detailProfile.request_friend', params: { username: v.username } }"
                             class="w-100 ">
                             <div style="width: 100%; height: 236px; overflow: hidden;">
@@ -22,10 +23,18 @@
                                     <b class="text-nowrap text-secondary">{{ v.fullname }}</b>
                                 </div>
                                 <div class="mb-1 text-secondary">
-                                    <span>1 mutual</span>
+                                    <span>1 mutual friends</span>
                                 </div>
                                 <div class="mt-1">
-                                    <button class="btn btn-primary w-100" @click="confirm(v, $event)">Confirm</button>
+                                    <button v-if="v.status_button == 0" class="btn btn-primary w-100"
+                                        @click="confirm(v, k, $event)">Confirm</button>
+                                    <button v-else @click="calmDown($event)" class="btn btn-light w-100  py-0"
+                                        style="height: 37px;">
+                                        <div class="col-sm-12 flex-center" style="flex-direction: row;">
+                                            <img src="../../../assets/client/images/page-img/page-load-loader.gif"
+                                                alt="loader" style="height: 37px;object-fit: cover;">
+                                        </div>
+                                    </button>
                                 </div>
                                 <div class="mt-1">
                                     <button class="btn btn-secondary w-100" @click="delRequest(v, $event)">Delete</button>
@@ -34,8 +43,14 @@
                         </router-link>
                     </div>
                 </template>
+                <div v-else class="flex-center w-100">
+                    <h4>
+                        <b>Select the name of the person whose profile you want to preview</b>
+                    </h4>
+                </div>
             </div>
-            <button class=" btn text-primary seeall " style="width: 98%;" @click="getLimitRF()">
+            <button v-if="request_friend.length >= 5" class=" btn text-primary seeall " style="width: 98%;"
+                @click="getLimitRF()">
                 <b>
                     See more
                     <i class="fa-solid fa-caret-down"></i>
@@ -57,7 +72,7 @@
         </div>
         <div class="row mx-0 ">
             <div class="d-flex" style="gap: 7px; flex-wrap: wrap;">
-                <template v-for="(v, k) in list_friend">
+                <template v-for="(v, k) in list_friend.slice(0, limit)">
                     <div class="card mb-3" style="border-radius: 8px !important; width: 19%; cursor: pointer;">
                         <router-link :to="{ name: 'detailProfile.request_friend', params: { username: v.username } }">
                             <div style="width: 100%; height: 236px; overflow: hidden;">
@@ -68,7 +83,7 @@
                                     <b class="text-nowrap text-secondary">{{ v.fullname }}</b>
                                 </div>
                                 <div class="mb-1 text-nowrap text-secondary">
-                                    <span>1 mutual</span>
+                                    <span>1 mutual friends</span>
                                 </div>
                                 <template v-if="v.friendStatus == false">
                                     <div class="mt-1">
@@ -95,6 +110,18 @@
                     </div>
                 </template>
             </div>
+            <button v-if="list_friend.length >= 11" class=" btn text-primary seeall mb-3" style="width: 98%;"
+                @click="getLimitRF()">
+                <b>
+                    See more
+                    <i class="fa-solid fa-caret-down"></i>
+                </b>
+            </button>
+        </div>
+    </div>
+    <div v-else>
+        <div class="col-sm-12 text-center">
+            <img src="../../../assets/client/images/page-img/page-load-loader.gif" alt="loader" style="height: 100px;">
         </div>
     </div>
 </template>
@@ -107,38 +134,58 @@ export default {
             request_friend: [],
             urlImage: url,
             limit: 10,
+            isView: false,
         }
     },
     mounted() {
         this.getFull();
         this.getRequestFriend();
     },
+    watch: {
+        list_friend: {
+            handler(newValue, oldValue) {
+                this.request_friend = newValue
+                if (oldValue) {
+                    this.isView = true
+                }
+            },
+            deep: true,
+            immediate: true,
+        }
+    },
     methods: {
         getFull() {
+            this.canLoadMore = false;
             axios.get('dataFull').then((res) => {
                 // Khởi tạo friendStatus cho mỗi người bạn là 'notAdded'
-                this.list_friend = res.data.data.map((friend) => ({
+                const newData = res.data.data.map((friend) => ({
                     ...friend,
                     friendStatus: false,
                 }));
+                this.list_friend = this.list_friend.concat(newData);
             });
         },
         getRequestFriend() {
+
             axios
                 .get('follower/request-friend')
                 .then((res) => {
                     if (res.data.status == 1) {
                         this.request_friend = res.data.data;
-                    } else {
-
+                        this.request_friend = this.request_friend.map((friend) => ({
+                            ...friend,
+                            status_button: 0,
+                        }))
                     }
+                    this.request_friend[k].status_button = 0
+
                 });
         },
         getLimitRF() {
             axios
                 .post('follower/request-friend-limit', { limit: this.limit })
                 .then((res) => {
-                    this.limit += 2;
+                    this.limit += 10;
                     this.request_friend = res.data.data;
                 });
         },
@@ -155,6 +202,7 @@ export default {
             }
         },
         unRequest(v, k, event) {
+
             this.list_friend[k].friendStatus = false
             axios
                 .post('follower/cancel-friend', v)
@@ -166,16 +214,21 @@ export default {
                 event.preventDefault();
             }
         },
-        confirm(v, event) {
+        confirm(v, k, event) {
+            if (event) {
+                event.preventDefault();
+            }
+            this.request_friend[k].status_button = 1
             axios
                 .post('follower/accept-friend', v)
                 .then((res) => {
+
                     if (res.data.status) {
                         this.getRequestFriend();
-                    } else {
-
                     }
                 })
+        },
+        calmDown(event) {
             if (event) {
                 event.preventDefault();
             }
@@ -186,8 +239,6 @@ export default {
                 .then((res) => {
                     if (res.data.status) {
                         this.getRequestFriend();
-                    } else {
-
                     }
                 });
             if (event) {
@@ -203,4 +254,6 @@ export default {
     },
 }
 </script>
-<style>@import './style.css'</style>
+<style>
+@import './style.css'
+</style>

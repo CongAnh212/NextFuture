@@ -42,6 +42,7 @@ const routes = [
     meta: { layout: "main" },
     components: {
       default: () => import("../components/client/suggestion/list.vue"),
+      content: () => import("../components/client/friend/cover.vue"),
     },
   },
   {
@@ -50,6 +51,7 @@ const routes = [
     meta: { layout: "main" },
     components: {
       default: () => import("../components/client/request_friend/list.vue"),
+      content: () => import("../components/client/friend/cover.vue"),
     },
   },
   {
@@ -58,6 +60,7 @@ const routes = [
     meta: { layout: "main" },
     components: {
       default: () => import("../components/client/all_friend/list.vue"),
+      content: () => import("../components/client/friend/cover.vue"),
     },
   },
   {

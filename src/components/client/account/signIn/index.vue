@@ -65,7 +65,11 @@ export default {
                             icon: "error",
                             title: "Oops...",
                             text: res.data.message,
+                            showConfirmButton: false
                         });
+                        setTimeout(() => {
+                            Swal.close();
+                        }, 1500);
                     }
                 })
         },

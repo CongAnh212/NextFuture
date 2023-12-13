@@ -7,11 +7,11 @@
                         ({{ total_member }})</b>
                     <div class="iq-search-bar device-search mt-2 mb-2">
                         <div action="#" class="searchbox">
-                            <a class="search-link flex-center h-100" href="#">
+                            <a class="search-link flex-center h-100" style="cursor: pointer;" @click="search()">
                                 <i class="ri-search-line"></i>
                             </a>
-                            <input type="text" class="text search-input " placeholder="Search member..."
-                                style="border-radius: 20px;">
+                            <input v-model="keyword" @keyup.enter="search()" type="text" class="text search-input "
+                                placeholder="Search member..." style="border-radius: 20px;">
                         </div>
                     </div>
                     <template v-if="member_friend.length > 0">
@@ -42,32 +42,32 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li v-if="v.role != 'Post moderator' && v.role != 'Moderator'">
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" style="cursor: pointer;" @click="grantPermission(v, 3)">
                                             Grant permission to browse articles
                                         </a>
                                     </li>
                                     <li v-else>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" style="cursor: pointer;" @click="removePermission(v, 3)">
                                             Remove permission to articles browse
                                         </a>
                                     </li>
                                     <li v-if="v.role != 'Member moderator' && v.role != 'Moderator'">
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" style="cursor: pointer;" @click="grantPermission(v, 4)">
                                             Grant permission to approve members
                                         </a>
                                     </li>
                                     <li v-else>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" style="cursor: pointer;" @click="removePermission(v, 4)">
                                             Remove permission to approve members
                                         </a>
                                     </li>
                                     <li v-if="v.role == 'Moderator'">
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" style="cursor: pointer;" @click="removePermission(v, 5)">
                                             Remove moderator permissions
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                        <a class="dropdown-item" style="cursor: pointer;" data-bs-toggle="modal"
                                             data-bs-target="#staticBackdrop"
                                             @click="check_member = v; index = k; role = 'friend'">
                                             Remove member
@@ -102,18 +102,18 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item">
+                                    <a style="cursor: pointer;" class="dropdown-item" @click="grantPermission(v, 3)">
                                         Grant permission to browse articles
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item">
+                                    <a style="cursor: pointer;" class="dropdown-item" @click="grantPermission(v, 4)">
                                         Grant permission to approve members
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                        @click="check_member = v; index = k; role = 'other'" href="#">
+                                        @click="check_member = v; index = k; role = 'other'" style="cursor: pointer;">
                                         Remove member
                                     </a>
                                 </li>
@@ -148,8 +148,8 @@
                         </div>
                     </div>
                     <hr>
-                    <b class="text-dark">Moderation ({{ member_moderation.length }})</b>
-                    <div v-for="(v, k) in member_moderation" class="d-flex align-items-center mb-2 mt-2" style=" ">
+                    <b class="text-dark">Moderators ({{ member_moderator.length }})</b>
+                    <div v-for="(v, k) in member_moderator" class="d-flex align-items-center mb-2 mt-2" style=" ">
                         <div class="d-flex" style="flex: 1;">
                             <div>
                                 <img :src="urlImg + v.avatar" alt="" class="img-fluid circle me-2"
@@ -173,33 +173,33 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li v-if="v.role != 'Post moderator' && v.role != 'Moderator'">
-                                    <a class="dropdown-item">
+                                    <a style="cursor: pointer;" class="dropdown-item" @click="grantPermission(v, 3)">
                                         Grant permission to browse articles
                                     </a>
                                 </li>
                                 <li v-else>
-                                    <a class="dropdown-item">
+                                    <a style="cursor: pointer;" class="dropdown-item" @click="removePermission(v, 3)">
                                         Remove permission to articles browse
                                     </a>
                                 </li>
                                 <li v-if="v.role != 'Member moderator' && v.role != 'Moderator'">
-                                    <a class="dropdown-item">
+                                    <a style="cursor: pointer;" class="dropdown-item" @click="grantPermission(v, 4)">
                                         Grant permission to approve members
                                     </a>
                                 </li>
                                 <li v-else>
-                                    <a class="dropdown-item">
+                                    <a style="cursor: pointer;" class="dropdown-item" @click="removePermission(v, 4)">
                                         Remove permission to approve members
                                     </a>
                                 </li>
                                 <li v-if="v.role == 'Moderator'">
-                                    <a class="dropdown-item">
+                                    <a style="cursor: pointer;" class="dropdown-item" @click="grantPermission(v, 5)">
                                         Remove moderator permissions
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                        @click="check_member = v; index = k; role = 'moderator'" href="#">
+                                        @click="check_member = v; index = k; role = 'moderator'" style="cursor: pointer;">
                                         Remove member
                                     </a>
                                 </li>
@@ -252,7 +252,7 @@ export default {
             member_newbie: [],
             member_friend: [],
             member_admin: [],
-            member_moderation: [],
+            member_moderator: [],
             urlImg: url,
             total_member: 0,
             check_member: {},
@@ -260,6 +260,7 @@ export default {
             isView: false,
             role: null,
             indexx: null,
+            keyword: '',
         }
     },
     mounted() {
@@ -307,7 +308,7 @@ export default {
             axios
                 .post('groups/members/data-moderation', { id_group: this.$route.params.id_group })
                 .then((res) => {
-                    this.member_moderation = res.data.data
+                    this.member_moderator = res.data.data
                 })
         },
         removeMember() {
@@ -324,8 +325,56 @@ export default {
                     this.getMemberModeration();
                     baseFunction.displaySuccess(res)
                 })
-
         },
+        grantPermission(v, role) {
+            var payload = {
+                id_group: this.$route.params.id_group,
+                id: v.id,
+                id_role: role,
+            }
+            axios
+                .post('groups/members/grant-permission', payload)
+                .then((res) => {
+                    this.getMember();
+                    this.getMemberFriend();
+                    this.getMemberModeration();
+                    setTimeout(() => {
+                        baseFunction.displaySuccess(res)
+                    }, 500);
+                })
+        },
+        removePermission(v, role) {
+            var payload = {
+                id_group: this.$route.params.id_group,
+                id: v.id,
+                id_role: role,
+            }
+            axios
+                .post('groups/members/remove-permission', payload)
+                .then((res) => {
+                    this.getMember();
+                    this.getMemberFriend();
+                    this.getMemberModeration();
+                    setTimeout(() => {
+                        baseFunction.displaySuccess(res)
+                    }, 500);
+                })
+        },
+        search() {
+            axios
+                .post('groups/members/search-member', { id_group: this.$route.params.id_group, keyword: this.keyword })
+                .then((res) => {
+                    this.member_friend = res.data.dataFriend;
+                    this.member_newbie = res.data.dataOther;
+                    this.member_moderator = res.data.dataModerator;
+                })
+                .catch((res) => {
+                    $.each(res.response.data.errors, function (k, v) {
+                        toastr.error(v[0], 'Error');
+                    });
+                });
+        }
+
 
     },
 }
