@@ -3808,11 +3808,21 @@ fieldset:disabled .btn {
   background-color: #50b5ff;
   border-color: #50b5ff;
 }
+.btn-white {
+  color: #333;
+  background-color: #fff;
+  border-color: #fff;
+}
 
 .btn-primary:hover {
   color: #fff;
   background-color: #449ad9;
   border-color: #4091cc;
+}
+.btn-white:hover {
+  color: #333;
+  background-color: #ededed;
+  border-color: #ededed;
 }
 
 .btn-check:focus + .btn-primary,

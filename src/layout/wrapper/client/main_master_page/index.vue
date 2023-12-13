@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <HeaderClient></HeaderClient>
+        <HeaderClient :notify="notify"></HeaderClient>
         <div class="">
             <div class=" iq-sidebar-fix sidebar-default ">
                 <div id="sidebar-scrollbar" data-scrollbar="true" tabindex="-1" style="overflow: hidden; outline: none;">
@@ -33,7 +33,7 @@
         <div class="px-0 mx-0" style="position: absolute; right: 0; width: 79%;top: 4.25rem;">
             <router-view name="content" :sentFriend="dataRequestFriend" @profile_request_friend="handleProfileRequestFriend"
                 :sentFriendSuggest="dataSuggest" @profile_suggest="handleProfileSuggest" :delFriendSuggest="delDataSuggest"
-
+                @removeNotify="handleNotify"
                 @profile_del_friend="handleDelProfileAllFriend"
                 @sentPrivacy="handlePrivacy"
                 @approve_connection="handleApproveConnection"
@@ -77,7 +77,7 @@ export default {
             dataApproveConnection: null,    // cái này là duyệt lời mời từ Request_Group qua list đọc của mục Group
             //--------------------------------------------------------------------------------------------//
             dataRefuseConnection: null,     // cái này là từ chối lời mời từ Request_Group qua list đọc mục Group
-
+            notify : null                   // cái này để xoá thông báo ở header
 
         }
     },
@@ -110,6 +110,9 @@ export default {
         handleRefuseConnection(value) {
             this.dataRefuseConnection = value
 
+        },
+        handleNotify(value) {
+            this.notify = value
         }
     }
 }
