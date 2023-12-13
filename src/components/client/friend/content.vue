@@ -1,5 +1,5 @@
 <template>
-    <div v-if="isView" class="w-100 ps-4">
+    <div @wheel="handleMouseWheel" v-if="isView" class="w-100 ps-4">
         <div class=" mt-3 mb-1 d-flex justify-content-between">
             <h3 class="">Friend request</h3>
             <router-link :to="{ name: 'requests' }">
@@ -70,10 +70,12 @@
                 </button>
             </router-link>
         </div>
-        <div class="row mx-0 ">
-            <div class="d-flex" style="gap: 7px; flex-wrap: wrap;">
-                <template v-for="(v, k) in list_friend.slice(0, limit)">
-                    <div class="card mb-3" style="border-radius: 8px !important; width: 19%; cursor: pointer;">
+        <div ref="myDiv" class="row mx-0">
+            <div class="d-flex" style="gap: 7px; flex-wrap: wrap; ">
+                <template v-for="(v, k) in list_friend">
+                    <div v-if="isView" data-aos="slide-up" data-aos-offset="100" data-aos-easing="ease-out-back"
+                        class="card mb-3"
+                        style="margin-bottom: 1rem;border-radius: 8px !important; width: 19%; cursor: pointer;">
                         <router-link :to="{ name: 'detailProfile.request_friend', params: { username: v.username } }">
                             <div style="width: 100%; height: 236px; overflow: hidden;">
                                 <img :src="urlImage + v.avatar" class="card-img-top" alt="#" style="object-fit: cover;">
@@ -108,15 +110,15 @@
                             </div>
                         </router-link>
                     </div>
+                    <div v-else>
+                        <div class="col-sm-12 text-center">
+                            <img src="../../../assets/client/images/page-img/page-load-loader.gif" alt="loader"
+                                style="height: 100px;">
+                        </div>
+                    </div>
                 </template>
             </div>
-            <button v-if="list_friend.length >= 11" class=" btn text-primary seeall mb-3" style="width: 98%;"
-                @click="getLimitRF()">
-                <b>
-                    See more
-                    <i class="fa-solid fa-caret-down"></i>
-                </b>
-            </button>
+
         </div>
     </div>
     <div v-else>
@@ -127,6 +129,8 @@
 </template>
 <script>
 import axios, { url } from '../../../core/coreRequest';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 export default {
     data() {
         return {
@@ -135,38 +139,56 @@ export default {
             urlImage: url,
             limit: 10,
             isView: false,
+            status_button: 0,
+            bottomPosition: 0,
+            busy: false,
+            limitStrange: 10,
+            allStrange: [],
         }
     },
     mounted() {
+        AOS.init();
         this.getFull();
         this.getRequestFriend();
     },
     watch: {
-        list_friend: {
+        request_friend: {
             handler(newValue, oldValue) {
-                this.request_friend = newValue
                 if (oldValue) {
                     this.isView = true
                 }
             },
             deep: true,
             immediate: true,
-        }
+        },
+
     },
     methods: {
+        handleMouseWheel(event) {
+            const myDiv = this.$refs.myDiv;
+            const mh = window.innerHeight;
+            // Lấy tọa độ bottom của div
+            const rect = myDiv.getBoundingClientRect();
+            this.bottomPosition = rect.bottom - mh;
+
+            // console.log('Mouse wheel event:', event.deltaY, 'Bottom position:', this.bottomPosition);
+            if (this.bottomPosition < 10 && !this.busy) {
+                this.list_friend = this.list_friend.concat(this.allStrange.splice(0, this.limitStrange));
+                AOS.init();
+            }
+        },
         getFull() {
-            this.canLoadMore = false;
             axios.get('dataFull').then((res) => {
-                // Khởi tạo friendStatus cho mỗi người bạn là 'notAdded'
                 const newData = res.data.data.map((friend) => ({
                     ...friend,
                     friendStatus: false,
                 }));
-                this.list_friend = this.list_friend.concat(newData);
+
+                this.allStrange = this.allStrange.concat(newData);
+                this.list_friend = this.allStrange.splice(0, this.limitStrange);
             });
         },
         getRequestFriend() {
-
             axios
                 .get('follower/request-friend')
                 .then((res) => {
@@ -176,9 +198,8 @@ export default {
                             ...friend,
                             status_button: 0,
                         }))
+                        // this.request_friend[k].status_button = 0
                     }
-                    this.request_friend[k].status_button = 0
-
                 });
         },
         getLimitRF() {
@@ -186,7 +207,11 @@ export default {
                 .post('follower/request-friend-limit', { limit: this.limit })
                 .then((res) => {
                     this.limit += 10;
-                    this.request_friend = res.data.data;
+                    this.request_friend = res.data.data.map((friend) => ({
+                        ...friend,
+                        status_button: 0,
+                    }))
+
                 });
         },
         addFriend(v, k, event) {
@@ -251,9 +276,11 @@ export default {
                 event.preventDefault();
             }
         },
+
     },
+
 }
 </script>
-<style>
+<style >
 @import './style.css'
 </style>
