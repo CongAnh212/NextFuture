@@ -214,7 +214,8 @@ const routes = [
     path: "/test",
     name: "test",
     components: {
-      default: () => import("../components/client/create-story/test.vue"),
+      default: () => import("../components/test/list.vue"),
+      content: () => import("../components/test/content.vue"),
     },
   },
 ];
