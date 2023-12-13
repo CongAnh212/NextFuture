@@ -7,7 +7,7 @@
                 </div>
                 <div class="w-100 px-2 pt-3 c">
                     <h3><b style="color: rgb(0, 0, 0);">{{ data.group_name }}</b></h3>
-                    <div class="flex-between">
+                    <div v-if="!isViewInvite" class="flex-between"> <!-- xử lý lời mời -->
                         <div class="d-flex">
                             <div v-for="(v, k) in member" class="circle bg-primary"
                                 style="height: 35px; width: 35px; outline: 2px solid rgb(255, 255, 255); overflow: hidden; margin-right: -5px;">
@@ -111,6 +111,32 @@
                             </div>
                         </div>
                     </div>
+                    <div v-else>
+                        <div class="card radius-7">
+                            <div class="card-body  radius-7"
+                                style="padding: 1rem 1.2rem; background-color: rgb(192, 249, 255);">
+                                <div class="flex-between">
+                                    <div class=" d-flex" style="flex: 1">
+                                        <div class="circle" style="width: 40px; height: 40px; overflow: hidden;">
+                                            <img :src="urlImg + infoClient.avatar" style="object-fit: cover; width: 100%;"
+                                                alt="">
+                                        </div>
+                                        <div class=" px-2 " style="flex: 1; line-height: 1.2rem;">
+                                            <b>{{ infoClient.fullname }} has invited you to join this group.</b>
+                                            <br>
+                                            <span>The invitation expires in 2000 days</span>
+                                        </div>
+                                    </div>
+                                    <div class=" d-flex" style="width: 40%; gap: 10px;">
+                                        <button @click="acceptInvite()" style="flex: 1;" class="btn btn-primary">Join
+                                            group</button>
+                                        <button @click="removeInvite()" style="flex: 1;" class="btn btn-white">Decline the
+                                            invitation</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <hr class="w-100 bg-dark pb-0 mb-0">
                     <div class="text-dark flex-between" style="display:flex;gap:20px; margin-top: 5px;">
                         <div class="d-flex"> <!-- Left navbar -->
@@ -178,8 +204,11 @@ export default {
             data: {},
             member: [],
             isView: false,
+            isViewInvite: false,
             view: 'discuss',
-            id_notification : null,
+            id_notification: null,
+            infoClient: {},
+            notification: {},
         }
     },
     watch: {
@@ -192,6 +221,11 @@ export default {
                 if (oldValue) {
                     this.id_notification = this.$route.query.id_notification;
 
+                    if (this.id_notification) {
+                        console.log('this.id_notification: ', this.id_notification);
+                        this.getInfoInvite(this.id_notification);
+                        this.isViewInvite = true;
+                    }
                     this.isView = true;
                     setTimeout(() => {
                         const currentPath = this.$route.fullPath.toString().split('/').pop()
@@ -215,6 +249,19 @@ export default {
         // console.log('id_notification from propsádads:', this.$route.params.id_notification);
     },
     methods: {
+        getInfoInvite(a) {
+            axios
+                .post('notification/info-invite', { id: a })
+                .then((res) => {
+                    this.infoClient = res.data.client;
+                    this.notification = res.data.notification;
+                })
+                .catch((res) => {
+                    $.each(res.response.data.errors, function (k, v) {
+                        toastr.error(v[0], 'error');
+                    });
+                });
+        },
         sendInvite() {
             var payload = {
                 id_invites: this.list_invite,
@@ -268,6 +315,43 @@ export default {
                 $('#invite' + k).prop('checked', true);
                 this.list_invite.push(v);
             }
+        },
+        acceptInvite() {
+            var payload = {
+                status: true,
+                notify: this.notification
+            }
+            axios
+                .post('notification/accept-invite', this.notification)
+                .then((res) => {
+                    baseFunction.displaySuccess(res)
+                    this.isViewInvite = false
+                    this.$emit('removeNotify', payload)
+
+                })
+                .catch((res) => {
+                    $.each(res.response.data.errors, function (k, v) {
+                        toastr.error(v[0], 'error');
+                    });
+                });
+        },
+        removeInvite() {
+            var payload = {
+                status: false,
+                notify: this.notification
+            }
+            axios
+                .post('notification/remove-invite', this.notification)
+                .then((res) => {
+                    this.isViewInvite = false
+                    this.$emit('removeNotify', payload)
+
+                })
+                .catch((res) => {
+                    $.each(res.response.data.errors, function (k, v) {
+                        toastr.error(v[0], 'error');
+                    });
+                });
         }
     },
 }

@@ -78,11 +78,12 @@
                                         <div class="header-title bg-primary">
                                             <h5 class="mb-0 text-white">All Notifications</h5>
                                         </div>
-                                        <small class="badge  bg-light text-dark">9</small>
+                                        <small class="badge  bg-light text-dark">{{ list_notifications.length }}</small>
                                     </div>
-                                    <div class="card-body p-0">
+                                    <div v-if="isView" class="card-body p-0">
                                         <a v-for="(v, k) in list_notifications" class="iq-sub-card bg-hover">
-                                            <router-link v-if="v.type == 2" :to="{ name: 'home-group', params: { id_group: v.id_group }, query: { id_notification: 'abc' } }">
+                                            <router-link v-if="v.type == 2"
+                                                :to="{ name: 'home-group', params: { id_group: v.id_group }, query: { id_notification: v.id } }">
                                                 <div class="d-flex align-items-center">
                                                     <div style="overflow: hidden; width: 3rem; height: 3rem;"
                                                         class="flex-center">
@@ -122,8 +123,9 @@
                                                         agos</small>
                                                 </div>
                                             </router-link>
-                                            <router-link v-if="v.type == 1" :to="{ name: 'detailProfile', params: { username: v.username } }">
-                                                <div class="d-flex align-items-center">
+                                            <router-link v-if="v.type == 1"
+                                                :to="{ name: 'detailProfile', params: { username: v.username } }">
+                                                <div v-if="v.type == 1" class="d-flex align-items-center">
                                                     <div style="overflow: hidden; width: 3rem; height: 3rem;"
                                                         class="flex-center">
                                                         <img class="avatar-40 rounded" :src="urlImg + v.avatar"
@@ -142,6 +144,10 @@
                                                 </div>
                                             </router-link>
                                         </a>
+                                    </div>
+                                    <div v-else class="card-body p-0 flex-center">
+                                        <img src="../../../../assets/client/images/page-img/page-load-loader.gif"
+                                            alt="loader" style="height: 100px;">
                                     </div>
                                 </div>
                             </div>
@@ -266,6 +272,30 @@ export default {
             urlImg: url,
             request_friend: [],
             list_notifications: [],
+            isView: false,
+        }
+    },
+    props: {
+        notify: {
+            type: Object,
+            required: true,
+        }
+    },
+    
+    watch: {
+        list_notifications: {
+            handler(newValue, oldValue) {
+                if (oldValue) {
+                    this.isView = true;
+                }
+            },
+            deep: true,
+            immediate: true
+        },
+        notify(newValue, oldValue) {
+            console.log('oldValue: ', oldValue);
+            console.log('newValue: ', newValue);
+            this.getNotification();
         }
     },
     mounted() {

@@ -207,6 +207,13 @@ const routes = [
         import("../components/client/group/request_group/request_group.vue"),
     },
   },
+  {
+    path: "/test",
+    name: "test",
+    components: {
+      default: () => import("../components/client/create-story/test.vue"),
+    },
+  },
 ];
 
 const router = createRouter({
