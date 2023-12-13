@@ -219,8 +219,8 @@ const routes = [
     name: "test",
     meta: { layout: "main" },
     components: {
-      default: () => import("../components/client/home/list.vue"),
-      content: () => import("../components/client/home/homepage.vue"),
+      default: () => import("../components/test/list.vue"),
+      content: () => import("../components/test/content.vue"),
     },
   },
 ];
