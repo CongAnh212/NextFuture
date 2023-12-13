@@ -15,8 +15,12 @@ const routes = [
   {
     path: "/",
     name: "homepage",
+    meta: { layout: "main" },
     props: true,
-    component: () => import("../components/client/home/index.vue"),
+    components: {
+      default: () => import("../components/client/home/list.vue"),
+      content: () => import("../components/client/home/homepage.vue"),
+    },
     children: [
       // tạo thêm 1 class để xử lý ảnh cho dễ
       {
@@ -213,6 +217,7 @@ const routes = [
   {
     path: "/test",
     name: "test",
+    meta: { layout: "main" },
     components: {
       default: () => import("../components/test/list.vue"),
       content: () => import("../components/test/content.vue"),
