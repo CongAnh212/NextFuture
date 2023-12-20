@@ -8,7 +8,7 @@ export const state = reactive({
 });
 
 const URL =
-  process.env.NODE_ENV === "production" ? undefined : "http://localhost:5173";
+  process.env.NODE_ENV === "production" ? undefined : "http://localhost:3000";
 
 export const socket = io(URL);
 
