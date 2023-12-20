@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router"; // cài vue-router: npm install vue-router@next --save
+
 const routes = [
   {
     path: "/sign-in",
@@ -15,7 +16,7 @@ const routes = [
   {
     path: "/",
     name: "homepage",
-    meta: { layout: "main" },
+    meta: { layout: "main", requiresAuth: true },
     props: true,
     components: {
       default: () => import("../components/client/home/list.vue"),
@@ -34,7 +35,7 @@ const routes = [
   {
     path: "/friends",
     name: "friends",
-    meta: { layout: "main" },
+    meta: { layout: "main", requiresAuth: true },
     components: {
       default: () => import("../components/client/friend/list.vue"),
       content: () => import("../components/client/friend/content.vue"),
@@ -43,7 +44,7 @@ const routes = [
   {
     path: "/friends/suggestions",
     name: "suggestions",
-    meta: { layout: "main" },
+    meta: { layout: "main", requiresAuth: true },
     components: {
       default: () => import("../components/client/suggestion/list.vue"),
       content: () => import("../components/client/friend/cover.vue"),
@@ -52,7 +53,7 @@ const routes = [
   {
     path: "/friends/requests",
     name: "requests",
-    meta: { layout: "main" },
+    meta: { layout: "main", requiresAuth: true },
     components: {
       default: () => import("../components/client/request_friend/list.vue"),
       content: () => import("../components/client/friend/cover.vue"),
@@ -61,7 +62,7 @@ const routes = [
   {
     path: "/friends/list",
     name: "list",
-    meta: { layout: "main" },
+    meta: { layout: "main", requiresAuth: true },
     components: {
       default: () => import("../components/client/all_friend/list.vue"),
       content: () => import("../components/client/friend/cover.vue"),
@@ -85,7 +86,7 @@ const routes = [
       default: () => import("../components/client/all_friend/list.vue"),
       content: () => import("../components/client/profile/index.vue"),
     },
-    meta: { layout: "main" },
+    meta: { layout: "main", requiresAuth: true },
   },
   {
     path: "/:username",
@@ -94,7 +95,7 @@ const routes = [
       default: () => import("../components/client/suggestion/list.vue"),
       content: () => import("../components/client/profile/index.vue"),
     },
-    meta: { layout: "main" },
+    meta: { layout: "main", requiresAuth: true },
   },
   {
     path: "/:username",
@@ -103,7 +104,7 @@ const routes = [
       default: () => import("../components/client/request_friend/list.vue"),
       content: () => import("../components/client/profile/index.vue"),
     },
-    meta: { layout: "main" },
+    meta: { layout: "main", requiresAuth: true },
   },
 
   {
@@ -143,7 +144,7 @@ const routes = [
   {
     path: "/group/discover",
     name: "group",
-    meta: { layout: "main" },
+    meta: { layout: "main", requiresAuth: true },
     components: {
       default: () => import("../components/client/group/list.vue"),
       content: () => import("../components/client/group/discover/content.vue"),
@@ -152,7 +153,7 @@ const routes = [
   {
     path: "/group/your-group",
     name: "your_group",
-    meta: { layout: "main" },
+    meta: { layout: "main", requiresAuth: true },
     components: {
       default: () => import("../components/client/group/list.vue"),
       content: () =>
@@ -170,7 +171,7 @@ const routes = [
   {
     path: "/group/:id_group",
     name: "home-group",
-    meta: { layout: "main" },
+    meta: { layout: "main", requiresAuth: true },
     props: true,
     components: {
       default: () => import("../components/client/group/home/list.vue"),
@@ -197,7 +198,7 @@ const routes = [
   {
     path: "/group/:id_group/setting",
     name: "setting",
-    meta: { layout: "main" },
+    meta: { layout: "main", requiresAuth: true },
     components: {
       default: () => import("../components/client/group/home/list.vue"),
       content: () => import("../components/client/group/settingg/setting.vue"),
@@ -207,7 +208,7 @@ const routes = [
     path: "/group/:id_group/member-requests",
     name: "request_group",
 
-    meta: { layout: "main" },
+    meta: { layout: "main", requiresAuth: true },
     components: {
       default: () => import("../components/client/group/home/list.vue"),
       content: () =>
@@ -217,7 +218,7 @@ const routes = [
   {
     path: "/test",
     name: "test",
-    meta: { layout: "main" },
+    meta: { layout: "main", requiresAuth: true },
     components: {
       default: () => import("../components/test/list.vue"),
       content: () => import("../components/test/content.vue"),
@@ -228,17 +229,6 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes: routes,
-});
-
-router.beforeEach((to, from, next) => {
-  // Kiểm tra quyền truy cập ở đây, ví dụ kiểm tra xem người dùng đã đăng nhập chưa
-  const isLoggedIn = ""; // Kiểm tra xem người dùng đã đăng nhập chưa (có thể sử dụng localStorage, Vuex state, hoặc API request)
-
-  if (to.meta.requiresAuth && !isLoggedIn) {
-    next("/"); // Chuyển hướng đến trang đăng nhập
-  } else {
-    next();
-  }
 });
 
 export default router;
