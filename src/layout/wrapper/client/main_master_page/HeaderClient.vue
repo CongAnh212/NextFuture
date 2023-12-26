@@ -24,9 +24,15 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav  ms-auto navbar-list">
                         <li class="nav-item dropdown">
-                            <a href="#" class="dropdown-toggle" id="group-drop" data-bs-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
+                            <a href="#" class="dropdown-toggle" style="position: relative;" id="group-drop"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="ri-group-line"></i>
+                                <div class="circle flex-center" v-if="count.length >= 1"
+                                    style="position: absolute; bottom: 2.3rem;left: 1.9rem; width: 20px; height: 20px; background-color: rgb(249, 64, 95);">
+                                    <span class="text-white f-500" style="font-size: 11px;">
+                                        {{ count.length > 99 ? '99+' : count.length }}
+                                    </span>
+                                </div>
                             </a>
                             <div class="sub-drop sub-drop-large dropdown-menu" aria-labelledby="group-drop">
                                 <div class="card shadow-none m-0">
@@ -35,42 +41,54 @@
                                             <h5 class="mb-0 text-white">Friend Request</h5>
                                         </div>
                                         <small class="badge  bg-light text-dark ">
-                                            {{ Object.keys(request_friend).length }}
+                                            {{ count.length }}
                                         </small>
                                     </div>
                                     <div class="card-body p-0">
                                         <template v-for="(v, k) in request_friend">
                                             <div class="iq-friend-request">
                                                 <div
-                                                    class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
+                                                    class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between pe-3">
                                                     <div class="d-flex align-items-center">
                                                         <img class="avatar-40 rounded" :src="urlImg + v.avatar" alt="">
                                                         <div class="ms-3">
-                                                            <h6 class="mb-0 ">{{ v.fullname }}</h6>
-                                                            <p class="mb-0">1 mutual</p>
+                                                            <h6 class="mb-0 ">
+                                                                <router-link
+                                                                    :to="{ name: 'detailProfile', params: { username: v.username } }">
+                                                                    <b>
+                                                                        {{ v.fullname }}
+                                                                    </b>
+                                                                </router-link>
+                                                            </h6>
+                                                            <p class="mb-0">1 mutual friends </p>
                                                         </div>
                                                     </div>
                                                     <div class="d-flex align-items-center">
-                                                        <a href="javascript:void();" class="me-3 btn btn-primary rounded"
-                                                            style="width: 60%;" @click="confirm(v)">Confirm</a>
-                                                        <a href="javascript:void();" class="me-3 btn btn-secondary rounded"
-                                                            style="width: 60%;">Delete</a>
+                                                        <a class="me-3 btn btn-primary rounded" style="width: 60%;"
+                                                            @click="confirm(v)">Confirm</a>
+                                                        <a class="me-3 btn btn-secondary rounded" style="width: 60%;"
+                                                            @click="delRequest(v)">Delete</a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </template>
-
-                                        <div class="text-center">
-                                            <a href="#" class=" btn text-primary">View More Request</a>
-                                        </div>
+                                        <router-link :to="{ name: 'requests' }" class="flex-center bg-hover">
+                                            View More Request
+                                        </router-link>
                                     </div>
                                 </div>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a href="#" class="search-toggle   dropdown-toggle" id="notification-drop"
-                                data-bs-toggle="dropdown">
+                            <a href="#" class="search-toggle dropdown-toggle" id="notification-drop"
+                                data-bs-toggle="dropdown" style="position: relative;">
                                 <i class="ri-notification-4-line"></i>
+                                <div class="circle flex-center" v-if="new_notification > 0"
+                                    style="position: absolute; bottom: 2.3rem;left: 1.8rem; width: 20px; height: 20px; background-color: rgb(249, 64, 95);">
+                                    <span class="text-white f-500" style="font-size: 11px;">
+                                        {{ new_notification > 99 ? '99+' : new_notification }}
+                                    </span>
+                                </div>
                             </a>
                             <div class="sub-drop dropdown-menu" aria-labelledby="notification-drop" style="width: 32rem;">
                                 <div class="card shadow-none m-0">
@@ -78,69 +96,109 @@
                                         <div class="header-title bg-primary">
                                             <h5 class="mb-0 text-white">All Notifications</h5>
                                         </div>
-                                        <small class="badge  bg-light text-dark">{{ list_notifications.length }}</small>
+                                        <small class="badge bg-light text-dark">{{ list_notifications.length }}</small>
                                     </div>
-                                    <div v-if="isView" class="card-body p-0">
-                                        <a v-for="(v, k) in list_notifications" class="iq-sub-card bg-hover">
+                                    <div v-if="isView" class="card-body p-0 " style="max-height: 65vh; overflow: auto;">
+                                        <a v-for="(v, k) in list_notifications" class="iq-sub-card bg-hover "
+                                            @click="readNotification(v)">
                                             <router-link v-if="v.type == 2"
                                                 :to="{ name: 'home-group', params: { id_group: v.id_group }, query: { id_notification: v.id } }">
                                                 <div class="d-flex align-items-center">
+                                                    <div v-if="v.status == 1">
+                                                        <img src="../../../../assets/img/output-onlinegiftools.gif"
+                                                            style="width: 25px; height: 25px;">
+                                                    </div>
+                                                    <div v-else style="width: 25px; height: 25px;">
+                                                    </div>
                                                     <div style="overflow: hidden; width: 3rem; height: 3rem;"
                                                         class="flex-center">
                                                         <img class="avatar-40 rounded" :src="urlImg + v.cover_image"
                                                             style="object-fit: cover;">
                                                     </div>
                                                     <div class="ms-3 w-100" style="flex: 1;">
-                                                        <h6 class="mb-0 f-500 text-primary">{{ v.sender }}</h6>
+                                                        <h6 class="mb-0 f-500 " :class="{ 'text-primary': v.status == 1 }"
+                                                            :style="{ 'font-weight': 'bold' }">
+                                                            {{ v.sender }}
+                                                        </h6>
                                                         <div
-                                                            class="d-flex text-dark justify-content-between align-items-center">
-                                                            <p class="mb-0">Invited you to the <b class="text-primary"> {{
-                                                                v.group_name }} </b>
-                                                                group</p>
+                                                            class="d-flex text-dark justify-content-between align-items-center pe-3">
+                                                            <p class="mb-0">Invited you to the
+                                                                <b :class="{ 'text-primary': v.status == 1 }">
+                                                                    {{ v.group_name }}
+                                                                </b>
+                                                                group
+                                                            </p>
                                                         </div>
                                                     </div>
-                                                    <small class="float-right font-size-12">{{ formatTime(v.created_at) }}
-                                                        agos</small>
+                                                    <small class="float-right font-size-12"
+                                                        :class="{ 'text-dark': v.status == 0 }">
+                                                        {{ formatTime(v.created_at) }}
+                                                        agos
+                                                    </small>
                                                 </div>
                                             </router-link>
                                             <router-link v-if="v.type == 7" to="">
                                                 <div class="d-flex align-items-center">
+                                                    <div v-if="v.status == 1">
+                                                        <img src="../../../../assets/img/output-onlinegiftools.gif"
+                                                            style="width: 25px; height: 25px;">
+                                                    </div>
+                                                    <div v-else style="width: 25px; height: 25px;">
+                                                    </div>
                                                     <div style="overflow: hidden; width: 3rem; height: 3rem;"
                                                         class="flex-center">
                                                         <img class="avatar-40 rounded" :src="urlImg + v.avatar"
                                                             style="object-fit: cover;">
                                                     </div>
                                                     <div class="ms-3 w-100" style="flex: 1;">
-                                                        <h6 class="mb-0 f-500 text-primary">{{ v.sender }}</h6>
+                                                        <h6 class="mb-0 f-500 " :class="{ 'text-primary': v.status == 1 }"
+                                                            :style="{ 'font-weight': 'bold' }">{{ v.sender }}</h6>
                                                         <div
-                                                            class="d-flex text-dark justify-content-between align-items-center">
+                                                            class="d-flex text-dark justify-content-between align-items-center pe-3">
                                                             <p class="mb-0">Tagged you in a post by
-                                                                <b class="text-primary"> {{ v.name_poster }} </b>
+                                                                <b :class="{ 'text-primary': v.status == 1 }">
+                                                                    {{ v.name_poster }}
+                                                                </b>
                                                             </p>
                                                         </div>
                                                     </div>
-                                                    <small class="float-right font-size-12">{{ formatTime(v.created_at) }}
-                                                        agos</small>
+                                                    <small class="float-right font-size-12"
+                                                        :class="{ 'text-dark': v.status == 0 }">
+                                                        {{ formatTime(v.created_at) }}
+                                                        agos
+                                                    </small>
                                                 </div>
                                             </router-link>
                                             <router-link v-if="v.type == 1"
                                                 :to="{ name: 'detailProfile', params: { username: v.username } }">
                                                 <div v-if="v.type == 1" class="d-flex align-items-center">
+                                                    <div v-if="v.status == 1">
+                                                        <img src="../../../../assets/img/output-onlinegiftools.gif"
+                                                            style="width: 25px; height: 25px;">
+                                                    </div>
+                                                    <div v-else style="width: 25px; height: 25px;">
+                                                    </div>
                                                     <div style="overflow: hidden; width: 3rem; height: 3rem;"
                                                         class="flex-center">
                                                         <img class="avatar-40 rounded" :src="urlImg + v.avatar"
                                                             style="object-fit: cover;">
                                                     </div>
                                                     <div class="ms-3 w-100" style="flex: 1;">
-                                                        <h6 class="mb-0 f-500 text-primary">{{ v.sender }}</h6>
+                                                        <h6 class="mb-0 f-500 " :class="{ 'text-primary': v.status == 1 }"
+                                                            :style="{ 'font-weight': 'bold' }">
+                                                            {{ v.sender }}
+                                                        </h6>
                                                         <div
-                                                            class="d-flex text-dark justify-content-between align-items-center">
+                                                            class="d-flex text-dark justify-content-between align-items-center pe-3">
                                                             <p class="mb-0">sent you a friend request
                                                             </p>
                                                         </div>
                                                     </div>
-                                                    <small class="float-right font-size-12">{{ formatTime(v.created_at) }}
-                                                        agos</small>
+                                                    <small class="float-right font-size-12"
+                                                        :class="{ 'text-dark': v.status == 0 }">
+                                                        {{ formatTime(v.created_at) }}
+                                                        agos
+                                                    </small>
                                                 </div>
                                             </router-link>
                                         </a>
@@ -273,6 +331,9 @@ export default {
             request_friend: [],
             list_notifications: [],
             isView: false,
+            count: 0,
+            del: {},
+            new_notification: 0,
         }
     },
     props: {
@@ -281,7 +342,7 @@ export default {
             required: true,
         }
     },
-    
+
     watch: {
         list_notifications: {
             handler(newValue, oldValue) {
@@ -312,6 +373,7 @@ export default {
                 .get('notification/data')
                 .then((res) => {
                     this.list_notifications = res.data.data;
+                    this.new_notification = res.data.new_notification;
                 })
         },
         signOut() {
@@ -342,8 +404,7 @@ export default {
                 .then((res) => {
                     if (res.data.status == 1) {
                         this.request_friend = res.data.data;
-                    } else {
-
+                        this.count = res.data.count;
                     }
                 });
         },
@@ -353,15 +414,30 @@ export default {
                 .then((res) => {
                     if (res.data.status) {
                         this.getRequestFriend();
-                    } else {
-
                     }
                 })
-                .catch((res) => {
-                    $.each(res.response.data.errors, function (k, v) {
-                        toastr.error(v[0], 'Error');
-                    });
-                });
+        },
+        delRequest(v) {
+            axios
+                .post('follower/delete-friend', v)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.getRequestFriend()
+                    }
+                    else {
+                        baseFunction.displaySuccess(res);
+                    }
+                })
+        },
+        readNotification(v) {
+            axios
+                .post('notification/update-status', v)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.getNotification();
+                    }
+                })
+
         }
     },
 }

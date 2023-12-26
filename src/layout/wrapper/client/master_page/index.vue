@@ -31,7 +31,7 @@ import "../../../../assets/client/js/masonry.pkgd.min.js";
 import "../../../../assets/client/js/lottie.js";
 import "../../../../assets/client/vendor/vanillajs-datepicker/dist/js/datepicker.min.js";
 
-import HeaderClient from './HeaderClient.vue';
+import HeaderClient from '../main_master_page/HeaderClient.vue';
 export default {
     name: "app",
     components: {

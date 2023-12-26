@@ -31,7 +31,6 @@
                                     </p>
                                 </div>
                             </div>
-
                             <div class="dropdown">
                                 <button class="btn btn-light" style="position: relative; " type="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -277,9 +276,7 @@ export default {
                     this.isView = true
                 }
             },
-            deep: true,
-            immediate: true,
-        }
+        },
     },
     methods: {
         getMember() {
