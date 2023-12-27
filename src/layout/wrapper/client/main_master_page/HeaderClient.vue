@@ -50,7 +50,10 @@
                                                 <div
                                                     class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between pe-3">
                                                     <div class="d-flex align-items-center">
-                                                        <img class="avatar-40 rounded" :src="urlImg + v.avatar" alt="">
+                                                        <router-link
+                                                            :to="{ name: 'detailProfile', params: { username: v.username } }">
+                                                            <img class="avatar-40 rounded" :src="urlImg + v.avatar" alt="">
+                                                        </router-link>
                                                         <div class="ms-3">
                                                             <h6 class="mb-0 ">
                                                                 <router-link
@@ -60,7 +63,7 @@
                                                                     </b>
                                                                 </router-link>
                                                             </h6>
-                                                            <p class="mb-0">1 mutual friends </p>
+                                                            <p class="mb-0">{{ v.mutual }} mutual friends </p>
                                                         </div>
                                                     </div>
                                                     <div class="d-flex align-items-center">

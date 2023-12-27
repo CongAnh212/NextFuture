@@ -2,7 +2,17 @@
     <div class="pt-2" style="padding: 0px 8%;">
         <div class="w-100 px-2 mx-0 pt-2 row" style="flex: 1;  position: relative;   ">
             <div class=" col-7" style="">
-                <div class="card" style="border-radius: 10px; ">
+                <div v-if="viewType == 0 && info.privacy == -1" class="card" style="border-radius: 10px; ">
+                    <div class="flex-center" style="flex-direction: column; height: 24rem;">
+                        <img style="width: 15%;"
+                            src="https://www.facebook.com/images/comet/empty_states_icons/permissions/permissions_gray_wash.svg"
+                            alt="">
+                        <h4><b>This is a private group</b></h4>
+                        <p>Please join this group to watch or discuss</p>
+                    </div>
+
+                </div>
+                <div v-else class="card" style="border-radius: 10px; ">
                     <div class="card-body" style=" border-radius: 10px; box-shadow: 0px 0px 5px #33333345;">
                         <div class="w-100 d-flex align-items-center mb-3" style="gap:10px;pointer-events: none;">
                             <i class="far fa-user-circle " style="font-size: 30px;"></i>
@@ -32,7 +42,7 @@
                     <div class="card-body b " style="border-radius: 10px; box-shadow: 0px 0px 5px #33333324;">
 
                         <span style="font-weight: 600;">Introduct</span>
-                        <div class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center"
+                        <div v-if="info.privacy == 1" class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center"
                             style="height: 65px; line-height: 18px;">
                             <div class="d-flex me-2 justify-content-center align-items-center"
                                 style="width:30px;height:30px;">
@@ -45,7 +55,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-if="false" class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center"
+                        <div v-else class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center"
                             style="height: 65px; line-height: 18px;">
                             <div class="d-flex me-2 justify-content-center align-items-center"
                                 style="width:30px;height:30px;">
@@ -58,7 +68,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center" style="height: 65px;">
+                        <div v-if="info.display == 2" class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center"
+                            style="height: 65px;">
                             <div class="d-flex me-2 justify-content-center align-items-center"
                                 style="width:30px;height:30px;">
                                 <i class="fas fa-eye text-dark" style="font-size: 20px;"></i>
@@ -70,7 +81,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-if="false" class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center"
+                        <div v-else class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center"
                             style="height: 65px;  line-height: 18px;">
                             <div class="d-flex me-2 justify-content-center align-items-center"
                                 style="width:30px;height:30px;">
@@ -92,7 +103,28 @@
 </template>
 <script>
 export default {
-
+    data() {
+        return {
+            //
+        }
+    },
+    
+    props: {
+        info: {
+            type: Object,
+            required: true,
+        },
+        viewType: {
+            type: Number,
+            required: true
+        }
+    },
+    mounted() {
+        //
+    },
+    methods: {
+        //
+    },
 }
 </script>
 <style ></style>

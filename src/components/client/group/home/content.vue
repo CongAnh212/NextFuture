@@ -46,7 +46,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex">
+                        <div v-if="viewType == 1" class="d-flex">
                             <div @click="open()" class="btn-primary px-2 f-500 radius-7 text-white me-2 invite"
                                 data-bs-toggle="modal" data-bs-target="#inviteModal" style="cursor: pointer;">
                                 <span style="font-size: 20px;">+
@@ -59,7 +59,18 @@
                                 <i class="fas fa-share m-0 p-0 me-1"></i>
                                 <span class="del-event">Share</span>
                             </div>
-
+                        </div>
+                        <div v-else class="d-flex">
+                            <div @click="joinGroup" class="btn-primary px-2 f-500 radius-7 text-white me-2 invite "
+                                style="cursor: pointer; padding: 0.5rem">
+                                <i class="fas fa-users me-2"></i>
+                                <span class="del-event">Join Group</span>
+                            </div>
+                            <div @click="copyLink" class="btn-light px-2 f-500 radius-7 text-dark me-2 invite "
+                                style="cursor: pointer; padding: 0.5rem">
+                                <i class="fas fa-copy me-2"></i>
+                                <span class="del-event">Copy Link</span>
+                            </div>
                         </div>
                         <div class="modal fade" id="inviteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
@@ -170,31 +181,46 @@
                     </div>
                     <hr class="w-100 bg-dark pb-0 mb-0">
                     <div class="text-dark flex-between" style="display:flex;gap:20px; margin-top: 5px;">
-                        <div class="d-flex"> <!-- Left navbar -->
+                        <div v-if="viewType == 1" class="d-flex"> <!-- Left navbar -->
                             <div class="flex-center border-bottomm ct " style="width: 100%; cursor: pointer;">
-                                <div @click="setView('discuss')" class="py-1 p-2 px-3 bb f-500 discuss"
+                                <div @click="setView('discuss')" class="py-2 p-2 px-3 bb f-500 discuss"
                                     style="border-radius: 7px; ">
                                     <span class="del-event">Discuss</span>
                                 </div>
                             </div>
                             <div class="flex-center ct" style="width: 100%; cursor: pointer;">
-                                <div @click="setView('member')" class="py-1 p-2 px-3  bg-hover bb f-500 member"
+                                <div @click="setView('member')" class="py-2 p-2 px-3  bg-hover bb f-500 member"
                                     style="border-radius: 7px;">
                                     <span class="del-event">Member</span>
                                 </div>
                             </div>
                             <div class="flex-center ct" style="width: 100%; cursor: pointer;">
-                                <div @click="setView('event')" class="py-1 p-2 px-3  bg-hover bb f-500 event"
+                                <div @click="setView('event')" class="py-2 p-2 px-3  bg-hover bb f-500 event"
                                     style="border-radius: 7px;">
                                     <span class="del-event">Event</span>
                                 </div>
                             </div>
                             <div class="flex-center ct" style="width: 100%; cursor: pointer;">
-                                <div @click="setView('photo')" class="py-1 p-2 px-3  bg-hover bb f-500 photo"
+                                <div @click="setView('photo')" class="py-2 p-2 px-3  bg-hover bb f-500 photo"
                                     style="border-radius: 7px;">
                                     <span class="del-event">Photos</span>
                                 </div>
                             </div>
+                        </div>
+                        <div v-else class="d-flex"> <!-- Left navbar -->
+                            <div class="flex-center border-bottomm ct " style="width: 100%; cursor: pointer;">
+                                <div @click="setView('discuss')" class="py-2 p-2 px-3 bb f-500 discuss"
+                                    style="border-radius: 7px; ">
+                                    <span class="del-event">Discuss</span>
+                                </div>
+                            </div>
+                            <div class="flex-center ct" style="width: 100%; cursor: pointer;">
+                                <div @click="setView('introduce')" class="py-2 p-2 px-3  bg-hover bb f-500 introduce"
+                                    style="border-radius: 7px;">
+                                    <span class="del-event">Introduce</span>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="btn-light px-2 " data-bs-toggle="dropdown" aria-expanded="false"
                             style="border-radius: 5px; cursor: pointer;">
@@ -212,8 +238,9 @@
                 </div>
             </div>
         </div>
-        <router-view v-if="view == 'discuss'" name="discuss"></router-view>
+        <router-view v-if="view == 'discuss'" :info="data" :viewType="viewType" name="discuss"></router-view>
         <router-view v-else-if="view == 'member'" name="member"></router-view>
+        <router-view v-else-if="view == 'introduce'" :info="data" name="introduce"></router-view>
     </div>
 
     <div v-else>
@@ -240,9 +267,12 @@ export default {
             id_notification: null,
             infoClient: {},
             notification: {},
+
             moveOver: false,
             info: {},
-        };
+            viewType: null,
+        }
+
     },
     watch: {
         '$route.params.id_group'(id_group) {
@@ -254,18 +284,17 @@ export default {
                 if (oldValue) {
                     this.id_notification = this.$route.query.id_notification;
                     if (this.id_notification) {
-                        console.log('this.id_notification: ', this.id_notification);
                         this.getInfoInvite(this.id_notification);
                         this.isViewInvite = true;
                     }
                     this.isView = true;
                     setTimeout(() => {
-                        const currentPath = this.$route.fullPath.toString().split('/').pop();
-                        if (currentPath == 'discuss' || currentPath == 'member' || currentPath == 'event' || currentPath == 'photo') {
-                            this.setView(currentPath);
-                        }
-                        else {
-                            this.setView('discuss');
+
+                        const currentPath = this.$route.fullPath.toString().split('/').pop()
+                        if (currentPath == 'discuss' || currentPath == 'member' || currentPath == 'event' || currentPath == 'photo' || currentPath == 'introduce') {
+                            this.setView(currentPath)
+                        } else {
+                            this.setView('discuss')
                         }
                     }, 1);
                 }
@@ -278,9 +307,39 @@ export default {
         this.id_group = this.$route.params.id_group;
         this.getInfo();
         this.getListFriend();
+        this.checkRole();
         // console.log('id_notification from propsádads:', this.$route.params.id_notification);
     },
     methods: {
+        joinGroup() {
+            axios
+                .post('groups/come-in-group', this.data)
+                .then((res) => {
+                    baseFunction.displaySuccess(res);
+                })
+        },
+        checkRole() {
+            axios
+                .post('groups/check-role', { id_group: this.id_group })
+                .then((res) => {
+                    this.viewType = res.data.viewType
+                })
+        },
+        copyLink() {
+            const inputElement = document.createElement('input');
+            inputElement.value = window.location.href;
+            document.body.appendChild(inputElement);
+            inputElement.select();
+            document.execCommand('copy');
+            document.body.removeChild(inputElement);
+            var res = {
+                data: {
+                    status: 1,
+                    message: "Copy path successfully!"
+                }
+            }
+            baseFunction.displaySuccess(res);
+        },
         getInfoInvite(a) {
             axios
                 .post('notification/info-invite', { id: a })

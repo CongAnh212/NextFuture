@@ -20,7 +20,7 @@
                         style="height: 50px; width: 50px; margin-left: 2px;">
                     <div>
                         <b class="text-secondary text-nowrap">{{ v.fullname }}</b> <br>
-                        <span class="text-secondary">1 mutual</span>
+                        <span class="text-secondary">{{ v.mutual }} mutual</span>
                         <div class="text-nowrap">
                             <button class="btn btn-primary me-1" style="width: 100px;" @click="confirm(v, k)">
                                 Confirm

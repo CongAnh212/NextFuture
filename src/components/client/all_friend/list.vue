@@ -26,9 +26,9 @@
                 <div class="d-flex  ">
                     <img :src="urlImage + v.avatar" class="img-fluid rounded-circle me-2" alt="user"
                         style="height: 50px; width: 50px; margin-left: 2px;">
-                    <div>
+                    <div :class="{ 'd-flex flex-center' : v.mutual == 0 }">
                         <b class="text-secondary text-nowrap">{{ v.fullname }}</b> <br>
-                        <span class="text-secondary">1 mutual</span>
+                        <span v-if="v.mutual > 0" class="text-secondary">{{ v.mutual }} mutual</span>
                     </div>
                 </div>
             </div>
