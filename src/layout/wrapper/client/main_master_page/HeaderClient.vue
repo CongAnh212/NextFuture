@@ -60,7 +60,7 @@
                                                                     </b>
                                                                 </router-link>
                                                             </h6>
-                                                            <p class="mb-0">1 mutual friends </p>
+                                                            <p class="mb-0">{{ v.mutual }} mutual friends </p>
                                                         </div>
                                                     </div>
                                                     <div class="d-flex align-items-center">

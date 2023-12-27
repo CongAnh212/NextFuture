@@ -130,4 +130,18 @@
         /* Trở lại giá trị ban đầu */
     }
 }
+@media (max-width: 1600px) {
+    .file-drop-zone {
+        min-height: 100px;
+    }
 
+    .file-preview-thumbnails {
+        max-height: -100px;
+        overflow: auto;
+    }
+
+    .file-drop-zone-title {
+        padding: 50px 10px;
+    }
+
+}

@@ -21,7 +21,11 @@
                         style="height: 50px; width: 50px; margin-left: 2px;">
                     <div style="width: 200px;">
                         <b class="text-secondary text-nowrap">{{ v.fullname }}</b> <br>
-                        <span class="text-secondary">1 mutual</span>
+                        <span class="text-secondary">{{ v.mutual }} mutual</span>
+                        <!-- <div :class="{ 'd-flex flex-center': v.mutual == 0 }">
+                            <b class="text-secondary text-nowrap">{{ v.fullname }}</b> <br>
+                            <span v-if="v.mutual > 0" class="text-secondary">{{ v.mutual }} mutual</span>
+                        </div> -->
                         <div class="text-nowrap d-flex w-100">
                             <template v-if="v.friendStatus == false">
                                 <div class="me-1">
