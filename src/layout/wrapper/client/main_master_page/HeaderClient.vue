@@ -47,7 +47,7 @@
                                                         <img class="avatar-40 rounded" :src="urlImg + v.avatar" alt="">
                                                         <div class="ms-3">
                                                             <h6 class="mb-0 ">{{ v.fullname }}</h6>
-                                                            <p class="mb-0">1 mutual</p>
+                                                            <p class="mb-0">{{ v.mutual }} mutual</p>
                                                         </div>
                                                     </div>
                                                     <div class="d-flex align-items-center">

@@ -193,6 +193,13 @@ const routes = [
           member: () => import("../components/client/group/member/member.vue"),
         },
       },
+      {
+        path: "introduce",
+        name: "introduce",
+        components: {
+          introduce: () => import("../components/client/group/introduce/introduce.vue"),
+        },
+      },
     ],
   },
   {

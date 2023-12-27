@@ -23,7 +23,7 @@
                                     <b class="text-nowrap text-secondary">{{ v.fullname }}</b>
                                 </div>
                                 <div class="mb-1 text-secondary">
-                                    <span>1 mutual friends</span>
+                                    <span>{{ v.mutual }} mutual friends</span>
                                 </div>
                                 <div class="mt-1">
                                     <button v-if="v.status_button == 0" class="btn btn-primary w-100"
@@ -85,7 +85,7 @@
                                     <b class="text-nowrap text-secondary">{{ v.fullname }}</b>
                                 </div>
                                 <div class="mb-1 text-nowrap text-secondary">
-                                    <span>1 mutual friends</span>
+                                    <span>{{ v.mutual }} mutual friends</span>
                                 </div>
                                 <template v-if="v.friendStatus == false">
                                     <div class="mt-1">
