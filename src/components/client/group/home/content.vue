@@ -8,11 +8,42 @@
                 <div class="w-100 px-2 pt-3 c">
                     <h3><b style="color: rgb(0, 0, 0);">{{ data.group_name }}</b></h3>
                     <div v-if="!isViewInvite" class="flex-between"> <!-- xử lý lời mời -->
-                        <div class="d-flex">
-                            <div v-for="(v, k) in member" class="circle bg-primary"
+                        <div class="d-flex" style="position: relative; cursor: pointer;">
+                            <div @mouseover="over(v)" v-for="(v, k) in member" class="circle bg-primary img-hover"
                                 style="height: 35px; width: 35px; outline: 2px solid rgb(255, 255, 255); overflow: hidden; margin-right: -5px;">
                                 <img :src="urlImg + v.avatar" class="img-fluid" style="object-fit: cover; width: 100%;"
                                     alt="">
+                            </div>
+                            <div class="bg-white modal-component pb-3" ref="modalComponent">
+                                <div class=" d-flex py-3 px-3" style="gap: 15px;">
+                                    <div class="circle" style="overflow: hidden; width: 100px; height: 100px;">
+                                        <img style="object-fit: cover; width: 100%;" :src="urlImg + info.avatar">
+                                    </div>
+                                    <div style="flex:1">
+                                        <div style="font-size: 18px; line-height: 23px;">
+                                            <b class="text-dark">{{ info.fullname }}</b>
+                                        </div>
+                                        <div class="text-dark py-2">
+                                            <i class="fa-solid fa-user-group me-2 text-secondary"
+                                                style="font-size: 15px;"></i>
+                                            <span style="font-size: 15px;"> 23 mutual friends
+                                            </span>
+                                        </div>
+                                        <div class="text-dark">
+                                            <i class="fa-solid fa-house-chimney me-2 text-secondary"
+                                                style="font-size: 15px;"></i>
+                                            <span style="font-size: 15px;">Live in <b>Ho Chi Minh</b></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex-center " style="gap: 7px;">
+                                    <button v-if="info.status == 1" class="btn btn-light f-500"
+                                        style="width: 140px;">Friend</button>
+                                    <button class="btn btn-primary f-500" style="width: 140px;"> Message</button>
+                                    <button class="btn btn-light f-500" style="width: 35px;">
+                                        <i class="fa-solid fa-ellipsis"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div class="d-flex">
@@ -30,7 +61,7 @@
                             </div>
 
                         </div>
-                        <div class="modal fade  " id="inviteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        <div class="modal fade" id="inviteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                 <div class="modal-content">
@@ -209,7 +240,9 @@ export default {
             id_notification: null,
             infoClient: {},
             notification: {},
-        }
+            moveOver: false,
+            info: {},
+        };
     },
     watch: {
         '$route.params.id_group'(id_group) {
@@ -220,7 +253,6 @@ export default {
             handler(newValue, oldValue) {
                 if (oldValue) {
                     this.id_notification = this.$route.query.id_notification;
-
                     if (this.id_notification) {
                         console.log('this.id_notification: ', this.id_notification);
                         this.getInfoInvite(this.id_notification);
@@ -228,14 +260,14 @@ export default {
                     }
                     this.isView = true;
                     setTimeout(() => {
-                        const currentPath = this.$route.fullPath.toString().split('/').pop()
+                        const currentPath = this.$route.fullPath.toString().split('/').pop();
                         if (currentPath == 'discuss' || currentPath == 'member' || currentPath == 'event' || currentPath == 'photo') {
-                            this.setView(currentPath)
-                        } else {
-                            this.setView('discuss')
+                            this.setView(currentPath);
+                        }
+                        else {
+                            this.setView('discuss');
                         }
                     }, 1);
-
                 }
             },
             deep: true, // Sử dụng deep watch để theo dõi các thay đổi sâu
@@ -266,7 +298,7 @@ export default {
             var payload = {
                 id_invites: this.list_invite,
                 id_group: this.id_group
-            }
+            };
             axios
                 .post('groups/send-invite', payload)
                 .then((res) => {
@@ -283,7 +315,7 @@ export default {
                 .get('groups/' + this.id_group)
                 .then((res) => {
                     this.data = res.data.info;
-                    this.member = res.data.member
+                    this.member = res.data.member;
                 });
         },
         open() {
@@ -296,9 +328,8 @@ export default {
             parent.addClass('border-bottomm');
             $('.bb:not(.bg-hover)').addClass('bg-hover');
             $('.' + a).removeClass('bg-hover');
-
             this.view = a;
-            this.$router.push({ name: a })
+            this.$router.push({ name: a });
         },
         getListFriend() {
             axios
@@ -311,7 +342,8 @@ export default {
             if ($('#invite' + k).is(':checked')) {
                 $('#invite' + k).prop('checked', false);
                 this.list_invite.splice(this.list_invite.indexOf(k), 1);
-            } else {
+            }
+            else {
                 $('#invite' + k).prop('checked', true);
                 this.list_invite.push(v);
             }
@@ -320,14 +352,13 @@ export default {
             var payload = {
                 status: true,
                 notify: this.notification
-            }
+            };
             axios
                 .post('notification/accept-invite', this.notification)
                 .then((res) => {
-                    baseFunction.displaySuccess(res)
-                    this.isViewInvite = false
-                    this.$emit('removeNotify', payload)
-
+                    baseFunction.displaySuccess(res);
+                    this.isViewInvite = false;
+                    this.$emit('removeNotify', payload);
                 })
                 .catch((res) => {
                     $.each(res.response.data.errors, function (k, v) {
@@ -339,20 +370,33 @@ export default {
             var payload = {
                 status: false,
                 notify: this.notification
-            }
+            };
             axios
                 .post('notification/remove-invite', this.notification)
                 .then((res) => {
-                    this.isViewInvite = false
-                    this.$emit('removeNotify', payload)
-
+                    this.isViewInvite = false;
+                    this.$emit('removeNotify', payload);
                 })
                 .catch((res) => {
                     $.each(res.response.data.errors, function (k, v) {
                         toastr.error(v[0], 'error');
                     });
                 });
-        }
+        },
+        over(v) {
+            this.info = v;
+            const myDiv = this.$refs.modalComponent;
+            const mh = window.innerHeight;
+            const rect = myDiv.getBoundingClientRect();
+            this.bottomPosition = rect.bottom - mh;
+            if (this.bottomPosition > 10) {
+                $('.modal-component').css('transform', 'translate(1.3rem, -2.3rem)');
+                $('.modal-component').css('inset', ' auto auto 0px 0px');
+            } else {
+                $('.modal-component').css('transform', 'translate(1.3rem, 2.3rem)');
+                $('.modal-component').css('inset', ' 0px auto auto  0px');
+            }
+        },
     },
 }
 </script>

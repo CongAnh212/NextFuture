@@ -8419,7 +8419,7 @@ fieldset:disabled .btn {
   -ms-transform: translateY(100%);
   transform: translateY(100%);
 }
- 
+
 .offcanvas.show {
   -webkit-transform: none;
   -ms-transform: none;
@@ -30118,5 +30118,6 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-right {
 .box-shadow {
   box-shadow: 0 0 5px #3333334e;
 }
-
-
+.bg-xanh {
+  background-color: rgb(192, 249, 255);
+}
