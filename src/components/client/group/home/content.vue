@@ -46,7 +46,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-if="viewType == 1" class="d-flex">
+                        <div v-if="viewType == 1 || viewType == 2" class="d-flex">
                             <div @click="open()" class="btn-primary px-2 f-500 radius-7 text-white me-2 invite"
                                 data-bs-toggle="modal" data-bs-target="#inviteModal" style="cursor: pointer;">
                                 <span style="font-size: 20px;">+
@@ -61,10 +61,18 @@
                             </div>
                         </div>
                         <div v-else class="d-flex">
-                            <div @click="joinGroup" class="btn-primary px-2 f-500 radius-7 text-white me-2 invite "
+                            <div v-if="checkRequest == 0" @click="joinGroup"
+                                class="btn-primary px-2 f-500 radius-7 text-white me-2 invite "
                                 style="cursor: pointer; padding: 0.5rem">
                                 <i class="fas fa-users me-2"></i>
                                 <span class="del-event">Join Group</span>
+                            </div>
+                            <div v-else @click="undoRequest" class="btn-primary px-2 f-500 radius-7 text-white me-2 invite "
+                                style="cursor: pointer; padding: 0.5rem">
+                                <i class="fas fa-undo-alt me-2"></i>
+                                <span class="del-event">
+                                    Undo request
+                                </span>
                             </div>
                             <div @click="copyLink" class="btn-light px-2 f-500 radius-7 text-dark me-2 invite "
                                 style="cursor: pointer; padding: 0.5rem">
@@ -166,7 +174,7 @@
                                         <div class=" px-2 " style="flex: 1; line-height: 1.2rem;">
                                             <b>{{ infoClient.fullname }} has invited you to join this group.</b>
                                             <br>
-                                            <span>The invitation expires in 2000 days</span>
+                                            <span>This invitation was sent {{ dateCountdown(infoClient.time) }} ago</span>
                                         </div>
                                     </div>
                                     <div class=" d-flex" style="width: 40%; gap: 10px;">
@@ -181,7 +189,7 @@
                     </div>
                     <hr class="w-100 bg-dark pb-0 mb-0">
                     <div class="text-dark flex-between" style="display:flex;gap:20px; margin-top: 5px;">
-                        <div v-if="viewType == 1" class="d-flex"> <!-- Left navbar -->
+                        <div v-if="viewType == 1 || viewType == 2" class="d-flex"> <!-- Left navbar -->
                             <div class="flex-center border-bottomm ct " style="width: 100%; cursor: pointer;">
                                 <div @click="setView('discuss')" class="py-2 p-2 px-3 bb f-500 discuss"
                                     style="border-radius: 7px; ">
@@ -207,6 +215,26 @@
                                 </div>
                             </div>
                         </div>
+                        <div v-else-if="viewType == 0 && data.privacy == 1" class="d-flex"> <!-- Left navbar -->
+                            <div class="flex-center border-bottomm ct " style="width: 100%; cursor: pointer;">
+                                <div @click="setView('discuss')" class="py-2 p-2 px-3 bb f-500 discuss"
+                                    style="border-radius: 7px; ">
+                                    <span class="del-event">Discuss</span>
+                                </div>
+                            </div>
+                            <div class="flex-center ct" style="width: 100%; cursor: pointer;">
+                                <div @click="setView('introduce')" class="py-2 p-2 px-3  bg-hover bb f-500 introduce"
+                                    style="border-radius: 7px;">
+                                    <span class="del-event">Introduce</span>
+                                </div>
+                            </div>
+                            <div class="flex-center ct" style="width: 100%; cursor: pointer;">
+                                <div @click="setView('member')" class="py-2 p-2 px-3  bg-hover bb f-500 member"
+                                    style="border-radius: 7px;">
+                                    <span class="del-event">Member</span>
+                                </div>
+                            </div>
+                        </div>
                         <div v-else class="d-flex"> <!-- Left navbar -->
                             <div class="flex-center border-bottomm ct " style="width: 100%; cursor: pointer;">
                                 <div @click="setView('discuss')" class="py-2 p-2 px-3 bb f-500 discuss"
@@ -220,7 +248,6 @@
                                     <span class="del-event">Introduce</span>
                                 </div>
                             </div>
-
                         </div>
                         <div class="btn-light px-2 " data-bs-toggle="dropdown" aria-expanded="false"
                             style="border-radius: 5px; cursor: pointer;">
@@ -232,14 +259,13 @@
                                     <li><a class="dropdown-item" href="#">Something else here</a></li>
                                 </ul>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <router-view v-if="view == 'discuss'" :info="data" :viewType="viewType" name="discuss"></router-view>
-        <router-view v-else-if="view == 'member'" name="member"></router-view>
+        <router-view v-else-if="view == 'member'" :viewType="viewType" name="member"></router-view>
         <router-view v-else-if="view == 'introduce'" :info="data" name="introduce"></router-view>
     </div>
 
@@ -271,6 +297,8 @@ export default {
             moveOver: false,
             info: {},
             viewType: null,
+            checkRequest: null,
+            process : null,
         }
 
     },
@@ -308,14 +336,39 @@ export default {
         this.getInfo();
         this.getListFriend();
         this.checkRole();
+        this.checkRequestGroup();
         // console.log('id_notification from propsádads:', this.$route.params.id_notification);
     },
     methods: {
+        dateCountdown(a) {
+            return baseFunction.hoursDifference(a);
+        },
+        undoRequest() {
+            axios
+                .post('groups/undo-request', { id_group: this.id_group })
+                .then((res) => {
+                    baseFunction.displaySuccess(res);
+                    this.checkRequest = 0;
+                })
+        },
+        checkRequestGroup() {
+            axios
+                .post('groups/check-request', { id_group: this.id_group })
+                .then((res) => {
+                    this.checkRequest = res.data.check;
+                    if (this.checkRequest == -1) {
+                        this.infoClient = res.data.client[0]
+                        this.isViewInvite = true
+                    }
+                })
+
+        },
         joinGroup() {
             axios
                 .post('groups/come-in-group', this.data)
                 .then((res) => {
                     baseFunction.displaySuccess(res);
+                    this.checkRequest = 1
                 })
         },
         checkRole() {
