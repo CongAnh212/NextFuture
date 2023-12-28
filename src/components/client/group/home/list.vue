@@ -48,7 +48,7 @@
             <span class="del-event">Request to join the group ({{ count }})</span>
         </div>
     </template>
-    <template v-else-if="viewType == 0">
+    <template v-else-if="viewType == 0 || viewType == 2">
         <div class="w-100 d-flex align-items-center" style="border-radius: 10px; padding: 0.45rem 0rem;">
             <div class="me-2 flex-center" style="overflow: hidden; width: 53px; height: 53px; border-radius: 15px;"><img
                     :src="urlImg + data.cover_image" alt="" style="object-fit: cover; height: 100%;"></div>
