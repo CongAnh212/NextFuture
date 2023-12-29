@@ -17,22 +17,55 @@
                             <div class="bg-white modal-component pb-3" ref="modalComponent">
                                 <div class=" d-flex py-3 px-3" style="gap: 15px;">
                                     <div class="circle" style="overflow: hidden; width: 100px; height: 100px;">
-                                        <img style="object-fit: cover; width: 100%;" :src="urlImg + info.avatar">
+                                        <router-link
+                                            :to="{ name: 'detailProfile', params: { username: info.username == null ? ' ' : info.username } }">
+                                            <img style="object-fit: cover; width: 100%;" :src="urlImg + info.avatar">
+                                        </router-link>
+
                                     </div>
                                     <div style="flex:1">
                                         <div style="font-size: 18px; line-height: 23px;">
-                                            <b class="text-dark">{{ info.fullname }}</b>
+                                            <router-link
+                                                :to="{ name: 'detailProfile', params: { username: info.username == null ? ' ' : info.username } }">
+                                                <b class="text-dark">{{ info.fullname }}</b>
+                                            </router-link>
                                         </div>
                                         <div class="text-dark py-2">
                                             <i class="fa-solid fa-user-group me-2 text-secondary"
                                                 style="font-size: 15px;"></i>
-                                            <span style="font-size: 15px;"> 23 mutual friends
+                                            <span style="font-size: 15px;" v-if="info.mutual >= 2">
+                                                {{ info.mutual }} mutual friends include
+                                                <b>
+                                                    <router-link
+                                                        :to="{ name: 'detailProfile', params: { username: info.friends[0].username } }">
+                                                        {{ info.friends[0].fullname }}
+                                                    </router-link>
+                                                </b> and
+                                                <b>
+                                                    <router-link
+                                                        :to="{ name: 'detailProfile', params: { username: info.friends[0].username } }">
+                                                        {{ info.friends[1].fullname }}
+                                                    </router-link>
+                                                </b>
+                                            </span>
+                                            <span v-else-if="info.mutual == 1">
+                                                {{ info.mutual }} mutual friend is
+                                                <b>
+                                                    <router-link
+                                                        :to="{ name: 'detailProfile', params: { username: info.friends[0].username } }">
+                                                        {{ info.friends[0].fullname }}
+                                                    </router-link>
+                                                </b>
+                                            </span>
+                                            <span v-else>
+                                                <b class="text-primary">{{ info.follower }}</b> followers
                                             </span>
                                         </div>
                                         <div class="text-dark">
                                             <i class="fa-solid fa-house-chimney me-2 text-secondary"
                                                 style="font-size: 15px;"></i>
-                                            <span style="font-size: 15px;">Live in <b>Ho Chi Minh</b></span>
+                                            <span style="font-size: 15px;">Live in <b class="text-primary">Ho Chi
+                                                    Minh</b></span>
                                         </div>
                                     </div>
                                 </div>
@@ -374,6 +407,7 @@ export default {
                 .get('groups/' + this.id_group)
                 .then((res) => {
                     this.data = res.data.info;
+                    console.log("this.data : ", this.data);
                     this.member = res.data.member;
                 });
         },
