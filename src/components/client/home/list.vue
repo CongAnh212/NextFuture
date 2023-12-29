@@ -48,13 +48,12 @@
             </div>
         </router-link>
     </li>
-    <li>
+    <li v-if="showBtn">
         <a class="btn text-dark w-100 bg-hover p-1" style="font-size: 17px; padding-left: 0px;" @click="seeMore()">
             <i v-if="limit_group >= 10" class="fa-solid fa-circle-chevron-up" style="font-size: 35px;"></i>
             <i v-else class="fa-solid fa-circle-chevron-down" style="font-size: 35px;"></i>
             <span class="ms-3" style="font-weight: 600;">{{ limit_group >= 10 ? 'Hide less' : 'See more' }}</span>
         </a>
-
     </li>
 </template>
 <script>
@@ -88,7 +87,15 @@ export default {
             list_group: [],
             limit_group: 5,
             total_group: [],
+            showBtn: false,
         };
+    },
+    watch: {
+        total_group(newValue, oldValue) {
+            if (oldValue) {
+                this.showBtn = true;
+            }
+        }
     },
     mounted() {
         this.getInfo();
