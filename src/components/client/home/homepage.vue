@@ -1,12 +1,12 @@
 <template>
     <div class=" mt-3" style="width: 80%;">
-        <div v-if="isView">
-            <div class="card w-90 shadow-none bg-transparent bg-transparent-card border-0 p-0 mb-0 mx-auto">
-                <div class="d-flex" style="gap: 14px">
+        <div v-if="isView" style="">
+            <div class="card w-90 shadow-none bg-transparent bg-transparent-card border-0 p-0 mb-0 mx-auto "
+                style="width: 70%;">
+                <div class="d-flex" style="gap: 19px">
                     <router-link :to="{ name: 'story' }">
                         <div class="bg-primary main-story">
                             <div class="hover-background">
-
                             </div>
                             <div class="img-background" style="height: 80%; width: 100%; background-color: red;">
                                 <img v-if="!myInfo.avatar" class="img-fluid"
@@ -28,9 +28,7 @@
                     <div v-for="(v, k) in stories" class=" bg-primary main-story">
                         <router-link :to="{ name: 'detailStory', params: { idStory: v.id } }">
 
-                            <div class="hover-background">
-
-                            </div>
+                            <div class="hover-background" />
                             <div class="img-background">
                                 <img :src="urlImg + v.image" alt="">
                             </div>
@@ -39,21 +37,20 @@
                                     src="https://i.pinimg.com/236x/93/a0/0a/93a00a3684652031a0c398c5d54d3d10.jpg" alt="">
                                 <img v-else class="img-fluid" :src="urlImg + v.avatar" alt="">
                             </div>
-                            <div class="text-light mb-1" style="z-index: 1;">
-                                <b class="name-in-story">{{ v.fullname }}</b>
-                            </div>
-                        </router-link>
 
+                        </router-link>
+                        <div @click="detailStory(v)" class="text-light mb-1 " style="z-index: 100;">
+                            <b class="name-in-story">{{ v.fullname }}</b>
+                        </div>
                     </div>
 
 
                 </div>
             </div>
 
-            <div class="row mt-3">
-                <div class="col-lg-1 row m-0 p-0"></div>
-                <div class="col-lg-10 row m-0 p-0">
-                    <div class="col-sm-12">
+            <div class="row mt-3 mx-auto mx-0 px-0" style="width: 70%;">
+                <div class="col-lg-12 row m-0 p-0 flex-center">
+                    <div class="col-sm-12 p-0">
                         <div id="post-modal-data" class="card card-block card-stretch card-height">
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
@@ -162,8 +159,8 @@
                                                             </span>
                                                             <div class="dropdown-menu m-0 p-0 dropdownn"
                                                                 style="inset: auto 0px 0px auto !important;">
-                                                                <a @click="setPrivacyIndex(1)" id="privacy-1"
-                                                                    class="dropdown-item px-3 py-2" href="#">
+                                                                <div @click="setPrivacyIndex(1)" id="privacy-1"
+                                                                    class="dropdown-item px-3 py-2">
                                                                     <div class="d-flex align-items-top">
                                                                         <i class="ri-save-line h4"></i>
                                                                         <div class="data ms-2">
@@ -171,9 +168,9 @@
                                                                             <p class="mb-0">Anyone on or off Facebook</p>
                                                                         </div>
                                                                     </div>
-                                                                </a>
-                                                                <a @click="setPrivacyIndex(2)" id="privacy-2"
-                                                                    class="dropdown-item px-3 py-2" href="#">
+                                                                </div>
+                                                                <div @click="setPrivacyIndex(2)" id="privacy-2"
+                                                                    class="dropdown-item px-3 py-2">
                                                                     <div class="d-flex align-items-top">
                                                                         <i class="ri-close-circle-line h4"></i>
                                                                         <div class="data ms-2">
@@ -181,9 +178,9 @@
                                                                             <p class="mb-0">Your Friend on facebook</p>
                                                                         </div>
                                                                     </div>
-                                                                </a>
-                                                                <a @click="setPrivacyIndex(3)" id="privacy-3"
-                                                                    class="dropdown-item px-3 py-2" href="#">
+                                                                </div>
+                                                                <div @click="setPrivacyIndex(3)" id="privacy-3"
+                                                                    class="dropdown-item px-3 py-2">
                                                                     <div class="d-flex align-items-top">
                                                                         <i class="ri-user-unfollow-line h4"></i>
                                                                         <div class="data ms-2">
@@ -191,9 +188,9 @@
                                                                             <p class="mb-0">Don't show to some friends</p>
                                                                         </div>
                                                                     </div>
-                                                                </a>
-                                                                <a @click="setPrivacyIndex(4)" id="privacy-4"
-                                                                    class="dropdown-item px-3 py-2" href="#">
+                                                                </div>
+                                                                <div @click="setPrivacyIndex(4)" id="privacy-4"
+                                                                    class="dropdown-item px-3 py-2">
                                                                     <div class="d-flex align-items-top">
                                                                         <i class="ri-notification-line h4"></i>
                                                                         <div class="data ms-2">
@@ -201,7 +198,7 @@
                                                                             <p class="mb-0">Only me</p>
                                                                         </div>
                                                                     </div>
-                                                                </a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -216,191 +213,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-1 row m-0 p-0"></div>
-
-                <div class="col-lg-1 row m-0 p-0"></div>
-                <div class="col-lg-10 row m-0 p-0">
-
-                    <div v-for="(v, k) in list_post" class="col-sm-12">
-                        <div class="card card-block card-stretch card-height">
-                            <div class="card-body">
-                                <div class="post-item">
-                                    <div class="d-flex justify-content-between">
-                                        <div class="me-3">
-                                            <img class="rounded-circle" style="width: 60px; height:60px;"
-                                                :src="urlImg + v.avatar" alt="">
-                                        </div>
-                                        <div class="w-100">
-                                            <div class="d-flex justify-content-between">
-                                                <div class="">
-                                                    <h5 class="mb-0 d-inline-block" style="font-weight: bold;">{{ v.fullname
-                                                    }}
-                                                    </h5>
-                                                    <p class="ms-1 mb-0 d-inline-block">Changed Profile Picture</p>
-                                                    <p class="mb-0">{{ hoursDifference(v.created_at) }} ago</p>
-                                                </div>
-                                                <div class="card-post-toolbar">
-                                                    <div class="dropdown">
-                                                        <span class="dropdown-toggle" data-bs-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false" role="button">
-                                                            <i class="ri-more-fill"></i>
-                                                        </span>
-                                                        <div class="dropdown-menu m-0 p-0">
-                                                            <a class="dropdown-item p-3" href="#">
-                                                                <div class="d-flex align-items-top">
-                                                                    <i class="ri-save-line h4"></i>
-                                                                    <div class="data ms-2">
-                                                                        <h6>Save Post</h6>
-                                                                        <p class="mb-0">Add this to your saved items</p>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                            <a class="dropdown-item p-3" href="#">
-                                                                <div class="d-flex align-items-top">
-                                                                    <i class="ri-close-circle-line h4"></i>
-                                                                    <div class="data ms-2">
-                                                                        <h6>Hide Post</h6>
-                                                                        <p class="mb-0">See fewer posts like this.</p>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                            <a class="dropdown-item p-3" href="#">
-                                                                <div class="d-flex align-items-top">
-                                                                    <i class="ri-user-unfollow-line h4"></i>
-                                                                    <div class="data ms-2">
-                                                                        <h6>Unfollow User</h6>
-                                                                        <p class="mb-0">Stop seeing posts but stay friends.
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                            <a class="dropdown-item p-3" href="#">
-                                                                <div class="d-flex align-items-top">
-                                                                    <i class="ri-notification-line h4"></i>
-                                                                    <div class="data ms-2">
-                                                                        <h6>Notifications</h6>
-                                                                        <p class="mb-0">Turn on notifications for this post
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <span style="font-weight: 500;">{{ v.caption }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- routerr -->
-                                <template v-if="v.images">
-                                    <router-view v-slot="{ Component }">
-                                        <keep-alive>
-                                            <component :is="Component" :key="$route.fullPath" :post="v"></component>
-                                        </keep-alive>
-                                    </router-view>
-                                </template>
-
-                                <div class="comment-area mt-3">
-                                    <div class="d-flex justify-content-between align-items-center flex-wrap">
-                                        <div class="like-block position-relative d-flex align-items-center">
-                                            <div class="d-flex align-items-center">
-                                                <div class="like-data">
-                                                    <div class="contain-heart  flex-center"
-                                                        style="width: 30px; height: 30px;">
-                                                        <span role="button">
-                                                            <i class="far fa-heart heart"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="total-like-block ms-2 me-3">
-                                                    <div class="dropdown">
-                                                        <span class="dropdown-toggle" data-bs-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false" role="button">
-                                                            {{ v.react }} Likes
-                                                        </span>
-                                                        <div class="dropdown-menu">
-                                                            <a class="dropdown-item" href="#">Max Emum</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="total-comment-block">
-                                                <div class="dropdown">
-                                                    <span class="dropdown-toggle" data-bs-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false" role="button">
-                                                        {{ totalComments(v.id) }} Comments
-
-                                                    </span>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">Max Emum</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="share-block d-flex align-items-center feather-icon mt-2 mt-md-0">
-                                            <a href="javascript:void();" data-bs-toggle="offcanvas"
-                                                data-bs-target="#share-btn" aria-controls="share-btn"><i
-                                                    class="ri-share-line"></i>
-                                                <span class="ms-1">99 Share</span></a>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <ul class="post-comments list-inline p-0 m-0">
-                                        <template v-for="(value, key) in list_comment">
-                                            <li v-if="value.id_post == v.id" class="mb-2">
-                                                <div class="d-flex">
-                                                    <div class="user-img">
-                                                        <img :src="urlImg + value.avatar" alt="userimg"
-                                                            class="avatar-35 rounded-circle img-fluid">
-                                                    </div>
-                                                    <div class="comment-data-block ms-3">
-                                                        <h6 style="font-weight: 550;">{{ value.fullname }}</h6>
-                                                        <p v-html="value.content" class="mb-0"></p>
-                                                        <div class="d-flex flex-wrap align-items-center comment-activity">
-                                                            <a href="javascript:void();">like</a>
-                                                            <a href="javascript:void();">reply</a>
-                                                            <a href="javascript:void();">translate</a>
-                                                            <span> {{ hoursDifference(value.created_at) }} </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </template>
-
-                                    </ul>
-                                    <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">
-                                        <input v-model="comments[k]" @keyup.enter="createComment(v.id, k)"
-                                            @input="handleClick(k)" class="editable-content form-control"
-                                            placeholder="Enter Your Comment">
-                                        <div class="comment-attagement d-flex">
-                                            <!-- <span class=" bg-danger">Lê Công Anh</span> -->
-                                            <a href="javascript:void();"><i class="ri-link me-3"></i></a>
-                                            <a href="javascript:void();"><i class="ri-user-smile-line me-3"></i></a>
-                                            <a href="javascript:void();"><i class="ri-camera-line me-3"></i></a>
-                                        </div>
-                                        <div class="dropdown " id="dropdownList" style="position: absolute; inset: 0px auto auto 0px;
-                                            z-index: 1; margin: 0px; transform: translate(0px, 40px);">
-                                            <div class="dropdown-menu" :id="'listFriend-' + k"
-                                                aria-labelledby="dropdownMenuButton">
-                                                <div v-for="(value, key) in list_friend" @click="tagFriend(value, k, key)"
-                                                    style="cursor: pointer;"
-                                                    class="dropdown-item d-flex align-items-center ps-2">
-                                                    <div class="circle me-2 "
-                                                        style="width: 30px; height: 30px; background: #000; overflow: hidden;">
-                                                        <img :src="urlImg + value.avatar" class="img-fluid" alt="">
-                                                    </div>
-                                                    <span>{{ value.fullname }}</span>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <router-view v-if="propPost" :listPost="list_post" name="post"></router-view>
                 <div class="col-sm-12 text-center">
                     <img src="../../../assets/client/images/page-img/page-load-loader.gif" alt="loader"
                         style="height: 100px;">
@@ -411,7 +224,7 @@
             <img src="../../../assets/client/images/page-img/page-load-loader.gif" alt="loader" style="height: 100px;">
         </div>
     </div>
-    <div class="right-sidebar-mini">
+    <div class="right-sidebar-mini" style="box-shadow: 0 0 10px #3333332e;">
         <div class="right-sidebar-panel p-0">
             <div class="card shadow-none">
                 <div class="card-body p-0 ">
@@ -478,9 +291,15 @@ export default {
                 images: "post/1700648799_3-29.jpg,post/1700648799_login.jpg",
             },
             isView: false,
+            propPost: false,
         };
     },
     watch: {
+        list_post(newValue, oldValue) {
+            if (oldValue) {
+                this.propPost = true;
+            }
+        },
         myInfo: {
 
             handler(newValue, oldValue) {
@@ -707,6 +526,9 @@ export default {
             }
 
         },
+        detailStory(v) {
+            this.$router.push({ name: "detailStory", params: { idStory: v.id } })
+        }
 
     },
 }

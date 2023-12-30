@@ -30070,6 +30070,24 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-right {
   -webkit-border-radius: 50% !important;
   border-radius: 50% !important;
 }
+.circle-45 {
+  -webkit-border-radius: 50% !important;
+  border-radius: 50% !important;
+  width: 45px;
+  height: 45px;
+}
+.circle-50 {
+  -webkit-border-radius: 50% !important;
+  border-radius: 50% !important;
+  width: 50px;
+  height: 50px;
+}
+.circle-55 {
+  -webkit-border-radius: 50% !important;
+  border-radius: 50% !important;
+  width: 55px;
+  height: 55px;
+}
 
 .flex-center {
   display: flex;
