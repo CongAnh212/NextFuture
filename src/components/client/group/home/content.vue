@@ -43,7 +43,7 @@
                                                 </b> and
                                                 <b>
                                                     <router-link
-                                                        :to="{ name: 'detailProfile', params: { username: info.friends[0].username } }">
+                                                        :to="{ name: 'detailProfile', params: { username: info.friends[1].username } }">
                                                         {{ info.friends[1].fullname }}
                                                     </router-link>
                                                 </b>

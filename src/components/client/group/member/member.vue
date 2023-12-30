@@ -1,7 +1,7 @@
 <template>
     <div v-if="isView" class="flex-center" style="width: 100%;">
         <div class="d-flex" style="gap: 20px; width: 80%;">
-            <div class="card mt-3" style="border-radius: 15px; width: 60%;">
+            <div class="card mt-3" style="border-radius: 15px; width: 55%;">
                 <div class="card-body">
                     <b class="text-dark">All Member
                         ({{ total_member }})</b>
@@ -148,7 +148,7 @@
                 </div>
 
             </div>
-            <div class="card mt-3" style="border-radius: 15px; width: 40%;">
+            <div class="card mt-3" style="border-radius: 15px; width: 45%;">
                 <div class="card-body">
                     <b class="text-dark">Administrators ({{ member_admin.length }})</b>
                     <div v-for='(v, k) in member_admin' class="d-flex align-items-center mb-2 mt-2" style=" ">
