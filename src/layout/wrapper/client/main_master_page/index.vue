@@ -2,7 +2,7 @@
     <div class="wrapper">
         <HeaderClient :notify="notify"></HeaderClient>
         <div class="">
-            <div class=" iq-sidebar-fix sidebar-default ">
+            <div class="iq-sidebar-fix sidebar-default ">
                 <div id="sidebar-scrollbar" data-scrollbar="true" tabindex="-1" style="overflow: hidden; outline: none;">
                     <div class="scroll-content">
                         <nav class="iq-sidebar-menu">
