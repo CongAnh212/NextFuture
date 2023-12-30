@@ -1,4 +1,4 @@
-<template >
+<template>
     <div class="d-flex align-items-center">
         <router-link :to="{ name: 'friends' }">
             <div class="me-3 arrow d-flex justify-content-center align-items-center">
@@ -13,42 +13,45 @@
     <div>
         People you may know
     </div>
-    <div class="mt-2" v-for="(v, k) in list_friend">
-        <router-link :to="{ name: 'detailProfile.suggestion', params: { username: v.username } }">
-            <div class="hello d-flex p-2 w-100 h-100" style="overflow: hidden;">
-                <div class="d-flex ">
-                    <img :src="urlImage + v.avatar" class="img-fluid rounded-circle me-2" alt="user"
-                        style="height: 50px; width: 50px; margin-left: 2px;">
-                    <div style="width: 200px;">
-                        <b class="text-secondary text-nowrap">{{ v.fullname }}</b> <br>
-                        <span class="text-secondary">{{ v.mutual }} mutual</span>
-                        <!-- <div :class="{ 'd-flex flex-center': v.mutual == 0 }">
+    <div style="overflow-y: scroll; max-height: calc(100vh - 25vh); ">
+        <div class="mt-2 me-1" v-for="(v, k) in list_friend">
+            <router-link :to="{ name: 'detailProfile.suggestion', params: { username: v.username } }">
+                <div class="hello d-flex p-2 w-100 h-100" style="overflow: hidden;">
+                    <div class="d-flex ">
+                        <img :src="urlImage + v.avatar" class="img-fluid rounded-circle me-2" alt="user"
+                            style="height: 50px; width: 50px; margin-left: 2px;">
+                        <div style="width: 200px;">
+                            <b class="text-secondary text-nowrap">{{ v.fullname }}</b> <br>
+                            <span v-if="v.mutual > 0" class="text-secondary">{{ v.mutual }} mutual friends</span>
+                            <span v-else class="text-white " style="user-select: none;">a</span>
+                            <!-- <div :class="{ 'd-flex flex-center': v.mutual == 0 }">
                             <b class="text-secondary text-nowrap">{{ v.fullname }}</b> <br>
                             <span v-if="v.mutual > 0" class="text-secondary">{{ v.mutual }} mutual</span>
-                        </div> -->
-                        <div class="text-nowrap d-flex w-100">
-                            <template v-if="v.friendStatus == false">
-                                <div class="me-1">
-                                    <button class="btn btn-primary" @click="addFriend(v, k)" style="width: 100px">
-                                        Add friend</button>
-                                </div>
-                                <div class="me-1">
-                                    <button class="btn btn-secondary" style="width: 100px;"
-                                        @click="del(k, $event)">Delete</button>
-                                </div>
-                            </template>
-                            <template v-else>
-                                <div class="me-1 w-100">
-                                    <button class="btn btn-secondary w-100" @click="unRequest(v, k)">
-                                        Cancel
-                                    </button>
-                                </div>
-                            </template>
+                            </div> -->
+                            <div class="text-nowrap d-flex w-100 ">
+                                <template v-if="v.friendStatus == false">
+                                    <div class="me-1">
+                                        <button class="btn btn-primary" @click="addFriend(v, k)" style="width: 100px">
+                                            Add friend</button>
+                                    </div>
+                                    <div class="me-1">
+                                        <button class="btn btn-secondary" style="width: 100px;"
+                                            @click="del(k, $event)">Delete</button>
+                                    </div>
+                                </template>
+                                <template v-else>
+                                    <div class="me-1 w-100">
+                                        <button class="btn btn-secondary w-100" @click="unRequest(v, k)">
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </template>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </router-link>
+            </router-link>
+        </div>
     </div>
 </template>
 <script>
