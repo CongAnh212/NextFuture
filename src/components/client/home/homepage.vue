@@ -233,7 +233,8 @@
                                         <div class="w-100">
                                             <div class="d-flex justify-content-between">
                                                 <div class="">
-                                                    <h5 class="mb-0 d-inline-block" style="font-weight: bold;">{{ v.fullname }}
+                                                    <h5 class="mb-0 d-inline-block" style="font-weight: bold;">{{ v.fullname
+                                                    }}
                                                     </h5>
                                                     <p class="ms-1 mb-0 d-inline-block">Changed Profile Picture</p>
                                                     <p class="mb-0">{{ hoursDifference(v.created_at) }} ago</p>
@@ -294,7 +295,7 @@
                                 <!-- routerr -->
                                 <!--bo may dang lam o day nhe-->
                                 <template v-if="v.images">
-                                  <view-image :images="v.images"></view-image>
+                                    <view-image :images="v.images"></view-image>
                                 </template>
 
                                 <div class="comment-area mt-3">
@@ -450,7 +451,7 @@ import axios, { url } from '../../../core/coreRequest'
 import ViewImage from "./viewImage.vue";
 
 export default {
-  components: {ViewImage},
+    components: { ViewImage },
     data() {
         return {
             myInfo: {},

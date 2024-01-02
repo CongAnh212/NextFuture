@@ -326,11 +326,8 @@
 </template>
 <script>
 import axios, { url } from '../../../core/coreRequest'
-<<<<<<< HEAD
 import ModalFollower from './modalFollower.vue';
-=======
 
->>>>>>> 501968b26d246abd41632e5fdf9b406c4912ed72
 export default {
     components: {
         ModalFollower

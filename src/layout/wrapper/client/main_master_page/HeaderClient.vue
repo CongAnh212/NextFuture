@@ -63,8 +63,10 @@
                                                                     </b>
                                                                 </router-link>
                                                             </h6>
-                                                            <p v-if="v.mutual > 0" class="mb-0">{{ v.mutual }} mutual friends </p>
-                                                            <p v-else class="mb-0 text-white" style="user-select: none;">1 </p>
+                                                            <p v-if="v.mutual > 0" class="mb-0">{{ v.mutual }} mutual
+                                                                friends </p>
+                                                            <p v-else class="mb-0 text-white" style="user-select: none;">1
+                                                            </p>
                                                         </div>
                                                     </div>
                                                     <div class="d-flex align-items-center">
@@ -327,6 +329,7 @@
 
 import axios, { url } from '../../../../core/coreRequest';
 import baseFunction from '../../../../core/coreFunction';
+import { state, socket } from '../../../../socket'
 export default {
     data() {
         return {

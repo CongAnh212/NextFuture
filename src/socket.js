@@ -6,7 +6,7 @@ export const state = reactive({
 });
 
 const URL =
-  process.env.NODE_ENV === "production" ? undefined : "http://localhost:3001";
+  process.env.NODE_ENV === "production" ? undefined : "http://127.0.0.1:3001";
 
 export const socket = io(URL, {
   autoConnect: true,
