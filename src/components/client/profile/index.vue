@@ -102,7 +102,12 @@
                                         <h5> <b>690</b> posts</h5>
                                     </li>
                                     <li class="text-center ps-3">
-                                        <h5> <b style="cursor: pointer;">{{ followers.length }}</b> followers</h5>
+                                        <h5 style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalFollower">
+                                            <b>
+                                                {{ followers.length }}
+                                            </b> followers
+                                        </h5>
+                                        <ModalFollower :listFollower="followers"  v-if="checkListFollwer"/>
                                     </li>
                                     <li class="text-center ps-3">
                                         <h5> <b style="cursor: pointer;">{{ friends.length }}</b> friends
@@ -125,10 +130,7 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
-
                 <div class="flex-center">
                     <hr style="width: 99%;" class="mb-0 p-0">
                 </div>
@@ -154,41 +156,22 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-sm-12">
+            <div class="col-sm-12 pb-4">
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="timeline" role="tabpanel">
-                        <div class="flex-center" style="width:100%; flex-wrap: wrap;">
-                            <div style="width: 33%; overflow: hidden;aspect-ratio: 1/1; padding: 2px; cursor: pointer; position: relative; "
+                        <div class="d-flex" style="width:100%; flex-wrap: wrap;">
+                            <div style="width: 33%; overflow: hidden; aspect-ratio: 1/1; padding: 2px; cursor: pointer; position: relative; "
                                 data-bs-toggle="modal" data-bs-target="#modalDetail" class="flex-center rovo">
                                 <div class="img-hover">
                                 </div>
                                 <span class="text-white"
                                     style="z-index: 1; position: absolute;top:3px;right: 12px; font-size: 23px;">
-                                    <i class="fa-solid fa-clone"></i>
+                                    <i class="fa-solid fa-clone" style="text-shadow: 0 0 10px #000000;"></i>
                                 </span>
                                 <img style="object-fit: cover; width: 100%;height: 100%;"
-                                    src="https://scontent.fdad3-6.fna.fbcdn.net/v/t39.30808-6/333435746_955215262582123_698547150108398423_n.jpg?stp=cp6_dst-jpg&_nc_cat=104&ccb=1-7&_nc_sid=dd5e9f&_nc_ohc=o-8NF6izZYgAX8rYl1a&_nc_ht=scontent.fdad3-6.fna&oh=00_AfCORSVZtJXuJqhnyIjqLsOsnqQHxJ22O7q5oduSTPlN5A&oe=65934972">
+                                    src="https://media-cdn-v2.laodong.vn/storage/newsportal/2023/10/26/1259495/Doona-Suzy.jpg">
                             </div>
-                            <div style="width: 33%; overflow: hidden; aspect-ratio: 1/1; padding: 2px;" class="flex-center">
-                                <img style="object-fit: cover; width: 100%; height: 100%;"
-                                    src="https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/411254197_881602730020355_6332158453496525497_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=dd5e9f&_nc_ohc=tkLgvRYFIyYAX_j7q27&_nc_ht=scontent.fdad3-1.fna&oh=00_AfAXdZ7qxhfipE1h4OVwvXq2k9B_Q80y11U6ujeYg2rd0w&oe=6592D9CF">
-                            </div>
-                            <div style="width: 33%; overflow: hidden; aspect-ratio: 1/1; padding: 2px;" class="flex-center">
-                                <img style="object-fit: cover; width: 100%;height: 100%;"
-                                    src="https://scontent.fdad3-6.fna.fbcdn.net/v/t39.30808-6/357089698_795088495338446_8617792565045737875_n.jpg?stp=dst-jpg_s960x960&_nc_cat=104&ccb=1-7&_nc_sid=dd5e9f&_nc_ohc=bBz57mCthpUAX-ijmLP&_nc_ht=scontent.fdad3-6.fna&oh=00_AfCnXZx5OCk26R9gaI6K4RnAxSmAqrdGovxYs2EGm9jpIA&oe=65937DAC">
-                            </div>
-                            <div style="width: 33%; overflow: hidden; aspect-ratio: 1/1; padding: 2px;" class="flex-center">
-                                <img style="object-fit: cover; width: 100%;height: 100%;"
-                                    src="https://cdn.i-scmp.com/sites/default/files/d8/images/canvas/2023/11/30/e49ad50a-6f0e-4f5a-837d-16078a9d23e1_4b86b92a.jpg">
-                            </div>
-                            <div style="width: 33%; overflow: hidden; aspect-ratio: 1/1; padding: 2px;" class="flex-center">
-                                <img style="object-fit: cover; width: 100%;height: 100%;"
-                                    src="https://kenh14cdn.com/thumb_w/660/203336854389633024/2023/12/25/photo-4-1703515345299422557611.jpg">
-                            </div>
-                            <div style="width: 33%; overflow: hidden; aspect-ratio: 1/1; padding: 2px;" class="flex-center">
-                                <img style="object-fit: cover; width: 100%;height: 100%;"
-                                    src="https://cdn.i-scmp.com/sites/default/files/d8/images/canvas/2023/11/30/20267148-c9f7-4fd6-85b0-506dcefea0ed_00d0f858.jpg">
-                            </div>
+
                         </div>
                     </div>
                     <div class="modal fade" id="modalDetail" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -205,7 +188,7 @@
                                     <div
                                         style="height: 100%; overflow: hidden;aspect-ratio: 1/1; cursor: pointer; position: relative; ">
                                         <img style="object-fit: cover; width: 100%;height: 100%;"
-                                            src="https://scontent.fdad3-6.fna.fbcdn.net/v/t39.30808-6/333435746_955215262582123_698547150108398423_n.jpg?stp=cp6_dst-jpg&_nc_cat=104&ccb=1-7&_nc_sid=dd5e9f&_nc_ohc=o-8NF6izZYgAX8rYl1a&_nc_ht=scontent.fdad3-6.fna&oh=00_AfCORSVZtJXuJqhnyIjqLsOsnqQHxJ22O7q5oduSTPlN5A&oe=65934972"
+                                            src="https://media-cdn-v2.laodong.vn/storage/newsportal/2023/10/26/1259495/Doona-Suzy.jpg"
                                             alt="">
                                     </div>
                                     <div style="flex:1;">
@@ -275,16 +258,62 @@
                                                 <div class="text-dark f-500" style="flex:1;margin-top: -7px;">
                                                     <span style="font-weight: 600; font-size: 17px;">phtsnh26</span>
                                                     <br>
-                                                    <div style="line-height: 15px; padding-left: 15px;">
-                                                        đẹp trai vl
+                                                    <div class="d-flex" style="line-height: 15px; padding-left: 15px;">
+                                                        <span style="flex:1">đẹp trai vl</span>
+                                                        <i class="fa-regular fa-heart" style="cursor: pointer;"></i>
                                                     </div>
-                                                </div>
+                                                    <div class="d-flex pt-1" style="gap: 5%;">
+                                                        <small class="text-secondary">1d</small>
+                                                        <small class="text-secondary"
+                                                            style="font-weight: bold; cursor: pointer;">1 likes</small>
+                                                        <small class="text-secondary"
+                                                            style="font-weight: bold; cursor: pointer;">Reply</small>
+                                                    </div>
+                                                    <div class="d-flex align-items-center" style="gap: 5%;cursor: pointer;">
+                                                        <div style="border: 1px solid #797979; width: 2rem; height: 0;">
+                                                        </div>
+                                                        <small class="text-secondary " style=" font-weight: bold;">
+                                                            View replies (8)
+                                                        </small>
+                                                    </div>
+                                                    <div class="pt-3" style="flex:1">
+                                                        <div class="d-flex mb-2">
+                                                            <div style="height: 35px; width: 35px;margin-left: 0px; overflow: hidden;"
+                                                                class="circle me-2">
+                                                                <img src="https://kenh14cdn.com/thumb_w/660/203336854389633024/2023/12/25/photo-4-1703515345299422557611.jpg"
+                                                                    class="img-fluid me-2" alt="user"
+                                                                    style="object-fit: cover; width: 100%;">
+                                                            </div>
+                                                            <div class="text-dark f-500" style="flex:1;margin-top: -7px;">
+                                                                <span
+                                                                    style="font-weight: 600; font-size: 17px;">phtsnh26</span>
+                                                                <br>
+                                                                <div class="d-flex align-items-center"
+                                                                    style="line-height: 15px; padding-left: 15px;">
+                                                                    <span style="flex:1">đẹp trai vl</span>
+                                                                    <i class="fa-regular fa-heart"
+                                                                        style="cursor: pointer;"></i>
+                                                                </div>
+                                                                <div class="d-flex pt-1" style="gap: 5%;">
+                                                                    <small class="text-secondary">1d</small>
+                                                                    <small class="text-secondary"
+                                                                        style="font-weight: bold; cursor: pointer;">1
+                                                                        likes
+                                                                    </small>
+                                                                    <small class="text-secondary"
+                                                                        style="font-weight: bold; cursor: pointer;">Reply</small>
+                                                                </div>
 
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
                                             </div>
-                                            <div>
-                                                <i class="fa-regular fa-heart" style="cursor: pointer;"></i>
-                                            </div>
+
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -297,8 +326,15 @@
 </template>
 <script>
 import axios, { url } from '../../../core/coreRequest'
+<<<<<<< HEAD
+import ModalFollower from './modalFollower.vue';
+=======
 
+>>>>>>> 501968b26d246abd41632e5fdf9b406c4912ed72
 export default {
+    components: {
+        ModalFollower
+    },
     data() {
         return {
             info: {},
@@ -307,6 +343,7 @@ export default {
             status: '',
             friends: [],
             followers: [],
+            checkListFollwer: false,
         }
     },
     props: {
@@ -358,12 +395,16 @@ export default {
             this.getInfo();
             this.getAllProfile();
             // console.log(this.username); 
+        },
+        followers(newValue, oldValue) {
+            if (oldValue) {
+                this.checkListFollwer = true
+            }
         }
 
     },
     methods: {
         getAllProfile() {
-            console.log("username: ", this.username);
             axios
                 .get(this.username + '/data-all')
                 .then((res) => {
