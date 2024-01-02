@@ -1,7 +1,7 @@
 <template>
     <div v-if="isView" class="flex-center" style="width: 100%;">
         <div class="d-flex" style="gap: 20px; width: 80%;">
-            <div class="card mt-3" style="border-radius: 15px; width: 60%;">
+            <div class="card mt-3" style="border-radius: 15px; width: 55%;">
                 <div class="card-body">
                     <b class="text-dark">All Member
                         ({{ total_member }})</b>
@@ -31,8 +31,7 @@
                                     </p>
                                 </div>
                             </div>
-
-                            <div class="dropdown">
+                            <div v-if="viewType == 1" class="dropdown">
                                 <button class="btn btn-light" style="position: relative; " type="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     <div v-if="k == indexx && role == 'friend'" style="position: relative;">
@@ -75,6 +74,11 @@
                                     </li>
                                 </ul>
                             </div>
+                            <div v-else class="btn btn-primary ">
+                                <i class="fab fa-facebook-messenger me-1"></i>
+                                Message
+                            </div>
+
                         </div>
                     </template>
                     <hr>
@@ -93,7 +97,7 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="dropdown">
+                        <div v-if="viewType == 1" class="dropdown">
                             <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div v-if="k == indexx && role == 'other'" style="position: relative;">
                                     <LoadingComponent />
@@ -119,12 +123,32 @@
                                 </li>
                             </ul>
                         </div>
+                        <div v-else-if="viewType != 1 && v.status == 0" class="btn btn-primary "
+                            @click="addFriend(v, k, 'other')">
+                            <div style="font-size: 12px; width: 7rem;">
+                                <i class="fas fa-user-plus me-1"></i>
+                                Add friend
+                            </div>
+                        </div>
+                        <div v-else-if="viewType != 1 && v.status == 1" class="btn btn-light "
+                            @click="cancelRequest(v, k, 'other')">
+                            <div style="font-size: 12px; width: 7rem;">
+                                <i class="fas fa-user-times me-1"></i>
+                                cancel request
+                            </div>
+                        </div>
+                        <div v-else-if="viewType != 1 && v.status == -1" class="btn btn-light ">
+                            <div style="font-size: 12px; width: 7rem;">
+                                <img src="/src/assets/img/output-onlinegiftools.gif" style="width: 25px; height: 25px;">
+                                Processing
+                            </div>
+                        </div>
                     </div>
                     <hr>
                 </div>
 
             </div>
-            <div class="card mt-3" style="border-radius: 15px; width: 40%;">
+            <div class="card mt-3" style="border-radius: 15px; width: 45%;">
                 <div class="card-body">
                     <b class="text-dark">Administrators ({{ member_admin.length }})</b>
                     <div v-for='(v, k) in member_admin' class="d-flex align-items-center mb-2 mt-2" style=" ">
@@ -142,9 +166,26 @@
                             </div>
                         </div>
                         <div>
-                            <button class="btn btn-light btn-sm">
-                                <i class="fa-solid fa-ellipsis"></i>
-                            </button>
+                            <div v-if="viewType != 1 && v.status == 0" class="btn btn-primary "
+                                @click="addFriend(v, k, 'admin')">
+                                <div style="font-size: 12px; width: 7rem;">
+                                    <i class="fas fa-user-plus me-1"></i>
+                                    Add friend
+                                </div>
+                            </div>
+                            <div v-else-if="viewType != 1 && v.status == 1" class="btn btn-light "
+                                @click="cancelRequest(v, k, 'admin')">
+                                <div style="font-size: 12px; width: 7rem;">
+                                    <i class="fas fa-user-times me-1"></i>
+                                    cancel request
+                                </div>
+                            </div>
+                            <div v-else-if="viewType != 1 && v.status == -1" class="btn btn-light ">
+                                <div style="font-size: 12px; width: 7rem;">
+                                    <img src="/src/assets/img/output-onlinegiftools.gif" style="width: 25px; height: 25px;">
+                                    Processing
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <hr>
@@ -164,7 +205,7 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="dropdown">
+                        <div v-if="viewType == 1" class="dropdown">
                             <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div v-if="k == indexx && role == 'moderator'" style="position: relative;">
                                     <LoadingComponent />
@@ -204,6 +245,26 @@
                                     </a>
                                 </li>
                             </ul>
+                        </div>
+                        <div v-else-if="viewType != 1 && v.status == 0" class="btn btn-primary "
+                            @click="addFriend(v, k, 'moderator')">
+                            <div style="font-size: 12px; width: 7rem;">
+                                <i class="fas fa-user-plus me-1"></i>
+                                Add friend
+                            </div>
+                        </div>
+                        <div v-else-if="viewType != 1 && v.status == 1" class="btn btn-light "
+                            @click="cancelRequest(v, k, 'moderator')">
+                            <div style="font-size: 12px; width: 7rem;">
+                                <i class="fas fa-user-times me-1"></i>
+                                cancel request
+                            </div>
+                        </div>
+                        <div v-else-if="viewType != 1 && v.status == -1" class="btn btn-light ">
+                            <div style="font-size: 12px; width: 7rem;">
+                                <img src="/src/assets/img/output-onlinegiftools.gif" style="width: 25px; height: 25px;">
+                                Processing
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -247,6 +308,12 @@ export default {
     components: {
         LoadingComponent
     },
+    props: {
+        viewType: {
+            type: Number,
+            required: true
+        }
+    },
     data() {
         return {
             member_newbie: [],
@@ -277,11 +344,49 @@ export default {
                     this.isView = true
                 }
             },
-            deep: true,
-            immediate: true,
-        }
+        },
     },
     methods: {
+        cancelRequest(v, k, obj) {
+            if (obj == 'other') {
+                this.member_newbie[k].status = -1;
+            } else if (obj == 'admin') {
+                this.member_admin[k].status = -1;
+            } else {
+                this.member_moderator[k].status = -1
+            }
+            axios
+                .post('follower/cancel-friend', v)
+                .then((res) => {
+                    if (obj == 'other') {
+                        this.member_newbie[k].status = 0;
+                    } else if (obj == 'admin') {
+                        this.member_admin[k].status = 0
+                    } else {
+                        this.member_moderator[k].status = 0
+                    }
+                })
+        },
+        addFriend(v, k, obj) {
+            if (obj == 'other') {
+                this.member_newbie[k].status = -1;
+            } else if (obj == 'admin') {
+                this.member_admin[k].status = -1;
+            } else {
+                this.member_moderator[k].status = -1
+            }
+            axios
+                .post('follower/add-friend', v)
+                .then((res) => {
+                    if (obj == 'other') {
+                        this.member_newbie[k].status = 1;
+                    } else if (obj == 'admin') {
+                        this.member_admin[k].status = 1
+                    } else {
+                        this.member_moderator[k].status = 1
+                    }
+                })
+        },
         getMember() {
             axios
                 .post('groups/members/data', { id_group: this.$route.params.id_group })

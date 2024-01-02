@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <HeaderClient></HeaderClient>
-        <div class="">
+        <div class="bg-white" style="margin-top:4.688rem;">
             <router-view></router-view>
         </div>
     </div>

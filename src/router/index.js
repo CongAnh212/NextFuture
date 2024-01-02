@@ -27,7 +27,9 @@ const routes = [
       {
         path: "",
         props: true,
-        component: () => import("../components/client/home/viewImage.vue"),
+        components: {
+          post: () => import("../components/client/home/list_post.vue"),
+        },
       },
     ],
   },
@@ -191,6 +193,13 @@ const routes = [
         name: "member",
         components: {
           member: () => import("../components/client/group/member/member.vue"),
+        },
+      },
+      {
+        path: "introduce",
+        name: "introduce",
+        components: {
+          introduce: () => import("../components/client/group/introduce/introduce.vue"),
         },
       },
     ],

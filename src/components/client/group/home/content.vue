@@ -8,14 +8,78 @@
                 <div class="w-100 px-2 pt-3 c">
                     <h3><b style="color: rgb(0, 0, 0);">{{ data.group_name }}</b></h3>
                     <div v-if="!isViewInvite" class="flex-between"> <!-- xử lý lời mời -->
-                        <div class="d-flex">
-                            <div v-for="(v, k) in member" class="circle bg-primary"
+                        <div class="d-flex" style="position: relative; cursor: pointer;">
+                            <div @mouseover="over(v)" v-for="(v, k) in member" class="circle bg-primary img-hover"
                                 style="height: 35px; width: 35px; outline: 2px solid rgb(255, 255, 255); overflow: hidden; margin-right: -5px;">
                                 <img :src="urlImg + v.avatar" class="img-fluid" style="object-fit: cover; width: 100%;"
                                     alt="">
                             </div>
+                            <div class="bg-white modal-component pb-3" ref="modalComponent">
+                                <div class=" d-flex py-3 px-3" style="gap: 15px;">
+                                    <div class="circle" style="overflow: hidden; width: 100px; height: 100px;">
+                                        <router-link
+                                            :to="{ name: 'detailProfile', params: { username: info.username == null ? ' ' : info.username } }">
+                                            <img style="object-fit: cover; width: 100%;" :src="urlImg + info.avatar">
+                                        </router-link>
+
+                                    </div>
+                                    <div style="flex:1">
+                                        <div style="font-size: 18px; line-height: 23px;">
+                                            <router-link
+                                                :to="{ name: 'detailProfile', params: { username: info.username == null ? ' ' : info.username } }">
+                                                <b class="text-dark">{{ info.fullname }}</b>
+                                            </router-link>
+                                        </div>
+                                        <div class="text-dark py-2">
+                                            <i class="fa-solid fa-user-group me-2 text-secondary"
+                                                style="font-size: 15px;"></i>
+                                            <span style="font-size: 15px;" v-if="info.mutual >= 2">
+                                                {{ info.mutual }} mutual friends include
+                                                <b>
+                                                    <router-link
+                                                        :to="{ name: 'detailProfile', params: { username: info.friends[0].username } }">
+                                                        {{ info.friends[0].fullname }}
+                                                    </router-link>
+                                                </b> and
+                                                <b>
+                                                    <router-link
+                                                        :to="{ name: 'detailProfile', params: { username: info.friends[1].username } }">
+                                                        {{ info.friends[1].fullname }}
+                                                    </router-link>
+                                                </b>
+                                            </span>
+                                            <span v-else-if="info.mutual == 1">
+                                                {{ info.mutual }} mutual friend is
+                                                <b>
+                                                    <router-link
+                                                        :to="{ name: 'detailProfile', params: { username: info.friends[0].username } }">
+                                                        {{ info.friends[0].fullname }}
+                                                    </router-link>
+                                                </b>
+                                            </span>
+                                            <span v-else>
+                                                <b class="text-primary">{{ info.follower }}</b> followers
+                                            </span>
+                                        </div>
+                                        <div class="text-dark">
+                                            <i class="fa-solid fa-house-chimney me-2 text-secondary"
+                                                style="font-size: 15px;"></i>
+                                            <span style="font-size: 15px;">Live in <b class="text-primary">Ho Chi
+                                                    Minh</b></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex-center " style="gap: 7px;">
+                                    <button v-if="info.status == 1" class="btn btn-light f-500"
+                                        style="width: 140px;">Friend</button>
+                                    <button class="btn btn-primary f-500" style="width: 140px;"> Message</button>
+                                    <button class="btn btn-light f-500" style="width: 35px;">
+                                        <i class="fa-solid fa-ellipsis"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="d-flex">
+                        <div v-if="viewType == 1 || viewType == 2" class="d-flex">
                             <div @click="open()" class="btn-primary px-2 f-500 radius-7 text-white me-2 invite"
                                 data-bs-toggle="modal" data-bs-target="#inviteModal" style="cursor: pointer;">
                                 <span style="font-size: 20px;">+
@@ -28,9 +92,28 @@
                                 <i class="fas fa-share m-0 p-0 me-1"></i>
                                 <span class="del-event">Share</span>
                             </div>
-
                         </div>
-                        <div class="modal fade  " id="inviteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        <div v-else class="d-flex">
+                            <div v-if="checkRequest == 0" @click="joinGroup"
+                                class="btn-primary px-2 f-500 radius-7 text-white me-2 invite "
+                                style="cursor: pointer; padding: 0.5rem">
+                                <i class="fas fa-users me-2"></i>
+                                <span class="del-event">Join Group</span>
+                            </div>
+                            <div v-else @click="undoRequest" class="btn-primary px-2 f-500 radius-7 text-white me-2 invite "
+                                style="cursor: pointer; padding: 0.5rem">
+                                <i class="fas fa-undo-alt me-2"></i>
+                                <span class="del-event">
+                                    Undo request
+                                </span>
+                            </div>
+                            <div @click="copyLink" class="btn-light px-2 f-500 radius-7 text-dark me-2 invite "
+                                style="cursor: pointer; padding: 0.5rem">
+                                <i class="fas fa-copy me-2"></i>
+                                <span class="del-event">Copy Link</span>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="inviteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                 <div class="modal-content">
@@ -124,7 +207,7 @@
                                         <div class=" px-2 " style="flex: 1; line-height: 1.2rem;">
                                             <b>{{ infoClient.fullname }} has invited you to join this group.</b>
                                             <br>
-                                            <span>The invitation expires in 2000 days</span>
+                                            <span>This invitation was sent {{ dateCountdown(infoClient.time) }} ago</span>
                                         </div>
                                     </div>
                                     <div class=" d-flex" style="width: 40%; gap: 10px;">
@@ -139,29 +222,63 @@
                     </div>
                     <hr class="w-100 bg-dark pb-0 mb-0">
                     <div class="text-dark flex-between" style="display:flex;gap:20px; margin-top: 5px;">
-                        <div class="d-flex"> <!-- Left navbar -->
+                        <div v-if="viewType == 1 || viewType == 2" class="d-flex"> <!-- Left navbar -->
                             <div class="flex-center border-bottomm ct " style="width: 100%; cursor: pointer;">
-                                <div @click="setView('discuss')" class="py-1 p-2 px-3 bb f-500 discuss"
+                                <div @click="setView('discuss')" class="py-2 p-2 px-3 bb f-500 discuss"
                                     style="border-radius: 7px; ">
                                     <span class="del-event">Discuss</span>
                                 </div>
                             </div>
                             <div class="flex-center ct" style="width: 100%; cursor: pointer;">
-                                <div @click="setView('member')" class="py-1 p-2 px-3  bg-hover bb f-500 member"
+                                <div @click="setView('member')" class="py-2 p-2 px-3  bg-hover bb f-500 member"
                                     style="border-radius: 7px;">
                                     <span class="del-event">Member</span>
                                 </div>
                             </div>
                             <div class="flex-center ct" style="width: 100%; cursor: pointer;">
-                                <div @click="setView('event')" class="py-1 p-2 px-3  bg-hover bb f-500 event"
+                                <div @click="setView('event')" class="py-2 p-2 px-3  bg-hover bb f-500 event"
                                     style="border-radius: 7px;">
                                     <span class="del-event">Event</span>
                                 </div>
                             </div>
                             <div class="flex-center ct" style="width: 100%; cursor: pointer;">
-                                <div @click="setView('photo')" class="py-1 p-2 px-3  bg-hover bb f-500 photo"
+                                <div @click="setView('photo')" class="py-2 p-2 px-3  bg-hover bb f-500 photo"
                                     style="border-radius: 7px;">
                                     <span class="del-event">Photos</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else-if="viewType == 0 && data.privacy == 1" class="d-flex"> <!-- Left navbar -->
+                            <div class="flex-center border-bottomm ct " style="width: 100%; cursor: pointer;">
+                                <div @click="setView('discuss')" class="py-2 p-2 px-3 bb f-500 discuss"
+                                    style="border-radius: 7px; ">
+                                    <span class="del-event">Discuss</span>
+                                </div>
+                            </div>
+                            <div class="flex-center ct" style="width: 100%; cursor: pointer;">
+                                <div @click="setView('introduce')" class="py-2 p-2 px-3  bg-hover bb f-500 introduce"
+                                    style="border-radius: 7px;">
+                                    <span class="del-event">Introduce</span>
+                                </div>
+                            </div>
+                            <div class="flex-center ct" style="width: 100%; cursor: pointer;">
+                                <div @click="setView('member')" class="py-2 p-2 px-3  bg-hover bb f-500 member"
+                                    style="border-radius: 7px;">
+                                    <span class="del-event">Member</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else class="d-flex"> <!-- Left navbar -->
+                            <div class="flex-center border-bottomm ct " style="width: 100%; cursor: pointer;">
+                                <div @click="setView('discuss')" class="py-2 p-2 px-3 bb f-500 discuss"
+                                    style="border-radius: 7px; ">
+                                    <span class="del-event">Discuss</span>
+                                </div>
+                            </div>
+                            <div class="flex-center ct" style="width: 100%; cursor: pointer;">
+                                <div @click="setView('introduce')" class="py-2 p-2 px-3  bg-hover bb f-500 introduce"
+                                    style="border-radius: 7px;">
+                                    <span class="del-event">Introduce</span>
                                 </div>
                             </div>
                         </div>
@@ -175,14 +292,14 @@
                                     <li><a class="dropdown-item" href="#">Something else here</a></li>
                                 </ul>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <router-view v-if="view == 'discuss'" name="discuss"></router-view>
-        <router-view v-else-if="view == 'member'" name="member"></router-view>
+        <router-view v-if="view == 'discuss'" :info="data" :viewType="viewType" name="discuss"></router-view>
+        <router-view v-else-if="view == 'member'" :viewType="viewType" name="member"></router-view>
+        <router-view v-else-if="view == 'introduce'" :info="data" name="introduce"></router-view>
     </div>
 
     <div v-else>
@@ -209,7 +326,14 @@ export default {
             id_notification: null,
             infoClient: {},
             notification: {},
+
+            moveOver: false,
+            info: {},
+            viewType: null,
+            checkRequest: null,
+            process : null,
         }
+
     },
     watch: {
         '$route.params.id_group'(id_group) {
@@ -220,22 +344,20 @@ export default {
             handler(newValue, oldValue) {
                 if (oldValue) {
                     this.id_notification = this.$route.query.id_notification;
-
                     if (this.id_notification) {
-                        console.log('this.id_notification: ', this.id_notification);
                         this.getInfoInvite(this.id_notification);
                         this.isViewInvite = true;
                     }
                     this.isView = true;
                     setTimeout(() => {
+
                         const currentPath = this.$route.fullPath.toString().split('/').pop()
-                        if (currentPath == 'discuss' || currentPath == 'member' || currentPath == 'event' || currentPath == 'photo') {
+                        if (currentPath == 'discuss' || currentPath == 'member' || currentPath == 'event' || currentPath == 'photo' || currentPath == 'introduce') {
                             this.setView(currentPath)
                         } else {
                             this.setView('discuss')
                         }
                     }, 1);
-
                 }
             },
             deep: true, // Sử dụng deep watch để theo dõi các thay đổi sâu
@@ -246,9 +368,64 @@ export default {
         this.id_group = this.$route.params.id_group;
         this.getInfo();
         this.getListFriend();
+        this.checkRole();
+        this.checkRequestGroup();
         // console.log('id_notification from propsádads:', this.$route.params.id_notification);
     },
     methods: {
+        dateCountdown(a) {
+            return baseFunction.hoursDifference(a);
+        },
+        undoRequest() {
+            axios
+                .post('groups/undo-request', { id_group: this.id_group })
+                .then((res) => {
+                    baseFunction.displaySuccess(res);
+                    this.checkRequest = 0;
+                })
+        },
+        checkRequestGroup() {
+            axios
+                .post('groups/check-request', { id_group: this.id_group })
+                .then((res) => {
+                    this.checkRequest = res.data.check;
+                    if (this.checkRequest == -1) {
+                        this.infoClient = res.data.client[0]
+                        this.isViewInvite = true
+                    }
+                })
+
+        },
+        joinGroup() {
+            axios
+                .post('groups/come-in-group', this.data)
+                .then((res) => {
+                    baseFunction.displaySuccess(res);
+                    this.checkRequest = 1
+                })
+        },
+        checkRole() {
+            axios
+                .post('groups/check-role', { id_group: this.id_group })
+                .then((res) => {
+                    this.viewType = res.data.viewType
+                })
+        },
+        copyLink() {
+            const inputElement = document.createElement('input');
+            inputElement.value = window.location.href;
+            document.body.appendChild(inputElement);
+            inputElement.select();
+            document.execCommand('copy');
+            document.body.removeChild(inputElement);
+            var res = {
+                data: {
+                    status: 1,
+                    message: "Copy path successfully!"
+                }
+            }
+            baseFunction.displaySuccess(res);
+        },
         getInfoInvite(a) {
             axios
                 .post('notification/info-invite', { id: a })
@@ -266,7 +443,7 @@ export default {
             var payload = {
                 id_invites: this.list_invite,
                 id_group: this.id_group
-            }
+            };
             axios
                 .post('groups/send-invite', payload)
                 .then((res) => {
@@ -283,7 +460,8 @@ export default {
                 .get('groups/' + this.id_group)
                 .then((res) => {
                     this.data = res.data.info;
-                    this.member = res.data.member
+                    console.log("this.data : ", this.data);
+                    this.member = res.data.member;
                 });
         },
         open() {
@@ -296,9 +474,8 @@ export default {
             parent.addClass('border-bottomm');
             $('.bb:not(.bg-hover)').addClass('bg-hover');
             $('.' + a).removeClass('bg-hover');
-
             this.view = a;
-            this.$router.push({ name: a })
+            this.$router.push({ name: a });
         },
         getListFriend() {
             axios
@@ -311,7 +488,8 @@ export default {
             if ($('#invite' + k).is(':checked')) {
                 $('#invite' + k).prop('checked', false);
                 this.list_invite.splice(this.list_invite.indexOf(k), 1);
-            } else {
+            }
+            else {
                 $('#invite' + k).prop('checked', true);
                 this.list_invite.push(v);
             }
@@ -320,14 +498,13 @@ export default {
             var payload = {
                 status: true,
                 notify: this.notification
-            }
+            };
             axios
                 .post('notification/accept-invite', this.notification)
                 .then((res) => {
-                    baseFunction.displaySuccess(res)
-                    this.isViewInvite = false
-                    this.$emit('removeNotify', payload)
-
+                    baseFunction.displaySuccess(res);
+                    this.isViewInvite = false;
+                    this.$emit('removeNotify', payload);
                 })
                 .catch((res) => {
                     $.each(res.response.data.errors, function (k, v) {
@@ -339,20 +516,33 @@ export default {
             var payload = {
                 status: false,
                 notify: this.notification
-            }
+            };
             axios
                 .post('notification/remove-invite', this.notification)
                 .then((res) => {
-                    this.isViewInvite = false
-                    this.$emit('removeNotify', payload)
-
+                    this.isViewInvite = false;
+                    this.$emit('removeNotify', payload);
                 })
                 .catch((res) => {
                     $.each(res.response.data.errors, function (k, v) {
                         toastr.error(v[0], 'error');
                     });
                 });
-        }
+        },
+        over(v) {
+            this.info = v;
+            const myDiv = this.$refs.modalComponent;
+            const mh = window.innerHeight;
+            const rect = myDiv.getBoundingClientRect();
+            this.bottomPosition = rect.bottom - mh;
+            if (this.bottomPosition > 10) {
+                $('.modal-component').css('transform', 'translate(1.3rem, -2.3rem)');
+                $('.modal-component').css('inset', ' auto auto 0px 0px');
+            } else {
+                $('.modal-component').css('transform', 'translate(1.3rem, 2.3rem)');
+                $('.modal-component').css('inset', ' 0px auto auto  0px');
+            }
+        },
     },
 }
 </script>

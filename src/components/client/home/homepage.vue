@@ -407,7 +407,7 @@
             <img src="../../../assets/client/images/page-img/page-load-loader.gif" alt="loader" style="height: 100px;">
         </div>
     </div>
-    <div class="right-sidebar-mini">
+    <div class="right-sidebar-mini" style="box-shadow: 0 0 10px #3333332e;">
         <div class="right-sidebar-panel p-0">
             <div class="card shadow-none">
                 <div class="card-body p-0 ">

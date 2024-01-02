@@ -1,8 +1,8 @@
 <template>
-    <div class="wrapper">
+    <div class="wrapper bg-white" >
         <HeaderClient :notify="notify"></HeaderClient>
         <div class="">
-            <div class=" iq-sidebar-fix sidebar-default ">
+            <div class="iq-sidebar-fix sidebar-default ">
                 <div id="sidebar-scrollbar" data-scrollbar="true" tabindex="-1" style="overflow: hidden; outline: none;">
                     <div class="scroll-content">
                         <nav class="iq-sidebar-menu">
@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <div class="px-0 mx-0" style="position: absolute; right: 0; width: 79%;top: 4.25rem;">
+        <div class="px-0 mx-0" style="position: absolute; right: 0; width: 79%;top: 4.25rem; background-color: #ffffff;">
             <router-view name="content" :sentFriend="dataRequestFriend" @profile_request_friend="handleProfileRequestFriend"
                 :sentFriendSuggest="dataSuggest" @profile_suggest="handleProfileSuggest" :delFriendSuggest="delDataSuggest"
                 @removeNotify="handleNotify" @profile_del_friend="handleDelProfileAllFriend" @sentPrivacy="handlePrivacy"
