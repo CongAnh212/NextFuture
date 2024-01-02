@@ -233,8 +233,7 @@
                                         <div class="w-100">
                                             <div class="d-flex justify-content-between">
                                                 <div class="">
-                                                    <h5 class="mb-0 d-inline-block" style="font-weight: bold;">{{ v.fullname
-                                                    }}
+                                                    <h5 class="mb-0 d-inline-block" style="font-weight: bold;">{{ v.fullname }}
                                                     </h5>
                                                     <p class="ms-1 mb-0 d-inline-block">Changed Profile Picture</p>
                                                     <p class="mb-0">{{ hoursDifference(v.created_at) }} ago</p>
@@ -293,12 +292,9 @@
                                     </div>
                                 </div>
                                 <!-- routerr -->
+                                <!--bo may dang lam o day nhe-->
                                 <template v-if="v.images">
-                                    <router-view v-slot="{ Component }">
-                                        <keep-alive>
-                                            <component :is="Component" :key="$route.fullPath" :post="v"></component>
-                                        </keep-alive>
-                                    </router-view>
+                                  <view-image :images="v.images"></view-image>
                                 </template>
 
                                 <div class="comment-area mt-3">
@@ -451,8 +447,10 @@
 <script>
 import coreFunction from '../../../core/coreFunction';
 import axios, { url } from '../../../core/coreRequest'
+import ViewImage from "./viewImage.vue";
 
 export default {
+  components: {ViewImage},
     data() {
         return {
             myInfo: {},
@@ -628,7 +626,7 @@ export default {
             Object.entries(this.post).forEach(([key, value]) => {
                 formData.append(key, value);
             });
-            formData.append('privacy', this.privacy);
+            formData.append('privacy', this.privacy)
             axios
                 .post('post/create', formData, {
                     headers: {

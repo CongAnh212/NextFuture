@@ -12,7 +12,6 @@ import checkIsLogin from "../src/core/modules.js";
 const app = createApp(App);
 router.beforeEach(async (to, from, next) => {
     const isLoggedIn = await checkIsLogin();
-    console.log("🚀 ~ file: main.js:15 ~ router.beforeEach ~ isLoggedIn:", isLoggedIn)
     if (to.matched.some((record) => record.meta.requiresAuth) && !isLoggedIn) {
         console.log('no login')
         next('/sign-in');
@@ -29,14 +28,8 @@ router.beforeEach(async (to, from, next) => {
                 break;
         }
     } else next();
-    // if (!isLoggedIn) {
-    //   console.log('not login');
-    //   next({ name: 'sign-in' });
-    // } else {
-    //   console.log('is login');
-    //   next();
-    // }
 });
+
 app.use(router);
 app.component("account-layout", Account);
 app.component("default-layout", Default);

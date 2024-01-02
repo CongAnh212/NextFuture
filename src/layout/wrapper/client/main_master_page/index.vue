@@ -9,12 +9,10 @@
                             <ul id="iq-sidebar-toggle" class="iq-menu">
                                 <router-view @request_friend="handleRequestFriend"
                                     :sentFriendProfile="dataProfileRequestFriend" @suggest="handleSuggest"
-                                    :sentFriendProfileSuggest="dataProfileSuggest" @del_suggest="handleDelSuggest"                                    
-                                    :getPrivacy="dataPrivacy"
-                                    :delFriendProfile="delDataProfileAllFriend" 
-                                    :approve_Connection="dataApproveConnection"
-                                    :refuse_Connection="dataRefuseConnection">
-                                </router-view> 
+                                    :sentFriendProfileSuggest="dataProfileSuggest" @del_suggest="handleDelSuggest"
+                                    :getPrivacy="dataPrivacy" :delFriendProfile="delDataProfileAllFriend"
+                                    :approve_Connection="dataApproveConnection" :refuse_Connection="dataRefuseConnection">
+                                </router-view>
                             </ul>
                         </nav>
                     </div>
@@ -33,11 +31,8 @@
         <div class="px-0 mx-0" style="position: absolute; right: 0; width: 79%;top: 4.25rem;">
             <router-view name="content" :sentFriend="dataRequestFriend" @profile_request_friend="handleProfileRequestFriend"
                 :sentFriendSuggest="dataSuggest" @profile_suggest="handleProfileSuggest" :delFriendSuggest="delDataSuggest"
-                @removeNotify="handleNotify"
-                @profile_del_friend="handleDelProfileAllFriend"
-                @sentPrivacy="handlePrivacy"
-                @approve_connection="handleApproveConnection"
-                @refuse_connection="handleRefuseConnection">
+                @removeNotify="handleNotify" @profile_del_friend="handleDelProfileAllFriend" @sentPrivacy="handlePrivacy"
+                @approve_connection="handleApproveConnection" @refuse_connection="handleRefuseConnection">
 
             </router-view>
         </div>
@@ -53,7 +48,7 @@ import "../../../../assets/client/js/masonry.pkgd.min.js";
 import "../../../../assets/client/js/lottie.js";
 import "../../../../assets/client/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"
 
-import HeaderClient from './HeaderClient.vue';
+import HeaderClient from '.././main_master_page/HeaderClient.vue';
 export default {
     name: "app",
     components: {
@@ -77,7 +72,7 @@ export default {
             dataApproveConnection: null,    // cái này là duyệt lời mời từ Request_Group qua list đọc của mục Group
             //--------------------------------------------------------------------------------------------//
             dataRefuseConnection: null,     // cái này là từ chối lời mời từ Request_Group qua list đọc mục Group
-            notify : null                   // cái này để xoá thông báo ở header
+            notify: null                   // cái này để xoá thông báo ở header
 
         }
     },

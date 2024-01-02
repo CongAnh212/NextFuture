@@ -265,6 +265,8 @@
 
 import axios, { url } from '../../../../core/coreRequest';
 import baseFunction from '../../../../core/coreFunction';
+import { state, socket } from "../../../../socket.js";
+
 export default {
     data() {
         return {
@@ -281,7 +283,7 @@ export default {
             required: true,
         }
     },
-    
+
     watch: {
         list_notifications: {
             handler(newValue, oldValue) {
@@ -299,8 +301,10 @@ export default {
         }
     },
     mounted() {
-        this.getRequestFriend();
+        console.log('HeaderClient.vue: mounted')
+        state.connected = true
         this.getInfo();
+        this.getRequestFriend();
         this.getNotification();
     },
     methods: {
@@ -325,13 +329,17 @@ export default {
                     console.error('Logout failed:', error);
                 });
         },
+        async getInfo() {
+            try {
+                const response = await axios.get('profile/data')
+                this.myInfo = response.data.myInfo;
 
-        getInfo() {
-            axios
-                .get('profile/data')
-                .then((res) => {
-                    this.myInfo = res.data.myInfo;
-                });
+                if (Object.keys(this.myInfo).length > 0) {
+                    await this.connectToSocket(this.myInfo.id, this.myInfo.username);
+                }
+            } catch (error) {
+                console.error('Lỗi lấy thông tin người dùng:', error);
+            }
         },
         myProfile() {
             this.$router.push({ name: 'detailProfile', params: { username: this.myInfo.username } });
@@ -362,8 +370,11 @@ export default {
                         toastr.error(v[0], 'Error');
                     });
                 });
+        },
+        connectToSocket(user_id, username) {
+            socket.emit("userConnection", { user_id: user_id, username: username });
         }
-    },
+    }
 }
 </script>
 <style></style>
