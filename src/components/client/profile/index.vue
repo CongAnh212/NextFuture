@@ -297,6 +297,7 @@
 </template>
 <script>
 import axios, { url } from '../../../core/coreRequest'
+
 export default {
     data() {
         return {
@@ -410,19 +411,26 @@ export default {
                 });
 
         },
-        addFriend() {
+        async addFriend() {
             const infoFriend = {
                 info: this.info,
                 status: true
             }
-            this.$emit("profile_request_friend", infoFriend)
-            axios
-                .post('follower/add-friend', this.info)
-                .then((res) => {
-                    if (res.data.status) {
-                        this.getInfo();
-                    }
-                })
+            console.log('add friend');
+            try {
+                this.$emit("profile_request_friend", infoFriend)
+                const response = await axios.post('follower/add-friend', this.info);
+                if (response.data.status) {
+                    this.getInfo();
+                    // await io.emit('addFriend', {
+                    //     id: this.info.id,
+                    //     username: this.info.username,
+                    //     type: 'addFriend'
+                    // });
+                }
+            } catch (error) {
+                console.log(error);
+            }
         },
         unRequest() {
             const infoFriend = {
