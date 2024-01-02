@@ -51,7 +51,7 @@
                 </div>
                 <div style="flex: 1; flex-direction: column; line-height: 1.25rem;" class=" d-flex justify-content-center">
                     <b style="font-size: 15px;">{{ v.group_name }}</b>
-                    <p class="p-0 m-0">{{ v.member }} thành viên</p>
+                    <p class="p-0 m-0">{{ v.member }} members</p>
                 </div>
             </div>
 
@@ -65,7 +65,7 @@
                 </div>
                 <div style="flex: 1; flex-direction: column; line-height: 1.25rem;" class=" d-flex justify-content-center">
                     <b style="font-size: 15px;">{{ v.group_name }}</b>
-                    <p class="p-0 m-0">{{ v.member }} thành viên</p>
+                    <p class="p-0 m-0">{{ v.member }} members</p>
                 </div>
             </div>
 
