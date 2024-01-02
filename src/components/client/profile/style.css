@@ -5,13 +5,17 @@
   z-index: 100;
 }
 .rovo:hover > .img-hover {
-    background-color: rgba(99, 98, 98, 0.216);
-    width: 98%;
-    height: 98%;
+  background-color: rgba(99, 98, 98, 0.216);
+  width: 98%;
+  height: 98%;
 }
-.rovo:hover{
-    transform: scale(0.99);
+.rovo:hover {
+  transform: scale(0.99);
 }
-.modal-xxl{
-    max-width: 80%;
+.modal-xxl {
+  max-width: 80%;
+}
+.oke:hover {
+  text-decoration: underline !important;
+  font-weight: 700;
 }
