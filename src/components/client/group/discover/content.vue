@@ -5,13 +5,13 @@
         </div>
         <div class="row mx-0 ">
             <div class="d-flex" style="gap: 7px; flex-direction: row; flex-wrap: wrap; position: relative;">
-                <div class="flex-center"
+                <div v-if="showBtnPreNext" class="flex-center"
                     style="position: absolute; z-index: 1; right: 1rem; top:50%; transform: translateY(-60%);">
                     <button  @click="next" class="btn bg-white circle" style="width: 3.5em;height: 3.5em;box-shadow: 0 0 10px #33333357; ">
                         <i class="fa-solid fa-chevron-right"></i>
                     </button>
                 </div>
-                <div class="flex-center"
+                <div v-if="showBtnPreNext" class="flex-center"
                     style="position: absolute; z-index: 1; left: -1rem; top:50%; transform: translateY(-60%);">
                     <button @click="prev" class="btn bg-white circle"
                         style="width: 3.5em;height: 3.5em;box-shadow: 0 0 10px #33333357; ">
@@ -104,11 +104,19 @@ export default {
             list_popular_group_temp2: [],
             list_popular_group: [],
             index: 2,
+            showBtnPreNext: false,
         }
     },
     mounted() {
         this.getAllGroup();
         this.getPopularGroup();
+    },
+    watch: {
+        list_popular_group(newValue, orlValue) {
+            if (orlValue) {
+                this.showBtnPreNext = true;
+            }
+        }
     },
     methods: {
         getPopularGroup() {
