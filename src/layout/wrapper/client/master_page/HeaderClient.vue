@@ -302,17 +302,20 @@
                                                 </div>
                                             </router-link>
                                         </div>
-                                        <a href="../app/profile-edit.html" class="iq-sub-card iq-bg-warning-hover">
+                                        <router-link :to="{ name: 'editProfile' }" class="iq-sub-card iq-bg-warning-hover">
                                             <div class="d-flex align-items-center">
                                                 <div class="rounded card-icon bg-soft-warning">
                                                     <i class="ri-profile-line"></i>
                                                 </div>
+
                                                 <div class="ms-3">
-                                                    <h6 class="mb-0 ">Edit Profile</h6>
+                                                    <h6 class="mb-0 ">
+                                                        Edit Profile
+                                                    </h6>
                                                     <p class="mb-0 font-size-12">Modify your personal details.</p>
                                                 </div>
                                             </div>
-                                        </a>
+                                        </router-link>
                                         <a href="../app/account-setting.html" class="iq-sub-card iq-bg-info-hover">
                                             <div class="d-flex align-items-center">
                                                 <div class="rounded card-icon bg-soft-info">

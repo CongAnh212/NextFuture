@@ -18,7 +18,7 @@
                             <div class="pe-3">
                                 <h3 class="">{{ info.nickname }}</h3>
                             </div>
-                            <div class="social-info">
+                            <div class="social-info flex-center">
                                 <ul
                                     class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
                                     <li v-if="status == 'friend'" class='d-flex'>
@@ -87,10 +87,11 @@
                                             Messenger
                                         </button>
                                     </li>
-                                    <li v-if="status == 'self'" class='d-flex'>
-                                        <button class='btn btn-light ms-2 f-500' style='width:130px' @click="addFriend()">
-                                            Edit profile
-                                        </button>
+                                    <li v-if="status == 'self'" class='flex-center'>
+                                        <router-link :to="{ name: 'editProfile' }" class="btn btn-light ms-2 f-500 text-dark"
+                                            style='width:130px'>
+                                            <span class="flex-center h-100">Edit profile</span>
+                                        </router-link>
                                     </li>
                                 </ul>
                             </div>
@@ -110,8 +111,12 @@
                                         <ModalFollower :listFollower="followers" v-if="checkListFollwer" />
                                     </li>
                                     <li class="text-center ps-3">
-                                        <h5> <b style="cursor: pointer;">{{ friends.length }}</b> friends
+                                        <h5 style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalFriend">
+                                            <b>
+                                                {{ friends.length }}
+                                            </b> friends
                                         </h5>
+                                        <ModalFriend :listFriend="friends" v-if="checkListFriend" />
                                     </li>
                                 </ul>
                             </div>
@@ -183,11 +188,14 @@
 <script>
 import axios, { url } from '../../../core/coreRequest';
 import ModalFollower from './modalfollower.vue'
+import ModalFriend from './modalFriend.vue';
 import ModalPost from './modalPost.vue'
 export default {
     components: {
         ModalFollower,
+        ModalFriend,
         ModalPost
+
     },
     data() {
         return {
@@ -198,6 +206,7 @@ export default {
             friends: [],
             followers: [],
             checkListFollwer: false,
+            checkListFriend: false,
         }
     },
     props: {
@@ -219,7 +228,6 @@ export default {
         this.username = this.$route.params.username;
         this.getInfo();
         this.getAllProfile();
-
     },
     watch: {
         sentFriend(newData, oldData) {
@@ -248,14 +256,19 @@ export default {
             this.username = username;
             this.getInfo();
             this.getAllProfile();
+
             // console.log(this.username); 
         },
-        followers(newValue, oldValue) {
-            if (oldValue) {
+        followers(newData, oldData) {
+            if (oldData) {
                 this.checkListFollwer = true
             }
+        },
+        friends(newData, oldData) {
+            if (oldData) {
+                this.checkListFriend = true
+            }
         }
-
     },
     methods: {
         getAllProfile() {
@@ -354,7 +367,8 @@ export default {
                         this.getInfo();
                     }
                 })
-        }
+        },
+
     },
 }
 
