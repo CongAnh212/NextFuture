@@ -1,7 +1,7 @@
 <template>
     <div class="w-100 ps-4">
         <div class=" mt-3 mb-1 d-flex justify-content-between">
-            <h3 class="">Popular group Chưa Hoàn Thiện</h3>
+            <h3 class="">Popular groups</h3>
         </div>
         <div class="row mx-0 ">
             <div class="d-flex" style="gap: 7px; flex-direction: row; flex-wrap: wrap; position: relative;">

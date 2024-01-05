@@ -30139,3 +30139,9 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-right {
 .bg-xanh {
   background-color: rgb(192, 249, 255);
 }
+.flex-1{
+  flex: 1;
+}
+.c-pointer{
+  cursor: pointer;
+}
