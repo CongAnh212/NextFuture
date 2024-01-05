@@ -18,7 +18,7 @@
                             <div class="pe-3">
                                 <h3 class="">{{ info.nickname }}</h3>
                             </div>
-                            <div class="social-info">
+                            <div class="social-info flex-center">
                                 <ul
                                     class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
                                     <li v-if="status == 'friend'" class='d-flex'>
@@ -87,10 +87,11 @@
                                             Messenger
                                         </button>
                                     </li>
-                                    <li v-if="status == 'self'" class='d-flex'>
-                                        <button class='btn btn-light ms-2 f-500' style='width:130px' @click="addFriend()">
-                                            Edit profile
-                                        </button>
+                                    <li v-if="status == 'self'" class='flex-center'>
+                                        <router-link :to="{ name: 'editProfile' }" class="btn btn-light ms-2 f-500 text-dark"
+                                            style='width:130px'>
+                                            <span class="flex-center h-100">Edit profile</span>
+                                        </router-link>
                                     </li>
                                 </ul>
                             </div>
@@ -107,11 +108,15 @@
                                                 {{ followers.length }}
                                             </b> followers
                                         </h5>
-                                        <ModalFollower :listFollower="followers"  v-if="checkListFollwer"/>
+                                        <ModalFollower :listFollower="followers" v-if="checkListFollwer" />
                                     </li>
                                     <li class="text-center ps-3">
-                                        <h5> <b style="cursor: pointer;">{{ friends.length }}</b> friends
+                                        <h5 style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalFriend">
+                                            <b>
+                                                {{ friends.length }}
+                                            </b> friends
                                         </h5>
+                                        <ModalFriend :listFriend="friends" v-if="checkListFriend" />
                                     </li>
                                 </ul>
                             </div>
@@ -185,27 +190,39 @@
                                     </div>
                                 </div>
                                 <div class="d-flex bg-white" style="height: 90vh;width: 100%; ">
-                                    <div
-                                        style="height: 100%; overflow: hidden;aspect-ratio: 1/1; cursor: pointer; position: relative; ">
+                                    <div style="height: 100%; overflow: hidden;aspect-ratio: 1/1; position: relative; ">
                                         <img style="object-fit: cover; width: 100%;height: 100%;"
                                             src="https://media-cdn-v2.laodong.vn/storage/newsportal/2023/10/26/1259495/Doona-Suzy.jpg"
                                             alt="">
+                                        <span class="text-center" style="position: absolute; top: 50%;
+                                             transform: translateY(-50%); left:1em;  border-radius: 100%; width: 1.5rem;cursor: pointer;
+                                             height: 1.5rem; background-color: #D4D6CB;">
+                                            <i class="fa-solid fa-chevron-left text-dark"></i>
+                                        </span>
+                                        <span class="text-center" style="position: absolute; top: 50%;cursor: pointer;
+                                             transform: translateY(-50%); right:1em;  border-radius: 100%; width: 1.5rem;
+                                             height: 1.5rem; background-color: #D4D6CB;">
+                                            <i class="fa-solid fa-chevron-right text-dark"></i>
+                                        </span>
+                                        <span class="text-center"
+                                            style="position: absolute; bottom: 0.5rem; left: 50%; transform: translateX(-50%);  cursor: auto;">
+                                            <i class="fa-solid fa-circle text-white me-1" style="font-size: 0.4rem;"></i>
+                                        </span>
                                     </div>
                                     <div style="flex:1;">
                                         <div class=" d-flex py-2 px-2 w-100">
                                             <div class="d-flex align-items-center" style="flex:1">
-                                                <img src="https://kenh14cdn.com/thumb_w/660/203336854389633024/2023/12/25/photo-4-1703515345299422557611.jpg"
-                                                    class="img-fluid rounded-circle me-2" alt="user"
-                                                    style="height: 35px; width: 35px;margin-left: 0px;">
+                                                <img :src="urlImg + info.avatar" class="img-fluid rounded-circle me-2"
+                                                    alt="user" style="height: 35px; width: 35px;margin-left: 0px;">
                                                 <span class="text-dark f-500" style="font-weight: 600; font-size: 17px;">
-                                                    phtsnh26
+                                                    {{ info.nickname }}
                                                 </span>
                                             </div>
                                             <div>
                                                 <i class="fa-solid fa-ellipsis text-dark" style="cursor: pointer;"></i>
                                             </div>
                                         </div>
-                                        <div class="px-2 text-dark f-500" style="font-size: 15px; font-weight: 400;">
+                                        <div class="px-2 text-dark f-500">
                                             Ngầu điên liền ?
                                         </div>
                                         <div class="px-2 pt-3 pb-2">
@@ -327,10 +344,11 @@
 <script>
 import axios, { url } from '../../../core/coreRequest'
 import ModalFollower from './modalFollower.vue';
-
+import ModalFriend from './modalFriend.vue';
 export default {
     components: {
-        ModalFollower
+        ModalFollower,
+        ModalFriend,
     },
     data() {
         return {
@@ -341,6 +359,7 @@ export default {
             friends: [],
             followers: [],
             checkListFollwer: false,
+            checkListFriend: false,
         }
     },
     props: {
@@ -362,7 +381,6 @@ export default {
         this.username = this.$route.params.username;
         this.getInfo();
         this.getAllProfile();
-
     },
     watch: {
         sentFriend(newData, oldData) {
@@ -391,14 +409,19 @@ export default {
             this.username = username;
             this.getInfo();
             this.getAllProfile();
+
             // console.log(this.username); 
         },
-        followers(newValue, oldValue) {
-            if (oldValue) {
+        followers(newData, oldData) {
+            if (oldData) {
                 this.checkListFollwer = true
             }
+        },
+        friends(newData, oldData) {
+            if (oldData) {
+                this.checkListFriend = true
+            }
         }
-
     },
     methods: {
         getAllProfile() {
@@ -497,7 +520,8 @@ export default {
                         this.getInfo();
                     }
                 })
-        }
+        },
+
     },
 }
 

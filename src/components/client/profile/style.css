@@ -19,3 +19,6 @@
   text-decoration: underline !important;
   font-weight: 700;
 }
+.change-photo:hover > .photo-hover{
+  opacity: 1 !important;
+}

@@ -70,16 +70,18 @@ const routes = [
       content: () => import("../components/client/friend/cover.vue"),
     },
   },
-  {
-    path: "/profile-client",
-    name: "profile-client",
-    component: () => import("../components/client/profile/index.vue"),
-  },
 
   {
     path: "/:username",
     name: "detailProfile",
     component: () => import("../components/client/profile/index.vue"),
+  },
+  {
+    path: "/accounts/edit",
+    name: "editProfile",
+    component: () =>
+      import("../components/client/profile/edit_profile/editProfile.vue"),
+    meta: { requiresAuth: true },
   },
   {
     path: "/:username",
@@ -199,7 +201,8 @@ const routes = [
         path: "introduce",
         name: "introduce",
         components: {
-          introduce: () => import("../components/client/group/introduce/introduce.vue"),
+          introduce: () =>
+            import("../components/client/group/introduce/introduce.vue"),
         },
       },
     ],
