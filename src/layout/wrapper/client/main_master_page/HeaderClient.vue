@@ -44,7 +44,7 @@
                                             {{ count.length }}
                                         </small>
                                     </div>
-                                    <div class="card-body p-0">
+                                    <div class="card-body p-0" style="overflow-y: auto;max-height: 65vh; ">
                                         <template v-for="(v, k) in request_friend">
                                             <div class="iq-friend-request">
                                                 <div
@@ -63,8 +63,10 @@
                                                                     </b>
                                                                 </router-link>
                                                             </h6>
-                                                            <p v-if="v.mutual > 0" class="mb-0">{{ v.mutual }} mutual friends </p>
-                                                            <p v-else class="mb-0 text-white" style="user-select: none;">1 </p>
+                                                            <p v-if="v.mutual > 0" class="mb-0">{{ v.mutual }} mutual
+                                                                friends </p>
+                                                            <p v-else class="mb-0 text-white" style="user-select: none;">1
+                                                            </p>
                                                         </div>
                                                     </div>
                                                     <div class="d-flex align-items-center">
@@ -102,7 +104,7 @@
                                         </div>
                                         <small class="badge bg-light text-dark">{{ list_notifications.length }}</small>
                                     </div>
-                                    <div v-if="isView" class="card-body p-0 " style="max-height: 65vh; overflow: auto;">
+                                    <div v-if="isView" class="card-body p-0 " style="max-height:65vh; overflow: auto;">
                                         <a v-for="(v, k) in list_notifications" class="iq-sub-card bg-hover "
                                             @click="readNotification(v)">
                                             <router-link v-if="v.type == 2"
@@ -274,17 +276,20 @@
                                                 </div>
                                             </router-link>
                                         </div>
-                                        <a href="../app/profile-edit.html" class="iq-sub-card iq-bg-warning-hover">
+                                        <router-link :to="{ name: 'editProfile' }" class="iq-sub-card iq-bg-warning-hover">
                                             <div class="d-flex align-items-center">
                                                 <div class="rounded card-icon bg-soft-warning">
                                                     <i class="ri-profile-line"></i>
                                                 </div>
+
                                                 <div class="ms-3">
-                                                    <h6 class="mb-0 ">Edit Profile</h6>
+                                                    <h6 class="mb-0 ">
+                                                        Edit Profile
+                                                    </h6>
                                                     <p class="mb-0 font-size-12">Modify your personal details.</p>
                                                 </div>
                                             </div>
-                                        </a>
+                                        </router-link>
                                         <a href="../app/account-setting.html" class="iq-sub-card iq-bg-info-hover">
                                             <div class="d-flex align-items-center">
                                                 <div class="rounded card-icon bg-soft-info">
@@ -327,6 +332,8 @@
 
 import axios, { url } from '../../../../core/coreRequest';
 import baseFunction from '../../../../core/coreFunction';
+import { state, socket } from "../../../../socket.js";
+
 export default {
     data() {
         return {
