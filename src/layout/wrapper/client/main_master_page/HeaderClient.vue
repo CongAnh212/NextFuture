@@ -333,7 +333,6 @@
 import axios, { url } from '../../../../core/coreRequest';
 import baseFunction from '../../../../core/coreFunction';
 import { state, socket } from "../../../../socket.js";
-
 export default {
     data() {
         return {

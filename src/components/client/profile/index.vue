@@ -345,7 +345,6 @@
 import axios, { url } from '../../../core/coreRequest'
 import ModalFollower from './modalFollower.vue';
 import ModalFriend from './modalFriend.vue';
-
 export default {
     components: {
         ModalFollower,
