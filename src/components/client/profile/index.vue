@@ -18,7 +18,7 @@
                             <div class="pe-3">
                                 <h3 class="">{{ info.nickname }}</h3>
                             </div>
-                            <div class="social-info flex-center">
+                            <div class="social-info">
                                 <ul
                                     class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
                                     <li v-if="status == 'friend'" class='d-flex'>
@@ -179,7 +179,7 @@
                         </div>
                     </div>
                     <!-- modalPost -->
-                    <ModalPost />
+<!--                    <ModalPost />-->
                 </div>
             </div>
         </div>
@@ -190,6 +190,8 @@ import axios, { url } from '../../../core/coreRequest';
 import ModalFollower from './modalfollower.vue'
 import ModalFriend from './modalFriend.vue';
 import ModalPost from './modalPost.vue'
+import { socket } from '../../../socket.js';
+
 export default {
     components: {
         ModalFollower,
@@ -256,8 +258,7 @@ export default {
             this.username = username;
             this.getInfo();
             this.getAllProfile();
-
-            // console.log(this.username); 
+            // console.log(this.username);
         },
         followers(newData, oldData) {
             if (oldData) {
@@ -324,17 +325,17 @@ export default {
                 info: this.info,
                 status: true
             }
-            console.log('add friend');
+            const sender = await JSON.parse(localStorage.getItem('information-my-profile'))
             try {
                 this.$emit("profile_request_friend", infoFriend)
                 const response = await axios.post('follower/add-friend', this.info);
                 if (response.data.status) {
                     this.getInfo();
-                    // await io.emit('addFriend', {
-                    //     id: this.info.id,
-                    //     username: this.info.username,
-                    //     type: 'addFriend'
-                    // });
+                    await socket.emit('sendNotification', {
+                        senderId: sender.id,
+                        receiverId: this.info.id,
+                        type: 'addFriend'
+                    });
                 }
             } catch (error) {
                 console.log(error);
@@ -368,7 +369,6 @@ export default {
                     }
                 })
         },
-
     },
 }
 
