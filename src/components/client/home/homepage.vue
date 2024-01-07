@@ -277,8 +277,8 @@
 import coreFunction from '../../../core/coreFunction';
 import axios, { url } from '../../../core/coreRequest'
 import ListPost from './list_post.vue';
-import { state, socket } from '../../../socket.js';
-import { watchEffect } from "vue";
+import { state } from '../../../socket.js';
+
 export default {
   components: { ListPost },
   data() {
@@ -298,7 +298,6 @@ export default {
       },
       list_post: null,
       list_friend: [],
-      list_online_friend: null,
       list_comment: [],
       comments: [],
       index_friend_tags: [],
@@ -307,9 +306,16 @@ export default {
         images: "post/1700648799_3-29.jpg,post/1700648799_login.jpg",
       },
       isView: false,
+      list_online_friends: null,
     };
   },
   watch: {
+    list_online_friends: {
+      handler(newVal, oldVal) {
+        this.updateOnlineUser(newVal)
+      },
+      deep: true
+    },
     myInfo: {
       handler(newValue, oldValue) {
         // Xử lý khi giá trị của data thay đổi
@@ -326,36 +332,13 @@ export default {
             this.post.images = [];
           });
         }, 100);
-
-
       },
       deep: true, // Sử dụng deep watch để theo dõi các thay đổi sâu
       immediate: true, // Kích hoạt handler ngay từ khi component được khởi tạo
     },
-    list_online_friend: {
-      handler(newVal, oldVal) {
-        // console.log('listen online user')
-        if (newVal) {
-          const onlineUsers = newVal[0]
-          // console.log('onlineUsers: ', onlineUsers[0]);
-          if (this.list_friend.length > 0 && onlineUsers) {
-            this.list_friend.forEach(friend => {
-              const onlineUser = onlineUsers[0].find((user) => user.id === friend.id);
-              // console.log('onlineUser: ', onlineUser);
-              if (onlineUser) {
-                friend.isOnline = true;
-              } else {
-                friend.isOnline = false;
-              }
-            });
-          }
-        }
-      },
-      deep: true
-    }
   },
   created() {
-    this.list_online_friend = state.onlineUsers
+    this.list_online_friends = state.onlineUsers
     console.log(window.localStorage.getItem('token')); //check token
     this.getInfo();
     this.dataStory();
@@ -376,6 +359,22 @@ export default {
     }, 100);
   },
   methods: {
+    updateOnlineUser(onlineUsers) {
+      if (onlineUsers) {
+        console.log(onlineUsers[onlineUsers.length - 1])
+        if (this.list_friend.length > 0 && onlineUsers) {
+          this.list_friend.forEach(friend => {
+            const onlineUser = onlineUsers[onlineUsers.length - 1].find((user) => user.id === friend.id);
+
+            if (onlineUser) {
+              friend.isOnline = true;
+            } else {
+              friend.isOnline = false;
+            }
+          });
+        }
+      }
+    },
     totalComments(a) {
       return this.list_comment.filter(value => value.id_post == a).length;
     },
@@ -416,17 +415,17 @@ export default {
     },
     getInfo() {
       axios
-        .get('profile/data')
-        .then((res) => {
-          this.myInfo = res.data.myInfo;
-        });
+          .get('profile/data')
+          .then((res) => {
+            this.myInfo = res.data.myInfo;
+          });
     },
     dataStory() {
       axios
-        .get('story/data?3=1')
-        .then((res) => {
-          this.stories = res.data.dataStory.data;
-        });
+          .get('story/data?3=1')
+          .then((res) => {
+            this.stories = res.data.dataStory.data;
+          });
     },
     show() {
       if ($('.file-input').hasClass('hide-important')) {
@@ -451,28 +450,28 @@ export default {
       });
       formData.append('privacy', this.privacy)
       axios
-        .post('post/create', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-        .then((res) => {
-          if (res.data.status) {
-            this.post = {
-              images: []
-            };
-            this.$refs.btnCloseModal.click();
-            $('.fileinput-remove-button').click();
-            this.loadPost();
+          .post('post/create', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          .then((res) => {
+            if (res.data.status) {
+              this.post = {
+                images: []
+              };
+              this.$refs.btnCloseModal.click();
+              $('.fileinput-remove-button').click();
+              this.loadPost();
 
-          } else {
-            console.log(res.data.message);
-          }
+            } else {
+              console.log(res.data.message);
+            }
 
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
     },
     setDropdown() {
       $('.dropdownn').css('inset', 'auto 0px 0px auto');
@@ -480,18 +479,56 @@ export default {
     },
     loadPost() {
       axios
-        .get('post/data')
-        .then((res) => {
-          if (res.data.status) {
-            this.list_post = res.data.dataPost;
-            // console.log('this.list_post: ', this.list_post);
-          } else {
-            console.log(res.data.message);
-          }
+          .get('post/data')
+          .then((res) => {
+            if (res.data.status) {
+              this.list_post = res.data.dataPost;
+              // console.log('this.list_post: ', this.list_post);
+            } else {
+              console.log(res.data.message);
+            }
+          });
+    },
+    loadComment() {
+      axios
+          .get('comment/data')
+          .then((res) => {
+            this.list_comment = res.data.dataComment;
+          });
+    },
+    createComment(id, k) {
+      if (!event.shiftKey && this.comments[k] != null) {
+        var comment = this.comments[k];
+        this.index_friend_tags.forEach(i => {
+          comment = comment.replace('@' + this.list_friend[i].fullname,
+              "<a href='/" + this.list_friend[i].username + "' class='custom-span'>" + this.list_friend[i].fullname + "</a>");
+          // console.log(this.list_friend[i].fullname);
         });
+        var payload = {
+          'content': comment,
+          'id_post': id,
+          'id_tag': this.id_tags
+        }
+        axios
+            .post('comment/create', payload)
+            .then((res) => {
+              if (res.data.status) {
+                this.comments = [];
+                this.loadComment();
+              } else {
+                console.log(res.data.message);
+              }
+            })
+            .catch((res) => {
+              $.each(res.response.data.errors, function (k, v) {
+                toastr.error(v[0], 'error');
+              });
+            });
+      }
+
     },
     viewStory(v) {
-      this.$router.push({ name: 'detailStory', params: { idStory: v.id } })
+      this.$router.push({name: 'detailStory', params: {idStory: v.id}})
     }
   },
 }
@@ -500,4 +537,3 @@ export default {
 @import './style.css';
 @import './bs-input.css';
 </style>
-

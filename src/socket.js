@@ -13,6 +13,19 @@ export const socket = io(URL, {
   autoConnect: true,
 });
 
+function pushData(itemOnlineUser) {
+  let newItem = {}
+  let itemArray = []
+  itemOnlineUser.map(item => {
+    newItem = {
+      "id": item.id,
+      "socketId": item.socketId
+    }
+    itemArray.push(newItem)
+  })
+  state.onlineUsers.push(itemArray)
+}
+
 socket.on("connect", () => {
   state.connected = true;
 });
@@ -26,6 +39,9 @@ socket.on("welcome", (msg) => {
 });
 
 socket.on("onlineUser", (...args) => {
-  // console.log("️⚡→(socket.js:29) ~ online: ", args);
-  state.onlineUsers.push(args);
+  const newUsers = args;
+  newUsers.forEach(item => pushData(item))
+  if (state.onlineUsers.length >= 10) {
+    state.onlineUsers.shift()
+  }
 })
