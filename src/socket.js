@@ -26,6 +26,6 @@ socket.on("welcome", (msg) => {
 });
 
 socket.on("onlineUser", (...args) => {
-  console.log("️⚡→(socket.js:29) ~ online: ", args);
+  // console.log("️⚡→(socket.js:29) ~ online: ", args);
   state.onlineUsers.push(args);
 })
