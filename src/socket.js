@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 
 export const state = reactive({
   connected: false,
+  onlineUsers: []
 });
 
 const URL =
@@ -14,7 +15,6 @@ export const socket = io(URL, {
 
 socket.on("connect", () => {
   state.connected = true;
-  socket.emit('newUser', user)
 });
 
 socket.on("disconnect", () => {
@@ -24,3 +24,8 @@ socket.on("disconnect", () => {
 socket.on("welcome", (msg) => {
   console.log(msg);
 });
+
+socket.on("onlineUser", (...args) => {
+  console.log("️⚡→(socket.js:29) ~ online: ", args);
+  state.onlineUsers.push(args);
+})
