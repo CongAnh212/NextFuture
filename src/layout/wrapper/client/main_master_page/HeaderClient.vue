@@ -32,61 +32,38 @@
                                     <span class="text-white f-500" style="font-size: 11px;">
                                         {{ count.length > 99 ? '99+' : count.length }}
                                     </span>
-                                </div>
-                            </a>
-                            <div class="sub-drop sub-drop-large dropdown-menu" aria-labelledby="group-drop">
-                                <div class="card shadow-none m-0">
-                                    <div class="card-header d-flex justify-content-between bg-primary">
-                                        <div class="header-title">
-                                            <h5 class="mb-0 text-white">Friend Request</h5>
-                                        </div>
-                                        <small class="badge  bg-light text-dark ">
-                                            {{ count.length }}
-                                        </small>
-                                    </div>
-                                    <div class="card-body p-0" style="overflow-y: auto;max-height: 65vh; ">
-                                        <template v-for="(v, k) in request_friend">
-                                            <div class="iq-friend-request">
-                                                <div
-                                                    class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between pe-3">
-                                                    <div class="d-flex align-items-center">
-                                                        <router-link
-                                                            :to="{ name: 'detailProfile', params: { username: v.username } }">
-                                                            <div style="width: 3rem; height: 3rem; overflow: hidden; border-radius: 0.5rem;">
-                                                                <img class="img-fluid" :src="urlImg + v.avatar" alt=""
-                                                                    style="height:  100%; width: 100%; object-fit: cover;">
-                                                            </div>
-                                                        </router-link>
-                                                        <div class="ms-3">
-                                                            <h6 class="mb-0 ">
-                                                                <router-link
-                                                                    :to="{ name: 'detailProfile', params: { username: v.username } }">
-                                                                    <b>
-                                                                        {{ v.fullname }}
-                                                                    </b>
-                                                                </router-link>
-                                                            </h6>
-                                                            <p v-if="v.mutual > 0" class="mb-0">{{ v.mutual }} mutual
-                                                                friends </p>
-                                                            <p v-else class="mb-0 text-white" style="user-select: none;">1
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center">
-                                                        <a class="me-3 btn btn-primary rounded" style="width: 60%;"
-                                                            @click="confirm(v)">Confirm</a>
-                                                        <a class="me-3 btn btn-secondary rounded" style="width: 60%;"
-                                                            @click="delRequest(v)">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </template>
-                                        <router-link :to="{ name: 'requests' }" class="flex-center bg-hover">
-                                            View More Request
-                                        </router-link>
-                                    </div>
-                                </div>
-
+                </div>
+              </a>
+              <div class="sub-drop sub-drop-large dropdown-menu" aria-labelledby="group-drop">
+                <div class="card shadow-none m-0">
+                  <div class="card-header d-flex justify-content-between bg-primary">
+                    <div class="header-title">
+                      <h5 class="mb-0 text-white">Friend Request</h5>
+                    </div>
+                    <small class="badge  bg-light text-dark ">
+                      {{ count.length }}
+                    </small>
+                  </div>
+                  <div class="card-body p-0">
+                    <template v-for="(v, k) in request_friend">
+                      <div class="iq-friend-request">
+                        <div
+                            class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between pe-3">
+                          <div class="d-flex align-items-center">
+                            <router-link
+                                :to="{ name: 'detailProfile', params: { username: v.username } }">
+                              <img class="avatar-40 rounded" :src="urlImg + v.avatar" alt="">
+                            </router-link>
+                            <div class="ms-3">
+                              <h6 class="mb-0 ">
+                                <router-link
+                                    :to="{ name: 'detailProfile', params: { username: v.username } }">
+                                  <b>
+                                    {{ v.fullname }}
+                                  </b>
+                                </router-link>
+                              </h6>
+                              <p class="mb-0">{{ v.mutual }} mutual friends </p>
                             </div>
                           </div>
                           <div class="d-flex align-items-center">
@@ -187,84 +164,37 @@
                                 </b>
                               </p>
                             </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a href="#" class="d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <div style="width: 2.75rem; height: 2.75rem; overflow: hidden;"
-                                    class="circle flex-center me-1">
-                                    <img :src="urlImg + myInfo.avatar" class="img-fluid " alt="user"
-                                        style="width: 100%; height: 100%; object-fit: cover;">
-                                </div>
-                                <div class="caption">
-                                    <h6 class="mb-0 line-height">{{ myInfo.fullname }}</h6>
-                                </div>
-                            </a>
-                            <div class="sub-drop dropdown-menu caption-menu" aria-labelledby="drop-down-arrow">
-                                <div class="card shadow-none m-0">
-                                    <div class="card-header  bg-primary">
-                                        <div class="header-title">
-                                            <h5 class="mb-0 text-white">Hello, {{ myInfo.fullname }}</h5>
-                                            <span class="text-white font-size-12">Available</span>
-                                        </div>
-                                    </div>
-                                    <div class="card-body p-0 ">
-                                        <router-link to="/" @click="myProfile()">
-                                            <div class="iq-sub-card iq-bg-primary-hover">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="rounded card-icon bg-soft-primary">
-                                                        <i class="ri-file-user-line"></i>
-                                                    </div>
-                                                    <div class="ms-3">
-                                                        <h6 class="mb-0 ">My Profile</h6>
-                                                        <p class="mb-0 font-size-12">View personal profile details.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </router-link>
-                                        <router-link :to="{ name: 'editProfile' }" class="iq-sub-card iq-bg-warning-hover">
-                                            <div class="d-flex align-items-center">
-                                                <div class="rounded card-icon bg-soft-warning">
-                                                    <i class="ri-profile-line"></i>
-                                                </div>
-
-                                                <div class="ms-3">
-                                                    <h6 class="mb-0 ">
-                                                        Edit Profile
-                                                    </h6>
-                                                    <p class="mb-0 font-size-12">Modify your personal details.</p>
-                                                </div>
-                                            </div>
-                                        </router-link>
-                                        <a href="../app/account-setting.html" class="iq-sub-card iq-bg-info-hover">
-                                            <div class="d-flex align-items-center">
-                                                <div class="rounded card-icon bg-soft-info">
-                                                    <i class="ri-account-box-line"></i>
-                                                </div>
-                                                <div class="ms-3">
-                                                    <h6 class="mb-0 ">Account settings</h6>
-                                                    <p class="mb-0 font-size-12">Manage your account parameters.</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="../app/privacy-setting.html" class="iq-sub-card iq-bg-danger-hover">
-                                            <div class="d-flex align-items-center">
-                                                <div class="rounded card-icon bg-soft-danger">
-                                                    <i class="ri-lock-line"></i>
-                                                </div>
-                                                <div class="ms-3">
-                                                    <h6 class="mb-0 ">Privacy Settings</h6>
-                                                    <p class="mb-0 font-size-12">Control your privacy parameters.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <div class="d-inline-block w-100 text-center p-3">
-                                            <a @click="signOut()" class="btn btn-primary iq-sign-btn" role="button">Sign
-                                                out<i class="ri-login-box-line ms-2"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
+                          </div>
+                          <small class="float-right font-size-12"
+                                 :class="{ 'text-dark': v.status == 0 }">
+                            {{ formatTime(v.created_at) }}
+                            agos
+                          </small>
+                        </div>
+                      </router-link>
+                      <router-link v-if="v.type == 1"
+                                   :to="{ name: 'detailProfile', params: { username: v.username } }">
+                        <div v-if="v.type == 1" class="d-flex align-items-center">
+                          <div v-if="v.status == 1">
+                            <img src="../../../../assets/img/output-onlinegiftools.gif"
+                                 style="width: 25px; height: 25px;">
+                          </div>
+                          <div v-else style="width: 25px; height: 25px;">
+                          </div>
+                          <div style="overflow: hidden; width: 3rem; height: 3rem;"
+                               class="flex-center">
+                            <img class="avatar-40 rounded" :src="urlImg + v.avatar"
+                                 style="object-fit: cover;">
+                          </div>
+                          <div class="ms-3 w-100" style="flex: 1;">
+                            <h6 class="mb-0 f-500 " :class="{ 'text-primary': v.status == 1 }"
+                                :style="{ 'font-weight': 'bold' }">
+                              {{ v.sender }}
+                            </h6>
+                            <div
+                                class="d-flex text-dark justify-content-between align-items-center pe-3">
+                              <p class="mb-0">sent you a friend request
+                              </p>
                             </div>
                           </div>
                           <small class="float-right font-size-12"

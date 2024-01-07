@@ -21,7 +21,7 @@
                                     class="img-fluid rounded-circle me-2" alt="user"
                                     style="height: 35px; width: 35px;margin-left: 0px;">
                                 <span class="text-dark f-500" style="font-weight: 600; font-size: 17px;">
-                                    {{ post.fullname }}
+                                    {{ post ?? post.fullname }}
                                 </span>
                             </div>
 
@@ -178,7 +178,6 @@
                                             <img :src="urlImg + value.avatar" class="img-fluid" alt="">
                                         </div>
                                         <span>{{ value.fullname }}</span>
-
                                     </div>
                                 </div>
                             </div>
@@ -227,6 +226,7 @@ export default {
     mounted() {
         this.getFriend();
         this.loadComment()
+      console.log("️⚡→(modalPost.vue:230) ~ this.post", this.post);
     },
     methods: {
         replyComment(v) {
