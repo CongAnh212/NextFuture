@@ -4,13 +4,14 @@
             <div class="col-sm-12 ">
                 <div class="flex-center">
                     <div class=" p-5">
-                        <div v-if="!info.avatar">
+                        <div v-if="!info.avatar" style='width: 9.5rem; height: 9.5rem; overflow: hidden;'
+                            class="circle flex-center ">
                             <img src="https://i.pinimg.com/236x/93/a0/0a/93a00a3684652031a0c398c5d54d3d10.jpg"
-                                alt="profile-img" class="avatar-130 img-fluid">
+                                alt="profile-img" class="img-fluid" style=" object-fit:cover;width: 100%;">
                         </div>
-                        <div v-else style='width: 150px; height: 150px; overflow: hidden;' class="circle ">
+                        <div v-else style='width: 9.5rem; height: 9.5rem; overflow: hidden;' class="circle flex-center ">
                             <img :src="urlImg + info.avatar" alt="profile-img" class=" img-fluid"
-                                style=" object-fit:cover;width: 100%;">
+                                style=" object-fit:cover;width: 100%; height: 100%;">
                         </div>
                     </div>
                     <div>
@@ -88,8 +89,8 @@
                                         </button>
                                     </li>
                                     <li v-if="status == 'self'" class='flex-center'>
-                                        <router-link :to="{ name: 'editProfile' }" class="btn btn-light ms-2 f-500 text-dark"
-                                            style='width:130px'>
+                                        <router-link :to="{ name: 'editProfile' }"
+                                            class="btn btn-light ms-2 f-500 text-dark" style='width:130px'>
                                             <span class="flex-center h-100">Edit profile</span>
                                         </router-link>
                                     </li>
@@ -179,7 +180,7 @@
                         </div>
                     </div>
                     <!-- modalPost -->
-<!--                    <ModalPost />-->
+                    <!-- <ModalPost /> -->
                 </div>
             </div>
         </div>
@@ -187,7 +188,7 @@
 </template>
 <script>
 import axios, { url } from '../../../core/coreRequest';
-import ModalFollower from './modalfollower.vue'
+import ModalFollower from './modalFollower.vue'
 import ModalFriend from './modalFriend.vue';
 import ModalPost from './modalPost.vue'
 import { socket } from '../../../socket.js';

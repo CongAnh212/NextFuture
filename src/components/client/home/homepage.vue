@@ -50,65 +50,67 @@
         </div>
       </div>
 
-      <div class="row mt-3">
-        <div class="col-lg-1 row m-0 p-0"></div>
-        <div class="col-lg-10 row m-0 p-0">
-          <div class="col-sm-12">
-            <div id="post-modal-data" class="card card-block card-stretch card-height">
-              <div class="card-body">
-                <div class="d-flex align-items-center">
-                  <div class="user-img">
-                    <img :src="urlImg + myInfo.avatar" alt="userimg" class="avatar-60 rounded-circle">
-                  </div>
-                  <form class="post-text ms-3 w-100 " data-bs-toggle="modal" data-bs-target="#post-modal"
-                        action="javascript:void();">
-                    <input type="text" class="form-control rounded"
-                           placeholder="Write something here..." style="border:none;">
-                  </form>
-                </div>
-                <hr>
-                <ul class=" post-opt-block d-flex list-inline m-0 p-0 flex-wrap">
-                  <li class="me-3 mb-md-0 mb-2">
-                    <a href="#" class="btn btn-soft-primary">
-                      <img src="../../../assets/client/images/small/07.png" alt="icon"
-                           class="img-fluid me-2">
-                      Photo/Video
-                    </a>
-                  </li>
-                  <li class="me-3 mb-md-0 mb-2">
-                    <a href="#" class="btn btn-soft-primary">
-                      <img src="../../../assets/client/images/small/08.png" alt="icon"
-                           class="img-fluid me-2"> Tag
-                      Friend
-                    </a>
-                  </li>
-                  <li class="me-3">
-                    <a href="#" class="btn btn-soft-primary">
-                      <img src="../../../assets/client/images/small/09.png" alt="icon"
-                           class="img-fluid me-2">
-                      Feeling/Activity
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div class="modal fade" id="post-modal" tabindex="-1" aria-labelledby="post-modalLabel"
-                   style="display: none;" aria-hidden="true">
-                <div class="modal-dialog   modal-fullscreen-sm-down">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="post-modalLabel">Create Post</h5>
-                      <button ref="btnCloseModal" type="button" class="btn btn-secondary"
-                              data-bs-dismiss="modal"><i class="ri-close-fill"></i></button>
-                    </div>
-                    <div class="modal-body" style="overflow: auto;">
-                      <div class="d-flex align-items-center mb-3">
-                        <div class="user-img">
-                          <img :src="urlImg + myInfo.avatar" alt="userimg"
-                               class=" rounded-circle " style="width: 50px; height: 50px;">
-                        </div>
-                        <form class="post-text ms-3 w-100" action="javascript:void();">
-                          <input v-model="post.caption" type="text" class="form-control rounded"
-                                 placeholder="Write something here..." style="border:none;">
+            <div class="row mt-3">
+                <div class="col-lg-1 row m-0 p-0"></div>
+                <div class="col-lg-10 row m-0 p-0">
+                    <div class="col-sm-12">
+                        <div id="post-modal-data" class="card card-block card-stretch card-height">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div style="width:4rem; height:4rem; overflow: hidden;" class="circle flex-center me-1">
+                                        <img :src="urlImg + myInfo.avatar" class="img-fluid " alt="user"
+                                            style="width: 100%; height: 100%; object-fit: cover;">
+                                    </div>
+                                    <form class="post-text ms-3 w-100 " data-bs-toggle="modal" data-bs-target="#post-modal"
+                                        action="javascript:void();">
+                                        <input type="text" class="form-control rounded"
+                                            placeholder="Write something here..." style="border:none;">
+                                    </form>
+                                </div>
+                                <hr>
+                                <ul class=" post-opt-block d-flex list-inline m-0 p-0 flex-wrap">
+                                    <li class="me-3 mb-md-0 mb-2">
+                                        <a href="#" class="btn btn-soft-primary">
+                                            <img src="../../../assets/client/images/small/07.png" alt="icon"
+                                                class="img-fluid me-2">
+                                            Photo/Video
+                                        </a>
+                                    </li>
+                                    <li class="me-3 mb-md-0 mb-2">
+                                        <a href="#" class="btn btn-soft-primary">
+                                            <img src="../../../assets/client/images/small/08.png" alt="icon"
+                                                class="img-fluid me-2"> Tag
+                                            Friend
+                                        </a>
+                                    </li>
+                                    <li class="me-3">
+                                        <a href="#" class="btn btn-soft-primary">
+                                            <img src="../../../assets/client/images/small/09.png" alt="icon"
+                                                class="img-fluid me-2">
+                                            Feeling/Activity
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="modal fade" id="post-modal" tabindex="-1" aria-labelledby="post-modalLabel"
+                                style="display: none;" aria-hidden="true">
+                                <div class="modal-dialog   modal-fullscreen-sm-down">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="post-modalLabel">Create Post</h5>
+                                            <button ref="btnCloseModal" type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal"><i class="ri-close-fill"></i></button>
+                                        </div>
+                                        <div class="modal-body" style="overflow: auto;">
+                                            <div class="d-flex align-items-center mb-3">
+                                                <div class="user-img">
+                                                    <img :src="urlImg + myInfo.avatar" alt="userimg"
+                                                        class=" rounded-circle " style="width: 50px; height: 50px;">
+                                                </div>
+                                                <form class="post-text ms-3 w-100" action="javascript:void();">
+                                                    <input v-model="post.caption" type="text" class="form-control rounded"
+                                                        placeholder="Write something here..." style="border:none;">
+
 
                         </form>
 
@@ -163,35 +165,56 @@
                                                                   aria-expanded="false" role="button">
                                                                 <span class="btn btn-primary">Privacy</span>
                                                             </span>
-                              <div class="dropdown-menu m-0 p-0 dropdownn"
-                                   style="inset: auto 0px 0px auto !important;">
-                                <a @click="setPrivacyIndex(1)" id="privacy-1"
-                                   class="dropdown-item px-3 py-2" href="#">
-                                  <div class="d-flex align-items-top">
-                                    <i class="ri-save-line h4"></i>
-                                    <div class="data ms-2">
-                                      <h6>Public</h6>
-                                      <p class="mb-0">Anyone on or off Facebook</p>
-                                    </div>
-                                  </div>
-                                </a>
-                                <a @click="setPrivacyIndex(2)" id="privacy-2"
-                                   class="dropdown-item px-3 py-2" href="#">
-                                  <div class="d-flex align-items-top">
-                                    <i class="ri-close-circle-line h4"></i>
-                                    <div class="data ms-2">
-                                      <h6>Friends</h6>
-                                      <p class="mb-0">Your Friend on facebook</p>
-                                    </div>
-                                  </div>
-                                </a>
-                                <a @click="setPrivacyIndex(3)" id="privacy-3"
-                                   class="dropdown-item px-3 py-2" href="#">
-                                  <div class="d-flex align-items-top">
-                                    <i class="ri-user-unfollow-line h4"></i>
-                                    <div class="data ms-2">
-                                      <h6>Friends except</h6>
-                                      <p class="mb-0">Don't show to some friends</p>
+                                                            <div class="dropdown-menu m-0 p-0 dropdownn"
+                                                                style="inset: auto 0px 0px auto !important;">
+                                                                <a @click="setPrivacyIndex(1)" id="privacy-1"
+                                                                    class="dropdown-item px-3 py-2" href="#">
+                                                                    <div class="d-flex align-items-top">
+                                                                        <i class="ri-save-line h4"></i>
+                                                                        <div class="data ms-2">
+                                                                            <h6>Public</h6>
+                                                                            <p class="mb-0">Anyone on or off Facebook</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>
+                                                                <a @click="setPrivacyIndex(2)" id="privacy-2"
+                                                                    class="dropdown-item px-3 py-2" href="#">
+                                                                    <div class="d-flex align-items-top">
+                                                                        <i class="ri-close-circle-line h4"></i>
+                                                                        <div class="data ms-2">
+                                                                            <h6>Friends</h6>
+                                                                            <p class="mb-0">Your Friend on facebook</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>
+                                                                <a @click="setPrivacyIndex(3)" id="privacy-3"
+                                                                    class="dropdown-item px-3 py-2" href="#">
+                                                                    <div class="d-flex align-items-top">
+                                                                        <i class="ri-user-unfollow-line h4"></i>
+                                                                        <div class="data ms-2">
+                                                                            <h6>Friends except</h6>
+                                                                            <p class="mb-0">Don't show to some friends</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>
+                                                                <a @click="setPrivacyIndex(4)" id="privacy-4"
+                                                                    class="dropdown-item px-3 py-2" href="#">
+                                                                    <div class="d-flex align-items-top">
+                                                                        <i class="ri-notification-line h4"></i>
+                                                                        <div class="data ms-2">
+                                                                            <h6>Only Me</h6>
+                                                                            <p class="mb-0">Only me</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button @click="posting()"
+                                                class="btn btn-primary d-block w-100 mt-3">Post</button>
+                                        </div>
                                     </div>
                                   </div>
                                 </a>
@@ -216,7 +239,17 @@
                     </div>
                   </div>
                 </div>
-              </div>
+                <div class="col-lg-1 row m-0 p-0"></div>
+
+                <div class="col-lg-1 row m-0 p-0"></div>
+                <div class="col-lg-10 row m-0 p-0">
+                    <list-post :listPost="list_post" v-if="list_post" />
+                </div>
+                <div class="col-sm-12 text-center">
+                    <img src="../../../assets/client/images/page-img/page-load-loader.gif" alt="loader"
+                        style="height: 100px;">
+                </div>
+
             </div>
           </div>
         </div>
@@ -245,7 +278,10 @@
             <div class="scroll-content">
               <div v-for="(v, k) in list_friend" class="d-flex align-items-center mb-4">
                 <div :class="{ 'iq-profile-avatar': true, 'status-online': v.isOnline }">
-                  <img class="rounded-circle avatar-50" :src="urlImg + v.avatar" alt="">
+                  <div style="width:3rem; height:3rem; overflow: hidden;" class="circle flex-center me-1">
+                                        <img :src="urlImg + v.avatar" class="img-fluid " alt="user"
+                                            style="width: 100%; height: 100%; object-fit: cover;">
+                                    </div>
                 </div>
                 <div class="ms-3">
                   <h6 class="mb-0">{{ v.fullname }}</h6>
@@ -279,7 +315,6 @@ import axios, { url } from '../../../core/coreRequest'
 import ListPost from './list_post.vue';
 import { state, socket } from '../../../socket.js';
 import { watchEffect } from "vue";
-
 export default {
   components: {ListPost},
   data() {
@@ -312,7 +347,6 @@ export default {
   },
   watch: {
     myInfo: {
-
       handler(newValue, oldValue) {
         // Xử lý khi giá trị của data thay đổi
         if (oldValue) {
