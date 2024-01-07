@@ -41,13 +41,16 @@
         </div>
         <hr class="my-3 ">
     </template>
+  <div v-if="currentPost !== undefined">
     <ModalPost :post="currentPost" />
+  </div>
 </template>
 <script>
 import ModalPost from '../profile/modalPost.vue';
 import ViewImage from './viewImage.vue';
 import baseFunction from '../../../core/coreFunction';
 import axios from '../../../core/coreRequest';
+
 export default {
     components: { ViewImage, ModalPost },
     data() {
@@ -62,7 +65,7 @@ export default {
         }
     },
     watch: {
-      
+
     },
     mounted() {
         // console.log(this.listPost);
