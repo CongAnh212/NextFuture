@@ -31,10 +31,10 @@
                                 <div class="d-flex " style="flex:1">
                                     <router-link :to="{ name: 'detailProfile', params: { username: v.username } }"
                                         class="text-dark f-500">
-                                        <div style="height: 45px; width: 45px;margin-left: 0px; overflow: hidden;"
-                                            class="circle me-2 mb-2">
-                                            <img :src="urlImg + v.avatar" class="img-fluid me-2" alt="user"
-                                                style="object-fit: cover; width: 100%;" data-bs-dismiss="modal"
+                                        <div style="height: 3rem; width: 3rem;margin-left: 0px; overflow: hidden;"
+                                            class="circle me-2 mb-2 flex-center ">
+                                            <img :src="urlImg + v.avatar" class="img-fluid " alt="user"
+                                                style="object-fit: cover; width: 100%; height: 100%;" data-bs-dismiss="modal"
                                                 aria-label="Close">
                                         </div>
                                     </router-link>
@@ -81,6 +81,7 @@
 </template>
 <script>
 import axios, { url } from '../../../core/coreRequest'
+import baseFunction from '../../../core/coreFunction'
 export default {
     data() {
         return {
@@ -119,6 +120,55 @@ export default {
                 return lowercaseFullname.includes(lowercaseSearch) ||
                     lowercaseNickname.includes(lowercaseSearch);
             });
+        },
+        unfriend(v, k) {
+            this.listFriend[k].status = 'Loading'
+            axios
+                .post('delete-friend', v)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.listFriend[k].status = 'Add friend'
+                    } else {
+                        baseFunction.displaySuccess(res)
+                    }
+                })
+        },
+        cancel(v, k) {
+            this.listFriend[k].status = 'Loading'
+            axios
+                .post('follower/cancel-friend', v)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.listFriend[k].status = 'Add friend'
+                    } else {
+                        baseFunction.displaySuccess(res)
+                    }
+                })
+        },
+        confirm(v, k) {
+            this.listFriend[k].status = 'Loading'
+            axios
+                .post('follower/accept-friend', v)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.listFriend[k].status = 'Unfriend'
+                        this.listFriend
+                    } else {
+                        baseFunction.displaySuccess(res)
+                    }
+                })
+        },
+        addFriend(v, k) {
+            this.listFriend[k].status = 'Loading'
+            axios
+                .post('follower/add-friend', v)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.listFriend[k].status = 'Cancel'
+                    } else {
+                        baseFunction.displaySuccess(res)
+                    }
+                })
         },
     },
 }

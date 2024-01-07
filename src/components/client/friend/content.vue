@@ -15,8 +15,9 @@
                         style="border-radius: 8px !important; width: 19%; cursor: pointer;">
                         <router-link :to="{ name: 'detailProfile.request_friend', params: { username: v.username } }"
                             class="w-100 ">
-                            <div style="width: 100%; height: 236px; overflow: hidden;">
-                                <img :src="urlImage + v.avatar" class="card-img-top" alt="#" style="object-fit: cover;">
+                            <div style="width: 100%; height: 236px; overflow: hidden;" class="flex-center">
+                                <img :src="urlImage + v.avatar" class="card-img-top" alt="#"
+                                    style="object-fit: cover;width: 100%;height: 100%;">
                             </div>
                             <div class="card-body " style="padding: 0.5rem 1.25rem;">
                                 <div class="w-100" style="overflow: hidden;">
@@ -78,8 +79,9 @@
                         class="card mb-3"
                         style="margin-bottom: 1rem;border-radius: 8px !important; width: 19%; cursor: pointer;">
                         <router-link :to="{ name: 'detailProfile.request_friend', params: { username: v.username } }">
-                            <div style="width: 100%; height: 236px; overflow: hidden;">
-                                <img :src="urlImage + v.avatar" class="card-img-top" alt="#" style="object-fit: cover;">
+                            <div style="width: 100%; height: 14rem; overflow: hidden;" class="flex-center">
+                                <img :src="urlImage + v.avatar" class="card-img-top" alt="#"
+                                    style="object-fit: cover; width: 100%; height: 100%;">
                             </div>
                             <div class="card-body" style="padding: 0.5rem 1.25rem; ">
                                 <div class="w-100" style="overflow: hidden;">

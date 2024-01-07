@@ -17,13 +17,16 @@
         <div class="mt-2 me-1" v-for="(v, k) in request_friend">
             <router-link :to="{ name: 'detailProfile.request_friend', params: { username: v.username } }">
                 <div class="d-flex align-items-center ">
-                    <div class="hello d-flex p-2  w-100 h-100" style="overflow: hidden;">
-                        <img :src="urlImage + v.avatar" class="img-fluid rounded-circle me-2" alt="user"
-                            style="height: 50px; width: 50px; margin-left: 2px;">
+                    <div class="hello flex-center p-2  w-100 h-100" style="overflow: hidden;">
+                        <div style='width: 3rem; height: 3rem; overflow: hidden;' class="circle flex-center me-1">
+                            <img :src="urlImage + v.avatar" alt="profile-img" class=" img-fluid"
+                                style=" object-fit:cover;width: 100%; height: 100%;">
+                        </div>
                         <div>
-                            <b class="text-secondary text-nowrap">{{ v.fullname }}</b> <br>
+                            <div style="line-height: 1.25rem;">
+                                <b class="text-secondary text-nowrap">{{ v.fullname }}</b> <br>
+                            </div>
                             <span v-if="v.mutual > 0" class="text-secondary">{{ v.mutual }} mutual friends</span>
-                            <span v-else class="text-white " style="user-select: none;"></span>
                             <div class="text-nowrap">
                                 <button class="btn btn-primary me-1" style="width: 100px;" @click="confirm(v, k)">
                                     Confirm
