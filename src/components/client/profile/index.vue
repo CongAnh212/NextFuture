@@ -109,7 +109,7 @@
                                                 {{ followers.length }}
                                             </b> followers
                                         </h5>
-                                        <ModalFollower :listFollower="followers" v-if="checkListFollwer" />
+                                        <ModalFollower :listFollower="followers" v-if="checkListFollwer"></ModalFollower>
                                     </li>
                                     <li class="text-center ps-3">
                                         <h5 style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalFriend">
@@ -188,9 +188,9 @@
 </template>
 <script>
 import axios, { url } from '../../../core/coreRequest';
-import ModalFollower from './modalFollower.vue'
+import ModalFollower from './modalFollower.vue';
 import ModalFriend from './modalFriend.vue';
-import ModalPost from './modalPost.vue'
+import ModalPost from './modalPost.vue';
 import { socket } from '../../../socket.js';
 
 export default {

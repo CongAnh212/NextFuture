@@ -29,11 +29,10 @@
                         style="margin-left: -10px;"></i>
                     <i v-else @click="unLikePost(v, k)" class="fas fa-heart  c-pointer bg-hover p-2 circle icon-liked"
                         :id="'icon-liked-' + k" style="color: #FF3040; margin-left: -10px;"></i>
-                    <i data-bs-toggle="modal" data-bs-target="#modalPost" @click="index = k"
+                    <i data-bs-toggle="modal" data-bs-target="#modalPost" @click="currentPost = v;"
                         class="far fa-comment c-pointer bg-hover p-2 circle"></i>
                     <i class="far fa-paper-plane c-pointer bg-hover p-2 circle"></i>
                 </div>
-                <ModalPost :post="listPost[index]" />
 
                 <div class="d-dlex f-500">
                     <span class="likes">{{ v.likes }} likes</span> - <span class="comments">1k comments</span>
@@ -42,6 +41,7 @@
         </div>
         <hr class="my-3 ">
     </template>
+    <ModalPost :post="currentPost" />
 </template>
 <script>
 import ModalPost from '../profile/modalPost.vue';
@@ -52,7 +52,7 @@ export default {
     components: { ViewImage, ModalPost },
     data() {
         return {
-            index: 0,
+            currentPost: this.listPost[0],
         }
     },
     props: {
@@ -62,10 +62,11 @@ export default {
         }
     },
     watch: {
-
+      
     },
     mounted() {
         // console.log(this.listPost);
+
     },
     methods: {
         formatTime(time) {

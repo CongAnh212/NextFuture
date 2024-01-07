@@ -10,13 +10,12 @@
               </div>
               <div class="img-background" style="height: 80%; width: 100%; background-color: red;">
                 <img v-if="!myInfo.avatar" class="img-fluid"
-                     src="https://i.pinimg.com/236x/93/a0/0a/93a00a3684652031a0c398c5d54d3d10.jpg" alt="">
+                  src="https://i.pinimg.com/236x/93/a0/0a/93a00a3684652031a0c398c5d54d3d10.jpg" alt="">
                 <img v-else class="img-fluid" :src="urlImg + myInfo.avatar" alt="">
               </div>
               <div
-                  style="position: absolute; bottom: 0; height: 20%; width: 100%; background-color: #fff; display: flex; justify-content: center;">
-                <div class="btn-create-story d-flex justify-content-center align-items-center"
-                     style="color: #fff;">
+                style="position: absolute; bottom: 0; height: 20%; width: 100%; background-color: #fff; display: flex; justify-content: center;">
+                <div class="btn-create-story d-flex justify-content-center align-items-center" style="color: #fff;">
                   <i class="las la-plus la-2x"></i>
                 </div>
                 <div class="mb-1" style="z-index: 1; position: absolute; bottom: 0px; color: #333;">
@@ -36,7 +35,7 @@
               </div>
               <div class="avatar">
                 <img v-if="!v.avatar" class="img-fluid"
-                     src="https://i.pinimg.com/236x/93/a0/0a/93a00a3684652031a0c398c5d54d3d10.jpg" alt="">
+                  src="https://i.pinimg.com/236x/93/a0/0a/93a00a3684652031a0c398c5d54d3d10.jpg" alt="">
                 <img v-else class="img-fluid" :src="urlImg + v.avatar" alt="">
               </div>
 
@@ -49,6 +48,7 @@
 
         </div>
       </div>
+
 
             <div class="row mt-3">
                 <div class="col-lg-1 row m-0 p-0"></div>
@@ -115,34 +115,28 @@
                         </form>
 
                       </div>
-                      <input @change="getImage" id="input-b3" name="input-b3[]" type="file"
-                             class="file" multiple data-show-upload="false" data-show-caption="true"
-                             data-msg-placeholder="Select {files} for upload..." accept="image/*">
+                      <input @change="getImage" id="input-b3" name="input-b3[]" type="file" class="file" multiple
+                        data-show-upload="false" data-show-caption="true"
+                        data-msg-placeholder="Select {files} for upload..." accept="image/*">
                       <!-- ****************************************************************** -->
                       <hr>
                       <ul class="d-flex flex-wrap align-items-center list-inline m-0 p-0">
                         <li class="col-md-6 mb-3">
-                          <div @click='show()' style="cursor: pointer; "
-                               class="bg-soft-primary rounded p-2 pointer me-3"><a></a><img
-                              src="../../../assets/client/images/small/07.png" alt="icon"
-                              class="img-fluid">
+                          <div @click='show()' style="cursor: pointer; " class="bg-soft-primary rounded p-2 pointer me-3">
+                            <a></a><img src="../../../assets/client/images/small/07.png" alt="icon" class="img-fluid">
                             Photo/Video
                           </div>
                         </li>
                         <li class="col-md-6 mb-3">
-                          <div style="cursor: pointer; "
-                               class="bg-soft-primary rounded p-2 pointer me-3"><a></a><img
-                              src="../../../assets/client/images/small/08.png" alt="icon"
-                              class="img-fluid">
+                          <div style="cursor: pointer; " class="bg-soft-primary rounded p-2 pointer me-3"><a></a><img
+                              src="../../../assets/client/images/small/08.png" alt="icon" class="img-fluid">
                             Tag
                             Friend
                           </div>
                         </li>
                         <li class="col-md-6">
-                          <div style="cursor: pointer; "
-                               class="bg-soft-primary rounded p-2 pointer me-3"><a></a><img
-                              src="../../../assets/client/images/small/09.png" alt="icon"
-                              class="img-fluid">
+                          <div style="cursor: pointer; " class="bg-soft-primary rounded p-2 pointer me-3"><a></a><img
+                              src="../../../assets/client/images/small/09.png" alt="icon" class="img-fluid">
                             Feeling/Activity
                           </div>
                         </li>
@@ -153,73 +147,46 @@
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="d-flex align-items-center">
                             <div class="user-img me-3">
-                              <img :src="urlImg + myInfo.avatar" alt="userimg"
-                                   class="rounded-circle" style="width: 50px; height: 50px">
+                              <img :src="urlImg + myInfo.avatar" alt="userimg" class="rounded-circle"
+                                style="width: 50px; height: 50px">
                             </div>
                             <h6>Your Story</h6>
                           </div>
                           <div class="card-post-toolbar">
                             <div class="dropdown">
-                                                            <span @click="setDropdown()" class="dropdown-toggle"
-                                                                  data-bs-toggle="dropdown" aria-haspopup="true"
-                                                                  aria-expanded="false" role="button">
-                                                                <span class="btn btn-primary">Privacy</span>
-                                                            </span>
-                                                            <div class="dropdown-menu m-0 p-0 dropdownn"
-                                                                style="inset: auto 0px 0px auto !important;">
-                                                                <a @click="setPrivacyIndex(1)" id="privacy-1"
-                                                                    class="dropdown-item px-3 py-2" href="#">
-                                                                    <div class="d-flex align-items-top">
-                                                                        <i class="ri-save-line h4"></i>
-                                                                        <div class="data ms-2">
-                                                                            <h6>Public</h6>
-                                                                            <p class="mb-0">Anyone on or off Facebook</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </a>
-                                                                <a @click="setPrivacyIndex(2)" id="privacy-2"
-                                                                    class="dropdown-item px-3 py-2" href="#">
-                                                                    <div class="d-flex align-items-top">
-                                                                        <i class="ri-close-circle-line h4"></i>
-                                                                        <div class="data ms-2">
-                                                                            <h6>Friends</h6>
-                                                                            <p class="mb-0">Your Friend on facebook</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </a>
-                                                                <a @click="setPrivacyIndex(3)" id="privacy-3"
-                                                                    class="dropdown-item px-3 py-2" href="#">
-                                                                    <div class="d-flex align-items-top">
-                                                                        <i class="ri-user-unfollow-line h4"></i>
-                                                                        <div class="data ms-2">
-                                                                            <h6>Friends except</h6>
-                                                                            <p class="mb-0">Don't show to some friends</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </a>
-                                                                <a @click="setPrivacyIndex(4)" id="privacy-4"
-                                                                    class="dropdown-item px-3 py-2" href="#">
-                                                                    <div class="d-flex align-items-top">
-                                                                        <i class="ri-notification-line h4"></i>
-                                                                        <div class="data ms-2">
-                                                                            <h6>Only Me</h6>
-                                                                            <p class="mb-0">Only me</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <button @click="posting()"
-                                                class="btn btn-primary d-block w-100 mt-3">Post</button>
-                                        </div>
+                              <span @click="setDropdown()" class="dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false" role="button">
+                                <span class="btn btn-primary">Privacy</span>
+                              </span>
+                              <div class="dropdown-menu m-0 p-0 dropdownn" style="inset: auto 0px 0px auto !important;">
+                                <a @click="setPrivacyIndex(1)" id="privacy-1" class="dropdown-item px-3 py-2" href="#">
+                                  <div class="d-flex align-items-top">
+                                    <i class="ri-save-line h4"></i>
+                                    <div class="data ms-2">
+                                      <h6>Public</h6>
+                                      <p class="mb-0">Anyone on or off Facebook</p>
                                     </div>
                                   </div>
                                 </a>
-                                <a @click="setPrivacyIndex(4)" id="privacy-4"
-                                   class="dropdown-item px-3 py-2" href="#">
+                                <a @click="setPrivacyIndex(2)" id="privacy-2" class="dropdown-item px-3 py-2" href="#">
+                                  <div class="d-flex align-items-top">
+                                    <i class="ri-close-circle-line h4"></i>
+                                    <div class="data ms-2">
+                                      <h6>Friends</h6>
+                                      <p class="mb-0">Your Friend on facebook</p>
+                                    </div>
+                                  </div>
+                                </a>
+                                <a @click="setPrivacyIndex(3)" id="privacy-3" class="dropdown-item px-3 py-2" href="#">
+                                  <div class="d-flex align-items-top">
+                                    <i class="ri-user-unfollow-line h4"></i>
+                                    <div class="data ms-2">
+                                      <h6>Friends except</h6>
+                                      <p class="mb-0">Don't show to some friends</p>
+                                    </div>
+                                  </div>
+                                </a>
+                                <a @click="setPrivacyIndex(4)" id="privacy-4" class="dropdown-item px-3 py-2" href="#">
                                   <div class="d-flex align-items-top">
                                     <i class="ri-notification-line h4"></i>
                                     <div class="data ms-2">
@@ -233,8 +200,7 @@
                           </div>
                         </div>
                       </div>
-                      <button @click="posting()"
-                              class="btn btn-primary d-block w-100 mt-3">Post
+                      <button @click="posting()" class="btn btn-primary d-block w-100 mt-3">Post
                       </button>
                     </div>
                   </div>
@@ -257,11 +223,10 @@
 
         <div class="col-lg-1 row m-0 p-0"></div>
         <div class="col-lg-10 row m-0 p-0">
-          <list-post :listPost="list_post" v-if="list_post"/>
+          <list-post :listPost="list_post" v-if="list_post" />
         </div>
         <div class="col-sm-12 text-center">
-          <img src="../../../assets/client/images/page-img/page-load-loader.gif" alt="loader"
-               style="height: 100px;">
+          <img src="../../../assets/client/images/page-img/page-load-loader.gif" alt="loader" style="height: 100px;">
         </div>
       </div>
     </div>
@@ -273,8 +238,7 @@
     <div class="right-sidebar-panel p-0">
       <div class="card shadow-none">
         <div class="card-body p-0 ">
-          <div class="media-height p-3" data-scrollbar="true" tabindex="-1"
-               style="overflow: hidden; outline: none;">
+          <div class="media-height p-3" data-scrollbar="true" tabindex="-1" style="overflow: hidden; outline: none;">
             <div class="scroll-content">
               <div v-for="(v, k) in list_friend" class="d-flex align-items-center mb-4">
                 <div :class="{ 'iq-profile-avatar': true, 'status-online': v.isOnline }">
@@ -291,18 +255,18 @@
 
             </div>
             <div class="scrollbar-track scrollbar-track-x" style="display: none;">
-              <div class="scrollbar-thumb scrollbar-thumb-x"
-                   style="width: 260px; transform: translate3d(0px, 0px, 0px);"></div>
+              <div class="scrollbar-thumb scrollbar-thumb-x" style="width: 260px; transform: translate3d(0px, 0px, 0px);">
+              </div>
             </div>
             <div class="scrollbar-track scrollbar-track-y" style="display: block;">
               <div class="scrollbar-thumb scrollbar-thumb-y"
-                   style="height: 328.611px; transform: translate3d(0px, 0px, 0px);"></div>
+                style="height: 328.611px; transform: translate3d(0px, 0px, 0px);"></div>
             </div>
           </div>
           <div class="right-sidebar-toggle bg-primary text-white mt-3">
             <i class="ri-arrow-left-line side-left-icon"></i>
             <i class="ri-arrow-right-line side-right-icon"><span class="ms-3 d-inline-block">Close
-                                Menu</span></i>
+                Menu</span></i>
           </div>
         </div>
       </div>
@@ -316,7 +280,7 @@ import ListPost from './list_post.vue';
 import { state, socket } from '../../../socket.js';
 import { watchEffect } from "vue";
 export default {
-  components: {ListPost},
+  components: { ListPost },
   data() {
     return {
       myInfo: {},
@@ -354,7 +318,7 @@ export default {
         }
         setTimeout(() => {
           $("#input-b3").fileinput();
-          $("#input-b3").fileinput({'showUpload': false, 'previewFileType': 'any'});
+          $("#input-b3").fileinput({ 'showUpload': false, 'previewFileType': 'any' });
           $('.file-input').addClass('hide-important');
           $('.close').addClass('btn btn-secondary');
           $('.fileinput-remove').on('click', () => {
@@ -370,21 +334,17 @@ export default {
     },
     list_online_friend: {
       handler(newVal, oldVal) {
-        console.log('listen online user')
+        // console.log('listen online user')
         if (newVal) {
           const onlineUsers = newVal[0]
+          // console.log('onlineUsers: ', onlineUsers[0]);
           if (this.list_friend.length > 0 && onlineUsers) {
-            console.log('vao day', this.list_friend.length)
             this.list_friend.forEach(friend => {
-              console.log('vao day 1')
               const onlineUser = onlineUsers[0].find((user) => user.id === friend.id);
-              console.log("️⚡→(homepage.vue:343) ~ onlineUser", onlineUser);
-
+              // console.log('onlineUser: ', onlineUser);
               if (onlineUser) {
-                console.log("️⚡→(homepage.vue:346) ~ onlineUser", onlineUser);
                 friend.isOnline = true;
               } else {
-                console.log("️⚡→(homepage.vue:349) ~ onlineUser", onlineUser);
                 friend.isOnline = false;
               }
             });
@@ -402,12 +362,11 @@ export default {
     this.setPrivacy();
     this.loadPost();
     this.getFriend();
-    this.loadComment();
   },
   mounted() {
     setTimeout(() => {
       $("#input-b3").fileinput();
-      $("#input-b3").fileinput({'showUpload': false, 'previewFileType': 'any'});
+      $("#input-b3").fileinput({ 'showUpload': false, 'previewFileType': 'any' });
       $('.file-input').addClass('hide-important');
       $('.close').addClass('btn btn-secondary');
       $('.fileinput-remove').on('click', () => {
@@ -417,49 +376,18 @@ export default {
     }, 100);
   },
   methods: {
-    tagFriend(v, k, key) {
-      this.comments[k] += v.fullname;
-      // this.comments[k].lenght;
-      this.index_friend_tags.push(key);
-      $('#listFriend-' + k).removeClass('show');
-      if (this.id_tags.length > 0) {
-        this.id_tags += ',';
-      }
-      this.id_tags += v.id;
-      console.log(this.id_tags);
-    },
-    handleClick(k) {
-      const currentComment = this.comments[k];
-      const lastChar = currentComment.slice(-1);
-      let showDropdown = false;
-      if (lastChar === "@") {
-        showDropdown = true;
-      }
-      if (lastChar === " " || currentComment.trim() === "" || currentComment.length === 0) {
-        showDropdown = false;
-      }
-      if (showDropdown) {
-        $('#listFriend-' + k).addClass('show');
-      }
-      if (currentComment.length === 0) {
-        $('#listFriend-' + k).removeClass('show');
-      }
-      if (lastChar === " " && !showDropdown) {
-        $('#listFriend-' + k).removeClass('show');
-      }
-    },
     totalComments(a) {
       return this.list_comment.filter(value => value.id_post == a).length;
     },
     getFriend() {
       axios
-          .get('data-all-friend')
-          .then((res) => {
-            this.list_friend = res.data.data;
-            this.list_friend.forEach((friend) => {
-              friend.isOnline = false;
-            });
+        .get('data-all-friend')
+        .then((res) => {
+          this.list_friend = res.data.data;
+          this.list_friend.forEach((friend) => {
+            friend.isOnline = false;
           });
+        });
     },
     hoursDifference(a) {
       return coreFunction.hoursDifference(a);
@@ -488,17 +416,17 @@ export default {
     },
     getInfo() {
       axios
-          .get('profile/data')
-          .then((res) => {
-            this.myInfo = res.data.myInfo;
-          });
+        .get('profile/data')
+        .then((res) => {
+          this.myInfo = res.data.myInfo;
+        });
     },
     dataStory() {
       axios
-          .get('story/data?3=1')
-          .then((res) => {
-            this.stories = res.data.dataStory.data;
-          });
+        .get('story/data?3=1')
+        .then((res) => {
+          this.stories = res.data.dataStory.data;
+        });
     },
     show() {
       if ($('.file-input').hasClass('hide-important')) {
@@ -523,28 +451,28 @@ export default {
       });
       formData.append('privacy', this.privacy)
       axios
-          .post('post/create', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          })
-          .then((res) => {
-            if (res.data.status) {
-              this.post = {
-                images: []
-              };
-              this.$refs.btnCloseModal.click();
-              $('.fileinput-remove-button').click();
-              this.loadPost();
+        .post('post/create', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then((res) => {
+          if (res.data.status) {
+            this.post = {
+              images: []
+            };
+            this.$refs.btnCloseModal.click();
+            $('.fileinput-remove-button').click();
+            this.loadPost();
 
-            } else {
-              console.log(res.data.message);
-            }
+          } else {
+            console.log(res.data.message);
+          }
 
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     setDropdown() {
       $('.dropdownn').css('inset', 'auto 0px 0px auto');
@@ -552,56 +480,18 @@ export default {
     },
     loadPost() {
       axios
-          .get('post/data')
-          .then((res) => {
-            if (res.data.status) {
-              this.list_post = res.data.dataPost;
-              // console.log('this.list_post: ', this.list_post);
-            } else {
-              console.log(res.data.message);
-            }
-          });
-    },
-    loadComment() {
-      axios
-          .get('comment/data')
-          .then((res) => {
-            this.list_comment = res.data.dataComment;
-          });
-    },
-    createComment(id, k) {
-      if (!event.shiftKey && this.comments[k] != null) {
-        var comment = this.comments[k];
-        this.index_friend_tags.forEach(i => {
-          comment = comment.replace('@' + this.list_friend[i].fullname,
-              "<a href='/" + this.list_friend[i].username + "' class='custom-span'>" + this.list_friend[i].fullname + "</a>");
-          // console.log(this.list_friend[i].fullname);
+        .get('post/data')
+        .then((res) => {
+          if (res.data.status) {
+            this.list_post = res.data.dataPost;
+            // console.log('this.list_post: ', this.list_post);
+          } else {
+            console.log(res.data.message);
+          }
         });
-        var payload = {
-          'content': comment,
-          'id_post': id,
-          'id_tag': this.id_tags
-        }
-        axios
-            .post('comment/create', payload)
-            .then((res) => {
-              if (res.data.status) {
-                this.comments = [];
-                this.loadComment();
-              } else {
-                console.log(res.data.message);
-              }
-            })
-            .catch((res) => {
-              $.each(res.response.data.errors, function (k, v) {
-                toastr.error(v[0], 'error');
-              });
-            });
-      }
-
     },
     viewStory(v) {
-      this.$router.push({name: 'detailStory', params: {idStory: v.id}})
+      this.$router.push({ name: 'detailStory', params: { idStory: v.id } })
     }
   },
 }
@@ -610,3 +500,4 @@ export default {
 @import './style.css';
 @import './bs-input.css';
 </style>
+

@@ -13,7 +13,7 @@
                     <label class="form-label" for="exampleInputPassword1">Password</label>
                     <a href="#" class="float-end">Forgot password?</a>
                     <input v-model="sign_in.password" type="password" class="form-control mb-0" id="exampleInputPassword1"
-                        placeholder="Password">
+                        placeholder="Password" @keyup.enter="login()">
                 </div>
                 <div class="d-inline-block w-100">
                     <div class="form-check d-inline-block mt-2 pt-1">
@@ -63,7 +63,7 @@ export default {
                     } else {
                         Swal.fire({
                             icon: "error",
-                            title: "Oops...",
+                            title: "Error...",
                             text: res.data.message,
                             showConfirmButton: false
                         });
@@ -73,6 +73,22 @@ export default {
                     }
                 })
         },
+        login() {
+            if (!this.sign_in.password || !this.sign_in.username) {
+                 Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Please enter complete information",
+                    showConfirmButton: false
+                });
+                setTimeout(() => {
+                    Swal.close();
+                }, 1500);
+            } else {
+                this.signIn()
+            }
+
+        }
 
     },
 
