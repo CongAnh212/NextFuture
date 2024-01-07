@@ -21,7 +21,7 @@
                                     class="img-fluid rounded-circle me-2" alt="user"
                                     style="height: 35px; width: 35px;margin-left: 0px;">
                                 <span class="text-dark f-500" style="font-weight: 600; font-size: 17px;">
-                                    {{ post ?? post.fullname }}
+                                    {{ post.fullname }}
                                 </span>
                             </div>
 
@@ -129,7 +129,8 @@
                                                             <div class="d-flex align-items-center"
                                                                 style="line-height: 15px; padding-left: 15px;">
                                                                 <span style="flex:1" v-html="value.content"></span>
-                                                                <span v-if="value.likes" style="margin-top: 1px;">{{ value.likes }}</span>
+                                                                <span v-if="value.likes" style="margin-top: 1px;">{{
+                                                                    value.likes }}</span>
                                                                 <i v-if="!value.liked"
                                                                     class="fa-regular c-pointer fa-heart ms-2"
                                                                     @click="likeComment(value, key, 'rep')"
@@ -226,7 +227,7 @@ export default {
     mounted() {
         this.getFriend();
         this.loadComment()
-      console.log("️⚡→(modalPost.vue:230) ~ this.post", this.post);
+        console.log("️⚡→(modalPost.vue:230) ~ this.post", this.post);
     },
     methods: {
         replyComment(v) {
