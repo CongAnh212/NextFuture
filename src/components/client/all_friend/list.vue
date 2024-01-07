@@ -24,13 +24,14 @@
         <div class=" me-1" v-for="(v, k) in all_friend">
             <router-link :to="{ name: 'detailProfile.all_friends', params: { username: v.username } }">
                 <div class="hello d-flex p-2 w-100 h-100" style="overflow: hidden;">
-                    <div class="d-flex">
-                        <img :src="urlImage + v.avatar" class="img-fluid rounded-circle me-2" alt="user"
-                            style="height: 50px; width: 50px; margin-left: 2px;">
+                    <div class="flex-center">
+                        <div style='width: 3rem; height: 3rem; overflow: hidden;' class="circle flex-center me-1">
+                            <img :src="urlImage + v.avatar" alt="profile-img" class=" img-fluid"
+                                style=" object-fit:cover;width: 100%; height: 100%;">
+                        </div>
                         <div :class="{ 'd-flex flex-center': v.mutual == 0 }">
                             <b class="text-secondary text-nowrap ">{{ v.fullname }}</b> <br>
                             <span v-if="v.mutual > 0" class="text-secondary">{{ v.mutual }} mutual friends</span>
-                            <span v-else class="text-white " style="user-select: none;"></span>
                         </div>
                     </div>
                 </div>

@@ -17,17 +17,16 @@
         <div class="mt-2 me-1" v-for="(v, k) in list_friend">
             <router-link :to="{ name: 'detailProfile.suggestion', params: { username: v.username } }">
                 <div class="hello d-flex p-2 w-100 h-100" style="overflow: hidden;">
-                    <div class="d-flex ">
-                        <img :src="urlImage + v.avatar" class="img-fluid rounded-circle me-2" alt="user"
-                            style="height: 50px; width: 50px; margin-left: 2px;">
+                    <div class="flex-center ">
+                        <div style='width: 3rem; height: 3rem; overflow: hidden;' class="circle flex-center me-1">
+                            <img :src="urlImage + v.avatar" alt="profile-img" class=" img-fluid"
+                                style=" object-fit:cover;width: 100%; height: 100%;">
+                        </div>
                         <div style="width: 200px;">
-                            <b class="text-secondary text-nowrap">{{ v.fullname }}</b> <br>
+                            <div style="line-height: 1.25rem;">
+                                <b class="text-secondary text-nowrap">{{ v.fullname }}</b> <br>
+                            </div>
                             <span v-if="v.mutual > 0" class="text-secondary">{{ v.mutual }} mutual friends</span>
-                            <span v-else class="text-white " style="user-select: none;">a</span>
-                            <!-- <div :class="{ 'd-flex flex-center': v.mutual == 0 }">
-                            <b class="text-secondary text-nowrap">{{ v.fullname }}</b> <br>
-                            <span v-if="v.mutual > 0" class="text-secondary">{{ v.mutual }} mutual</span>
-                            </div> -->
                             <div class="text-nowrap d-flex w-100 ">
                                 <template v-if="v.friendStatus == false">
                                     <div class="me-1">

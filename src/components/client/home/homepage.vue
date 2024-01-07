@@ -57,8 +57,9 @@
                         <div id="post-modal-data" class="card card-block card-stretch card-height">
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
-                                    <div class="user-img">
-                                        <img :src="urlImg + myInfo.avatar" alt="userimg" class="avatar-60 rounded-circle">
+                                    <div style="width:4rem; height:4rem; overflow: hidden;" class="circle flex-center me-1">
+                                        <img :src="urlImg + myInfo.avatar" class="img-fluid " alt="user"
+                                            style="width: 100%; height: 100%; object-fit: cover;">
                                     </div>
                                     <form class="post-text ms-3 w-100 " data-bs-toggle="modal" data-bs-target="#post-modal"
                                         action="javascript:void();">
@@ -183,7 +184,7 @@
                                                                     </div>
                                                                 </a>
                                                                 <a @click="setPrivacyIndex(3)" id="privacy-3"
-                                                                        class="dropdown-item px-3 py-2" href="#">
+                                                                    class="dropdown-item px-3 py-2" href="#">
                                                                     <div class="d-flex align-items-top">
                                                                         <i class="ri-user-unfollow-line h4"></i>
                                                                         <div class="data ms-2">
@@ -220,7 +221,7 @@
 
                 <div class="col-lg-1 row m-0 p-0"></div>
                 <div class="col-lg-10 row m-0 p-0">
-                    <list-post :listPost="list_post" v-if="list_post"   />
+                    <list-post :listPost="list_post" v-if="list_post" />
                 </div>
                 <div class="col-sm-12 text-center">
                     <img src="../../../assets/client/images/page-img/page-load-loader.gif" alt="loader"
@@ -241,7 +242,10 @@
                         <div class="scroll-content">
                             <div v-for="(v, k) in list_friend" class="d-flex align-items-center mb-4">
                                 <div class="iq-profile-avatar status-online">
-                                    <img class="rounded-circle avatar-50" :src="urlImg + v.avatar" alt="">
+                                    <div style="width:3rem; height:3rem; overflow: hidden;" class="circle flex-center me-1">
+                                        <img :src="urlImg + v.avatar" class="img-fluid " alt="user"
+                                            style="width: 100%; height: 100%; object-fit: cover;">
+                                    </div>
                                 </div>
                                 <div class="ms-3">
                                     <h6 class="mb-0">{{ v.fullname }}</h6>
@@ -272,10 +276,10 @@
 <script>
 import coreFunction from '../../../core/coreFunction';
 import axios, { url } from '../../../core/coreRequest'
-import ListPost from './list_post.vue'; 
+import ListPost from './list_post.vue';
 
 export default {
-    components: {  ListPost },
+    components: { ListPost },
     data() {
         return {
             myInfo: {},

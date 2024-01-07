@@ -52,7 +52,10 @@
                                                     <div class="d-flex align-items-center">
                                                         <router-link
                                                             :to="{ name: 'detailProfile', params: { username: v.username } }">
-                                                            <img class="avatar-40 rounded" :src="urlImg + v.avatar" alt="">
+                                                            <div style="width: 3rem; height: 3rem; overflow: hidden; border-radius: 0.5rem;">
+                                                                <img class="img-fluid" :src="urlImg + v.avatar" alt=""
+                                                                    style="height:  100%; width: 100%; object-fit: cover;">
+                                                            </div>
                                                         </router-link>
                                                         <div class="ms-3">
                                                             <h6 class="mb-0 ">
@@ -247,9 +250,13 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a href="#" class="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
+                            <a href="#" class="d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img :src="urlImg + myInfo.avatar" class="img-fluid rounded-circle me-3" alt="user">
+                                <div style="width: 2.75rem; height: 2.75rem; overflow: hidden;"
+                                    class="circle flex-center me-1">
+                                    <img :src="urlImg + myInfo.avatar" class="img-fluid " alt="user"
+                                        style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
                                 <div class="caption">
                                     <h6 class="mb-0 line-height">{{ myInfo.fullname }}</h6>
                                 </div>
@@ -263,8 +270,8 @@
                                         </div>
                                     </div>
                                     <div class="card-body p-0 ">
-                                        <div class="iq-sub-card iq-bg-primary-hover">
-                                            <router-link to="/" @click="myProfile()">
+                                        <router-link to="/" @click="myProfile()">
+                                            <div class="iq-sub-card iq-bg-primary-hover">
                                                 <div class="d-flex align-items-center">
                                                     <div class="rounded card-icon bg-soft-primary">
                                                         <i class="ri-file-user-line"></i>
@@ -274,8 +281,8 @@
                                                         <p class="mb-0 font-size-12">View personal profile details.</p>
                                                     </div>
                                                 </div>
-                                            </router-link>
-                                        </div>
+                                            </div>
+                                        </router-link>
                                         <router-link :to="{ name: 'editProfile' }" class="iq-sub-card iq-bg-warning-hover">
                                             <div class="d-flex align-items-center">
                                                 <div class="rounded card-icon bg-soft-warning">
