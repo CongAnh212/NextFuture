@@ -199,13 +199,13 @@
       <img src="../../../assets/client/images/page-img/page-load-loader.gif" alt="loader" style="height: 100px;">
     </div>
   </div>
-  <div class="right-sidebar-mini" style="box-shadow: 0 0 10px #3333332e;">
-    <div class="right-sidebar-panel p-0">
-      <div class="card shadow-none">
+  <div class="right-sidebar-mini " style="box-shadow: 0 0 10px #3333332e;">
+    <div class="right-sidebar-panel p-0 ">
+      <div class="card shadow-none ">
         <div class="card-body p-0 ">
-          <div class="media-height p-3" data-scrollbar="true" tabindex="-1" style="overflow: hidden; outline: none;">
-            <div class="scroll-content">
-              <div v-for="(v, k) in list_friend" class="d-flex align-items-center mb-4">
+          <div class="media-height p-3 " data-scrollbar="true" tabindex="-1" >
+            <div class="scroll-content " style="overflow: auto; outline: none;">
+              <div v-for="(v, k) in list_friend" class="d-flex align-items-center mb-4 ">
                 <div class="flex-center " :class="{ 'iq-profile-avatar': true, 'status-online': v.isOnline }" style="width: 3rem; height: 3rem; overflow:hidden ;">
                   <img class="rounded-circle " :src="urlImg + v.avatar" alt="" style="object-fit: cover; width: 100%; height: 100%;">
                 </div>
@@ -221,7 +221,7 @@
             </div>
             <div class="scrollbar-track scrollbar-track-y" style="display: block;">
               <div class="scrollbar-thumb scrollbar-thumb-y"
-                style="height: 328.611px; transform: translate3d(0px, 0px, 0px);"></div>
+                style="height: 1rem; transform: translate3d(0px, 0px, 0px);"></div>
             </div>
           </div>
           <div class="right-sidebar-toggle bg-primary text-white mt-3">
