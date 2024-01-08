@@ -34,7 +34,7 @@
                                     </span>
                 </div>
               </a>
-              <div class="sub-drop sub-drop-large dropdown-menu" aria-labelledby="group-drop">
+              <div class="sub-drop sub-drop-large dropdown-menu" aria-labelledby="group-drop" style="" >
                 <div class="card shadow-none m-0">
                   <div class="card-header d-flex justify-content-between bg-primary">
                     <div class="header-title">
@@ -44,15 +44,15 @@
                       {{ count.length }}
                     </small>
                   </div>
-                  <div class="card-body p-0">
-                    <template v-for="(v, k) in request_friend">
+                  <div class="card-body p-0" style="max-height: 65vh; overflow: auto;">
+                    <template v-for="(v, k) in request_friend" >
                       <div class="iq-friend-request">
                         <div
                             class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between pe-3">
                           <div class="d-flex align-items-center">
-                            <router-link
-                                :to="{ name: 'detailProfile', params: { username: v.username } }">
-                              <img class="avatar-40 rounded" :src="urlImg + v.avatar" alt="">
+                            <router-link  style="width: 3rem; height: 3rem;overflow: hidden; border-radius: 0.5rem;"
+                                :to="{ name: 'detailProfile', params: { username: v.username } }" class="flex-center">
+                              <img style="width: 100%; height: 100%; object-fit: cover;" :src="urlImg + v.avatar" alt="">
                             </router-link>
                             <div class="ms-3">
                               <h6 class="mb-0 ">
@@ -109,14 +109,14 @@
                         <div class="d-flex align-items-center">
                           <div v-if="v.status == 1">
                             <img src="../../../../assets/img/output-onlinegiftools.gif"
-                                 style="width: 25px; height: 25px;">
+                                 style="width: 25px; height: 25px; margin-right:0.25rem;">
                           </div>
                           <div v-else style="width: 25px; height: 25px;">
                           </div>
-                          <div style="overflow: hidden; width: 3rem; height: 3rem;"
+                          <div style="overflow: hidden; width: 3rem; height: 3rem; border-radius: 0.5rem;"
                                class="flex-center">
-                            <img class="avatar-40 rounded" :src="urlImg + v.cover_image"
-                                 style="object-fit: cover;">
+                            <img  :src="urlImg + v.cover_image"
+                                 style="object-fit: cover; width: 100%; height: 100%;">
                           </div>
                           <div class="ms-3 w-100" style="flex: 1;">
                             <h6 class="mb-0 f-500 " :class="{ 'text-primary': v.status == 1 }"
@@ -246,7 +246,9 @@
             <li class="nav-item dropdown">
               <a href="#" class="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
                  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img :src="urlImg + myInfo.avatar" class="img-fluid rounded-circle me-3" alt="user">
+				 <div class="flex-center circle" style="width: 3rem;height: 3rem;overflow: hidden; margin-right: 0.25rem;">
+					 <img :src="urlImg + myInfo.avatar" style="width: 100%; height: 100%; object-fit: cover;">
+				 </div>
                 <div class="caption">
                   <h6 class="mb-0 line-height">{{ myInfo.fullname }}</h6>
                 </div>

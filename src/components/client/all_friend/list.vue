@@ -19,8 +19,8 @@
         </div>
     </div>
     <hr style="margin-top: 15px; margin-bottom: 4px;">
-    <div style="overflow-y:scroll; max-height: calc(100vh - 29vh); ">
-        <span>{{ Object.keys(all_friend).length }} friends</span>
+    <div style="overflow-y:auto; max-height: calc(100vh - 12.9rem); ">
+        <span class="ms-1 f-500">{{ Object.keys(all_friend).length }} friends</span>
         <div class=" me-1" v-for="(v, k) in all_friend">
             <router-link :to="{ name: 'detailProfile.all_friends', params: { username: v.username } }">
                 <div class="hello d-flex p-2 w-100 h-100" style="overflow: hidden;">

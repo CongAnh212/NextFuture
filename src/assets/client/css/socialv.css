@@ -20427,7 +20427,7 @@ ul.request-list > li:last-child {
   height: 1rem;
   width: 1rem;
   right: 0;
-  bottom: -0.188rem;
+  bottom: 0rem;
 }
 
 .iq-profile-avatar.status-online:before {

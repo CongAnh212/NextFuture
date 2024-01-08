@@ -40,7 +40,7 @@
     <li v-for="(v, k) in list_group">
         <router-link :to="{ name: 'home-group', params: { id_group: v.id == null ? ' ' : v.id } }"
             class="px-0 d-flex m-0 p-2 bg-hover px-1">
-            <div style="width: 35px; height: 35px; overflow: hidden;" class="radius-10 me-3">
+            <div style="width: 3rem; height: 3rem; overflow: hidden;" class="radius-10 me-3">
                 <img :src="urlImg + v.cover_image" class="img-fluid" style=" object-fit: cover; height: 100%; width: 100%;">
             </div>
             <div style="flex:1;max-width: 80%;">

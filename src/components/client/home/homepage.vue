@@ -52,12 +52,12 @@
           <div class="col-sm-12">
             <div id="post-modal-data" class="card card-block card-stretch card-height">
               <div class="card-body">
-                <div class="d-flex align-items-center">
-                  <div class="user-img">
-                    <img :src="urlImg + myInfo.avatar" alt="userimg" class="avatar-60 rounded-circle">
+                <div class="d-flex align-items-center ">
+                  <div style="width: 3.5rem; height: 3.5rem; overflow: hidden;" class="flex-center circle">
+                    <img :src="urlImg + myInfo.avatar" alt="userimg" style="width: 100%; height: 100%; object-fit: cover;">
                   </div>
                   <form class="post-text ms-3 w-100 " data-bs-toggle="modal" data-bs-target="#post-modal"
-                    action="javascript:void();">
+                    action="javascript:void();" style="flex:1">
                     <input type="text" class="form-control rounded" placeholder="Write something here..."
                       style="border:none;">
                   </form>
@@ -76,12 +76,6 @@
                       Friend
                     </a>
                   </li>
-                  <li class="me-3">
-                    <a href="#" class="btn btn-soft-primary">
-                      <img src="../../../assets/client/images/small/09.png" alt="icon" class="img-fluid me-2">
-                      Feeling/Activity
-                    </a>
-                  </li>
                 </ul>
               </div>
               <div class="modal fade" id="post-modal" tabindex="-1" aria-labelledby="post-modalLabel"
@@ -95,16 +89,13 @@
                     </div>
                     <div class="modal-body" style="overflow: auto;">
                       <div class="d-flex align-items-center mb-3">
-                        <div class="user-img">
-                          <img :src="urlImg + myInfo.avatar" alt="userimg" class=" rounded-circle "
-                            style="width: 50px; height: 50px;">
+                        <div style="width: 3.5rem; height: 3.5rem; overflow: hidden;" class="flex-center circle">
+                            <img :src="urlImg + myInfo.avatar" alt="userimg" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
-                        <form class="post-text ms-3 w-100" action="javascript:void();">
+                        <form class="post-text ms-3 w-100" action="javascript:void(); " style="flex:1">
                           <input v-model="post.caption" type="text" class="form-control rounded"
                             placeholder="Write something here..." style="border:none;">
-
                         </form>
-
                       </div>
                       <input @change="getImage" id="input-b3" name="input-b3[]" type="file" class="file" multiple
                         data-show-upload="false" data-show-caption="true"
@@ -125,22 +116,16 @@
                             Friend
                           </div>
                         </li>
-                        <li class="col-md-6">
-                          <div style="cursor: pointer; " class="bg-soft-primary rounded p-2 pointer me-3"><a></a><img
-                              src="../../../assets/client/images/small/09.png" alt="icon" class="img-fluid">
-                            Feeling/Activity
-                          </div>
-                        </li>
+                       
 
                       </ul>
                       <hr>
                       <div class="other-option">
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="d-flex align-items-center">
-                            <div class="user-img me-3">
-                              <img :src="urlImg + myInfo.avatar" alt="userimg" class="rounded-circle"
-                                style="width: 50px; height: 50px">
-                            </div>
+                            <div style="width: 3.5rem; height: 3.5rem; overflow: hidden; margin-right: 0.3rem;" class="flex-center circle">
+                    <img :src="urlImg + myInfo.avatar" alt="userimg" style="width: 100%; height: 100%; object-fit: cover; ">
+                  </div>
                             <h6>Your Story</h6>
                           </div>
                           <div class="card-post-toolbar">
@@ -221,8 +206,8 @@
           <div class="media-height p-3" data-scrollbar="true" tabindex="-1" style="overflow: hidden; outline: none;">
             <div class="scroll-content">
               <div v-for="(v, k) in list_friend" class="d-flex align-items-center mb-4">
-                <div :class="{ 'iq-profile-avatar': true, 'status-online': v.isOnline }">
-                  <img class="rounded-circle avatar-50" :src="urlImg + v.avatar" alt="">
+                <div class="flex-center " :class="{ 'iq-profile-avatar': true, 'status-online': v.isOnline }" style="width: 3rem; height: 3rem; overflow:hidden ;">
+                  <img class="rounded-circle " :src="urlImg + v.avatar" alt="" style="object-fit: cover; width: 100%; height: 100%;">
                 </div>
                 <div class="ms-3">
                   <h6 class="mb-0">{{ v.fullname }}</h6>

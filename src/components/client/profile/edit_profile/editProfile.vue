@@ -24,21 +24,21 @@
                 <div class="w-100" style="border-left: 2px solid #2a2a2a; padding-left: 0.5rem;">
                     <h5 class="text-dark f-500">Edit profile</h5>
                     <div class="d-flex mt-2">
-                        <div class="me-2 ">
+                        <div class="me-2 " style="flex:1">
                             <label class="form-label m-0 text-dark">Full name</label>
                             <input v-model="data_my_info.fullname" type="text" class="form-control" placeholder="Full name">
                         </div>
-                        <div>
+                        <div style="flex:1">
                             <label class="form-label m-0 text-dark">Nick name</label>
                             <input v-model="data_my_info.nickname" type="text" class="form-control" placeholder="Nick name">
                         </div>
                     </div>
                     <div class="d-flex mt-2">
-                        <div class="me-2">
+                        <div class="me-2" style="flex:">
                             <label class="form-label m-0 text-dark">Address</label>
                             <input v-model="data_my_info.address" type="text" class="form-control" placeholder="Address">
                         </div>
-                        <div>
+                        <div style="flex:1">
                             <label class="form-label m-0 text-dark">Phone number</label>
                             <input v-model="data_my_info.phone_number" type="text" class="form-control"
                                 placeholder="Phone number">
