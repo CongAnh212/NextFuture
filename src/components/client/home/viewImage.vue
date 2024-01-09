@@ -1,6 +1,6 @@
 <template>
     <Carousel :items-to-show="2.3" v-bind="settings" :wrap-around="false">
-        <Slide v-for="(image, index) in arrayImages" :key="index" class="aaasass"
+        <Slide v-for="(image, index) in arrayImages" :key="index" class="aaasass" @click="openModal(index)"
             :class="{ 'singleImg': arrayImages.length < 3 }">
             <div class="carousel__item " @mouseup="fixTranslate">
                 <img :src="urlImg + image">
@@ -24,7 +24,8 @@ export default {
         Navigation,
     },
     props: {
-        images: String
+        images: String,
+        k: Number
     },
     watch: {
         images(newValue, olrValue) {
@@ -54,7 +55,15 @@ export default {
         this.singleImage();
     },
     methods: {
+        openModal(i) { 
+            var object = {
+                index: i,
+                k: this.k
+            }
+            this.$emit('openModal', object)
+        },
         singleImage() {
+            $('.fixDrag').removeClass('fixDrag')
             var myElement = $(".singleImg");
             var parent = myElement.parent();
             parent.addClass('fixDrag')
