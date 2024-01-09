@@ -125,14 +125,16 @@
                         <div>
                             <h5 class="f-500">{{ info.fullname }}</h5>
                         </div>
-                        <div class="pt-1 d-flex " style="gap: 0.5em; flex-wrap: wrap; width: 22vw;">
-                            <div class="text-primary">
-                                <span class="px-2 py-1"
-                                    style="border-radius: 20px; background-color: rgba(57, 53, 53, 0.084);">
-                                    <i class=" fa-brands fa-facebook"></i>
-                                    <a href="https://www.facebook.com/phtsnh26/" class="text-primary">
-                                        phtsnh26</a>
-                                </span>
+                        <div style="gap: 0.5em; width: 20rem;">
+                            <div>
+                                <a :href="v.link" v-for="(v, k) in link_address" class="px-2 py-1 me-1"
+                                    style="border-radius: 20px;background-color: rgba(57, 53, 53, 0.084);
+                                     display: inline-block;word-break: break-all; margin-top: 0.25rem; align-self: center;" target="_blank">
+                                    <i :class="v.icon" class="me-1 text-dark f-500 "></i>
+                                    <span class="text-dark f-500">
+                                        {{ v.name }}
+                                    </span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -210,6 +212,7 @@ export default {
             followers: [],
             checkListFollwer: false,
             checkListFriend: false,
+            link_address: [],
         }
     },
     props: {
@@ -231,6 +234,7 @@ export default {
         this.username = this.$route.params.username;
         this.getInfo();
         this.getAllProfile();
+        this.linkAddress();
     },
     watch: {
         sentFriend(newData, oldData) {
@@ -273,6 +277,13 @@ export default {
         }
     },
     methods: {
+        linkAddress() {
+            axios
+                .get(this.username + '/data-link-address')
+                .then((res) => {
+                    this.link_address = res.data.data
+                });
+        },
         getAllProfile() {
             axios
                 .get(this.username + '/data-all')
