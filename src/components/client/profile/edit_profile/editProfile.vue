@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-center pt-3 ps-5 pe-5 bg-xanh">
+    <div class="flex-center pt-3 ps-5 pe-5">
         <div class="card flex-center " style="width: 40%; width: 40%; box-shadow: 0 0 10px #2a2a2a41;">
             <div class="card-body d-flex w-100">
                 <div class="flex-center" style="border-radius: 10px; width: 45%;">
@@ -67,7 +67,7 @@
             </div>
         </div>
     </div>
-    <div class="flex-center ps-5 pe-5 pb-1 bg-xanh">
+    <div class="flex-center ps-5 pe-5 pb-1 ">
         <div class="card flex-center " style="width: 40%;  box-shadow: 0 0 10px #2a2a2a41;">
             <div class="card-body d-flex w-100">
                 <div v-if="links.status == true" class="w-100" style="padding-left: 0.5rem;">
@@ -117,7 +117,7 @@
             </div>
         </div>
     </div>
-    <div class="flex-center ps-5 pe-5 pb-2 bg-xanh">
+    <div class="flex-center ps-5 pe-5 pb-2 ">
         <div class="card flex-center " style="width: 40%;  box-shadow: 0 0 10px #2a2a2a41;">
             <div class="card-body d-flex w-100">
                 <div class="w-100" style="padding-left: 0.5rem;">

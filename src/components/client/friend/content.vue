@@ -15,7 +15,7 @@
                         style="border-radius: 8px !important; width: 19%; cursor: pointer;">
                         <router-link :to="{ name: 'detailProfile.request_friend', params: { username: v.username } }"
                             class="w-100 ">
-                            <div style="width: 100%; height: 13rem; overflow: hidden;" class="flex-center">
+                            <div style="width: 100%; height: 14rem; overflow: hidden;" class="flex-center">
                                 <img :src="urlImage + v.avatar" class="card-img-top" alt="#"
                                     style="object-fit: cover;width: 100%;height: 100%;">
                             </div>
