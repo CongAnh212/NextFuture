@@ -188,7 +188,7 @@
         <div class="col-lg-1 row m-0 p-0"></div>
         <div class="col-lg-1 row m-0 p-0"></div>
         <div class="col-lg-10 row m-0 p-0">
-          <list-post :listPost="list_post" v-if="list_post" />
+          <list-post :listPost="list_post" :myInfo="myInfo" v-if="list_post" />
         </div>
         <div class="col-sm-12 text-center">
           <img src="../../../assets/client/images/page-img/page-load-loader.gif" alt="loader" style="height: 100px;">
@@ -273,7 +273,6 @@ export default {
   watch: {
     list_online_friends: {
       handler(newVal, oldVal) {
-        console.log("️⚡→(homepage.vue:311) ~ haha");
         this.updateOnlineUser(newVal)
       },
       deep: true

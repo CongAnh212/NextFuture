@@ -290,17 +290,14 @@
                                     </div>
                                     <div class="card-body p-0 ">
                                         <div class="iq-sub-card iq-bg-primary-hover">
-                                            <router-link :to="{ name: 'profile-client' }">
                                                 <div class="d-flex align-items-center">
                                                     <div class="rounded card-icon bg-soft-primary">
                                                         <i class="ri-file-user-line"></i>
                                                     </div>
                                                     <div class="ms-3">
-                                                        <h6 class="mb-0 ">My Profile</h6>
                                                         <p class="mb-0 font-size-12">View personal profile details.</p>
                                                     </div>
                                                 </div>
-                                            </router-link>
                                         </div>
                                         <router-link :to="{ name: 'editProfile' }" class="iq-sub-card iq-bg-warning-hover">
                                             <div class="d-flex align-items-center">

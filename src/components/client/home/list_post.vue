@@ -3,7 +3,7 @@
         <div class="d-flex " style="position: relative;">
             <div class=" d-flex flex-column align-items-center ">
                 <div class="circle-50" style="overflow: hidden;">
-                    <img src="http://localhost:8000/img/avatar_female.jpg" style="object-fit: cover; width: 100%;" alt="">
+                    <img :src="urlImg + myInfo.avatar" style="object-fit: cover; width: 100%; height: 100%;" alt="">
                 </div>
                 <div class="flex-1  radius-10 my-1" style="border-left: 3px solid #3f3f3f4e;width: 0; " />
                 <div class="circle" style="width: 27px; height: 27px; overflow: hidden;">
@@ -35,33 +35,39 @@
                 </div>
 
                 <div class="d-dlex f-500">
-                    <span class="likes">{{ v.likes }} likes</span> - <span class="comments">1k comments</span>
+                    <span v-if="v.likes > 0" class="likes">{{ v.likes }} likes</span> <span
+                        v-if="v.likes > 0 && v.comments > 0">-</span> <span v-if="v.comments > 0" class="comments">{{
+                            v.comments }} comments</span>
                 </div>
             </div>
         </div>
         <hr class="my-3 ">
     </template>
-  <div v-if="currentPost !== undefined">
-    <ModalPost :post="currentPost" />
-  </div>
+    <div v-if="currentPost !== undefined">
+        <ModalPost :post="currentPost" />
+    </div>
 </template>
 <script>
 import ModalPost from '../profile/modalPost.vue';
 import ViewImage from './viewImage.vue';
 import baseFunction from '../../../core/coreFunction';
-import axios from '../../../core/coreRequest';
+import axios, { url } from '../../../core/coreRequest';
 
 export default {
     components: { ViewImage, ModalPost },
     data() {
         return {
             currentPost: this.listPost[0],
+            urlImg: url
         }
     },
     props: {
         listPost: {
             type: Array,
             required: true,
+        },
+        myInfo: {
+            type: Object,
         }
     },
     watch: {
