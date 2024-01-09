@@ -84,6 +84,11 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
+    path: "/profile-client",
+    name: "profile-client",
+    component: () => import("../components/client/profile/index.vue"),
+  },
+  {
     path: "/:username",
     name: "detailProfile.all_friends",
     components: {
@@ -114,13 +119,13 @@ const routes = [
   {
     path: "/create-story",
     name: "story",
-    meta: { layout: "story" },
+    meta: { layout: "story", requiresAuth: true },
     component: () => import("../components/client/create-story/index.vue"),
   },
   {
     path: "/stories",
     name: "view-story",
-    meta: { layout: "share" },
+    meta: { layout: "share", requiresAuth: true },
     components: {
       default: () => import("../components/client/story/list_user.vue"),
       content: () => import("../components/client/story/content.vue"),

@@ -108,7 +108,9 @@
                                             </div>
                                         </div>
                                         <div class="card-body p-0">
-                                            <div class="iq-sub-card iq-bg-primary-hover"><a href="/profile-client" class="">
+                                            <div class="iq-sub-card iq-bg-primary-hover">
+                                                <router-link
+                                                    :to="{ name: 'detailProfile', params: { username: myData.username } }">
                                                     <div class="d-flex align-items-center">
                                                         <div class="rounded card-icon bg-soft-primary"><i
                                                                 class="ri-file-user-line"></i></div>
@@ -117,8 +119,9 @@
                                                             <p class="mb-0 font-size-12">View personal profile details.</p>
                                                         </div>
                                                     </div>
-                                                </a></div><a href="../app/profile-edit.html"
-                                                class="iq-sub-card iq-bg-warning-hover">
+                                                </router-link>
+                                            </div>
+                                            <a href="../app/profile-edit.html" class="iq-sub-card iq-bg-warning-hover">
                                                 <div class="d-flex align-items-center">
                                                     <div class="rounded card-icon bg-soft-warning"><i
                                                             class="ri-profile-line"></i></div>

@@ -119,7 +119,8 @@
                                     </div>
                                     <div class="card-body p-0 ">
                                         <div class="iq-sub-card iq-bg-primary-hover">
-                                            <router-link :to="{ name: 'profile-client' }">
+                                            <router-link
+                                                :to="{ name: 'detailProfile', params: { username: myData.username ? myData.username : ' ' } }">
                                                 <div class="d-flex align-items-center">
                                                     <div class="rounded card-icon bg-soft-primary">
                                                         <i class="ri-file-user-line"></i>

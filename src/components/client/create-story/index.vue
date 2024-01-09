@@ -1,5 +1,4 @@
 <template >
-   
     <div class="iq-sidebar sidebar-default" style="width: 20vw;">
         <div id="sidebar-scrollbar" data-scrollbar="true" tabindex="-1"
             style="overflow: hidden; outline: none;position: relative;">
@@ -101,18 +100,17 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 @click="closePrivacyModal()">Close</button>
-                                            <button @click="savePrivacy()" type="button" class="btn btn-primary">Save changes</button>
+                                            <button @click="savePrivacy()" type="button" class="btn btn-primary">Save
+                                                changes</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <li>
-                            <router-link :to="{ name: 'profile-client' }">
-                                <img style="height: 55px; width: 55px;" :src="urlImg + myData.avatar"
-                                    class="img-fluid rounded-circle me-3" alt="user">
-                                <span><b class="text-dark">{{ myData.fullname }}</b></span>
-                            </router-link>
+                            <img style="height: 55px; width: 55px;" :src="urlImg + myData.avatar"
+                                class="img-fluid rounded-circle me-3" alt="user">
+                            <span><b class="text-dark">{{ myData.fullname }}</b></span>
                         </li>
                         <hr>
                     </ul>
@@ -196,8 +194,8 @@
                                     <div class="radius-10" style="width: 100%; height: 100%; border: 1px solid #fff; z-index: 6; pointer-events: none;
                                         position: absolute;">
                                     </div>
-                                    <div id="mainImage" style="overflow: visible; max-width: 10000px; position: relative;" class="draggable"
-                                        draggable="true" :style="{ left: x + 'px', top: y + 'px' }"
+                                    <div id="mainImage" style="overflow: visible; max-width: 10000px; position: relative;"
+                                        class="draggable" draggable="true" :style="{ left: x + 'px', top: y + 'px' }"
                                         @dragstart="getCoordinates" @dragend="close()">
                                         <img id="mainImg" :src="mainImg" draggable="false"
                                             style="height: 100%; width: 100%; pointer-events: none; object-fit: cover">
@@ -459,4 +457,6 @@ export default {
     }
 }
 </script >
-<style >@import "./index.css";</style>   
+<style >
+@import "./index.css";
+</style>   
