@@ -16,25 +16,24 @@
             <input type="text" class="text search-input" placeholder="Search here...">
           </form>
         </div>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-label="Toggle navigation">
           <i class="ri-menu-3-line"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav  ms-auto navbar-list">
             <li class="nav-item dropdown">
-              <a href="#" class="dropdown-toggle" style="position: relative;" id="group-drop"
-                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a href="#" class="dropdown-toggle" style="position: relative;" id="group-drop" data-bs-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
                 <i class="ri-group-line"></i>
                 <div class="circle flex-center" v-if="count.length >= 1"
-                     style="position: absolute; bottom: 2.3rem;left: 1.9rem; width: 20px; height: 20px; background-color: rgb(249, 64, 95);">
-                                    <span class="text-white f-500" style="font-size: 11px;">
-                                        {{ count.length > 99 ? '99+' : count.length }}
-                                    </span>
+                  style="position: absolute; bottom: 2.3rem;left: 1.9rem; width: 20px; height: 20px; background-color: rgb(249, 64, 95);">
+                  <span class="text-white f-500" style="font-size: 11px;">
+                    {{ count.length > 99 ? '99+' : count.length }}
+                  </span>
                 </div>
               </a>
-              <div class="sub-drop sub-drop-large dropdown-menu" aria-labelledby="group-drop" style="" >
+              <div class="sub-drop sub-drop-large dropdown-menu" aria-labelledby="group-drop" style="">
                 <div class="card shadow-none m-0">
                   <div class="card-header d-flex justify-content-between bg-primary">
                     <div class="header-title">
@@ -45,19 +44,17 @@
                     </small>
                   </div>
                   <div class="card-body p-0" style="max-height: 65vh; overflow: auto;">
-                    <template v-for="(v, k) in request_friend" >
+                    <template v-for="(v, k) in request_friend">
                       <div class="iq-friend-request">
-                        <div
-                            class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between pe-3">
+                        <div class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between pe-3">
                           <div class="d-flex align-items-center">
-                            <router-link  style="width: 3rem; height: 3rem;overflow: hidden; border-radius: 0.5rem;"
-                                :to="{ name: 'detailProfile', params: { username: v.username } }" class="flex-center">
+                            <router-link style="width: 3rem; height: 3rem;overflow: hidden; border-radius: 0.5rem;"
+                              :to="{ name: 'detailProfile', params: { username: v.username } }" class="flex-center">
                               <img style="width: 100%; height: 100%; object-fit: cover;" :src="urlImg + v.avatar" alt="">
                             </router-link>
                             <div class="ms-3">
                               <h6 class="mb-0 ">
-                                <router-link
-                                    :to="{ name: 'detailProfile', params: { username: v.username } }">
+                                <router-link :to="{ name: 'detailProfile', params: { username: v.username } }">
                                   <b>
                                     {{ v.fullname }}
                                   </b>
@@ -67,10 +64,9 @@
                             </div>
                           </div>
                           <div class="d-flex align-items-center">
-                            <a class="me-3 btn btn-primary rounded" style="width: 60%;"
-                               @click="confirm(v)">Confirm</a>
+                            <a class="me-3 btn btn-primary rounded" style="width: 60%;" @click="confirm(v)">Confirm</a>
                             <a class="me-3 btn btn-secondary rounded" style="width: 60%;"
-                               @click="delRequest(v)">Delete</a>
+                              @click="delRequest(v)">Delete</a>
                           </div>
                         </div>
                       </div>
@@ -83,14 +79,14 @@
               </div>
             </li>
             <li class="nav-item dropdown">
-              <a href="#" class="search-toggle dropdown-toggle" id="notification-drop"
-                 data-bs-toggle="dropdown" style="position: relative;">
+              <a href="#" class="search-toggle dropdown-toggle" id="notification-drop" data-bs-toggle="dropdown"
+                style="position: relative;">
                 <i class="ri-notification-4-line"></i>
                 <div class="circle flex-center" v-if="new_notification > 0"
-                     style="position: absolute; bottom: 2.3rem;left: 1.8rem; width: 20px; height: 20px; background-color: rgb(249, 64, 95);">
-                                    <span class="text-white f-500" style="font-size: 11px;">
-                                        {{ new_notification > 99 ? '99+' : new_notification }}
-                                    </span>
+                  style="position: absolute; bottom: 2.3rem;left: 1.8rem; width: 20px; height: 20px; background-color: rgb(249, 64, 95);">
+                  <span class="text-white f-500" style="font-size: 11px;">
+                    {{ new_notification > 99 ? '99+' : new_notification }}
+                  </span>
                 </div>
               </a>
               <div class="sub-drop dropdown-menu" aria-labelledby="notification-drop" style="width: 32rem;">
@@ -102,29 +98,26 @@
                     <small class="badge bg-light text-dark">{{ list_notifications.length }}</small>
                   </div>
                   <div v-if="isView" class="card-body p-0 " style="max-height: 65vh; overflow: auto;">
-                    <a v-for="(v, k) in list_notifications" class="iq-sub-card bg-hover "
-                       @click="readNotification(v)">
+                    <a v-for="(v, k) in list_notifications" class="iq-sub-card bg-hover " @click="readNotification(v)">
                       <router-link v-if="v.type == 2"
-                                   :to="{ name: 'home-group', params: { id_group: v.id_group }, query: { id_notification: v.id } }">
+                        :to="{ name: 'home-group', params: { id_group: v.id_group }, query: { id_notification: v.id } }">
                         <div class="d-flex align-items-center">
                           <div v-if="v.status == 1">
                             <img src="../../../../assets/img/output-onlinegiftools.gif"
-                                 style="width: 25px; height: 25px; margin-right:0.25rem;">
+                              style="width: 25px; height: 25px; margin-right:0.25rem;">
                           </div>
                           <div v-else style="width: 25px; height: 25px;">
                           </div>
                           <div style="overflow: hidden; width: 3rem; height: 3rem; border-radius: 0.5rem;"
-                               class="flex-center">
-                            <img  :src="urlImg + v.cover_image"
-                                 style="object-fit: cover; width: 100%; height: 100%;">
+                            class="flex-center">
+                            <img :src="urlImg + v.cover_image" style="object-fit: cover; width: 100%; height: 100%;">
                           </div>
                           <div class="ms-3 w-100" style="flex: 1;">
                             <h6 class="mb-0 f-500 " :class="{ 'text-primary': v.status == 1 }"
-                                :style="{ 'font-weight': 'bold' }">
+                              :style="{ 'font-weight': 'bold' }">
                               {{ v.sender }}
                             </h6>
-                            <div
-                                class="d-flex text-dark justify-content-between align-items-center pe-3">
+                            <div class="d-flex text-dark justify-content-between align-items-center pe-3">
                               <p class="mb-0">Invited you to the
                                 <b :class="{ 'text-primary': v.status == 1 }">
                                   {{ v.group_name }}
@@ -133,8 +126,7 @@
                               </p>
                             </div>
                           </div>
-                          <small class="float-right font-size-12"
-                                 :class="{ 'text-dark': v.status == 0 }">
+                          <small class="float-right font-size-12" :class="{ 'text-dark': v.status == 0 }">
                             {{ formatTime(v.created_at) }}
                             agos
                           </small>
@@ -144,20 +136,17 @@
                         <div class="d-flex align-items-center">
                           <div v-if="v.status == 1">
                             <img src="../../../../assets/img/output-onlinegiftools.gif"
-                                 style="width: 25px; height: 25px;">
+                              style="width: 25px; height: 25px;">
                           </div>
                           <div v-else style="width: 25px; height: 25px;">
                           </div>
-                          <div style="overflow: hidden; width: 3rem; height: 3rem;"
-                               class="flex-center">
-                            <img class="avatar-40 rounded" :src="urlImg + v.avatar"
-                                 style="object-fit: cover;">
+                          <div style="overflow: hidden; width: 3rem; height: 3rem;" class="flex-center">
+                            <img class="avatar-40 rounded" :src="urlImg + v.avatar" style="object-fit: cover;">
                           </div>
                           <div class="ms-3 w-100" style="flex: 1;">
                             <h6 class="mb-0 f-500 " :class="{ 'text-primary': v.status == 1 }"
-                                :style="{ 'font-weight': 'bold' }">{{ v.sender }}</h6>
-                            <div
-                                class="d-flex text-dark justify-content-between align-items-center pe-3">
+                              :style="{ 'font-weight': 'bold' }">{{ v.sender }}</h6>
+                            <div class="d-flex text-dark justify-content-between align-items-center pe-3">
                               <p class="mb-0">Tagged you in a post by
                                 <b :class="{ 'text-primary': v.status == 1 }">
                                   {{ v.name_poster }}
@@ -165,40 +154,34 @@
                               </p>
                             </div>
                           </div>
-                          <small class="float-right font-size-12"
-                                 :class="{ 'text-dark': v.status == 0 }">
+                          <small class="float-right font-size-12" :class="{ 'text-dark': v.status == 0 }">
                             {{ formatTime(v.created_at) }}
                             agos
                           </small>
                         </div>
                       </router-link>
-                      <router-link v-if="v.type == 1"
-                                   :to="{ name: 'detailProfile', params: { username: v.username } }">
+                      <router-link v-if="v.type == 1" :to="{ name: 'detailProfile', params: { username: v.username } }">
                         <div v-if="v.type == 1" class="d-flex align-items-center">
                           <div v-if="v.status == 1">
                             <img src="../../../../assets/img/output-onlinegiftools.gif"
-                                 style="width: 25px; height: 25px;">
+                              style="width: 25px; height: 25px;">
                           </div>
                           <div v-else style="width: 25px; height: 25px;">
                           </div>
-                          <div style="overflow: hidden; width: 3rem; height: 3rem;"
-                               class="flex-center">
-                            <img class="avatar-40 rounded" :src="urlImg + v.avatar"
-                                 style="object-fit: cover;">
+                          <div style="overflow: hidden; width: 3rem; height: 3rem;" class="flex-center">
+                            <img class="avatar-40 rounded" :src="urlImg + v.avatar" style="object-fit: cover;">
                           </div>
                           <div class="ms-3 w-100" style="flex: 1;">
                             <h6 class="mb-0 f-500 " :class="{ 'text-primary': v.status == 1 }"
-                                :style="{ 'font-weight': 'bold' }">
+                              :style="{ 'font-weight': 'bold' }">
                               {{ v.sender }}
                             </h6>
-                            <div
-                                class="d-flex text-dark justify-content-between align-items-center pe-3">
+                            <div class="d-flex text-dark justify-content-between align-items-center pe-3">
                               <p class="mb-0">sent you a friend request
                               </p>
                             </div>
                           </div>
-                          <small class="float-right font-size-12"
-                                 :class="{ 'text-dark': v.status == 0 }">
+                          <small class="float-right font-size-12" :class="{ 'text-dark': v.status == 0 }">
                             {{ formatTime(v.created_at) }}
                             agos
                           </small>
@@ -207,15 +190,15 @@
                     </a>
                   </div>
                   <div v-else class="card-body p-0 flex-center">
-                    <img src="../../../../assets/client/images/page-img/page-load-loader.gif"
-                         alt="loader" style="height: 100px;">
+                    <img src="../../../../assets/client/images/page-img/page-load-loader.gif" alt="loader"
+                      style="height: 100px;">
                   </div>
                 </div>
               </div>
             </li>
             <li class="nav-item dropdown">
-              <a href="#" class="dropdown-toggle" id="mail-drop" data-bs-toggle="dropdown"
-                 aria-haspopup="true" aria-expanded="false">
+              <a href="#" class="dropdown-toggle" id="mail-drop" data-bs-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
                 <i class="ri-mail-line"></i>
               </a>
               <div class="sub-drop dropdown-menu" aria-labelledby="mail-drop">
@@ -230,8 +213,7 @@
                     <a href="#" class="iq-sub-card">
                       <div class="d-flex  align-items-center">
                         <div class="">
-                          <img class="avatar-40 rounded"
-                               src="../../../../assets/client/images/user/01.jpg" alt="">
+                          <img class="avatar-40 rounded" src="../../../../assets/client/images/user/01.jpg" alt="">
                         </div>
                         <div class=" w-100 ms-3">
                           <h6 class="mb-0 ">Bni Emma Watson</h6>
@@ -245,10 +227,10 @@
             </li>
             <li class="nav-item dropdown">
               <a href="#" class="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
-                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				 <div class="flex-center circle" style="width: 3rem;height: 3rem;overflow: hidden; margin-right: 0.25rem;">
-					 <img :src="urlImg + myInfo.avatar" style="width: 100%; height: 100%; object-fit: cover;">
-				 </div>
+                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="flex-center circle" style="width: 3rem;height: 3rem;overflow: hidden; margin-right: 0.25rem;">
+                  <img :src="urlImg + myInfo.avatar" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
                 <div class="caption">
                   <h6 class="mb-0 line-height">{{ myInfo.fullname }}</h6>
                 </div>
@@ -262,20 +244,18 @@
                     </div>
                   </div>
                   <div class="card-body p-0 ">
-                    <div class="iq-sub-card iq-bg-primary-hover">
-                      <router-link to="/" @click="myProfile()">
-                        <div class="d-flex align-items-center">
-                          <div class="rounded card-icon bg-soft-primary">
-                            <i class="ri-file-user-line"></i>
-                          </div>
-                          <div class="ms-3">
-                            <h6 class="mb-0 ">My Profile</h6>
-                            <p class="mb-0 font-size-12">View personal profile details.</p>
-                          </div>
+                    <router-link to="/" @click="myProfile()" class="iq-sub-card iq-bg-primary-hover ">
+                      <div class="d-flex align-items-center ">
+                        <div class="rounded card-icon bg-soft-primary">
+                          <i class="ri-file-user-line"></i>
                         </div>
-                      </router-link>
-                    </div>
-                    <a href="../app/profile-edit.html" class="iq-sub-card iq-bg-warning-hover">
+                        <div class="ms-3">
+                          <h6 class="mb-0 ">My Profile</h6>
+                          <p class="mb-0 font-size-12">View personal profile details.</p>
+                        </div>
+                      </div>
+                    </router-link>
+                    <router-link :to="{ name: 'editProfile' }" class="iq-sub-card iq-bg-warning-hover">
                       <div class="d-flex align-items-center">
                         <div class="rounded card-icon bg-soft-warning">
                           <i class="ri-profile-line"></i>
@@ -285,7 +265,7 @@
                           <p class="mb-0 font-size-12">Modify your personal details.</p>
                         </div>
                       </div>
-                    </a>
+                    </router-link>
                     <a href="../app/account-setting.html" class="iq-sub-card iq-bg-info-hover">
                       <div class="d-flex align-items-center">
                         <div class="rounded card-icon bg-soft-info">
@@ -385,22 +365,22 @@ export default {
     },
     getNotification() {
       axios
-          .get('notification/data')
-          .then((res) => {
-            this.list_notifications = res.data.data;
-            this.new_notification = res.data.new_notification;
-          })
+        .get('notification/data')
+        .then((res) => {
+          this.list_notifications = res.data.data;
+          this.new_notification = res.data.new_notification;
+        })
     },
     signOut() {
       axios
-          .get('sign-out')
-          .then((res) => {
-            localStorage.removeItem('token');
-            this.$router.push({name: "sign-in"});
-          })
-          .catch((error) => {
-            console.error('Logout failed:', error);
-          });
+        .get('sign-out')
+        .then((res) => {
+          localStorage.removeItem('token');
+          this.$router.push({ name: "sign-in" });
+        })
+        .catch((error) => {
+          console.error('Logout failed:', error);
+        });
     },
     async getInfo() {
       try {
@@ -416,46 +396,46 @@ export default {
       }
     },
     myProfile() {
-      this.$router.push({name: 'detailProfile', params: {username: this.myInfo.username}});
+      this.$router.push({ name: 'detailProfile', params: { username: this.myInfo.username } });
     },
     getRequestFriend() {
       axios
-          .get('follower/request-friend')
-          .then((res) => {
-            if (res.data.status == 1) {
-              this.request_friend = res.data.data;
-              this.count = res.data.count;
-            }
-          });
+        .get('follower/request-friend')
+        .then((res) => {
+          if (res.data.status == 1) {
+            this.request_friend = res.data.data;
+            this.count = res.data.count;
+          }
+        });
     },
     confirm(v) {
       axios
-          .post('follower/accept-friend', v)
-          .then((res) => {
-            if (res.data.status) {
-              this.getRequestFriend();
-            }
-          })
+        .post('follower/accept-friend', v)
+        .then((res) => {
+          if (res.data.status) {
+            this.getRequestFriend();
+          }
+        })
     },
     delRequest(v) {
       axios
-          .post('follower/delete-friend', v)
-          .then((res) => {
-            if (res.data.status) {
-              this.getRequestFriend()
-            } else {
-              baseFunction.displaySuccess(res);
-            }
-          })
+        .post('follower/delete-friend', v)
+        .then((res) => {
+          if (res.data.status) {
+            this.getRequestFriend()
+          } else {
+            baseFunction.displaySuccess(res);
+          }
+        })
     },
     readNotification(v) {
       axios
-          .post('notification/update-status', v)
-          .then((res) => {
-            if (res.data.status) {
-              this.getNotification();
-            }
-          })
+        .post('notification/update-status', v)
+        .then((res) => {
+          if (res.data.status) {
+            this.getNotification();
+          }
+        })
 
     },
     connectToSocket(user) {

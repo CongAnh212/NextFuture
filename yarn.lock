@@ -605,6 +605,11 @@ postcss@^8.1.10, postcss@^8.4.14, postcss@^8.4.26:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
+primevue@^3.46.0:
+  version "3.46.0"
+  resolved "https://registry.npmjs.org/primevue/-/primevue-3.46.0.tgz"
+  integrity sha512-WGprXj9HA+j6gLLDaSxcRRSChIF99ld5fg1D3hYFA7hNiEuON1aqe83gf52vUSw8yjVMtFQ3CMPQSTYhooNwIg==
+
 proxy-from-env@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/proxy-from-env/-/proxy-from-env-1.1.0.tgz"
@@ -803,7 +808,7 @@ vue@^2.5.18:
     "@vue/compiler-sfc" "2.7.15"
     csstype "^3.1.0"
 
-vue@^3.2.0, vue@^3.2.25, vue@^3.3.4, vue@3.3.4:
+vue@^3.0.0, vue@^3.2.0, vue@^3.2.25, vue@^3.3.4, vue@3.3.4:
   version "3.3.4"
   resolved "https://registry.npmjs.org/vue/-/vue-3.3.4.tgz"
   integrity sha512-VTyEYn3yvIeY1Py0WaYGZsXnz3y5UnGi62GjVEqvEGPl6nxbOrCXbVOTQWBEJUqAyTUk2uJ5JLVnYJ6ZzGbrSw==
