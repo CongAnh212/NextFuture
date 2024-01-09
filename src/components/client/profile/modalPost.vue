@@ -11,14 +11,14 @@
                 <div class="d-flex bg-white" style="height: 90vh;width: 100%; ">
                     <div style="height: 100%; overflow: hidden;aspect-ratio: 1/1; cursor: pointer; position: relative; ">
                         <div @click="indexImage--" v-if="indexImage != 0"
-                            class="bg-hover circle flex-center text-dark bg-hover ms-1"
-                            style="position: absolute; top: 50%; transform: translateY(-50%); width: 2.5rem; height: 2.5rem; background-color: #ddddddac;">
+                            class="bg-hover circle flex-center text-dark bg-hover ms-2"
+                            style="position: absolute; top: 50%; transform: translateY(-50%); width: 2rem; height: 2rem; background-color: #ddddddac;">
                             <i class="fas fa-chevron-left " style="font-size: 20px;" />
                         </div>
                         <div @click="indexImage++" v-if="indexImage != arrayImages.length - 1"
-                            class="bg-hover circle flex-center text-dark bg-hover me-1"
-                            style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 2.5rem; height: 2.5rem; background-color: #ddddddad;">
-                            <i class="fas fa-chevron-right " style="font-size: 20px;" />
+                            class="bg-hover circle flex-center text-dark bg-hover me-2 "
+                            style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 2rem; height: 2rem; background-color: #ddddddad;">
+                            <i class="fas fa-chevron-right text-center" style="font-size: 20px;" />
                         </div>
                         <div class="" style="position: absolute; bottom: 0; right: 50%; transform: translateX(-50%); ">
                             <i v-for="i in arrayImages.length" :class="{ 'text-white': i - 1 == indexImage }"
@@ -36,7 +36,7 @@
                                 </div>
                                 <router-link class="text-hover text-dark"
                                     :to="{ name: 'detailProfile', params: { username: post.username == null ? ' ' : post.username } }">
-                                    <span class=" f-500" style="font-weight: 600; font-size: 17px;">
+                                    <span class=" f-500 " style="font-weight: 600; font-size: 17px;">
                                         {{ post.fullname }}
                                     </span>
                                 </router-link>
@@ -220,6 +220,9 @@ export default {
     props: {
         post: {
             type: Object,
+        },
+        index: {
+            type: Number
         }
     },
     watch: {
@@ -235,6 +238,21 @@ export default {
             },
             // deep: true, // Thêm dòng này
         },
+        index: {
+            handler(newValue, oldValue) {
+                console.log('newValue: ', newValue);
+                if (!oldValue) {
+                    console.log('lần đầu');
+                    setTimeout(() => {
+                        this.indexImage = newValue
+
+                    }, 1);
+                }
+                this.indexImage = newValue
+
+                console.log('this.arrayImages[this.indexImage]: ', this.arrayImages[3]);
+            }
+        }
     },
     data() {
         return {
@@ -271,7 +289,7 @@ export default {
             this.list_comment_reply = this.containReplyComment.slice(0, this.list_comment[k].limit);
         },
         viewReplies(v, k) {
-            
+
             axios
                 .post('comment/data-reply', v)
                 .then((res) => {

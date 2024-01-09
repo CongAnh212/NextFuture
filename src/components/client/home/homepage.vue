@@ -54,9 +54,10 @@
               <div class="card-body">
                 <div class="d-flex align-items-center ">
                   <div style="width: 3.5rem; height: 3.5rem; overflow: hidden;" class="flex-center circle">
-                    <img :src="urlImg + myInfo.avatar" alt="userimg" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img :src="urlImg + myInfo.avatar" alt="userimg"
+                      style="width: 100%; height: 100%; object-fit: cover;">
                   </div>
-                  <form class="post-text ms-3 w-100 " data-bs-toggle="modal" data-bs-target="#post-modal"
+                  <form class="post-text ms-3 w-100 btn-temp" data-bs-toggle="modal" data-bs-target="#post-modal"
                     action="javascript:void();" style="flex:1">
                     <input type="text" class="form-control rounded" placeholder="Write something here..."
                       style="border:none;">
@@ -64,14 +65,14 @@
                 </div>
                 <hr>
                 <ul class=" post-opt-block d-flex list-inline m-0 p-0 flex-wrap">
-                  <li class="me-3 mb-md-0 mb-2">
-                    <a href="#" class="btn btn-soft-primary">
+                  <li class="me-3 mb-md-0 mb-2" @click="showModalPost">
+                    <a class="btn btn-soft-primary">
                       <img src="../../../assets/client/images/small/07.png" alt="icon" class="img-fluid me-2">
                       Photo/Video
                     </a>
                   </li>
                   <li class="me-3 mb-md-0 mb-2">
-                    <a href="#" class="btn btn-soft-primary">
+                    <a class="btn btn-soft-primary">
                       <img src="../../../assets/client/images/small/08.png" alt="icon" class="img-fluid me-2"> Tag
                       Friend
                     </a>
@@ -90,7 +91,8 @@
                     <div class="modal-body" style="overflow: auto;">
                       <div class="d-flex align-items-center mb-3">
                         <div style="width: 3.5rem; height: 3.5rem; overflow: hidden;" class="flex-center circle">
-                            <img :src="urlImg + myInfo.avatar" alt="userimg" style="width: 100%; height: 100%; object-fit: cover;">
+                          <img :src="urlImg + myInfo.avatar" alt="userimg"
+                            style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                         <form class="post-text ms-3 w-100" action="javascript:void(); " style="flex:1">
                           <input v-model="post.caption" type="text" class="form-control rounded"
@@ -116,16 +118,18 @@
                             Friend
                           </div>
                         </li>
-                       
+
 
                       </ul>
                       <hr>
                       <div class="other-option">
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="d-flex align-items-center">
-                            <div style="width: 3.5rem; height: 3.5rem; overflow: hidden; margin-right: 0.3rem;" class="flex-center circle">
-                    <img :src="urlImg + myInfo.avatar" alt="userimg" style="width: 100%; height: 100%; object-fit: cover; ">
-                  </div>
+                            <div style="width: 3.5rem; height: 3.5rem; overflow: hidden; margin-right: 0.3rem;"
+                              class="flex-center circle">
+                              <img :src="urlImg + myInfo.avatar" alt="userimg"
+                                style="width: 100%; height: 100%; object-fit: cover; ">
+                            </div>
                             <h6>Your Story</h6>
                           </div>
                           <div class="card-post-toolbar">
@@ -203,11 +207,13 @@
     <div class="right-sidebar-panel p-0 ">
       <div class="card shadow-none ">
         <div class="card-body p-0 ">
-          <div class="media-height p-3 " data-scrollbar="true" tabindex="-1" >
+          <div class="media-height p-3 " data-scrollbar="true" tabindex="-1">
             <div class="scroll-content " style="overflow: auto; outline: none;">
               <div v-for="(v, k) in list_friend" class="d-flex align-items-center mb-4 ">
-                <div class="flex-center " :class="{ 'iq-profile-avatar': true, 'status-online': v.isOnline }" style="width: 3rem; height: 3rem; overflow:hidden ;">
-                  <img class="rounded-circle " :src="urlImg + v.avatar" alt="" style="object-fit: cover; width: 100%; height: 100%;">
+                <div class="flex-center " :class="{ 'iq-profile-avatar': true, 'status-online': v.isOnline }"
+                  style="width: 3rem; height: 3rem; overflow:hidden ;">
+                  <img class="rounded-circle " :src="urlImg + v.avatar" alt=""
+                    style="object-fit: cover; width: 100%; height: 100%;">
                 </div>
                 <div class="ms-3">
                   <h6 class="mb-0">{{ v.fullname }}</h6>
@@ -220,8 +226,8 @@
               </div>
             </div>
             <div class="scrollbar-track scrollbar-track-y" style="display: block;">
-              <div class="scrollbar-thumb scrollbar-thumb-y"
-                style="height: 1rem; transform: translate3d(0px, 0px, 0px);"></div>
+              <div class="scrollbar-thumb scrollbar-thumb-y" style="height: 1rem; transform: translate3d(0px, 0px, 0px);">
+              </div>
             </div>
           </div>
           <div class="right-sidebar-toggle bg-primary text-white mt-3">
@@ -239,6 +245,7 @@ import coreFunction from '../../../core/coreFunction';
 import axios, { url } from '../../../core/coreRequest'
 import ListPost from './list_post.vue';
 import { state } from '../../../socket.js';
+import Swal from 'sweetalert2'
 
 export default {
   components: { ListPost },
@@ -321,6 +328,12 @@ export default {
     }, 100);
   },
   methods: {
+    showModalPost() {
+      $('.btn-temp').click()
+      if ($('.file-input').hasClass('hide-important')) {
+        $('.file-input').removeClass('hide-important');
+      }
+    },
     updateOnlineUser(onlineUsers) {
       if (onlineUsers) {
         if (this.list_friend.length > 0 && onlineUsers) {
@@ -402,6 +415,10 @@ export default {
       }
     },
     posting() {
+      var check = false
+      if (this.post.images.length == 0 && !this.post.caption) {
+        check = true
+      }
       const formData = new FormData();
       this.post.images.forEach((file, index) => {
         formData.append('images[]', file);
@@ -410,29 +427,44 @@ export default {
         formData.append(key, value);
       });
       formData.append('privacy', this.privacy)
-      axios
-        .post('post/create', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-        .then((res) => {
-          if (res.data.status) {
-            this.post = {
-              images: []
-            };
-            this.$refs.btnCloseModal.click();
-            $('.fileinput-remove-button').click();
-            this.loadPost();
 
-          } else {
-            console.log(res.data.message);
-          }
-
-        })
-        .catch((err) => {
-          console.log(err);
+      if (check) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Please enter at least 1 information to post",
+          showConfirmButton: false
         });
+        setTimeout(() => {
+          Swal.close();
+        }, 1500);
+      } else {
+        axios
+          .post('post/create', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          .then((res) => {
+            if (res.data.status) {
+              this.post = {
+                images: []
+              };
+              this.$refs.btnCloseModal.click();
+              $('.fileinput-remove-button').click();
+              this.loadPost();
+
+            } else {
+              console.log(res.data.message);
+            }
+
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+
+
     },
     setDropdown() {
       $('.dropdownn').css('inset', 'auto 0px 0px auto');
