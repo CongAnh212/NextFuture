@@ -8,20 +8,21 @@ import Account from "./Layout/Wrapper/client/account/index.vue";
 import share from "./layout/wrapper/client/share_master/index.vue";
 import empty from "./layout/wrapper/client/empty/index.vue";
 import checkIsLogin from "../src/core/modules.js";
+import AdminNav from "./Layout/Wrapper/admin/AdminNav.vue";
 
 const app = createApp(App);
 router.beforeEach(async (to, from, next) => {
     const isLoggedIn = await checkIsLogin();
     if (to.matched.some((record) => record.meta.requiresAuth) && !isLoggedIn) {
-        console.log('no login')
-        next('/sign-in');
+        console.log("no login");
+        next("/sign-in");
     } else if (isLoggedIn) {
         switch (to.name) {
-            case 'sign-in' || 'sign-up':
-                next({ path: '/' });
+            case "sign-in" || "sign-up":
+                next({ path: "/" });
                 break;
-            case 'homepage':
-                next({ path: '/' });
+            case "homepage":
+                next({ path: "/" });
                 break;
             default:
                 next();
@@ -37,5 +38,6 @@ app.component("main-layout", Main);
 app.component("story-layout", Story);
 app.component("share-layout", share);
 app.component("empty-layout", empty);
+app.component("admin-layout", AdminNav);
 
 app.mount("#app");
