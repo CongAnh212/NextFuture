@@ -10,27 +10,8 @@
                 class="d-flex gap-3 align-items-center"
                 style="background-color: white; padding: 1rem 2rem">
                 <div
-                    class="d-flex flex-dir-row gap-4 shadow-sm p-2 rounded-2 align-items-center"
-                    style="">
-                    <div class="position-relative p-2">
-                        <button class="admin--button-overlay" @click="typeFilter('all')" />
-                        <div>Total users</div>
-                        <div class="fw-bold fs-4">{{ totalAccounts }}</div>
-                    </div>
-                    <div class="position-relative p-2">
-                        <button class="admin--button-overlay" @click="typeFilter('active')" />
-                        <div>Active users</div>
-                        <div class="fw-bold fs-4" :style="colorType.Active">
-                            {{ activeAccounts }}
-                        </div>
-                    </div>
-                    <div class="position-relative p-2">
-                        <button class="admin--button-overlay" @click="typeFilter('banned')" />
-                        <div>Banned users</div>
-                        <div class="fw-bold fs-4" :style="colorType.Banned">
-                            {{ bannedAccounts }}
-                        </div>
-                    </div>
+                    class="d-flex flex-dir-row gap-2 shadow-sm rounded-2 align-items-center"
+                    style="padding: 0.5rem 1rem">
                     <div>
                         <div
                             class="d-flex align-items-center justify-content-center"
@@ -41,6 +22,25 @@
                                 width: 50px;
                             ">
                             <i class="fa-regular fa-user fs-4"></i>
+                        </div>
+                    </div>
+                    <div class="admin--account-numbers">
+                        <button class="admin--button-overlay" @click="typeFilter('all')" />
+                        <div>Total users</div>
+                        <div class="fw-bold fs-4">{{ totalAccounts }}</div>
+                    </div>
+                    <div class="admin--account-numbers">
+                        <button class="admin--button-overlay" @click="typeFilter('active')" />
+                        <div>Active users</div>
+                        <div class="fw-bold fs-4" :style="colorType.Active">
+                            {{ activeAccounts }}
+                        </div>
+                    </div>
+                    <div class="admin--account-numbers">
+                        <button class="admin--button-overlay" @click="typeFilter('banned')" />
+                        <div>Banned users</div>
+                        <div class="fw-bold fs-4" :style="colorType.Banned">
+                            {{ bannedAccounts }}
                         </div>
                     </div>
                 </div>
@@ -60,6 +60,7 @@
                 style="
                     grid-template-columns: 290px 110px 110px 200px 150px 170px;
                     padding: 1rem 1rem 0 1rem;
+                    border-bottom: 0.2px solid rgba(212, 208, 208, 1);
                 ">
                 <p>Account</p>
                 <p>User name</p>
@@ -72,7 +73,7 @@
                 v-for="(account, index) in accountsFilter"
                 :key="index"
                 class="bg-white overflow-y-auto"
-                style="border-bottom: 0.2px solid gray">
+                style="border-bottom: 0.2px solid rgba(212, 208, 208, 0.4)">
                 <div
                     class="d-grid"
                     :style="{
@@ -352,6 +353,10 @@ export default {
 }
 </style>
 <style scoped>
+.admin--account-numbers {
+    position: relative;
+    padding: 0.5rem 1rem;
+}
 .admin--button-overlay {
     position: absolute;
     top: 0;
