@@ -40,8 +40,8 @@
               </div>
 
             </router-link>
-            <div @click="viewStory(v)" class="text-light mb-1" style="z-index: 1;">
-              <b class="name-in-story">{{ v.fullname }}</b>
+            <div @click="viewStory(v)" class="text-light mb-1  d-flex" style="z-index: 1; flex-wrap: nowrap;">
+              <span><span class="name-in-story w-100 f-500">{{ v.fullname }}</span></span>
             </div>
           </div>
         </div>
