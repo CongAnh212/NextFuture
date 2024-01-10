@@ -12,7 +12,7 @@
                 <div
                     class="d-flex flex-dir-row gap-2 shadow-sm rounded-2 align-items-center"
                     style="padding: 0.5rem 1rem">
-                    <div>
+                    <div style="padding: 0 10px">
                         <div
                             class="d-flex align-items-center justify-content-center"
                             style="
@@ -58,7 +58,7 @@
             <div
                 class="d-grid"
                 style="
-                    grid-template-columns: 290px 110px 110px 200px 150px 170px;
+                    grid-template-columns: 300px 150px 150px 200px 150px 180px;
                     padding: 1rem 1rem 0 1rem;
                     border-bottom: 0.2px solid rgba(212, 208, 208, 1);
                 ">
@@ -67,18 +67,19 @@
                 <p>Password</p>
                 <p>Email</p>
                 <p>Phone number</p>
-                <p class="d-flex justify-content-center">Action</p>
+                <p style="padding-left: 1rem">Action</p>
             </div>
             <div
                 v-for="(account, index) in accountsFilter"
                 :key="index"
-                class="bg-white overflow-y-auto"
+                class="bg-white overflow-y-auto position-relative"
                 style="border-bottom: 0.2px solid rgba(212, 208, 208, 0.4)">
+                <button class="admin--button-overlay" @click="visitAccount(account.id)" />
                 <div
                     class="d-grid"
                     :style="{
                         padding: '1rem 1rem',
-                        gridTemplateColumns: '290px 110px 110px 200px 130px auto',
+                        gridTemplateColumns: '300px 150px 150px 200px 150px 170px',
                         backgroundColor: '#f8f9fa',
                     }">
                     <div class="d-flex align-items-center gap-2">
@@ -142,7 +143,7 @@
                     </div>
                     <div
                         style="
-                            max-width: 100px;
+                            max-width: 140px;
                             text-wrap: nowrap;
                             overflow: hidden;
                             text-overflow: ellipsis;
@@ -160,22 +161,17 @@
                     </div>
                     <div
                         style="
-                            width: 120px;
+                            max-width: 120px;
                             text-wrap: nowrap;
                             overflow: hidden;
                             text-overflow: ellipsis;
                         ">
                         {{ account.phone_number }}
                     </div>
-                    <div class="d-flex align-items-lg-start">
-                        <button class="admin--visit-button" @click="visitAccount(account.id)">
-                            Visit account
+                    <div v-if="account.status">
+                        <button class="admin--ban-button" @click="banAccount(account.id)">
+                            Ban
                         </button>
-                        <div v-if="account.status">
-                            <button class="admin--ban-button" @click="banAccount(account.id)">
-                                Ban
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -361,7 +357,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 70%;
     height: 100%;
     border: none;
     background-color: rgba(212, 208, 208, 0);
@@ -369,6 +365,7 @@ export default {
 }
 .admin--button-overlay:hover {
     border: none;
+    width: 100%;
     border-radius: 5px;
     background-color: rgba(212, 208, 208, 0.2);
 }

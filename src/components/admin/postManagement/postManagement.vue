@@ -29,8 +29,9 @@
             <div
                 v-for="(post, index) in postsFilter"
                 :key="index"
-                class="bg-white p-3 overflow-y-auto border-bottom"
-                style="">
+                class="bg-white p-3 overflow-y-auto position-relative"
+                style="border-bottom: 0.2px solid rgba(212, 208, 208, 1)">
+                <button class="admin--button-overlay" @click="viewPost(post.id)"></button>
                 <div
                     class="d-flex justify-content-between align-items-center mb-2"
                     :style="{
@@ -248,11 +249,32 @@ export default {
                 return post.privacy == this.postType;
             });
         },
+        viewPost(id) {
+            //nhét link bài viết vô đây
+            this.$router.push({ name: "Profile", params: { id: id } });
+        },
     },
 };
 </script>
 
 <style scoped>
+.admin--button-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 100%;
+    border: none;
+    background-color: rgba(212, 208, 208, 0);
+    z-index: 1;
+}
+.admin--button-overlay:hover {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(212, 208, 208, 0.2);
+}
 .admin--delete-button {
     padding: 0.3rem 1rem;
     border: none;
