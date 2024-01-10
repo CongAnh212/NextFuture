@@ -32,10 +32,12 @@ export default {
         const startTime = new Date(time);
         const timeDiff = currentTime - startTime; // Hiệu giữa hai thời điểm tính bằng mili giây
 
-        if (timeDiff < 60 * 1000) { // Nếu thời gian giữa hai điểm ít hơn 1 phút
+        if (timeDiff < 60 * 1000) {
+            // Nếu thời gian giữa hai điểm ít hơn 1 phút
             // return `${Math.round(timeDiff / 1000)} seconds`;
-            return 'just finished'
-        } else if (timeDiff < 60 * 60 * 1000) { // Nếu thời gian giữa hai điểm ít hơn 1 giờ
+            return "Just now";
+        } else if (timeDiff < 60 * 60 * 1000) {
+            // Nếu thời gian giữa hai điểm ít hơn 1 giờ
             const minutes = timeDiff / (1000 * 60); // Chuyển đổi thành phút
             return `${Math.round(minutes)} minutes`;
         } else if (timeDiff < 24 * 60 * 60 * 1000) {

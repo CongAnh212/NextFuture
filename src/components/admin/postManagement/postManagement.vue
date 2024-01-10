@@ -219,6 +219,7 @@ export default {
                         }
                         return post;
                     });
+                    //nhét link api vô đây
                     axios.post("/admin/delete-post", id).then((res) => {
                         console.log(res);
                     });
