@@ -15,7 +15,7 @@
                         style="border-radius: 8px !important; width: 19%; cursor: pointer;">
                         <router-link :to="{ name: 'detailProfile.request_friend', params: { username: v.username } }"
                             class="w-100 ">
-                            <div style="width: 100%; height: 236px; overflow: hidden;" class="flex-center">
+                            <div style="width: 100%; overflow: hidden;" class="flex-center responsive-image">
                                 <img :src="urlImage + v.avatar" class="card-img-top" alt="#"
                                     style="object-fit: cover;width: 100%;height: 100%;">
                             </div>
@@ -51,7 +51,7 @@
                     </h4>
                 </div>
             </div>
-            <button v-if="request_friend.length >= 5" class=" btn text-primary seeall " style="width: 98%;"
+            <button v-if="request_friend.length > 5" class=" btn text-primary seeall " style="width: 98%;"
                 @click="getLimitRF()">
                 <b>
                     See more
@@ -79,7 +79,7 @@
                         class="card mb-3"
                         style="margin-bottom: 1rem;border-radius: 8px !important; width: 19%; cursor: pointer;">
                         <router-link :to="{ name: 'detailProfile.request_friend', params: { username: v.username } }">
-                            <div style="width: 100%; height: 14rem; overflow: hidden;" class="flex-center">
+                            <div style="width: 100%; overflow: hidden;" class="flex-center responsive-image">
                                 <img :src="urlImage + v.avatar" class="card-img-top" alt="#"
                                     style="object-fit: cover; width: 100%; height: 100%;">
                             </div>

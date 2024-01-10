@@ -125,63 +125,61 @@
                         <div>
                             <h5 class="f-500">{{ info.fullname }}</h5>
                         </div>
-                        <div class="pt-1 d-flex " style="gap: 0.5em; flex-wrap: wrap; width: 22vw;">
-                            <div class="text-primary">
-                                <span class="px-2 py-1"
-                                    style="border-radius: 20px; background-color: rgba(57, 53, 53, 0.084);">
-                                    <i class=" fa-brands fa-facebook"></i>
-                                    <a href="https://www.facebook.com/phtsnh26/" class="text-primary">
-                                        phtsnh26</a>
-                                </span>
+                        <div style="gap: 0.5em; width: 20rem;">
+                            <div>
+                                <a :href="v.link" v-for="(v, k) in link_address" class="px-2 py-1 me-1"
+                                    style="border-radius: 20px;background-color: rgba(57, 53, 53, 0.084);
+                                     display: inline-block;word-break: break-all; margin-top: 0.25rem; align-self: center;" target="_blank">
+                                    <i :class="v.icon" class="me-1 text-dark f-500 "></i>
+                                    <span class="text-dark f-500">
+                                        {{ v.name }}
+                                    </span>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="flex-center">
-                    <hr style="width: 99%;" class="mb-0 p-0">
-                </div>
-                <div>
-                    <ul class="flex-center" style="gap: 1rem; list-style: none; margin-top: -1px;">
-                        <li class="text-dark f-500  px-2 pt-2"
-                            style="font-size: 15px; cursor: pointer; border-top: 1px solid #000000;">
-                            <i class="fa-regular fa-image"></i>
-                            PHOTOS
-                        </li>
-                        <li class="text-dark f-500  px-2 pt-2" style="font-size: 15px; cursor: pointer; ">
-                            <i class="fa-solid fa-table-cells"></i>
-                            POSTS
-                        </li>
-                        <li class="text-dark f-500 px-2 pt-2" style="font-size: 15px; cursor: pointer;">
-                            <i class="fa-solid fa-lock"></i>
-                            PRIVATE
-                        </li>
-                        <li class="text-dark f-500 px-2 pt-2" style="font-size: 15px; cursor: pointer;">
-                            <i class="fa-regular fa-address-card"></i>
-                            ABOUT
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-sm-12 pb-4">
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="timeline" role="tabpanel">
-                        <div class="d-flex" style="width:100%; flex-wrap: wrap;">
-                            <div style="width: 33%; overflow: hidden; aspect-ratio: 1/1; padding: 2px; cursor: pointer; position: relative; "
-                                data-bs-toggle="modal" data-bs-target="#modalPost" class="flex-center rovo">
-                                <div class="img-hover">
+                <TabView class="tabview-custom">
+                    <TabPanel>
+                        <template #header>
+                            <a>
+                                <div class="flex align-items-center gap-2 p-3" @click="post()">
+                                    <i class="fa-solid fa-table-cells text-dark me-1"></i>
+                                    <span class="text-dark">POSTS</span>
                                 </div>
-                                <span class="text-white"
-                                    style="z-index: 1; position: absolute;top:3px;right: 12px; font-size: 23px;">
-                                    <i class="fa-solid fa-clone" style="text-shadow: 0 0 10px #000000;"></i>
-                                </span>
-                                <img style="object-fit: cover; width: 100%;height: 100%;"
-                                    src="https://media-cdn-v2.laodong.vn/storage/newsportal/2023/10/26/1259495/Doona-Suzy.jpg">
-                            </div>
+                            </a>
+                        </template>
+                        <div class="m-0 okene">
+                            <Post />
                         </div>
-                    </div>
-                    <!-- modalPost -->
-                    <!-- <ModalPost /> -->
-                </div>
+                    </TabPanel>
+                    <TabPanel>
+                        <template #header>
+                            <a href="#photos">
+                                <div class="flex align-items-center gap-2 p-3 ">
+                                    <i class="fa-solid fa-image text-dark me-1"></i>
+                                    <span class="text-dark">PHOTOS</span>
+                                </div>
+                            </a>
+                        </template>
+                        <div class="m-0 okene">
+                            <Photo />
+                        </div>
+                    </TabPanel>
+                    <TabPanel>
+                        <template #header>
+                            <a href="#aboutme">
+                                <div class="flex align-items-center gap-2 p-3">
+                                    <i class="fa-regular fa-address-card text-dark me-1"></i>
+                                    <span class="text-dark">ABOUT</span>
+                                </div>
+                            </a>
+                        </template>
+                        <div class="m-0 okene">
+                            <AboutMe />
+                        </div>
+                    </TabPanel>
+                </TabView>
             </div>
         </div>
     </div>
@@ -192,13 +190,22 @@ import ModalFollower from './modalFollower.vue';
 import ModalFriend from './modalFriend.vue';
 import ModalPost from './modalPost.vue';
 import { socket } from '../../../socket.js';
-
+import 'primevue/resources/themes/lara-light-green/theme.css'
+import TabView from 'primevue/tabview';
+import TabPanel from 'primevue/tabpanel';
+import AboutMe from './about_me/about_me.vue'
+import Photo from './photo/photo.vue'
+import Post from './post/post.vue'
 export default {
     components: {
         ModalFollower,
         ModalFriend,
-        ModalPost
-
+        ModalPost,
+        TabView,
+        TabPanel,
+        AboutMe,
+        Photo,
+        Post
     },
     data() {
         return {
@@ -210,6 +217,9 @@ export default {
             followers: [],
             checkListFollwer: false,
             checkListFriend: false,
+            link_address: [],
+            triggerPhoto: false,
+            triggerAbout: false,
         }
     },
     props: {
@@ -231,6 +241,10 @@ export default {
         this.username = this.$route.params.username;
         this.getInfo();
         this.getAllProfile();
+        this.linkAddress();
+        $('.p-tabview-nav').addClass('flex-center');
+        $('.p-tabview-header-action').addClass('delete-border-bottom');
+        this.handleBorderTop()
     },
     watch: {
         sentFriend(newData, oldData) {
@@ -273,6 +287,31 @@ export default {
         }
     },
     methods: {
+        handleBorderTop() {
+            $('.p-highlight').removeClass('p-highlight')
+            if (window.location.hash === '#photos') {
+                $('[data-pc-index="1"]').addClass('p-highlight')
+            } else if (window.location.hash === '#aboutme') {
+                $('[data-pc-index="2"]').addClass('p-highlight')
+            } else {
+                $('[data-pc-index="0"]').addClass('p-highlight')
+            }
+
+            const okene = $('.okene').parent().removeClass('p-highlight')
+        },
+        post() {
+            const urlWithoutHash = window.location.href.split("#")[0];
+
+            // Thay đổi URL mà không thêm vào lịch sử duyệt
+            window.history.replaceState({}, document.title, urlWithoutHash);
+        },
+        linkAddress() {
+            axios
+                .get(this.username + '/data-link-address')
+                .then((res) => {
+                    this.link_address = res.data.data
+                });
+        },
         getAllProfile() {
             axios
                 .get(this.username + '/data-all')
@@ -301,8 +340,6 @@ export default {
                 .then((res) => {
                     if (res.data.status) {
                         this.getInfo();
-                    } else {
-
                     }
                 })
         },
@@ -374,6 +411,32 @@ export default {
 }
 
 </script>
-<style>
-@import './style.css'
+<style >
+@import './style.css';
+
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    background: #ffffff;
+    border-color: black;
+    border-top: black;
+    color: #10b981;
+    border-bottom: none;
+}
+
+.p-tabview-nav {
+    border-top: 0.1em solid rgba(195, 193, 193, 0.829);
+    border-bottom: none;
+}
+
+
+
+.delete-border-bottom {
+    border-bottom: none;
+    padding: 0;
+}
+
+
+.p-highlight {
+    margin-top: -0.1em;
+    border-top: 0.115em solid black;
+}
 </style>

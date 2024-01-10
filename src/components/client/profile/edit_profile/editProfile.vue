@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-center pt-3 ps-5 pe-5 bg-xanh">
+    <div class="flex-center pt-3 ps-5 pe-5">
         <div class="card flex-center " style="width: 40%; width: 40%; box-shadow: 0 0 10px #2a2a2a41;">
             <div class="card-body d-flex w-100">
                 <div class="flex-center" style="border-radius: 10px; width: 45%;">
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div class="d-flex mt-2">
-                        <div class="me-2" style="flex:">
+                        <div class="me-2" style="flex:1">
                             <label class="form-label m-0 text-dark">Address</label>
                             <input v-model="data_my_info.address" type="text" class="form-control" placeholder="Address">
                         </div>
@@ -67,50 +67,57 @@
             </div>
         </div>
     </div>
-    <div class="flex-center ps-5 pe-5 pb-1 bg-xanh">
+    <div class="flex-center ps-5 pe-5 pb-1 ">
         <div class="card flex-center " style="width: 40%;  box-shadow: 0 0 10px #2a2a2a41;">
             <div class="card-body d-flex w-100">
-                <div class="w-100" style="padding-left: 0.5rem;">
+                <div v-if="links.status == true" class="w-100" style="padding-left: 0.5rem;">
                     <h5 class="text-dark f-500">Add link address </h5>
                     <div class="d-flex mt-2" style="position: relative;">
-                        <input type="text" class="form-control me-2 pe-4" placeholder="Link tiktok">
-                        <i class="fa-brands fa-tiktok text-dark" style="position: absolute; left:45%; top: 0.85em;"></i>
-                        <input type="text" class="form-control " placeholder="Name">
+                        <input v-model="links.tiktok.link" type="text" class="form-control me-2 pe-4"
+                            placeholder="Link tiktok">
+                        <i class="fa-brands fa-tiktok text-dark" style="position: absolute; left:46%; top: 0.85em;"></i>
+                        <input v-model="links.tiktok.name" type="text" class="form-control " placeholder="Name">
                     </div>
                     <div class="d-flex mt-2" style="position: relative;">
-                        <input type="text" class="form-control me-2 pe-4" placeholder="Link facebook">
-                        <i class="fa-brands fa-facebook text-dark" style="position: absolute; left:45%; top: 0.85em;"></i>
-                        <input type="text" class="form-control " placeholder="Name">
+                        <input v-model="links.facebook.link" type="text" class="form-control me-2 pe-4"
+                            placeholder="Link facebook">
+                        <i class="fa-brands fa-facebook text-dark" style="position: absolute; left:46%; top: 0.85em;"></i>
+                        <input v-model="links.facebook.name" type="text" class="form-control " placeholder="Name">
                     </div>
                     <div class="d-flex mt-2" style="position: relative;">
-                        <input type="text" class="form-control me-2 pe-4" placeholder="Link instagram">
-                        <i class="fa-brands fa-instagram text-dark" style="position: absolute; left:45%; top: 0.85em;"></i>
-                        <input type="text" class="form-control " placeholder="Name">
+                        <input v-model="links.instagram.link" type="text" class="form-control me-2 pe-4"
+                            placeholder="Link instagram">
+                        <i class="fa-brands fa-instagram text-dark" style="position: absolute; left:46%; top: 0.85em;"></i>
+                        <input v-model="links.instagram.name" type="text" class="form-control " placeholder="Name">
                     </div>
                     <div class="d-flex mt-2" style="position: relative;">
-                        <input type="text" class="form-control me-2 pe-4" placeholder="Link youtube">
-                        <i class="fa-brands fa-youtube text-dark" style="position: absolute; left:45%; top: 0.85em;"></i>
-                        <input type="text" class="form-control " placeholder="Name">
+                        <input v-model="links.youtube.link" type="text" class="form-control me-2 pe-4"
+                            placeholder="Link youtube">
+                        <i class="fa-brands fa-youtube text-dark" style="position: absolute; left:46%; top: 0.85em;"></i>
+                        <input v-model="links.youtube.name" type="text" class="form-control " placeholder="Name">
                     </div>
                     <div class="d-flex mt-2" style="position: relative;">
-                        <input type="text" class="form-control me-2 pe-4" placeholder="Link twitter">
-                        <i class="fa-brands fa-x-twitter text-dark" style="position: absolute; left:45%; top: 0.85em;"></i>
-                        <input type="text" class="form-control " placeholder="Name">
+                        <input v-model="links.x.link" type="text" class="form-control me-2 pe-4" placeholder="Link twitter">
+                        <i class="fa-brands fa-x-twitter text-dark" style="position: absolute; left:46%; top: 0.85em;"></i>
+                        <input v-model="links.x.name" type="text" class="form-control " placeholder="Name">
                     </div>
                     <div class="d-flex mt-2" style="position: relative;">
-                        <input type="text" class="form-control me-2 pe-4" placeholder="Link threads">
-                        <i class="fa-brands fa-threads text-dark" style="position: absolute; left:45%; top: 0.85em;"></i>
-                        <input type="text" class="form-control " placeholder="Name">
+                        <input v-model="links.threads.link" type="text" class="form-control me-2 pe-4"
+                            placeholder="Link threads">
+                        <i class="fa-brands fa-threads text-dark" style="position: absolute; left:46%; top: 0.85em;"></i>
+                        <input v-model="links.threads.name" type="text" class="form-control " placeholder="Name">
                     </div>
                     <div class="d-flex mt-2">
                         <span style="flex: 1;"></span>
-                        <button class="btn btn-primary f-500" style="width: 11rem;">Update link address</button>
+                        <button class="btn btn-primary f-500" style="width: 11rem;" @click="updateLinkAddress()">
+                            Update link address
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="flex-center ps-5 pe-5 pb-2 bg-xanh">
+    <div class="flex-center ps-5 pe-5 pb-2 ">
         <div class="card flex-center " style="width: 40%;  box-shadow: 0 0 10px #2a2a2a41;">
             <div class="card-body d-flex w-100">
                 <div class="w-100" style="padding-left: 0.5rem;">
@@ -141,6 +148,7 @@
 import axios, { url } from '../../../../core/coreRequest'
 import baseFunction from '../../../../core/coreFunction'
 import ImageUploader from 'vue-image-crop-upload'
+import Swal from 'sweetalert2'
 
 export default {
     data() {
@@ -149,12 +157,48 @@ export default {
             urlImg: url,
             selectedImage: null,
             image: null,
+            link_address: {},
+            links: {
+                'status': false,
+                'youtube': { type: 1, link: '', name: '' },
+                'threads': { type: 2, link: '', name: '' },
+                'facebook': { type: 3, link: '', name: '' },
+                'instagram': { type: 4, link: '', name: '' },
+                'x': { type: 5, link: '', name: '' },
+                'tiktok': { type: 6, link: '', name: '' },
+            },
         }
     },
     mounted() {
         this.getDataMyInfo();
+        this.linkAddress();
     },
     methods: {
+        linkAddress() {
+            axios
+                .get('profile/data-address-link')
+                .then((res) => {
+                    this.link_address = res.data.data
+                    this.link_address.forEach(i => {
+                        if (i.type == 6) {
+                            this.links.tiktok = i
+                        } else if (i.type == 5) {
+                            this.links.x = i
+                        } else if (i.type == 4) {
+                            this.links.instagram = i
+                        } else if (i.type == 3) {
+                            this.links.facebook = i
+                        } else if (i.type == 2) {
+                            this.links.threads = i
+                        } else {
+                            this.links.youtube = i
+                        }
+
+                    });
+                    this.links.status = true;
+
+                });
+        },
         getDataMyInfo() {
             axios
                 .get('profile/accounts-edit')
@@ -190,6 +234,93 @@ export default {
                         baseFunction.displaySuccess(res);
                     }
                 })
+        },
+        updateLinkAddress() {
+            var check = false
+            Object.keys(this.links).forEach((key) => {
+                if (key !== 'status') {
+                    if ((this.links[key].name == '' && this.links[key].link != '') || (this.links[key].name != '' && this.links[key].link == '')) {
+                        if (this.links[key].type == 1) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error...",
+                                text: "Please enter full YouTube link information",
+                                showConfirmButton: false
+                            });
+                            setTimeout(() => {
+                                Swal.close();
+                            }, 2000);
+                            check = true
+                        } else if (this.links[key].type == 2) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error...",
+                                text: "Please enter full Threads link information",
+                                showConfirmButton: false
+                            });
+                            setTimeout(() => {
+                                Swal.close();
+                            }, 2000);
+                            check = true
+                        } else if (this.links[key].type == 3) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error...",
+                                text: "Please enter full Facebook link information",
+                                showConfirmButton: false
+                            });
+                            setTimeout(() => {
+                                Swal.close();
+                            }, 2000);
+                            check = true
+                        } else if (this.links[key].type == 4) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error...",
+                                text: "Please enter full Instagram link information",
+                                showConfirmButton: false
+                            });
+                            setTimeout(() => {
+                                Swal.close();
+                            }, 2000);
+                            check = true
+                        } else if (this.links[key].type == 5) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error...",
+                                text: "Please enter full X link information",
+                                showConfirmButton: false
+                            });
+                            setTimeout(() => {
+                                Swal.close();
+                            }, 2000);
+                            check = true
+                        } else if (this.links[key].type == 6) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error...",
+                                text: "Please enter full Tiktok link information",
+                                showConfirmButton: false
+                            });
+                            setTimeout(() => {
+                                Swal.close();
+                            }, 2000);
+                            check = true
+                        }
+                    } else {
+                        console.log("this.links[key]: ", this.links[key]);
+                    }
+                }
+            });
+            if (!check) {
+                axios
+                    .post('profile/update-link-address', this.links)
+                    .then((res) => {
+                        if (res.data.status) {
+                            baseFunction.displaySuccess(res)
+                        }
+                    })
+            }
         }
 
     },

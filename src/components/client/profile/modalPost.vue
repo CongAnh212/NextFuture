@@ -10,19 +10,36 @@
                 </div>
                 <div class="d-flex bg-white" style="height: 90vh;width: 100%; ">
                     <div style="height: 100%; overflow: hidden;aspect-ratio: 1/1; cursor: pointer; position: relative; ">
-                        <img style="object-fit: cover; width: 100%;height: 100%;"
-                            src="https://media-cdn-v2.laodong.vn/storage/newsportal/2023/10/26/1259495/Doona-Suzy.jpg"
-                            alt="">
+                        <div @click="indexImage--" v-if="indexImage != 0"
+                            class="bg-hover circle flex-center text-dark bg-hover ms-2"
+                            style="position: absolute; top: 50%; transform: translateY(-50%); width: 2rem; height: 2rem; background-color: #ddddddac;">
+                            <i class="fas fa-chevron-left " style="font-size: 20px;" />
+                        </div>
+                        <div @click="indexImage++" v-if="indexImage != arrayImages.length - 1"
+                            class="bg-hover circle flex-center text-dark bg-hover me-2 "
+                            style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 2rem; height: 2rem; background-color: #ddddddad;">
+                            <i class="fas fa-chevron-right text-center" style="font-size: 20px;" />
+                        </div>
+                        <div class="" style="position: absolute; bottom: 0; right: 50%; transform: translateX(-50%); ">
+                            <i v-for="i in arrayImages.length" :class="{ 'text-white': i - 1 == indexImage }"
+                                class="fas fa-circle  me-1" style="font-size: 0.3rem; color: #ffffff48;"></i>
+                        </div>
+                        <img style="object-fit: cover; width: 100%;height: 100%; cursor: auto;"
+                            :src="urlImg + arrayImages[indexImage]" alt="">
                     </div>
                     <div class="d-flex flex-column" style="flex:1; position: relative;">
                         <div class=" d-flex py-2 px-2 w-100">
                             <div class="d-flex align-items-center" style="flex:1">
-                                <img src="https://kenh14cdn.com/thumb_w/660/203336854389633024/2023/12/25/photo-4-1703515345299422557611.jpg"
-                                    class="img-fluid rounded-circle me-2" alt="user"
-                                    style="height: 35px; width: 35px;margin-left: 0px;">
-                                <span class="text-dark f-500" style="font-weight: 600; font-size: 17px;">
-                                    {{ post.fullname }}
-                                </span>
+                                <div class="circle me-2" style="width: 2rem; height: 2rem; overflow: hidden;">
+                                    <img :src="urlImg + post.avatar" class="" alt="user"
+                                        style="margin-left: 0px; object-fit: cover; width: 100%; height: 100%;">
+                                </div>
+                                <router-link class="text-hover text-dark"
+                                    :to="{ name: 'detailProfile', params: { username: post.username == null ? ' ' : post.username } }">
+                                    <span class=" f-500 " style="font-weight: 600; font-size: 17px;">
+                                        {{ post.fullname }}
+                                    </span>
+                                </router-link>
                             </div>
 
                             <div>
@@ -81,11 +98,16 @@
                                     <div class="d-flex" style="flex:1">
                                         <div style="height: 35px; width: 35px;margin-left: 0px; overflow: hidden;"
                                             class="circle me-2">
-                                            <img :src="urlImg + v.avatar" class="img-fluid me-2" alt="user"
-                                                style="object-fit: cover; width: 100%;">
+                                            <div class="circle me-2" style="width: 2rem; height: 2rem; overflow: hidden;">
+                                                <img :src="urlImg + post.avatar" class="" alt="user"
+                                                    style="margin-left: 0px; object-fit: cover; width: 100%; height: 100%;">
+                                            </div>
                                         </div>
                                         <div class="text-dark f-500" style="flex:1;margin-top: -7px;">
-                                            <span style="font-weight: 600; font-size: 17px;">{{ v.fullname }}</span>
+                                            <router-link class="text-dark text-hover"
+                                                :to="{ name: 'detailProfile', params: { username: v.username } }">
+                                                <span style="font-weight: 600; font-size: 17px;">{{ v.fullname }}</span>
+                                            </router-link>
                                             <br>
                                             <div class="d-flex" style="line-height: 15px;">
                                                 <span style="flex:1" v-html="v.content"></span>
@@ -105,29 +127,31 @@
                                                 <small class="text-secondary" @click="replyComment(v)"
                                                     style="font-weight: bold; cursor: pointer;">Reply</small>
                                             </div>
-                                            <template v-if="!v.id_replier">
+                                            <template v-if="v.replies">
                                                 <div class="d-flex align-items-center" style="gap: 5%;cursor: pointer;">
                                                     <div style="border: 1px solid #797979; width: 2rem; height: 0;">
                                                     </div>
-                                                    <small class="text-secondary " style=" font-weight: bold;">
-                                                        View replies (8)
+                                                    <small class="text-secondary " style=" font-weight: bold;"
+                                                        @click="v.limit > 0 ? moreReply(v, k) : viewReplies(v, k)">
+                                                        View replies ({{ v.replies }})
                                                     </small>
                                                 </div>
                                             </template>
-                                            <template v-for="(value, key) in list_comment_reply">
+                                            <template v-if="list_comment_reply" v-for="(value, key) in list_comment_reply">
                                                 <div v-if="value.id_replier == v.id" class="pt-3" style="flex:1">
                                                     <div class="d-flex mb-2">
-                                                        <div style="height: 35px; width: 35px;margin-left: 0px; overflow: hidden;"
+                                                        <div style="height: 2rem; width: 2rem;margin-left: 0px; overflow: hidden;"
                                                             class="circle me-2">
                                                             <img :src="urlImg + value.avatar" class="img-fluid me-2"
-                                                                alt="user" style="object-fit: cover; width: 100%;">
+                                                                alt="user"
+                                                                style="object-fit: cover; width: 100%; height: 100%;">
                                                         </div>
                                                         <div class="text-dark f-500" style="flex:1;margin-top: -7px;">
                                                             <span style="font-weight: 600; font-size: 17px;">{{
                                                                 value.fullname }}</span>
                                                             <br>
                                                             <div class="d-flex align-items-center"
-                                                                style="line-height: 15px; padding-left: 15px;">
+                                                                style="line-height: 15px; paddi">
                                                                 <span style="flex:1" v-html="value.content"></span>
                                                                 <span v-if="value.likes" style="margin-top: 1px;">{{
                                                                     value.likes }}</span>
@@ -147,7 +171,7 @@
                                                                         value.likes }}
                                                                     likes
                                                                 </small>
-                                                                <small class="text-secondary"
+                                                                <small class="text-secondary" @click="replyComment(value)"
                                                                     style="font-weight: bold; cursor: pointer;">Reply</small>
                                                             </div>
                                                         </div>
@@ -196,6 +220,9 @@ export default {
     props: {
         post: {
             type: Object,
+        },
+        index: {
+            type: Number
         }
     },
     watch: {
@@ -205,10 +232,27 @@ export default {
                 if (oldValue) {
                     this.showComment = false;
                     this.loadComment()
+                    this.convertStringImageToArray(newValue.images)
+                    this.indexImage = 0
                 }
             },
             // deep: true, // Thêm dòng này
         },
+        index: {
+            handler(newValue, oldValue) {
+                console.log('newValue: ', newValue);
+                if (!oldValue) {
+                    console.log('lần đầu');
+                    setTimeout(() => {
+                        this.indexImage = newValue
+
+                    }, 1);
+                }
+                this.indexImage = newValue
+
+                console.log('this.arrayImages[this.indexImage]: ', this.arrayImages[3]);
+            }
+        }
     },
     data() {
         return {
@@ -221,26 +265,62 @@ export default {
             list_comment_reply: [],
             showComment: false,
             isReply: false,
-            replier: {}
+            replier: {},
+            arrayImages: [],
+            indexImage: 0,
+            containReplyComment: {}
         }
     },
     mounted() {
         this.getFriend();
         this.loadComment()
-        console.log("️⚡→(modalPost.vue:230) ~ this.post", this.post);
+        this.convertStringImageToArray(this.post.images)
     },
     methods: {
+        moreReply(v, k) {
+            this.list_comment[k].limit += 3
+            if (this.list_comment[k].replies > 3) {
+                this.list_comment[k].replies -= 3
+
+            } else {
+                this.list_comment[k].replies = 0
+
+            }
+            this.list_comment_reply = this.containReplyComment.slice(0, this.list_comment[k].limit);
+        },
+        viewReplies(v, k) {
+
+            axios
+                .post('comment/data-reply', v)
+                .then((res) => {
+                    this.containReplyComment = res.data.dataReply;
+                    this.list_comment[k].limit += 3
+                    if (this.list_comment[k].replies > 3) {
+                        this.list_comment[k].replies -= 3
+
+                    } else {
+                        this.list_comment[k].replies = 0
+                    }
+                    this.list_comment_reply = this.containReplyComment.slice(0, this.list_comment[k].limit);
+                    console.log('this.list_comment_reply: ', this.list_comment_reply);
+                });
+        },
+        convertStringImageToArray(images) {
+            if (images) {
+                return this.arrayImages = JSON.parse(images)
+            }
+            return this.arrayImages = []
+        },
         replyComment(v) {
             this.isReply = true;
             this.replier = {
-                id: v.id,
+                id: v.id_replier ? v.id_replier : v.id,
                 fullname: v.fullname,
+                username: v.username
             }
 
             this.comments = '@' + v.fullname + ' '
             this.focusComment()
-            this.tagFriend(object, indexFriend)
-            // this.focusComment()
         },
         likeComment(v, k, rep) {
             if (rep == 'rep') {
@@ -250,7 +330,13 @@ export default {
                 this.list_comment[k].likes++
                 this.list_comment[k].liked = true
             }
+
             axios.post('comment/like', v)
+                .then((res) => {
+                    console.log('res: ', res.data);
+
+                })
+
         },
         unLikeComment(v, k, rep) {
             if (rep == 'rep') {
@@ -306,6 +392,7 @@ export default {
                     .post('comment/create', payload)
                     .then((res) => {
                         this.comments = [];
+                        this.isReply = false;
                         this.loadComment();
                     })
             }
@@ -316,7 +403,11 @@ export default {
                 .post('comment/data', this.post)
                 .then((res) => {
                     this.list_comment = res.data.dataComment;
-                    this.list_comment_reply = this.list_comment.filter(comment => comment.id_replier !== null);
+                    // this.list_comment_reply = this.list_comment.filter(comment => comment.id_replier !== null);
+                    this.list_comment = this.list_comment.map((value) => ({
+                        ...value,
+                        limit: 0
+                    }));
 
                     this.showComment = true;
                 });

@@ -18,13 +18,16 @@
                         <b class="text-dark">Friends ({{ member_friend.length }})</b>
                         <div v-for="(v, k) in member_friend" class="d-flex align-items-center mb-2 mt-2" style=" ">
                             <div class="d-flex" style="flex: 1;">
-                                <div>
-                                    <img :src="urlImg + v.avatar" alt="" class="img-fluid circle me-2"
-                                        style="width: 60px; height: 60px;">
-
+                                <div class="circle flex-center me-2"
+                                    style="width: 3.5rem; height: 3.5rem; overflow: hidden;">
+                                    <img :src="urlImg + v.avatar" alt="" class="img-fluid"
+                                        style="width: 100%; height: 100%;object-fit: cover;">
                                 </div>
                                 <div style="line-height: 1.5rem;">
-                                    <b class="text-dark">{{ v.fullname }}</b>
+                                    <router-link class="text-dark underline" style="font-weight: bold;"
+                                        :to="{ name: 'detailProfile', params: { username: v.username } }">
+                                        {{ v.fullname }}
+                                    </router-link>
                                     <p class="mt-0 px-1"
                                         style="width: fit-content;background-color: #33333315; color: var(--bs-primary); border-radius: 5px;">
                                         {{ v.role }}
@@ -85,12 +88,15 @@
                     <b class="text-dark">Other members ({{ member_newbie.length }})</b>
                     <div v-for="(v, k) in member_newbie" class="d-flex align-items-center mb-2 mt-2" style=" ">
                         <div class="d-flex" style="flex: 1;">
-                            <div>
-                                <img :src="urlImg + v.avatar" alt="" class="img-fluid circle me-2"
-                                    style="width: 60px; height: 60px;">
+                            <div class="circle flex-center me-2" style="width: 3.5rem; height: 3.5rem; overflow: hidden;">
+                                <img :src="urlImg + v.avatar" alt="" class="img-fluid"
+                                    style="width: 100%; height: 100%;object-fit: cover;">
                             </div>
                             <div style="line-height: 1.5rem;">
-                                <b class="text-dark">{{ v.fullname }}</b>
+                                <router-link class="text-dark underline" style="font-weight: bold;"
+                                    :to="{ name: 'detailProfile', params: { username: v.username } }">
+                                    {{ v.fullname }}
+                                </router-link>
                                 <p class="mt-0 px-1"
                                     style="width: fit-content;background-color: #33333315; color: var(--bs-primary); border-radius: 5px;">
                                     {{ v.role }}
@@ -153,12 +159,15 @@
                     <b class="text-dark">Administrators ({{ member_admin.length }})</b>
                     <div v-for='(v, k) in member_admin' class="d-flex align-items-center mb-2 mt-2" style=" ">
                         <div class="d-flex" style="flex: 1">
-                            <div>
-                                <img :src="urlImg + v.avatar" alt="" class="img-fluid circle me-2"
-                                    style="width: 60px; height: 60px;">
+                            <div class="circle flex-center me-2" style="width: 3.5rem; height: 3.5rem; overflow: hidden;">
+                                <img :src="urlImg + v.avatar" alt="" class="img-fluid"
+                                    style="width: 100%; height: 100%;object-fit: cover;">
                             </div>
                             <div style="line-height: 1.25rem;">
-                                <b class="text-dark">{{ v.fullname }}</b>
+                                <router-link class="text-dark underline" style="font-weight: bold;"
+                                    :to="{ name: 'detailProfile', params: { username: v.username } }">
+                                    {{ v.fullname }}
+                                </router-link>
                                 <p class="mt-0 px-1"
                                     style="width: fit-content;background-color: #33333315; color: var(--bs-primary); border-radius: 5px;">
                                     {{ v.role }}
@@ -192,13 +201,15 @@
                     <b class="text-dark">Moderators ({{ member_moderator.length }})</b>
                     <div v-for="(v, k) in member_moderator" class="d-flex align-items-center mb-2 mt-2" style=" ">
                         <div class="d-flex" style="flex: 1;">
-                            <div>
-                                <img :src="urlImg + v.avatar" alt="" class="img-fluid circle me-2"
-                                    style="width: 60px; height: 60px;">
-
+                            <div class="circle flex-center me-2" style="width: 3.5rem; height: 3.5rem; overflow: hidden;">
+                                <img :src="urlImg + v.avatar" alt="" class="img-fluid"
+                                    style="width: 100%; height: 100%;object-fit: cover;">
                             </div>
                             <div style="line-height: 1.25rem;">
-                                <b class="text-dark">{{ v.fullname }}</b>
+                                <router-link class="text-dark underline" style="font-weight: bold;"
+                                    :to="{ name: 'detailProfile', params: { username: v.username } }">
+                                    {{ v.fullname }}
+                                </router-link>
                                 <p class="mt-0 px-1"
                                     style="width: fit-content;background-color: #33333315; color: var(--bs-primary); border-radius: 5px;">
                                     {{ v.role }}

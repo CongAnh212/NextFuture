@@ -79,150 +79,159 @@ const routes = [
         },
     },
 
-    {
-        path: "/:username",
-        name: "detailProfile",
-        component: () => import("../components/client/profile/index.vue"),
+  {
+    path: "/:username",
+    name: "detailProfile",
+    component: () => import("../components/client/profile/index.vue"),
+  },
+  {
+    path: "/accounts/edit",
+    name: "editProfile",
+    component: () =>
+      import("../components/client/profile/edit_profile/editProfile.vue"),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/profile-client",
+    name: "profile-client",
+    component: () => import("../components/client/profile/index.vue"),
+  },
+  {
+    path: "/:username",
+    name: "detailProfile.all_friends",
+    components: {
+      default: () => import("../components/client/all_friend/list.vue"),
+      content: () => import("../components/client/profile/index.vue"),
     },
-    {
-        path: "/accounts/edit",
-        name: "editProfile",
-        component: () => import("../components/client/profile/edit_profile/editProfile.vue"),
-        meta: { requiresAuth: true },
+    meta: { layout: "main", requiresAuth: true },
+  },
+  {
+    path: "/:username",
+    name: "detailProfile.suggestion",
+    components: {
+      default: () => import("../components/client/suggestion/list.vue"),
+      content: () => import("../components/client/profile/index.vue"),
     },
-    {
-        path: "/:username",
-        name: "detailProfile.all_friends",
-        components: {
-            default: () => import("../components/client/all_friend/list.vue"),
-            content: () => import("../components/client/profile/index.vue"),
-        },
-        meta: { layout: "main", requiresAuth: true },
+    meta: { layout: "main", requiresAuth: true },
+  },
+  {
+    path: "/:username",
+    name: "detailProfile.request_friend",
+    components: {
+      default: () => import("../components/client/request_friend/list.vue"),
+      content: () => import("../components/client/profile/index.vue"),
     },
-    {
-        path: "/:username",
-        name: "detailProfile.suggestion",
-        components: {
-            default: () => import("../components/client/suggestion/list.vue"),
-            content: () => import("../components/client/profile/index.vue"),
-        },
-        meta: { layout: "main", requiresAuth: true },
-    },
-    {
-        path: "/:username",
-        name: "detailProfile.request_friend",
-        components: {
-            default: () => import("../components/client/request_friend/list.vue"),
-            content: () => import("../components/client/profile/index.vue"),
-        },
-        meta: { layout: "main", requiresAuth: true },
-    },
+    meta: { layout: "main", requiresAuth: true },
+  },
 
-    {
-        path: "/create-story",
-        name: "story",
-        meta: { layout: "story" },
-        component: () => import("../components/client/create-story/index.vue"),
+  {
+    path: "/create-story",
+    name: "story",
+    meta: { layout: "story", requiresAuth: true },
+    component: () => import("../components/client/create-story/index.vue"),
+  },
+  {
+    path: "/stories",
+    name: "view-story",
+    meta: { layout: "share", requiresAuth: true },
+    components: {
+      default: () => import("../components/client/story/list_user.vue"),
+      content: () => import("../components/client/story/content.vue"),
     },
-    {
-        path: "/stories",
-        name: "view-story",
-        meta: { layout: "share" },
-        components: {
-            default: () => import("../components/client/story/list_user.vue"),
-            content: () => import("../components/client/story/content.vue"),
-        },
-        props: {
-            default: true,
-            content: true,
-        },
-        children: [
-            {
-                path: ":idStory",
-                name: "detailStory",
-                props: true,
-                components: {
-                    default: () => import("../components/client/story/list_user.vue"),
-                    content: () => import("../components/client/story/content.vue"),
-                },
-                props: {
-                    default: true,
-                    content: true,
-                },
-            },
-        ],
+    props: {
+      default: true,
+      content: true,
     },
-    {
-        path: "/group/discover",
-        name: "group",
-        meta: { layout: "main", requiresAuth: true },
-        components: {
-            default: () => import("../components/client/group/list.vue"),
-            content: () => import("../components/client/group/discover/content.vue"),
-        },
-    },
-    {
-        path: "/group/your-group",
-        name: "your_group",
-        meta: { layout: "main", requiresAuth: true },
-        components: {
-            default: () => import("../components/client/group/list.vue"),
-            content: () => import("../components/client/group/your-group/content.vue"),
-        },
-    },
-    {
-        path: "/group-create",
-        name: "create-group",
-        meta: { layout: "empty" },
-        components: {
-            default: () => import("../components/client/group/create/index.vue"),
-        },
-    },
-    {
-        path: "/group/:id_group",
-        name: "home-group",
-        meta: { layout: "main", requiresAuth: true },
+    children: [
+      {
+        path: ":idStory",
+        name: "detailStory",
         props: true,
         components: {
-            default: () => import("../components/client/group/home/list.vue"),
-            content: () => import("../components/client/group/home/content.vue"),
+          default: () => import("../components/client/story/list_user.vue"),
+          content: () => import("../components/client/story/content.vue"),
         },
-        children: [
-            {
-                path: "",
-                name: "discuss",
-                components: {
-                    discuss: () => import("../components/client/group/discuss/discuss.vue"),
-                },
-            },
-            {
-                path: "member",
-                name: "member",
-                components: {
-                    member: () => import("../components/client/group/member/member.vue"),
-                },
-            },
-            {
-                path: "introduce",
-                name: "introduce",
-                components: {
-                    introduce: () => import("../components/client/group/introduce/introduce.vue"),
-                },
-            },
-        ],
+        props: {
+          default: true,
+          content: true,
+        },
+      },
+    ],
+  },
+  {
+    path: "/group/discover",
+    name: "group",
+    meta: { layout: "main", requiresAuth: true },
+    components: {
+      default: () => import("../components/client/group/list.vue"),
+      content: () => import("../components/client/group/discover/content.vue"),
     },
-    {
-        path: "/group/:id_group/setting",
-        name: "setting",
-        meta: { layout: "main", requiresAuth: true },
+  },
+  {
+    path: "/group/your-group",
+    name: "your_group",
+    meta: { layout: "main", requiresAuth: true },
+    components: {
+      default: () => import("../components/client/group/list.vue"),
+      content: () =>
+        import("../components/client/group/your-group/content.vue"),
+    },
+  },
+  {
+    path: "/group-create",
+    name: "create-group",
+    meta: { layout: "empty" },
+    components: {
+      default: () => import("../components/client/group/create/index.vue"),
+    },
+  },
+  {
+    path: "/group/:id_group",
+    name: "home-group",
+    meta: { layout: "main", requiresAuth: true },
+    props: true,
+    components: {
+      default: () => import("../components/client/group/home/list.vue"),
+      content: () => import("../components/client/group/home/content.vue"),
+    },
+    children: [
+      {
+        path: "",
+        name: "discuss",
         components: {
-            default: () => import("../components/client/group/home/list.vue"),
-            content: () => import("../components/client/group/settingg/setting.vue"),
+          discuss: () =>
+            import("../components/client/group/discuss/discuss.vue"),
         },
+      },
+      {
+        path: "member",
+        name: "member",
+        components: {
+          member: () => import("../components/client/group/member/member.vue"),
+        },
+      },
+      {
+        path: "introduce",
+        name: "introduce",
+        components: {
+          introduce: () =>
+            import("../components/client/group/introduce/introduce.vue"),
+        },
+      },
+    ],
+  },
+  {
+    path: "/group/:id_group/setting",
+    name: "setting",
+    meta: { layout: "main", requiresAuth: true },
+    components: {
+      default: () => import("../components/client/group/home/list.vue"),
+      content: () => import("../components/client/group/settingg/setting.vue"),
     },
-    {
-        path: "/group/:id_group/member-requests",
-        name: "request_group",
+  },
+  {
+    path: "/group/:id_group/member-requests",
+    name: "request_group",
 
         meta: { layout: "main", requiresAuth: true },
         components: {

@@ -1,7 +1,7 @@
 <template>
     <div v-if="isView">
-        <div class="w-100  main-group" style="">
-            <div class="w-100 h-100" style="">
+        <div class="w-100  main-group">
+            <div class="w-100 h-100">
                 <div class="w-100 bg-primary flex-center respon_cover">
                     <img :src="urlImg + data.cover_image" class="w-100 " style="object-fit: cover; width: 100%;">
                 </div>
@@ -9,22 +9,27 @@
                     <h3><b style="color: rgb(0, 0, 0);">{{ data.group_name }}</b></h3>
                     <div v-if="!isViewInvite" class="flex-between"> <!-- xử lý lời mời -->
                         <div class="d-flex" style="position: relative; cursor: pointer;">
-                            <div @mouseover="over(v)" v-for="(v, k) in member" class="circle bg-primary img-hover"
-                                style="height: 35px; width: 35px; outline: 2px solid rgb(255, 255, 255); overflow: hidden; margin-right: -5px;">
-                                <img :src="urlImg + v.avatar" class="img-fluid" style="object-fit: cover; width: 100%;"
-                                    alt="">
-                            </div>
-                            <div class="bg-white modal-component pb-3" ref="modalComponent">
-                                <div class=" d-flex py-3 px-3" style="gap: 15px;">
-                                    <div class="circle" style="overflow: hidden; width: 100px; height: 100px;">
-                                        <router-link
+                            <router-link
+                                :to="{ name: 'detailProfile', params: { username: info.username == null ? ' ' : info.username } }"
+                                @mouseover="over(v)" v-if="member" v-for="(v, k) in member"
+                                class="circle bg-primary img-hover flex-center"
+                                style="height: 2.5rem; width: 2.5rem; outline: 2px solid rgb(255, 255, 255); overflow: hidden; margin-right: -5px;">
+                                <img :src="urlImg + v.avatar" class="img-fluid"
+                                    style="object-fit: cover; width: 100%; height: 100%;" alt="">
+                            </router-link>
+                            <div v-else></div>
+                            <div class="bg-white modal-component pb-1" ref="modalComponent">
+                                <div class=" d-flex align-items-center py-3 px-3" style="gap: 15px;">
+                                    <div>
+                                        <router-link style="overflow: hidden; width: 7rem; height: 7rem;"
+                                            class="circle flex-center"
                                             :to="{ name: 'detailProfile', params: { username: info.username == null ? ' ' : info.username } }">
-                                            <img style="object-fit: cover; width: 100%;" :src="urlImg + info.avatar">
+                                            <img style="object-fit: cover; width: 100%; height: 100%;"
+                                                :src="urlImg + info.avatar">
                                         </router-link>
-
                                     </div>
                                     <div style="flex:1">
-                                        <div style="font-size: 18px; line-height: 23px;">
+                                        <div style="font-size: 18px; line-height: 1rem;">
                                             <router-link
                                                 :to="{ name: 'detailProfile', params: { username: info.username == null ? ' ' : info.username } }">
                                                 <b class="text-dark">{{ info.fullname }}</b>
@@ -64,19 +69,19 @@
                                         <div class="text-dark">
                                             <i class="fa-solid fa-house-chimney me-2 text-secondary"
                                                 style="font-size: 15px;"></i>
-                                            <span style="font-size: 15px;">Live in <b class="text-primary">Ho Chi
-                                                    Minh</b></span>
+                                            <span style="font-size: 15px;">Live in <b class="text-primary">{{ info.address
+                                            }}</b></span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex-center " style="gap: 7px;">
+                                <!-- <div class="flex-center " style="gap: 7px;">
                                     <button v-if="info.status == 1" class="btn btn-light f-500"
                                         style="width: 140px;">Friend</button>
                                     <button class="btn btn-primary f-500" style="width: 140px;"> Message</button>
                                     <button class="btn btn-light f-500" style="width: 35px;">
                                         <i class="fa-solid fa-ellipsis"></i>
                                     </button>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div v-if="viewType == 1 || viewType == 2" class="d-flex">
@@ -331,7 +336,7 @@ export default {
             info: {},
             viewType: null,
             checkRequest: null,
-            process : null,
+            process: null,
         }
 
     },
@@ -536,10 +541,10 @@ export default {
             const rect = myDiv.getBoundingClientRect();
             this.bottomPosition = rect.bottom - mh;
             if (this.bottomPosition > 10) {
-                $('.modal-component').css('transform', 'translate(1.3rem, -2.3rem)');
+                $('.modal-component').css('transform', 'translate(1.3rem, -2.7rem)');
                 $('.modal-component').css('inset', ' auto auto 0px 0px');
             } else {
-                $('.modal-component').css('transform', 'translate(1.3rem, 2.3rem)');
+                $('.modal-component').css('transform', 'translate(1.3rem, 2.7rem)');
                 $('.modal-component').css('inset', ' 0px auto auto  0px');
             }
         },

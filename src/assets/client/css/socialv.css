@@ -30145,3 +30145,6 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-right {
 .c-pointer{
   cursor: pointer;
 }
+.text-hover:hover{
+  text-decoration: underline;
+}
