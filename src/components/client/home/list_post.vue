@@ -37,8 +37,8 @@
                         style="margin-left: -10px;"></i>
                     <i v-else @click="unLikePost(v, k)" class="fas fa-heart  c-pointer bg-hover p-2 circle icon-liked"
                         :id="'icon-liked-' + k" style="color: #FF3040; margin-left: -10px;"></i>
-                    <i data-bs-toggle="modal" data-bs-target="#modalPost" @click="typeClick === 1 ? '' : currentPost = v"
-                        class="far fa-comment c-pointer bg-hover p-2 circle btnOpenModalComment"></i>
+                    <i data-bs-toggle="modal" data-bs-target="#modalPost" @click="currentPost = v"
+                        class="far fa-comment c-pointer bg-hover p-2 circle "></i>
                     <i class="far fa-paper-plane c-pointer bg-hover p-2 circle"></i>
                 </div>
 
@@ -48,6 +48,7 @@
                     <span data-bs-toggle="modal" data-bs-target="#modalPost" @click="currentPost = v" v-if="v.comments > 0"
                         class="comments">{{
                             v.comments }} comments</span>
+                    <span data-bs-toggle="modal" data-bs-target="#modalPost" class="btnOpenModalComment"></span>
                 </div>
             </div>
         </div>
@@ -90,6 +91,12 @@ export default {
 
     },
     methods: {
+        test() {
+
+        },
+        // handleUpdateTypeClick(value) {
+        //     this.typeClick = 0
+        // },
         getIndexOpenModal(value) {
             this.typeClick = 1
             this.indexOpenModal = value.index
@@ -97,6 +104,8 @@ export default {
             setTimeout(() => {
                 $('.btnOpenModalComment').click()
             }, 1);
+            // this.typeClick = 0
+
         },
         formatTime(time) {
             return baseFunction.hoursDifference(time);
