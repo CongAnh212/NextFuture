@@ -465,7 +465,6 @@ export default {
                 .get('groups/' + this.id_group)
                 .then((res) => {
                     this.data = res.data.info;
-                    console.log("this.data : ", this.data);
                     this.member = res.data.member;
                 });
         },

@@ -58,6 +58,12 @@
                             <option value="-1" class="text-dark">Other</option>
                         </select>
                     </div>
+                    <div class="mt-2">
+                        <label class="form-label m-0 text-dark">Bio</label>
+                        <textarea v-model="data_my_info.bio" class="form-control" cols="30" rows="3">
+
+                        </textarea>
+                    </div>
                     <div class="d-flex mt-2">
                         <span style="flex: 1;"></span>
                         <button class="btn btn-primary f-500" style="width: 11rem;" @click="updateProfile()">Update
@@ -225,6 +231,7 @@ export default {
             formData.append('phone_number', this.data_my_info.phone_number)
             formData.append('date_of_birth', this.data_my_info.date_of_birth)
             formData.append('gender', this.data_my_info.gender)
+            formData.append('bio', this.data_my_info.bio)
 
             axios
                 .post('profile/update-profile', formData)

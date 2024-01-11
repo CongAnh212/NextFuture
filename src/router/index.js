@@ -70,11 +70,37 @@ const routes = [
       content: () => import("../components/client/friend/cover.vue"),
     },
   },
-
+  //******************************************************/ FULL PROFILE NẰM Ở ĐÂY NGHE MÀY / ******************************************************//
   {
     path: "/:username",
     name: "detailProfile",
+    meta: { requiresAuth: true },
+    props: true,
     component: () => import("../components/client/profile/index.vue"),
+    children: [
+      {
+        path: "",
+        name: "post_in_profile",
+        components: {
+          post: () => import("../components/client/profile/post/post.vue"),
+        },
+      },
+      {
+        path: "photos",
+        name: "photo_in_profile",
+        components: {
+          photo: () => import("../components/client/profile/photo/photo.vue"),
+        },
+      },
+      {
+        path: "about-me",
+        name: "aboutme_in_profile",
+        components: {
+          about_me: () =>
+            import("../components/client/profile/about_me/about_me.vue"),
+        },
+      },
+    ],
   },
   {
     path: "/accounts/edit",
@@ -95,6 +121,38 @@ const routes = [
       default: () => import("../components/client/all_friend/list.vue"),
       content: () => import("../components/client/profile/index.vue"),
     },
+    children: [
+      {
+        path: "",
+        name: "post_in_profile.all_friends",
+        components: {
+          default: () => import("../components/client/all_friend/list.vue"),
+          post: () => import("../components/client/profile/post/post.vue"),
+        },
+        meta: { layout: "main" },
+      },
+      {
+        path: "photos",
+        name: "photo_in_profile.all_friends",
+        components: {
+          default: () => import("../components/client/all_friend/list.vue"),
+
+          photo: () => import("../components/client/profile/photo/photo.vue"),
+        },
+        meta: { layout: "main" },
+      },
+      {
+        path: "about-me",
+        name: "aboutme_in_profile.all_friends",
+        components: {
+          default: () => import("../components/client/all_friend/list.vue"),
+
+          about_me: () =>
+            import("../components/client/profile/about_me/about_me.vue"),
+        },
+        meta: { layout: "main" },
+      },
+    ],
     meta: { layout: "main", requiresAuth: true },
   },
   {
@@ -104,6 +162,38 @@ const routes = [
       default: () => import("../components/client/suggestion/list.vue"),
       content: () => import("../components/client/profile/index.vue"),
     },
+    children: [
+      {
+        path: "",
+        name: "post_in_profile.suggestion",
+        components: {
+          default: () => import("../components/client/suggestion/list.vue"),
+          post: () => import("../components/client/profile/post/post.vue"),
+        },
+        meta: { layout: "main" },
+      },
+      {
+        path: "photos",
+        name: "photo_in_profile.suggestion",
+        components: {
+          default: () => import("../components/client/suggestion/list.vue"),
+
+          photo: () => import("../components/client/profile/photo/photo.vue"),
+        },
+        meta: { layout: "main" },
+      },
+      {
+        path: "about-me",
+        name: "aboutme_in_profile.suggestion",
+        components: {
+          default: () => import("../components/client/suggestion/list.vue"),
+
+          about_me: () =>
+            import("../components/client/profile/about_me/about_me.vue"),
+        },
+        meta: { layout: "main" },
+      },
+    ],
     meta: { layout: "main", requiresAuth: true },
   },
   {
@@ -113,9 +203,39 @@ const routes = [
       default: () => import("../components/client/request_friend/list.vue"),
       content: () => import("../components/client/profile/index.vue"),
     },
+    children: [
+      {
+        path: "",
+        name: "post_in_profile.request_friend",
+        components: {
+          default: () => import("../components/client/request_friend/list.vue"),
+          post: () => import("../components/client/profile/post/post.vue"),
+        },
+        meta: { layout: "main" },
+      },
+      {
+        path: "photos",
+        name: "photo_in_profile.request_friend",
+        components: {
+          default: () => import("../components/client/request_friend/list.vue"),
+          photo: () => import("../components/client/profile/photo/photo.vue"),
+        },
+        meta: { layout: "main" },
+      },
+      {
+        path: "about-me",
+        name: "aboutme_in_profile.request_friend",
+        components: {
+          default: () => import("../components/client/request_friend/list.vue"),
+          about_me: () =>
+            import("../components/client/profile/about_me/about_me.vue"),
+        },
+        meta: { layout: "main" },
+      },
+    ],
     meta: { layout: "main", requiresAuth: true },
   },
-
+  //******************************************************/ FULL PROFILE NẰM Ở ĐÂY NGHE MÀY / ******************************************************//
   {
     path: "/create-story",
     name: "story",
