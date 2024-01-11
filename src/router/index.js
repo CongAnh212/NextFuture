@@ -114,6 +114,7 @@ const routes = [
     name: "profile-client",
     component: () => import("../components/client/profile/index.vue"),
   },
+  //***********************************************/ ALL FRIEND  / ***********************************************//
   {
     path: "/:username",
     name: "detailProfile.all_friends",
@@ -155,6 +156,7 @@ const routes = [
     ],
     meta: { layout: "main", requiresAuth: true },
   },
+  //***********************************************/ SUGGESTION  / ***********************************************//
   {
     path: "/:username",
     name: "detailProfile.suggestion",
@@ -196,6 +198,7 @@ const routes = [
     ],
     meta: { layout: "main", requiresAuth: true },
   },
+  //***********************************************/ REQUEST FRIEND  / ***********************************************//
   {
     path: "/:username",
     name: "detailProfile.request_friend",
@@ -235,7 +238,7 @@ const routes = [
     ],
     meta: { layout: "main", requiresAuth: true },
   },
-  //******************************************************/ FULL PROFILE NẰM Ở ĐÂY NGHE MÀY / ******************************************************//
+  //************************************************/ CREATE STORY / ************************************************//
   {
     path: "/create-story",
     name: "story",
@@ -270,6 +273,7 @@ const routes = [
       },
     ],
   },
+  //***********************************************/ GROUP  / ***********************************************//
   {
     path: "/group/discover",
     name: "group",

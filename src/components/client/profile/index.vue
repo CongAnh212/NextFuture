@@ -244,15 +244,12 @@ export default {
         this.linkAddress();
         $('.p-tabview-nav').addClass('flex-center');
         $('.p-tabview-header-action').addClass('delete-border-bottom');
-        this.handleBorderTop();
-        this.handleName('post');
-
+        this.handleBorderTop(); // hàm này để xử lý load lại trang nhận đúng css
+        this.handleLoadPage(); // hàm này để xử lý load lại trang nhận đúng component
     },
     watch: {
 
         sentFriend(newData, oldData) {
-            // console.log('newData: ', newData);
-            // console.log('oldData: ', oldData);
             if (newData.status == true) {
                 this.status = 'request_friend';
             } else {
@@ -260,8 +257,6 @@ export default {
             }
         },
         sentFriendSuggest(newData, oldData) {
-            // console.log('newData: ', newData);
-            // console.log('oldData: ', oldData);
             if (newData.status == true) {
                 this.status = 'friend';
             }
@@ -275,19 +270,7 @@ export default {
             this.username = username;
             this.getInfo();
             this.getAllProfile();
-            this.handleName('post');
-            console.log(`12`);
-            setTimeout(() => {
-                const currentRouteName = this.$route.name;
-                console.log("currentssssssssRouteName: ", currentRouteName);
-                if (currentRouteName === 'post_in_profile' || currentRouteName === 'post_in_profile.all_friends' || currentRouteName === 'post_in_profile.request_friends' || currentRouteName === 'post_in_profile.suggestion' || 'detailProfile.request_friend') {
-                    $('.post').click();
-                } else if (currentRouteName === 'photo_in_profile' || currentRouteName === 'photo_in_profile.all_friends' || currentRouteName === 'photo_in_profile.request_friends' || currentRouteName === 'photo_in_profile.suggestion') {
-                    $('.photo').click();
-                } else {
-                    $('.aboutMe').click();
-                }
-            }, 1);
+            this.handleLoadPage()
         },
         followers(newData, oldData) {
             if (oldData) {
@@ -302,43 +285,53 @@ export default {
 
     },
     methods: {
+        handleLoadPage() {
+            const currentRouteName = window.location.href.split("/").pop();
+            if (currentRouteName === 'about-me') {
+                $('.aboutMe').click();
+            } else if (currentRouteName === 'photos') {
+                $('.photo').click();
+            } else {
+                $('.post').click();
+            }
+        },
         handleLengthPost(value) {
             this.lengthPost = value
         },
         handleName(option) {
-            const currentRouteName = this.$route.name.split('.').pop();
-            if (option == 'post') {
-                if (currentRouteName === 'detailProfile' || currentRouteName === 'post_in_profile' || currentRouteName === 'photo_in_profile' || currentRouteName === 'aboutme_in_profile') {
-                    this.setView('post_in_profile')
-                } else if (currentRouteName === 'all_friends') {
-                    this.setView('post_in_profile.all_friends')
-                } else if (currentRouteName === 'request_friend') {
+            // name chi có tác dụng check xem mình đang ở trang nào
+            // option có tác dụng để set giao diện nào
+            const name = this.$route.name.split('.').pop();
+            console.log('name: ', name);
+            if (option === 'post') {
+                if (name === 'request_friend') {
                     this.setView('post_in_profile.request_friend')
-                } else {
+                } else if (name === 'suggestion') {
                     this.setView('post_in_profile.suggestion')
-                }
-            } else if (option == 'photo') {
-                if (currentRouteName === 'detailProfile' || currentRouteName === 'post_in_profile' || currentRouteName === 'photo_in_profile' || currentRouteName === 'aboutme_in_profile') {
-                    this.setView('photo_in_profile')
-                } else if (currentRouteName === 'all_friends') {
-                    this.setView('photo_in_profile.all_friends')
-                } else if (currentRouteName === 'request_friend') {
-                    this.setView('photo_in_profile.request_friend')
+                } else if (name === 'all_friends') {
+                    this.setView('post_in_profile.all_friends')
                 } else {
+                    this.setView('post_in_profile')
+                }
+            } else if (option === 'photo') {
+                if (name === 'suggestion') {
                     this.setView('photo_in_profile.suggestion')
-                }
-            } else if (option == 'about_me') {
-                if (currentRouteName === 'detailProfile' || currentRouteName === 'post_in_profile' || currentRouteName === 'photo_in_profile' || currentRouteName === 'aboutme_in_profile') {
-                    this.setView('aboutme_in_profile')
-                } else if (currentRouteName === 'all_friends') {
-                    this.setView('aboutme_in_profile.all_friends')
-                } else if (currentRouteName === 'request_friend') {
-                    this.setView('aboutme_in_profile.request_friend')
+                } else if (name === 'all_friends') {
+                    this.setView('photo_in_profile.all_friends')
                 } else {
+                    this.setView('photo_in_profile')
+                }
+            } else {
+                if (name === 'request_friend') {
+                    this.setView('aboutme_in_profile.request_friend')
+                } else if (name === 'suggestion') {
                     this.setView('aboutme_in_profile.suggestion')
+                } else if (name === 'all_friends') {
+                    this.setView('aboutme_in_profile.all_friends')
+                } else {
+                    this.setView('aboutme_in_profile')
                 }
             }
-
         },
         setView(a) {
             this.view = a
@@ -354,7 +347,7 @@ export default {
                 $('[data-pc-index="0"]').addClass('p-highlight')
             }
 
-            const okene = $('.okene').parent().removeClass('p-highlight')
+            $('.okene').parent().removeClass('p-highlight')
         },
         post() {
             const urlWithoutHash = window.location.href.split("#")[0];
@@ -383,7 +376,6 @@ export default {
                 .then((res) => {
                     this.info = res.data.info
                     this.status = res.data.status
-                    // console.log(this.status)
                 });
         },
         confirm() {

@@ -18,11 +18,7 @@ export default {
     },
     watch: {
         listPost(newData, old) {
-            console.log('old: ', old);
-            console.log('newData: ', newData);
             if (old) {
-
-                console.log('newData.lenght: ', newData.length);
                 if (newData.length == 0) {
                     this.isView = -1
                 } else {

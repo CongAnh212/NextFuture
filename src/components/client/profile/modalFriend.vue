@@ -113,7 +113,6 @@ export default {
             const lowercaseSearch = this.key_search.toLowerCase();
 
             this.list_search = this.listFriend.filter((value) => {
-                console.log(123);
                 const lowercaseFullname = value.fullname.toLowerCase();
                 const lowercaseNickname = value.nickname.toLowerCase();
 

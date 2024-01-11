@@ -340,20 +340,17 @@ export default {
       immediate: true
     },
     notify(newValue, oldValue) {
-      console.log('oldValue: ', oldValue);
-      console.log('newValue: ', newValue);
       this.getNotification();
     }
   },
   created() {
-    console.log("️⚡→(HeaderClient.vue:368) ~ socket.id", socket.id);
+    // console.log("️⚡→(HeaderClient.vue:368) ~ socket.id", socket.id);
     socket.on("getNotification", (...args) => {
       this.getRequestFriend()
       this.getNotification()
     })
   },
   mounted() {
-    console.log('HeaderClient.vue: mounted')
     state.connected = true
     this.getInfo();
     this.getRequestFriend();
@@ -386,7 +383,6 @@ export default {
       try {
         const response = await axios.get('profile/data')
         this.myInfo = response.data.myInfo;
-        console.log('this.myInfo: ', this.myInfo);
         await localStorage.setItem('information-my-profile', JSON.stringify(this.myInfo))
 
         if (Object.keys(this.myInfo).length > 0) {
