@@ -99,7 +99,7 @@
                                         <div style="height: 35px; width: 35px;margin-left: 0px; overflow: hidden;"
                                             class="circle me-2">
                                             <div class="circle me-2" style="width: 2rem; height: 2rem; overflow: hidden;">
-                                                <img :src="urlImg + post.avatar" class="" alt="user"
+                                                <img :src="urlImg + v.avatar" class="" alt="user"
                                                     style="margin-left: 0px; object-fit: cover; width: 100%; height: 100%;">
                                             </div>
                                         </div>
@@ -223,9 +223,11 @@ export default {
         },
         index: {
             type: Number
-        }
+        },
+        
     },
     watch: {
+       
         post: {
             handler(newValue, oldValue) {
                 // console.log('watch modal run');
@@ -240,9 +242,7 @@ export default {
         },
         index: {
             handler(newValue, oldValue) {
-                console.log('newValue: ', newValue);
                 if (!oldValue) {
-                    console.log('lần đầu');
                     setTimeout(() => {
                         this.indexImage = newValue
 
@@ -250,7 +250,6 @@ export default {
                 }
                 this.indexImage = newValue
 
-                console.log('this.arrayImages[this.indexImage]: ', this.arrayImages[3]);
             }
         }
     },
@@ -275,6 +274,7 @@ export default {
         this.getFriend();
         this.loadComment()
         this.convertStringImageToArray(this.post.images)
+        console.log('this.typeClick: ', this.typeClick);
     },
     methods: {
         moreReply(v, k) {

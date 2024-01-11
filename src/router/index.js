@@ -256,7 +256,7 @@ const routes = [
     },
     children: [
       {
-        path: ":idStory",
+        path: ":idStory", 
         name: "detailStory",
         props: true,
         components: {

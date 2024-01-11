@@ -23,7 +23,7 @@
         <span class="ms-1 f-500">{{ Object.keys(all_friend).length }} friends</span>
         <div class=" me-1" v-for="(v, k) in all_friend">
             <router-link :to="{ name: 'detailProfile.all_friends', params: { username: v.username } }">
-                <div class="hello d-flex p-2 w-100 h-100" style="overflow: hidden;">
+                <div class="bg-hover d-flex p-2 w-100 h-100" style="overflow: hidden;">
                     <div class="flex-center">
                         <div style='width: 3rem; height: 3rem; overflow: hidden;' class="circle flex-center me-1">
                             <img :src="urlImage + v.avatar" alt="profile-img" class=" img-fluid"

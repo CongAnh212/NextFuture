@@ -11,15 +11,14 @@
         </div>
     </div>
     <hr style="margin-top: 4px; margin-bottom: 4px;">
-
     <div style="overflow-y: auto; max-height: calc(100vh - 9.3rem); ">
         <div class="ms-1 f-500">{{ Object.keys(request_friend).length }} friend requests</div>
         <div class="mt-2 me-1" v-for="(v, k) in request_friend">
             <router-link :to="{ name: 'detailProfile.request_friend', params: { username: v.username } }">
                 <div class="d-flex align-items-center ">
-                    <div class="hello d-flex align-items-center p-2 w-100 h-100" style="overflow: hidden;">
-                        <div style='width: 3rem; height: 3rem; overflow: hidden' class="circle flex-center me-1 ">
-                            <img :src="urlImage + v.avatar" alt="profile-img" class=""
+                    <div class="bg-hover d-flex align-items-center p-2 w-100 h-100" style="overflow: hidden;">
+                        <div style='width: 3rem; height: 3rem; overflow: hidden;' class="circle flex-center me-1">
+                            <img :src="urlImage + v.avatar" alt="profile-img" class=" img-fluid"
                                 style=" object-fit:cover;width: 100%; height: 100%;">
                         </div>
                         <div style="flex:1">

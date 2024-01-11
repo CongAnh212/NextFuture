@@ -16,7 +16,7 @@
     <div style="overflow-y: auto; max-height: calc(100vh - 10.5rem); ">
         <div class="mt-2 me-1" v-for="(v, k) in list_friend">
             <router-link :to="{ name: 'detailProfile.suggestion', params: { username: v.username } }">
-                <div class="hello d-flex p-2 w-100 h-100" style="overflow: hidden;">
+                <div class="bg-hover d-flex p-2 w-100 h-100" style="overflow: hidden;">
                     <div class="flex-center ">
                         <div style='width: 3rem; height: 3rem; overflow: hidden;' class="circle flex-center me-1">
                             <img :src="urlImage + v.avatar" alt="profile-img"
