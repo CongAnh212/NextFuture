@@ -109,7 +109,7 @@
                         </div>
                         <li>
                             <img style="height: 55px; width: 55px;" :src="urlImg + myData.avatar"
-                                class="img-fluid rounded-circle me-3" alt="user">
+                                class="img-fluid rounded-circle me-3 ms-2" alt="user">
                             <span><b class="text-dark">{{ myData.fullname }}</b></span>
                         </li>
                         <hr>
@@ -155,7 +155,7 @@
             <div class="radius-10 make-color1 d-flex justify-content-center align-items-center left"
                 style="height: 100%; width: 50%; position: relative; cursor: pointer; flex-direction: column;">
                 <div class="hover-background"></div>
-                <input @change="handleFileChange" id="input-b5" name="input-b5[]" type="file" ref="fileInput">
+                <input @change="handleFileChange" id="input-b5" name="input-b5[]" type="file" ref="fileInput" accept=".png, .jpg, .jpeg">
                 <div class="d-flex justify-content-center align-items-center"
                     style="flex-direction: column; position: absolute;">
                     <div class="rounded-circle d-flex justify-content-center align-items-center hello mb-2"
@@ -249,7 +249,7 @@
 
 import html2canvas from "html2canvas";
 import axios, { url } from '../../../core/coreRequest';
-
+import Swal from 'sweetalert2'
 export default {
     data() {
         return {
@@ -371,11 +371,24 @@ export default {
             }
         },
         async captureScreenText() {
-            const divToCapture = this.$refs.contentText;
-            html2canvas(divToCapture).then((canvas) => {
-                this.capturedImage = canvas.toDataURL('image/png');
-                this.uploadFile();
-            });
+            if (this.textt) {
+                const divToCapture = this.$refs.contentText;
+                html2canvas(divToCapture).then((canvas) => {
+                    this.capturedImage = canvas.toDataURL('image/png');
+                    this.uploadFile();
+                });
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error...",
+                    text: 'Please enter the status line you want to share',
+                    showConfirmButton: false
+                });
+                setTimeout(() => {
+                    Swal.close();
+                }, 1500);
+            }
+
         },
         handleFileChange(event) {
             $('#exampleModal').addClass("show");
