@@ -1,5 +1,5 @@
 <template>
-    <div class='container'>
+    <div class='container' style="min-height: calc(100vh - 4.688rem);">
         <div class="row">
             <div class="col-sm-12 ">
                 <div class="flex-center my-4">
@@ -101,7 +101,7 @@
                             <div class="social-links  w-100">
                                 <ul class="social-data-block d-flex  list-inline p-0 m-0 ">
                                     <li class="text-center ">
-                                        <h5> <b>690</b> posts</h5>
+                                        <h5> <b>{{ lengthPost }}</b> posts</h5>
                                     </li>
                                     <li class="text-center ps-3">
                                         <h5 style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalFollower">
@@ -154,7 +154,7 @@
                             </div>
                         </template>
                         <div class="m-0 okene">
-                            <RouterView name="post"></RouterView>
+                            <RouterView :info="info" name="post" @updateLengthPost="handleLengthPost"></RouterView>
                         </div>
                     </TabPanel>
                     <TabPanel>
@@ -218,7 +218,8 @@ export default {
             link_address: [],
             triggerPhoto: false,
             triggerAbout: false,
-            view: 'post_in_profile'
+            view: 'post_in_profile',
+            lengthPost: null
         }
     },
     props: {
@@ -301,6 +302,9 @@ export default {
 
     },
     methods: {
+        handleLengthPost(value) {
+            this.lengthPost = value
+        },
         handleName(option) {
             const currentRouteName = this.$route.name.split('.').pop();
             if (option == 'post') {

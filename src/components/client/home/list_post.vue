@@ -6,9 +6,8 @@
                     <img :src="urlImg + v.avatar" style="object-fit: cover; width: 100%; height: 100%;" alt="">
                 </div>
                 <div class="flex-1  radius-10 my-1" style="border-left: 3px solid #3f3f3f4e;width: 0; " />
-                <div class="circle" style="width: 27px; height: 27px; overflow: hidden;">
-                    <img src="http://localhost:8000/img/avatar_female.jpg" style="object-fit: contain; height: 100%;"
-                        alt="">
+                <div class="circle flex-center" style="width: 1.75rem; height: 1.75rem; overflow: hidden;">
+                    <img :src="urlImg + myInfo.avatar" style="object-fit: cover; height: 100%; width: 100%;" alt="">
                 </div>
             </div>
             <div class=" flex-1 ps-3 " style="position: relative;">

@@ -7,7 +7,7 @@
         <div class="iq-navbar-logo d-flex justify-content-between">
           <router-link :to="{ name: 'homepage' }">
             <img src="../../../../assets/img/main-logo.png" class="img-fluid" alt="">
-            <span>NextFuture</span>
+            <span translate="no">NextFuture</span>
           </router-link>
         </div>
         <div class="iq-search-bar device-search">
@@ -386,6 +386,7 @@ export default {
       try {
         const response = await axios.get('profile/data')
         this.myInfo = response.data.myInfo;
+        console.log('this.myInfo: ', this.myInfo);
         await localStorage.setItem('information-my-profile', JSON.stringify(this.myInfo))
 
         if (Object.keys(this.myInfo).length > 0) {
