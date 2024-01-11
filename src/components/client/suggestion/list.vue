@@ -30,7 +30,7 @@
                             <div class=" d-flex w-100 ">
                                 <template v-if="v.friendStatus == false">
                                     <div class="me-1">
-                                        <button class="btn btn-primary" @click="addFriend(v, k)" style="width: 100px">
+                                        <button class="btn btn-primary text-nowrap" @click="addFriend(v, k)" style="width: 100px">
                                             Add friend</button>
                                     </div>
                                     <div class="me-1">
