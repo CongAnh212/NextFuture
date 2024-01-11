@@ -30,7 +30,7 @@
                                 style=" object-fit:cover;width: 100%; height: 100%;">
                         </div>
                         <div :class="{ 'd-flex flex-center': v.mutual == 0 }">
-                            <b class="text-secondary text-nowrap ">{{ v.fullname }}</b> <br>
+                            <b class="text-secondary">{{ v.fullname }}</b> <br>
                             <span v-if="v.mutual > 0" class="text-secondary">{{ v.mutual }} mutual friends</span>
                         </div>
                     </div>

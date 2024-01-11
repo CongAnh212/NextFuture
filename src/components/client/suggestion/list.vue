@@ -19,15 +19,15 @@
                 <div class="bg-hover d-flex p-2 w-100 h-100" style="overflow: hidden;">
                     <div class="flex-center ">
                         <div style='width: 3rem; height: 3rem; overflow: hidden;' class="circle flex-center me-1">
-                            <img :src="urlImage + v.avatar" alt="profile-img" class=" img-fluid"
+                            <img :src="urlImage + v.avatar" alt="profile-img"
                                 style=" object-fit:cover;width: 100%; height: 100%;">
                         </div>
-                        <div style="width: 200px;">
+                        <div style="flex:1">
                             <div style="line-height: 1.25rem;">
-                                <b class="text-secondary text-nowrap">{{ v.fullname }}</b> <br>
+                                <b class="text-secondary ">{{ v.fullname }}</b> <br>
                             </div>
                             <span v-if="v.mutual > 0" class="text-secondary">{{ v.mutual }} mutual friends</span>
-                            <div class="text-nowrap d-flex w-100 ">
+                            <div class=" d-flex w-100 ">
                                 <template v-if="v.friendStatus == false">
                                     <div class="me-1">
                                         <button class="btn btn-primary" @click="addFriend(v, k)" style="width: 100px">

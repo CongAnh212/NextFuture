@@ -1,8 +1,8 @@
 <template>
-    <div class='container '>
-        <div class="row ">
+    <div class='container'>
+        <div class="row">
             <div class="col-sm-12 ">
-                <div class="flex-center">
+                <div class="flex-center my-4">
                     <div class=" p-5">
                         <div v-if="!info.avatar" style='width: 9.5rem; height: 9.5rem; overflow: hidden;'
                             class="circle flex-center ">
@@ -15,9 +15,9 @@
                         </div>
                     </div>
                     <div>
-                        <div class="d-flex ">
+                        <div class="d-flex align-items-center">
                             <div class="pe-3">
-                                <h3 class="">{{ info.nickname }}</h3>
+                                <h3 class="text-dark">{{ info.nickname }}</h3>
                             </div>
                             <div class="social-info">
                                 <ul
@@ -90,14 +90,14 @@
                                     </li>
                                     <li v-if="status == 'self'" class='flex-center'>
                                         <router-link :to="{ name: 'editProfile' }"
-                                            class="btn btn-light ms-2 f-500 text-dark" style='width:130px'>
+                                            class="btn btn-light ms-2 f-500 text-dark btn-sm" style='width:130px'>
                                             <span class="flex-center h-100">Edit profile</span>
                                         </router-link>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="profile-info py-3  position-relative  ">
+                        <div class="profile-info pb-2 pt-2  position-relative">
                             <div class="social-links  w-100">
                                 <ul class="social-data-block d-flex  list-inline p-0 m-0 ">
                                     <li class="text-center ">
@@ -123,8 +123,12 @@
                             </div>
                         </div>
                         <div>
-                            <h5 class="f-500">{{ info.fullname }}</h5>
+                            <h5 class="f-500 text-dark pb-2">{{ info.fullname }}</h5>
                         </div>
+                        <div v-if="info.bio" class='text-dark f-500' style=" white-space: pre-line;">
+                            {{ info.bio }}
+                        </div>
+                        <div v-else></div>
                         <div style="gap: 0.5em; width: 20rem;">
                             <div>
                                 <a :href="v.link" v-for="(v, k) in link_address" class="px-2 py-1 me-1"
@@ -142,41 +146,41 @@
                 <TabView class="tabview-custom">
                     <TabPanel>
                         <template #header>
-                            <a>
-                                <div class="flex align-items-center gap-2 p-3" @click="post()">
+                            <div class="post" @click="handleName('post')">
+                                <div class="flex align-items-center gap-2 pe-3 pt-3 ps-3">
                                     <i class="fa-solid fa-table-cells text-dark me-1"></i>
                                     <span class="text-dark">POSTS</span>
                                 </div>
-                            </a>
+                            </div>
                         </template>
                         <div class="m-0 okene">
-                            <Post />
+                            <RouterView name="post"></RouterView>
                         </div>
                     </TabPanel>
                     <TabPanel>
                         <template #header>
-                            <a href="#photos">
-                                <div class="flex align-items-center gap-2 p-3 ">
+                            <div class="photo" @click="handleName('photo')">
+                                <div class="flex align-items-center gap-2 pe-3 pt-3 ps-3 ">
                                     <i class="fa-solid fa-image text-dark me-1"></i>
                                     <span class="text-dark">PHOTOS</span>
                                 </div>
-                            </a>
+                            </div>
                         </template>
                         <div class="m-0 okene">
-                            <Photo />
+                            <RouterView name="photo"></RouterView>
                         </div>
                     </TabPanel>
                     <TabPanel>
                         <template #header>
-                            <a href="#aboutme">
-                                <div class="flex align-items-center gap-2 p-3">
+                            <div class="aboutMe" @click="handleName('about_me')">
+                                <div class="flex align-items-center gap-2 pe-3 pt-3 ps-3">
                                     <i class="fa-regular fa-address-card text-dark me-1"></i>
                                     <span class="text-dark">ABOUT</span>
                                 </div>
-                            </a>
+                            </div>
                         </template>
                         <div class="m-0 okene">
-                            <AboutMe />
+                            <RouterView name="about_me"></RouterView>
                         </div>
                     </TabPanel>
                 </TabView>
@@ -193,9 +197,6 @@ import { socket } from '../../../socket.js';
 import 'primevue/resources/themes/lara-light-green/theme.css'
 import TabView from 'primevue/tabview';
 import TabPanel from 'primevue/tabpanel';
-import AboutMe from './about_me/about_me.vue'
-import Photo from './photo/photo.vue'
-import Post from './post/post.vue'
 export default {
     components: {
         ModalFollower,
@@ -203,9 +204,6 @@ export default {
         ModalPost,
         TabView,
         TabPanel,
-        AboutMe,
-        Photo,
-        Post
     },
     data() {
         return {
@@ -220,6 +218,7 @@ export default {
             link_address: [],
             triggerPhoto: false,
             triggerAbout: false,
+            view: 'post_in_profile'
         }
     },
     props: {
@@ -244,9 +243,12 @@ export default {
         this.linkAddress();
         $('.p-tabview-nav').addClass('flex-center');
         $('.p-tabview-header-action').addClass('delete-border-bottom');
-        this.handleBorderTop()
+        this.handleBorderTop();
+        this.handleName('post');
+
     },
     watch: {
+
         sentFriend(newData, oldData) {
             // console.log('newData: ', newData);
             // console.log('oldData: ', oldData);
@@ -268,12 +270,23 @@ export default {
                 this.status = 'stranger';
             }
         },
-
         '$route.params.username'(username) {
             this.username = username;
             this.getInfo();
             this.getAllProfile();
-            // console.log(this.username);
+            this.handleName('post');
+            console.log(`12`);
+            setTimeout(() => {
+                const currentRouteName = this.$route.name;
+                console.log("currentssssssssRouteName: ", currentRouteName);
+                if (currentRouteName === 'post_in_profile' || currentRouteName === 'post_in_profile.all_friends' || currentRouteName === 'post_in_profile.request_friends' || currentRouteName === 'post_in_profile.suggestion' || 'detailProfile.request_friend') {
+                    $('.post').click();
+                } else if (currentRouteName === 'photo_in_profile' || currentRouteName === 'photo_in_profile.all_friends' || currentRouteName === 'photo_in_profile.request_friends' || currentRouteName === 'photo_in_profile.suggestion') {
+                    $('.photo').click();
+                } else {
+                    $('.aboutMe').click();
+                }
+            }, 1);
         },
         followers(newData, oldData) {
             if (oldData) {
@@ -284,14 +297,54 @@ export default {
             if (oldData) {
                 this.checkListFriend = true
             }
-        }
+        },
+
     },
     methods: {
+        handleName(option) {
+            const currentRouteName = this.$route.name.split('.').pop();
+            if (option == 'post') {
+                if (currentRouteName === 'detailProfile' || currentRouteName === 'post_in_profile' || currentRouteName === 'photo_in_profile' || currentRouteName === 'aboutme_in_profile') {
+                    this.setView('post_in_profile')
+                } else if (currentRouteName === 'all_friends') {
+                    this.setView('post_in_profile.all_friends')
+                } else if (currentRouteName === 'request_friend') {
+                    this.setView('post_in_profile.request_friend')
+                } else {
+                    this.setView('post_in_profile.suggestion')
+                }
+            } else if (option == 'photo') {
+                if (currentRouteName === 'detailProfile' || currentRouteName === 'post_in_profile' || currentRouteName === 'photo_in_profile' || currentRouteName === 'aboutme_in_profile') {
+                    this.setView('photo_in_profile')
+                } else if (currentRouteName === 'all_friends') {
+                    this.setView('photo_in_profile.all_friends')
+                } else if (currentRouteName === 'request_friend') {
+                    this.setView('photo_in_profile.request_friend')
+                } else {
+                    this.setView('photo_in_profile.suggestion')
+                }
+            } else if (option == 'about_me') {
+                if (currentRouteName === 'detailProfile' || currentRouteName === 'post_in_profile' || currentRouteName === 'photo_in_profile' || currentRouteName === 'aboutme_in_profile') {
+                    this.setView('aboutme_in_profile')
+                } else if (currentRouteName === 'all_friends') {
+                    this.setView('aboutme_in_profile.all_friends')
+                } else if (currentRouteName === 'request_friend') {
+                    this.setView('aboutme_in_profile.request_friend')
+                } else {
+                    this.setView('aboutme_in_profile.suggestion')
+                }
+            }
+
+        },
+        setView(a) {
+            this.view = a
+            this.$router.push({ name: a });
+        },
         handleBorderTop() {
             $('.p-highlight').removeClass('p-highlight')
-            if (window.location.hash === '#photos') {
+            if (window.location.hash === '/photo') {
                 $('[data-pc-index="1"]').addClass('p-highlight')
-            } else if (window.location.hash === '#aboutme') {
+            } else if (window.location.hash === '/aboutme') {
                 $('[data-pc-index="2"]').addClass('p-highlight')
             } else {
                 $('[data-pc-index="0"]').addClass('p-highlight')

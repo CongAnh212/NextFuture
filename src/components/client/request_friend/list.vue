@@ -11,7 +11,6 @@
         </div>
     </div>
     <hr style="margin-top: 4px; margin-bottom: 4px;">
-
     <div style="overflow-y: auto; max-height: calc(100vh - 9.3rem); ">
         <div class="ms-1 f-500">{{ Object.keys(request_friend).length }} friend requests</div>
         <div class="mt-2 me-1" v-for="(v, k) in request_friend">
@@ -22,16 +21,16 @@
                             <img :src="urlImage + v.avatar" alt="profile-img" class=" img-fluid"
                                 style=" object-fit:cover;width: 100%; height: 100%;">
                         </div>
-                        <div>
-                            <div style="line-height: 1.25rem;">
-                                <b class="text-secondary text-nowrap">{{ v.fullname }}</b> <br>
+                        <div style="flex:1">
+                            <div style="line-height: 1.25rem">
+                                <b class="text-secondary">{{ v.fullname }}</b> <br>
                             </div>
                             <span v-if="v.mutual > 0" class="text-secondary">{{ v.mutual }} mutual friends</span>
-                            <div class="text-nowrap">
-                                <button class="btn btn-primary me-1" style="width: 100px;" @click="confirm(v, k)">
+                            <div class="">
+                                <button class="btn btn-primary me-1" style="width: 6.1rem;" @click="confirm(v, k)">
                                     Confirm
                                 </button>
-                                <button class="btn btn-secondary" style="width: 100px;" @click="delRequest(v, k)">
+                                <button class="btn btn-secondary" style="width: 6.1rem;" @click="delRequest(v, k)">
                                     Delete
                                 </button>
                             </div>

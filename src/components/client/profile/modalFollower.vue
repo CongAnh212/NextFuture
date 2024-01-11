@@ -34,7 +34,7 @@
                                         <div style="height: 3rem; width: 3rem;margin-left: 0px; overflow: hidden;"
                                             class="circle me-2 mb-2 flex-center">
                                             <img :src="urlImg + v.avatar" class="img-fluid" alt="user"
-                                                style="object-fit: cover; width: 100%;" data-bs-dismiss="modal"
+                                                style="object-fit: cover; width: 100%; height: 100%;" data-bs-dismiss="modal"
                                                 aria-label="Close">
                                         </div>
                                     </router-link>
