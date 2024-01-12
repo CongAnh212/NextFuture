@@ -11,7 +11,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="exampleInputPassword1">Password</label>
-                    <a href="#" class="float-end">Forgot password?</a>
+                    <!-- <a href="#" class="float-end">Forgot password?</a> -->
                     <input v-model="sign_in.password" type="password" class="form-control mb-0" id="exampleInputPassword1"
                         placeholder="Password" @keyup.enter="login()">
                 </div>
@@ -20,7 +20,7 @@
                         <input v-model="sign_in.remember" type="checkbox" class="form-check-input" id="customCheck11">
                         <label class="form-check-label" for="customCheck11">Remember Me</label>
                     </div>
-                    <button type="button" class="btn btn-primary float-end" @click="signIn()">Sign in</button>
+                    <button type="button" class="btn btn-primary float-end" @click="login()">Sign in</button>
                 </div>
                 <div class="sign-info">
                     <span class="dark-color d-inline-block line-height-2">Don't have an account?
@@ -28,11 +28,11 @@
                             Sign up
                         </router-link>
                     </span>
-                    <ul class="iq-social-media">
+                    <!-- <ul class="iq-social-media">
                         <li><a href="#"><i class="ri-facebook-box-line"></i></a></li>
                         <li><a href="#"><i class="ri-twitter-line"></i></a></li>
                         <li><a href="#"><i class="ri-instagram-line"></i></a></li>
-                    </ul>
+                    </ul> -->
                 </div>
             </form>
         </div>

@@ -71,6 +71,10 @@
 <script>
 import Swal from 'sweetalert2'
 import axios from 'axios';
+import { createToaster } from '@meforma/vue-toaster'
+const toastr = createToaster({
+    position: 'bottom-left'
+})
 export default {
     data() {
         return {
@@ -105,6 +109,13 @@ export default {
                         });
                     }
                 })
+                .catch((err) => {
+                    $.each(err.response.data.errors, function (k, v) {
+                        console.log(v[0]);
+                        toastr.error(v[0]);
+                    });
+                })
+                
         },
         selectRadio(value) {
             this.selectedGender = value;

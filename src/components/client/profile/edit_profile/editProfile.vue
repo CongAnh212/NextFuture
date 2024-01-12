@@ -22,7 +22,13 @@
                     </div>
                 </div>
                 <div class="w-100" style="border-left: 2px solid #2a2a2a; padding-left: 0.5rem;">
-                    <h5 class="text-dark f-500">Edit profile</h5>
+                    <h5 class="text-dark f-500">
+                        <router-link class='text-dark '
+                            :to="{ name: 'detailProfile', params: { username: data_my_info.username ? data_my_info.username : ' ' } }">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </router-link>
+                        Edit profile
+                    </h5>
                     <div class="d-flex mt-2">
                         <div class="me-2 " style="flex:1">
                             <label class="form-label m-0 text-dark">Full name</label>
@@ -57,6 +63,12 @@
                             <option value="0" class="text-dark">Female</option>
                             <option value="-1" class="text-dark">Other</option>
                         </select>
+                    </div>
+                    <div class="mt-2">
+                        <label class="form-label m-0 text-dark">Bio</label>
+                        <textarea v-model="data_my_info.bio" class="form-control" cols="30" rows="3">
+
+                        </textarea>
                     </div>
                     <div class="d-flex mt-2">
                         <span style="flex: 1;"></span>
@@ -204,6 +216,7 @@ export default {
                 .get('profile/accounts-edit')
                 .then((res) => {
                     this.data_my_info = res.data.data
+                    console.log("data_my_info: ", data_my_info);
                 });
         },
         openFileInput() {
@@ -225,6 +238,7 @@ export default {
             formData.append('phone_number', this.data_my_info.phone_number)
             formData.append('date_of_birth', this.data_my_info.date_of_birth)
             formData.append('gender', this.data_my_info.gender)
+            formData.append('bio', this.data_my_info.bio)
 
             axios
                 .post('profile/update-profile', formData)

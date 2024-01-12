@@ -1,147 +1,147 @@
 .w-90 {
-    width: 83%;
+  width: 83%;
 }
 
 .main-story {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 250px;
-    width: 149px;
-    border-radius: 12px;
-    cursor: pointer;
-    overflow: hidden;
-    /* Tạo bóng đổ chỉ ở phía dưới */
-    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 250px;
+  width: 149px;
+  border-radius: 12px;
+  cursor: pointer;
+  overflow: hidden;
+  /* Tạo bóng đổ chỉ ở phía dưới */
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
 }
 
 .main-story:hover .img-background img {
-    width: 101%;
-    height: 101%;
+  width: 101%;
+  height: 101%;
 }
 
 .main-story:hover .hover-background {
-    background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .hover-background {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.0);
-    z-index: 1;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 1;
 }
 
-
 .img-background {
-    position: absolute;
-    height: 100%;
-    width: 100%;
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 
 .img-background img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .name-in-story {
-    font-family: 'Segoe UI';
-    margin: 20px 10px;
+  font-family: "Segoe UI";
+  margin: 20px 10px;
 }
 
 .img-client img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .avatar {
-    margin: 10px;
-    height: 45px;
-    width: 45px;
-    background-color: red;
-    border-radius: 100%;
-    border: 4px solid var(--bs-primary);
-    overflow: hidden;
+  margin: 10px;
+  height: 45px;
+  width: 45px;
+  background-color: red;
+  border-radius: 100%;
+  border: 4px solid var(--bs-primary);
+  overflow: hidden;
 }
 
 .avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .btn-create-story {
-    height: 45px;
-    width: 45px;
-    background-color: var(--bs-primary);
-    border-radius: 100%;
-    border: 4px solid #fff;
-    overflow: hidden;
-    position: absolute;
-    bottom: 27px;
+  height: 45px;
+  width: 45px;
+  background-color: var(--bs-primary);
+  border-radius: 100%;
+  border: 4px solid #fff;
+  overflow: hidden;
+  position: absolute;
+  bottom: 27px;
 }
 
 .hide-important {
-    display: none !important;
+  display: none !important;
 }
 
 .active-privacy {
-    background-color: #48484829;
+  background-color: #48484829;
 }
 
 .custom-span {
-    text-decoration: none;
-    font-weight: bold;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 .custom-span:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
-.comment-data-block>p {
-    font-weight: 500;
+.comment-data-block > p {
+  font-weight: 500;
 }
 
 .heart {
-    margin-top: 5px;
-    font-size: 20px;
+  margin-top: 5px;
+  font-size: 20px;
 }
 
 .heart:active {
-    animation: heartbeat 0.5s ease-in-out infinite;
+  animation: heartbeat 0.5s ease-in-out infinite;
 }
-    
+
 @keyframes heartbeat {
-    0% {
-        transform: scale(1);
-        /* Giữ nguyên giá trị margin-top khi scale là 1 */
-    }
+  0% {
+    transform: scale(1);
+    /* Giữ nguyên giá trị margin-top khi scale là 1 */
+  }
 
-    50% {
-        transform: scale(1.3);
-        /* Đưa phần tử lên trên khi đang scale */
-    }
+  50% {
+    transform: scale(1.3);
+    /* Đưa phần tử lên trên khi đang scale */
+  }
 
-    100% {
-        transform: scale(1);
-        /* Trở lại giá trị ban đầu */
-    }
+  100% {
+    transform: scale(1);
+    /* Trở lại giá trị ban đầu */
+  }
 }
 @media (max-width: 1600px) {
-    .file-drop-zone {
-        min-height: 100px;
-    }
+  .file-drop-zone {
+    min-height: 100px;
+  }
 
-    .file-preview-thumbnails {
-        max-height: -100px;
-        overflow: auto;
-    }
+  .file-preview-thumbnails {
+    max-height: -100px;
+    overflow: auto;
+  }
 
-    .file-drop-zone-title {
-        padding: 50px 10px;
-    }
-
+  .file-drop-zone-title {
+    padding: 50px 10px;
+  }
 }
+
+

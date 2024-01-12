@@ -53,7 +53,7 @@
                             <div class="flex-between">
                                 <div v-if="post.likes > 2" style="font-size: 15px; font-weight: 400;">
                                     {{ post.likes }} likes including
-                                    <b style="cursor: pointer;">tomngu</b>
+                                    <b style="cursor: pointer;">canh</b>
                                     and
                                     <b style="cursor: pointer;">others</b>
                                 </div>
@@ -99,7 +99,7 @@
                                         <div style="height: 35px; width: 35px;margin-left: 0px; overflow: hidden;"
                                             class="circle me-2">
                                             <div class="circle me-2" style="width: 2rem; height: 2rem; overflow: hidden;">
-                                                <img :src="urlImg + post.avatar" class="" alt="user"
+                                                <img :src="urlImg + v.avatar" class="" alt="user"
                                                     style="margin-left: 0px; object-fit: cover; width: 100%; height: 100%;">
                                             </div>
                                         </div>
@@ -223,12 +223,13 @@ export default {
         },
         index: {
             type: Number
-        }
+        },
+        
     },
     watch: {
+       
         post: {
             handler(newValue, oldValue) {
-                // console.log('watch modal run');
                 if (oldValue) {
                     this.showComment = false;
                     this.loadComment()
@@ -240,9 +241,7 @@ export default {
         },
         index: {
             handler(newValue, oldValue) {
-                console.log('newValue: ', newValue);
                 if (!oldValue) {
-                    console.log('lần đầu');
                     setTimeout(() => {
                         this.indexImage = newValue
 
@@ -250,7 +249,6 @@ export default {
                 }
                 this.indexImage = newValue
 
-                console.log('this.arrayImages[this.indexImage]: ', this.arrayImages[3]);
             }
         }
     },
@@ -302,7 +300,6 @@ export default {
                         this.list_comment[k].replies = 0
                     }
                     this.list_comment_reply = this.containReplyComment.slice(0, this.list_comment[k].limit);
-                    console.log('this.list_comment_reply: ', this.list_comment_reply);
                 });
         },
         convertStringImageToArray(images) {
@@ -332,10 +329,6 @@ export default {
             }
 
             axios.post('comment/like', v)
-                .then((res) => {
-                    console.log('res: ', res.data);
-
-                })
 
         },
         unLikeComment(v, k, rep) {
@@ -380,7 +373,6 @@ export default {
                 this.index_friend_tags.forEach(i => {
                     comment = comment.replace('@' + this.list_friend[i].fullname,
                         "<a href='/" + this.list_friend[i].username + "' class='custom-span'>" + this.list_friend[i].fullname + "</a>");
-                    // console.log(this.list_friend[i].fullname);
                 });
                 var payload = {
                     'content': comment,
