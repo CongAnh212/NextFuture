@@ -134,12 +134,12 @@
                           </div>
                           <div class="card-post-toolbar">
                             <div class="dropdown">
-                              <span @click="setDropdown()" class="dropdown-toggle" data-bs-toggle="dropdown"
+                              <span  class="dropdown-toggle" data-bs-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false" role="button">
                                 <span class="btn btn-primary">Privacy</span>
                               </span>
-                              <div class="dropdown-menu m-0 p-0 dropdownn" style="inset: auto 0px 0px auto !important;">
-                                <a @click="setPrivacyIndex(1)" id="privacy-1" class="dropdown-item px-3 py-2" href="#">
+                              <div class="dropdown-menu m-0 p-0 dropdownn" >
+                                <a @click="setPrivacyIndex(1)" id="privacy-1" class="dropdown-item px-3 py-1" href="#">
                                   <div class="d-flex align-items-top">
                                     <i class="ri-save-line h4"></i>
                                     <div class="data ms-2">
@@ -148,7 +148,7 @@
                                     </div>
                                   </div>
                                 </a>
-                                <a @click="setPrivacyIndex(2)" id="privacy-2" class="dropdown-item px-3 py-2" href="#">
+                                <a @click="setPrivacyIndex(2)" id="privacy-2" class="dropdown-item px-3 py-1" href="#">
                                   <div class="d-flex align-items-top">
                                     <i class="ri-close-circle-line h4"></i>
                                     <div class="data ms-2">
@@ -157,7 +157,7 @@
                                     </div>
                                   </div>
                                 </a>
-                                <a @click="setPrivacyIndex(3)" id="privacy-3" class="dropdown-item px-3 py-2" href="#">
+                                <a @click="setPrivacyIndex(3)" id="privacy-3" class="dropdown-item px-3 py-1" href="#">
                                   <div class="d-flex align-items-top">
                                     <i class="ri-user-unfollow-line h4"></i>
                                     <div class="data ms-2">
@@ -166,7 +166,7 @@
                                     </div>
                                   </div>
                                 </a>
-                                <a @click="setPrivacyIndex(4)" id="privacy-4" class="dropdown-item px-3 py-2" href="#">
+                                <a @click="setPrivacyIndex(4)" id="privacy-4" class="dropdown-item px-3 py-1" href="#">
                                   <div class="d-flex align-items-top">
                                     <i class="ri-notification-line h4"></i>
                                     <div class="data ms-2">
@@ -291,16 +291,7 @@ export default {
         if (oldValue) {
           this.isView = true;
         }
-        setTimeout(() => {
-          $("#input-b3").fileinput();
-          $("#input-b3").fileinput({ 'showUpload': false, 'previewFileType': 'any' });
-          $('.file-input').addClass('hide-important');
-          $('.close').addClass('btn btn-secondary');
-          $('.fileinput-remove').on('click', () => {
-            $('.file-input').addClass('hide-important');
-            this.post.images = [];
-          });
-        }, 100);
+        this.handleInputBootstrap()
       },
       deep: true, // Sử dụng deep watch để theo dõi các thay đổi sâu
       immediate: true, // Kích hoạt handler ngay từ khi component được khởi tạo
@@ -316,18 +307,21 @@ export default {
     this.getFriend();
   },
   mounted() {
-    setTimeout(() => {
-      $("#input-b3").fileinput();
-      $("#input-b3").fileinput({ 'showUpload': false, 'previewFileType': 'any' });
-      $('.file-input').addClass('hide-important');
-      $('.close').addClass('btn btn-secondary');
-      $('.fileinput-remove').on('click', () => {
-        $('.file-input').addClass('hide-important');
-        this.post.images = [];
-      });
-    }, 100);
+    this.handleInputBootstrap()
   },
   methods: {
+    handleInputBootstrap() {
+      setTimeout(() => {
+        $("#input-b3").fileinput();
+        $("#input-b3").fileinput({ 'showUpload': false, 'previewFileType': 'any' });
+        $('.file-input').addClass('hide-important');
+        $('.close').addClass('btn btn-secondary');
+        $('.fileinput-remove').on('click', () => {
+          $('.file-input').addClass('hide-important');
+          this.post.images = [];
+        });
+      }, 100);
+    },
     showModalPost() {
       $('.btn-temp').click()
       if ($('.file-input').hasClass('hide-important')) {
@@ -465,10 +459,6 @@ export default {
       }
 
 
-    },
-    setDropdown() {
-      $('.dropdownn').css('inset', 'auto 0px 0px auto');
-      $('.dropdownn').css('transform', 'translate(0px, -29px)');
     },
     loadPost() {
       axios

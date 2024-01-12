@@ -18,6 +18,9 @@
     overflow: auto;
 
 }
+.hide-important {
+    display: none !important;
+}
 
 #post-modal {
     /* width: 20px !important; */
