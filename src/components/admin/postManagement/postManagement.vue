@@ -213,14 +213,15 @@ export default {
         },
         selectType(event) {
             const postType = event.target.value;
+            console.log(this.postType[postType]);
             // if postType = 5, show all posts
-            if (postType == this.postType[5]) {
+            if (postType == 5) {
                 this.getAllPosts();
                 this.postsFilter = this.posts;
                 return;
             }
             this.postsFilter = this.posts.filter((post) => {
-                return post.privacy == this.postType[postType];
+                return post.privacy == postType;
             });
         },
         viewPost(id) {
