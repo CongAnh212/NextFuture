@@ -25,7 +25,7 @@
     </div>
     <div v-else class="flex-center flex-column">
         <img src="../../../../assets/img/camera.png" alt="">
-        <h2 class="text-dark"><b>No Photo Yet</b></h2>
+        <h2 class="text-dark"><b>No Photos Yet</b></h2>
     </div>
 
     <ModalPost v-if="currentPost" :post="currentPost" :index="0" />
