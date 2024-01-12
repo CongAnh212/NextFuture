@@ -5,7 +5,7 @@
     </div>
     <div v-else class="flex-center flex-column">
         <img src="../../../../assets/img/camera.png" alt="">
-        <h2 class="text-dark"><b>No Post Yet</b></h2>
+        <h2 class="text-dark"><b>No Posts Yet</b></h2>
     </div>
 </template>
 <script>

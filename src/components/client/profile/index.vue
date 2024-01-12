@@ -314,7 +314,10 @@ export default {
                     this.setView('post_in_profile')
                 }
             } else if (option === 'photo') {
-                if (name === 'suggestion') {
+
+                if (name === 'request_friend') {
+                    this.setView('photo_in_profile.request_friend')
+                } else if (name === 'suggestion') {
                     this.setView('photo_in_profile.suggestion')
                 } else if (name === 'all_friends') {
                     this.setView('photo_in_profile.all_friends')
