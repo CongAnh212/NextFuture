@@ -17,10 +17,11 @@
                 </div>
                 <div class="flex-1">
                     <select class="form-select" @change="selectType($event)">
-                        <option value="3">All</option>
-                        <option value="0">Public</option>
-                        <option value="1">Friends</option>
-                        <option value="2">Deleted</option>
+                        <option value="5">All</option>
+                        <option value="1">Public</option>
+                        <option value="2">Friends</option>
+                        <option value="4">Private</option>
+                        <option value="0">Deleted</option>
                     </select>
                 </div>
             </div>
@@ -52,7 +53,7 @@
                             {{ post.fullname }}
                         </div>
                     </div>
-                    <div v-if="post.privacy == 2">
+                    <div v-if="post.privacy == 0">
                         <div class="deleted-post">This post has been deleted.</div>
                     </div>
                     <div v-else>
@@ -120,7 +121,14 @@ export default {
     data() {
         return {
             searchTerm: "",
-            postType: 0,
+            postType: {
+                0: "Deleted",
+                1: "Public",
+                2: "Friends",
+                3: "",
+                4: "Private",
+                5: "All",
+            },
             urlImg: url,
             posts: [],
             postsFilter: [],
@@ -158,10 +166,12 @@ export default {
             }
         },
         getPrivacyIcon(privacy) {
-            if (privacy === 0) {
+            if (privacy === 1) {
                 return "fas fa-globe";
-            } else if (privacy === 1) {
+            } else if (privacy === 2) {
                 return "fas fa-users";
+            } else if (privacy === 4) {
+                return "fas fa-lock";
             }
         },
         deletePost(id) {
@@ -179,7 +189,7 @@ export default {
                     Swal.fire("Deleted!", "Your file has been deleted.", "success");
                     this.posts = this.posts.map((post) => {
                         if (post.id == id) {
-                            post.privacy = 2;
+                            post.privacy = 0;
                         }
                         return post;
                     });
@@ -202,15 +212,15 @@ export default {
             });
         },
         selectType(event) {
-            this.postType = event.target.value;
-            if (this.postType == 3) {
+            const postType = event.target.value;
+            // if postType = 5, show all posts
+            if (postType == this.postType[5]) {
                 this.getAllPosts();
                 this.postsFilter = this.posts;
                 return;
             }
             this.postsFilter = this.posts.filter((post) => {
-                console.log(this.postType == post.privacy);
-                return post.privacy == this.postType;
+                return post.privacy == this.postType[postType];
             });
         },
         viewPost(id) {
