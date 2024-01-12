@@ -305,10 +305,9 @@
   </div>
 </template>
 <script>
-
-import axios, { url } from '../../../../core/coreRequest';
-import baseFunction from '../../../../core/coreFunction';
-import { state, socket } from '../../../../socket'
+import axios, { url } from "../../../../core/coreRequest";
+import baseFunction from "../../../../core/coreFunction";
+import { state, socket } from "../../../../socket";
 
 export default {
   data() {
@@ -340,17 +339,20 @@ export default {
       immediate: true
     },
     notify(newValue, oldValue) {
+      console.log('oldValue: ', oldValue);
+      console.log('newValue: ', newValue);
       this.getNotification();
     }
   },
   created() {
-    // console.log("️⚡→(HeaderClient.vue:368) ~ socket.id", socket.id);
+    console.log("️⚡→(HeaderClient.vue:368) ~ socket.id", socket.id);
     socket.on("getNotification", (...args) => {
       this.getRequestFriend()
       this.getNotification()
     })
   },
   mounted() {
+    console.log('HeaderClient.vue: mounted')
     state.connected = true
     this.getInfo();
     this.getRequestFriend();
@@ -385,60 +387,54 @@ export default {
         this.myInfo = response.data.myInfo;
         await localStorage.setItem('information-my-profile', JSON.stringify(this.myInfo))
 
-        if (Object.keys(this.myInfo).length > 0) {
-          await this.connectToSocket(this.myInfo);
-        }
-      } catch (error) {
-        console.error('Lỗi lấy thông tin người dùng:', error);
-      }
+                if (Object.keys(this.myInfo).length > 0) {
+                    await this.connectToSocket(this.myInfo);
+                }
+            } catch (error) {
+                console.error("Lỗi lấy thông tin người dùng:", error);
+            }
+        },
+        myProfile() {
+            this.$router.push({
+                name: "detailProfile",
+                params: { username: this.myInfo.username },
+            });
+        },
+        getRequestFriend() {
+            axios.get("follower/request-friend").then((res) => {
+                if (res.data.status == 1) {
+                    this.request_friend = res.data.data;
+                    this.count = res.data.count;
+                }
+            });
+        },
+        confirm(v) {
+            axios.post("follower/accept-friend", v).then((res) => {
+                if (res.data.status) {
+                    this.getRequestFriend();
+                }
+            });
+        },
+        delRequest(v) {
+            axios.post("follower/delete-friend", v).then((res) => {
+                if (res.data.status) {
+                    this.getRequestFriend();
+                } else {
+                    baseFunction.displaySuccess(res);
+                }
+            });
+        },
+        readNotification(v) {
+            axios.post("notification/update-status", v).then((res) => {
+                if (res.data.status) {
+                    this.getNotification();
+                }
+            });
+        },
+        connectToSocket(user) {
+            socket.emit("newUser", user);
+        },
     },
-    myProfile() {
-      this.$router.push({ name: 'detailProfile', params: { username: this.myInfo.username } });
-    },
-    getRequestFriend() {
-      axios
-        .get('follower/request-friend')
-        .then((res) => {
-          if (res.data.status == 1) {
-            this.request_friend = res.data.data;
-            this.count = res.data.count;
-          }
-        });
-    },
-    confirm(v) {
-      axios
-        .post('follower/accept-friend', v)
-        .then((res) => {
-          if (res.data.status) {
-            this.getRequestFriend();
-          }
-        })
-    },
-    delRequest(v) {
-      axios
-        .post('follower/delete-friend', v)
-        .then((res) => {
-          if (res.data.status) {
-            this.getRequestFriend()
-          } else {
-            baseFunction.displaySuccess(res);
-          }
-        })
-    },
-    readNotification(v) {
-      axios
-        .post('notification/update-status', v)
-        .then((res) => {
-          if (res.data.status) {
-            this.getNotification();
-          }
-        })
-
-    },
-    connectToSocket(user) {
-      socket.emit('newUser', user)
-    }
-  },
-}
+};
 </script>
 <style></style>

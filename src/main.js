@@ -8,6 +8,7 @@ import Account from "./Layout/Wrapper/client/account/index.vue";
 import share from "./layout/wrapper/client/share_master/index.vue";
 import empty from "./layout/wrapper/client/empty/index.vue";
 import checkIsLogin from "../src/core/modules.js";
+import AdminNav from "./Layout/Wrapper/admin/AdminNav.vue";
 import PrimeVue from "primevue/config";
 
 const app = createApp(App);
@@ -39,5 +40,6 @@ app.component("main-layout", Main);
 app.component("story-layout", Story);
 app.component("share-layout", share);
 app.component("empty-layout", empty);
+app.component("admin-layout", AdminNav);
 
 app.mount("#app");

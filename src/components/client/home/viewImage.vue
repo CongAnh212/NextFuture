@@ -1,9 +1,13 @@
 <template>
     <Carousel :items-to-show="2.3" v-bind="settings" :wrap-around="false">
-        <Slide v-for="(image, index) in arrayImages" :key="index" class="aaasass" @click="openModal(index)"
-            :class="{ 'singleImg': arrayImages.length < 3 }">
-            <div class="carousel__item " @mouseup="fixTranslate">
-                <img :src="urlImg + image">
+        <Slide
+            v-for="(image, index) in arrayImages"
+            :key="index"
+            class="aaasass"
+            @click="openModal(index)"
+            :class="{ singleImg: arrayImages.length < 3 }">
+            <div class="carousel__item" @mouseup="fixTranslate">
+                <img :src="urlImg + image" />
             </div>
         </Slide>
         <template #addons v-if="arrayImages.length >= 3">
@@ -13,9 +17,9 @@
 </template>
 
 <script>
-import { url } from '../../../core/coreRequest';
-import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel'
-import 'vue3-carousel/dist/carousel.css'
+import { url } from "../../../core/coreRequest";
+import { Carousel, Navigation, Pagination, Slide } from "vue3-carousel";
+import "vue3-carousel/dist/carousel.css";
 export default {
     components: {
         Carousel,
@@ -25,12 +29,12 @@ export default {
     },
     props: {
         images: String,
-        k: Number
+        k: Number,
     },
     watch: {
         images(newValue, olrValue) {
-            this.convertStringImageToArray(newValue)
-        }
+            this.convertStringImageToArray(newValue);
+        },
     },
     data() {
         return {
@@ -39,61 +43,59 @@ export default {
             img: [],
             i: 0,
             settings: {
-                // itemsToShow: 1.9, 
-                snapAlign: 'center',
+                // itemsToShow: 1.9,
+                snapAlign: "center",
             },
-        }
+        };
     },
     created() {
-        this.convertStringImageToArray(this.images)
+        this.convertStringImageToArray(this.images);
     },
     mounted() {
         setTimeout(() => {
-            $('.carousel__track').css('transform', 'translateX(70px)');
-
+            $(".carousel__track").css("transform", "translateX(70px)");
         }, 1);
         this.singleImage();
     },
     methods: {
-        openModal(i) { 
+        openModal(i) {
             var object = {
                 index: i,
-                k: this.k
-            }
-            this.$emit('openModal', object)
+                k: this.k,
+            };
+            this.$emit("openModal", object);
         },
         singleImage() {
-            $('.fixDrag').removeClass('fixDrag')
+            $(".fixDrag").removeClass("fixDrag");
             var myElement = $(".singleImg");
             var parent = myElement.parent();
-            parent.addClass('fixDrag')
+            parent.addClass("fixDrag");
         },
         convertStringImageToArray(images) {
             if (images) {
-                return this.arrayImages = JSON.parse(images)
+                return (this.arrayImages = JSON.parse(images));
             }
-            return this.arrayImages = []
+            return (this.arrayImages = []);
         },
         fixTranslate(event) {
-            var $carouselTrack = $(event.target).closest('.carousel__track');
+            var $carouselTrack = $(event.target).closest(".carousel__track");
             if ($carouselTrack.length > 0) {
-                var transformValue = $carouselTrack.css('transform');
-                var matrix = transformValue.replace(/[^0-9\-.,]/g, '').split(',');
+                var transformValue = $carouselTrack.css("transform");
+                var matrix = transformValue.replace(/[^0-9\-.,]/g, "").split(",");
                 var translateXValue = parseInt(matrix[12] || matrix[4]);
                 if (translateXValue == 0) {
-                    $carouselTrack.css('transform', 'translateX(70px)');
+                    $carouselTrack.css("transform", "translateX(70px)");
                 }
             }
-        }
+        },
     },
-}
+};
 </script>
 
 <style>
 .fixDrag {
     transform: translateX(70px) !important;
 }
-
 
 .carousel__next {
     right: -4rem;
@@ -107,7 +109,6 @@ export default {
     background-color: #d4d6cb;
     border-radius: 100%;
     color: #000000;
-
 }
 
 .carousel__item {

@@ -1,38 +1,46 @@
 import { createRouter, createWebHistory } from "vue-router"; // cài vue-router: npm install vue-router@next --save
 
 const routes = [
-  {
-    path: "/sign-in",
-    name: "sign-in",
-    meta: { layout: "account" },
-    component: () => import("../components/client/account/signIn/index.vue"),
-  },
-  {
-    path: "/sign-up",
-    name: "sign-up",
-    meta: { layout: "account" },
-    component: () => import("../components/client/account/signUp/index.vue"),
-  },
-  {
-    path: "/",
-    name: "homepage",
-    meta: { layout: "main", requiresAuth: true },
-    props: true,
-    components: {
-      default: () => import("../components/client/home/list.vue"),
-      content: () => import("../components/client/home/homepage.vue"),
+    {
+        path: "/admin",
+        name: "admin",
+        meta: { layout: "admin" },
+        components: {
+            content: () => import("../components/admin/index.vue"),
+        },
     },
-    children: [
-      // tạo thêm 1 class để xử lý ảnh cho dễ
-      {
-        path: "",
+    {
+        path: "/sign-in",
+        name: "sign-in",
+        meta: { layout: "account" },
+        component: () => import("../components/client/account/signIn/index.vue"),
+    },
+    {
+        path: "/sign-up",
+        name: "sign-up",
+        meta: { layout: "account" },
+        component: () => import("../components/client/account/signUp/index.vue"),
+    },
+    {
+        path: "/",
+        name: "homepage",
+        meta: { layout: "main", requiresAuth: true },
         props: true,
         components: {
-          post: () => import("../components/client/home/list_post.vue"),
+            default: () => import("../components/client/home/list.vue"),
+            content: () => import("../components/client/home/homepage.vue"),
         },
-      },
-    ],
-  },
+        children: [
+            // tạo thêm 1 class để xử lý ảnh cho dễ
+            {
+                path: "",
+                props: true,
+                components: {
+                    post: () => import("../components/client/home/list_post.vue"),
+                },
+            },
+        ],
+    },
 
   {
     path: "/friends",
@@ -349,27 +357,26 @@ const routes = [
     path: "/group/:id_group/member-requests",
     name: "request_group",
 
-    meta: { layout: "main", requiresAuth: true },
-    components: {
-      default: () => import("../components/client/group/home/list.vue"),
-      content: () =>
-        import("../components/client/group/request_group/request_group.vue"),
+        meta: { layout: "main", requiresAuth: true },
+        components: {
+            default: () => import("../components/client/group/home/list.vue"),
+            content: () => import("../components/client/group/request_group/request_group.vue"),
+        },
     },
-  },
-  {
-    path: "/test",
-    name: "test",
-    meta: { layout: "main", requiresAuth: true },
-    components: {
-      default: () => import("../components/test/list.vue"),
-      content: () => import("../components/test/content.vue"),
+    {
+        path: "/test",
+        name: "test",
+        meta: { layout: "main", requiresAuth: true },
+        components: {
+            default: () => import("../components/test/list.vue"),
+            content: () => import("../components/test/content.vue"),
+        },
     },
-  },
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes: routes,
+    history: createWebHistory(),
+    routes: routes,
 });
 
 export default router;

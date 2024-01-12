@@ -285,7 +285,6 @@ export default {
       deep: true
     },
     myInfo: {
-
       handler(newValue, oldValue) {
         // Xử lý khi giá trị của data thay đổi
         if (oldValue) {
@@ -489,6 +488,6 @@ export default {
 }
 </script>
 <style>
-@import './style.css';
-@import './bs-input.css';
+@import "./style.css";
+@import "./bs-input.css";
 </style>

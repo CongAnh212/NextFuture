@@ -1,10 +1,10 @@
-import { createToaster } from '@meforma/vue-toaster'
-const toastr =  createToaster({
-    position: 'bottom-left'
-})
+import { createToaster } from "@meforma/vue-toaster";
+const toastr = createToaster({
+    position: "bottom-left",
+});
 export default {
     date_format(now) {
-        return moment(now).format('DD/MM/yyyy');
+        return moment(now).format("DD/MM/yyyy");
     },
     number_format(number, decimals = 2, dec_point = ",", thousands_sep = ".") {
         var n = number,
@@ -15,51 +15,58 @@ export default {
         var i = parseInt((n = Math.abs(+n || 0).toFixed(c))) + "",
             j = (j = i.length) > 3 ? j % 3 : 0;
 
-        return (s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d +
-            Math.abs(n - i)
-                .toFixed(c)
-                .slice(2)
-            : "")
+        return (
+            s +
+            (j ? i.substr(0, j) + t : "") +
+            i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) +
+            (c
+                ? d +
+                  Math.abs(n - i)
+                      .toFixed(c)
+                      .slice(2)
+                : "")
         );
     },
     hoursDifference(time) {
-        const currentTime = new Date(); // Thời điểm hiện tại
-        const startTime = new Date(time);
-        const timeDiff = currentTime - startTime; // Hiệu giữa hai thời điểm tính bằng mili giây
+        const units = [
+            ["Just now", 1], // seconds
+            ["minutes", 60], // minutes
+            ["hours", 60], // hours
+            ["days", 24], // days
+            ["weeks", 7], // weeks
+            ["months", 4.34524], // months, average weeks in a month
+            ["years", 12], // years
+        ];
 
-        if (timeDiff < 60 * 1000) { // Nếu thời gian giữa hai điểm ít hơn 1 phút
-            // return `${Math.round(timeDiff / 1000)} seconds`;
-            return 'Just now'
-        } else if (timeDiff < 60 * 60 * 1000) { // Nếu thời gian giữa hai điểm ít hơn 1 giờ
-            const minutes = timeDiff / (1000 * 60); // Chuyển đổi thành phút
-            return `${Math.round(minutes)} minutes`;
-        } else if (timeDiff < 24 * 60 * 60 * 1000) { // Nếu thời gian giữa hai điểm ít hơn 24 giờ
-            const hours = timeDiff / (1000 * 60 * 60); // Chuyển đổi thành giờ
-            return `${Math.round(hours)} hours`;
-        } else if (timeDiff < 7 * 24 * 60 * 60 * 1000) { // Nếu thời gian giữa hai điểm ít hơn 7 ngày
-            const days = timeDiff / (1000 * 60 * 60 * 24); // Chuyển đổi thành ngày
-            return `${Math.round(days)} days`;
-        } else if (timeDiff < 30 * 24 * 60 * 60 * 1000) { // Nếu thời gian giữa hai điểm ít hơn 30 ngày (1 tháng)
-            const weeks = timeDiff / (1000 * 60 * 60 * 24 * 7); // Chuyển đổi thành tuần
-            return `${Math.round(weeks)} weeks`;
-        } else if (timeDiff < 365 * 24 * 60 * 60 * 1000) { // Nếu thời gian giữa hai điểm ít hơn 365 ngày (1 năm)
-            const months = timeDiff / (1000 * 60 * 60 * 24 * 30); // Chuyển đổi thành tháng
-            return `${Math.round(months)} months`;
+        let currentTime = new Date();
+        let startTime = new Date(time);
+        let diff = Math.abs(currentTime - startTime) / 1000; // difference in seconds
+
+        let unitIndex = 0;
+
+        while (unitIndex < units.length - 1 && diff >= units[unitIndex + 1][1]) {
+            diff /= units[unitIndex + 1][1];
+            unitIndex++;
+        }
+
+        diff = Math.round(diff);
+
+        // If the unit is "Just now", return the string without the number
+        if (units[unitIndex][0] === "Just now") {
+            return units[unitIndex][0];
         } else {
-            const years = timeDiff / (1000 * 60 * 60 * 24 * 365); // Chuyển đổi thành năm
-            return `${Math.round(years)} years`;
+            return diff + " " + units[unitIndex][0];
         }
     },
-
     roundToDecimal(number, decimalPlaces) {
         const multiplier = 10 ** decimalPlaces;
         return Math.round(number * multiplier) / multiplier;
     },
     displaySuccess(res) {
         var message = res.data.message;
-        if(res.data.status == 1) {
+        if (res.data.status == 1) {
             toastr.info(message);
-        } else if(res.data.status == 0) {
+        } else if (res.data.status == 0) {
             toastr.error(message);
         } else {
             toastr.warning(message);
@@ -84,4 +91,4 @@ export default {
     //         }
     //     }
     // },
-}
+};
