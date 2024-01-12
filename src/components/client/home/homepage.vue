@@ -285,7 +285,6 @@ export default {
       deep: true
     },
     myInfo: {
-
       handler(newValue, oldValue) {
         // Xử lý khi giá trị của data thay đổi
         if (oldValue) {

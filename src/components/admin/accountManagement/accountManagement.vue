@@ -50,7 +50,7 @@
                         class="form-control"
                         placeholder="Search"
                         v-model="searchTerm"
-                        @change="searchFilter" />
+                        @input="searchFilter" />
                 </div>
             </div>
         </div>
@@ -74,7 +74,7 @@
                 :key="index"
                 class="bg-white overflow-y-auto position-relative"
                 style="border-bottom: 0.2px solid rgba(212, 208, 208, 0.4)">
-                <button class="admin--button-overlay" @click="visitAccount(account.id)" />
+                <button class="admin--button-overlay" @click="visitAccount(account.username)" />
                 <div
                     class="d-grid"
                     :style="{
@@ -125,7 +125,7 @@
                                 {{
                                     account.status === 0
                                         ? "Banned"
-                                        : account.is_active === 1
+                                        : account.is_active === true
                                         ? "Active"
                                         : "Inactive"
                                 }}
@@ -182,85 +182,16 @@
 <script>
 import axios, { url } from "../../../core/coreRequest";
 import Swal from "sweetalert2";
-import coreFunctions from "../../../core/coreFunction";
+import { state, socket } from "../../../socket";
 export default {
     data() {
         return {
             urlImg: url,
             searchTerm: "",
             statusType: 3,
-            accounts: [
-                {
-                    id: 1,
-                    username: "linhdeptrai",
-                    password: "123123",
-                    email: "linh@gmail.com",
-                    phone_number: "1231231231",
-                    fullname: "Linh Hoàng",
-                    nickname: "Linh",
-                    avatar: "post/1704797387_1S7A1656.JPG",
-                    status: 1,
-                    is_active: 1,
-                },
-                {
-                    id: 2,
-                    username: "user2",
-                    password: "password2",
-                    email: "user2@gmail.com",
-                    phone_number: "1234567890",
-                    fullname: "User Two",
-                    avatar: "post/avatar2.JPG",
-                    status: 1,
-                    is_active: 0,
-                },
-                {
-                    id: 3,
-                    username: "user3",
-                    password: "password3",
-                    email: "user3@gmail.com",
-                    phone_number: "0987654321",
-                    fullname: "User Three",
-                    avatar: "post/avatar3.JPG",
-                    status: 0,
-                    is_active: 0,
-                },
-                {
-                    id: 4,
-                    username: "user4",
-                    password: "password4",
-                    email: "user4@gmail.com",
-                    phone_number: "1029384756",
-                    fullname: "User Four",
-                    avatar: "post/avatar4.JPG",
-                    status: 1,
-                    is_active: 0,
-                },
-                {
-                    id: 5,
-                    username: "user5",
-                    password: "password5",
-                    email: "user5@gmail.com",
-                    phone_number: "5678901234",
-                    fullname: "User Five",
-                    avatar: "post/avatar5.JPG",
-                    status: 1,
-                    is_active: 1,
-                },
-                {
-                    id: 6,
-                    username: "user6",
-                    password: "password6",
-                    email: "user6@gmail.com",
-                    phone_number: "5432109876",
-                    fullname: "User Six",
-                    avatar: "post/avatar6.JPG",
-                    status: 0,
-                    is_active: 0,
-                },
-            ],
+            accounts: [],
             accountsFilter: [],
             totalAccounts: 0,
-            activeAccounts: 0,
             bannedAccounts: 0,
             colorType: {
                 Banned: "color: #f9405f",
@@ -269,35 +200,33 @@ export default {
             },
         };
     },
-    created() {
-        this.accountsFilter = this.accounts;
-        this.totalAccounts = this.accounts.length;
-        this.activeAccounts = this.accounts.filter((account) => account.is_active === 1).length;
-        this.bannedAccounts = this.accounts.filter((account) => account.status === 0).length;
-    },
     name: "AccountManagement",
     methods: {
         getStatusType(statusType, activeType) {
             return statusType === 0
                 ? this.colorType.Banned
-                : activeType === 1
+                : activeType === true
                 ? this.colorType.Active
                 : this.colorType.Inactive;
         },
-        visitAccount(id) {
-            this.$router.push({ name: "Account", params: { id: id } });
+        visitAccount(username) {
+            this.$router.push({ name: "detailProfile", params: { username: username } });
         },
         banAccount(id) {
             Swal.fire({
-                title: "Are you sure?",
+                title: "Do you want to ban this account, you can't undo this?",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#f9405f",
                 cancelButtonColor: "#3085d6",
-                confirmButtonText: "Yes, ban this account!",
+                confirmButtonText: "Yes",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire("Deleted!", "Your file has been deleted.", "success");
+                    Swal.fire({ title: "Ban success!", showConfirmButton: false, timer: 750 });
+                    //nhét link api vô đây
+                    axios.post("admin/account/banAccount", { id: id }).then((res) => {
+                        console.log(res);
+                    });
                     this.accounts = this.accounts.map((account) => {
                         if (account.id == id) {
                             account.status = 0;
@@ -305,23 +234,19 @@ export default {
                         }
                         return account;
                     });
-                    this.accountFilters = this.accountFilters.map((account) => {
+                    this.accountFilters = this.accountFilters.forEach((account) => {
                         if (account.id == id) {
                             account.status = 0;
                             account.is_active = 0;
                         }
                         return account;
                     });
-                    //nhét link api vô đây
-                    axios.post("/admin/delete-post", id).then((res) => {
-                        console.log(res);
-                    });
                 }
             });
         },
         typeFilter(type) {
             if (type === "active") {
-                this.accountsFilter = this.accounts.filter((account) => account.is_active === 1);
+                this.accountsFilter = this.accounts.filter((account) => account.is_active === true);
             } else if (type === "banned") {
                 this.accountsFilter = this.accounts.filter((account) => account.status === 0);
             } else {
@@ -338,9 +263,58 @@ export default {
                 );
             });
         },
+        async getAllAccount() {
+            try {
+                const res = await axios.get("admin/account/getAllAccounts");
+                this.accounts = res.data.map((account) => {
+                    return {
+                        ...account,
+                        is_active: state.onlineUsers.some((userArray) => {
+                            return userArray.some((user) => {
+                                return user.id === account.id;
+                            });
+                        }),
+                    };
+                });
+                this.accountsFilter = this.accounts;
+                this.totalAccounts = this.accounts.length;
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        updateIsActiveAccount(id) {
+            this.accounts.forEach((account) => {
+                if (account.id === id) {
+                    account.is_active = true;
+                } else {
+                    account.is_active = false;
+                }
+            });
+        },
     },
+    computed: {
+        totalAccounts() {
+            return this.accounts.length;
+        },
+        activeAccounts() {
+            return state.activeAccounts;
+        },
+        bannedAccounts() {
+            return this.accounts.filter((account) => account.status === 0).length;
+        },
+    },
+    created() {
+        this.getAllAccount();
+        socket.on("onlineUser", (onlineUsers) => {
+            onlineUsers.forEach((user) => {
+                this.updateIsActiveAccount(user.id);
+            });
+        });
+    },
+    watch: {},
 };
 </script>
+
 <style>
 :root {
     --ban-color: #f9405f;
@@ -348,6 +322,7 @@ export default {
     --hover-color: #242424;
 }
 </style>
+
 <style scoped>
 .admin--account-numbers {
     position: relative;

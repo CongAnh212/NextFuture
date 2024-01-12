@@ -63,7 +63,7 @@
                 </div>
                 <div>
                     <div class="d-flex align-items-center gap-3">
-                        <div class="d-flex gap-2" style="">
+                        <div class="d-flex gap-2" v-if="post.images && post.images.length > 0">
                             <img
                                 v-for="(image, index) in post.images"
                                 :key="index"
@@ -99,7 +99,7 @@
                     </div>
                     <div class="d-flex align-items-center gap-5 mt-2">
                         <div class="d-flex align-items-center gap-3">
-                            <div><i class="far fa-heart" style=""></i> {{ post.like }}</div>
+                            <div><i class="far fa-heart" style=""></i> {{ post.react }}</div>
                             <div><i class="far fa-comment" style=""></i> {{ post.comment }}</div>
                             <div><i :class="getPrivacyIcon(post.privacy)"></i></div>
                         </div>
@@ -115,73 +115,35 @@
 import axios, { url } from "../../../core/coreRequest";
 import Swal from "sweetalert2";
 import coreFunctions from "../../../core/coreFunction";
+import { toRaw } from "vue";
 export default {
     data() {
         return {
             searchTerm: "",
             postType: 0,
             urlImg: url,
-            posts: [
-                {
-                    id: 1,
-                    fullname: "nguyenhongphat0",
-                    created_at: coreFunctions.hoursDifference("2024-01-01 00:00:00"),
-                    avatar: "post/1704797387_1S7A1656.JPG",
-                    images: [
-                        "post/1704797387_1S7A1656.JPG",
-                        "post/1704797387_1S7A1708.JPG",
-                        "post/1704797387_1S7A1708.JPG",
-                        "post/1704797387_1S7A1708.JPG",
-                        "post/1704797387_1S7A1708.JPG",
-                    ],
-                    caption:
-                        "Hello World, I'm Phat, I'm a developer, I'm a dev, I'm a coder, I'm a programmer, I'm a software engineer, I'm a web developer, I'm a web designer, I'm a web coder, I'm a web programmer, I'm a web software engineer, I'm a web engineer, I want money, jobs, happiness",
-                    like: 2,
-                    comment: 3,
-                    privacy: 1,
-                },
-                {
-                    id: 2,
-                    fullname: "nguyenhongphat0",
-                    created_at: coreFunctions.hoursDifference("2024-01-01 00:00:00"),
-                    avatar: "post/1704797387_1S7A1656.JPG",
-                    images: ["post/1704797387_1S7A1656.JPG", "post/1704797387_1S7A1708.JPG"],
-                    caption: "Hehe",
-                    like: 5,
-                    comment: 2,
-                    privacy: 0,
-                },
-                {
-                    id: 3,
-                    fullname: "nguyenhongphat0",
-                    created_at: coreFunctions.hoursDifference("2024-01-01 00:00:00"),
-                    avatar: "post/1704797387_1S7A1656.JPG",
-                    images: ["post/1704797387_1S7A1656.JPG", "post/1704797387_1S7A1708.JPG"],
-                    caption: "cdmmmm",
-                    like: 7,
-                    comment: 4,
-                    privacy: 1,
-                },
-                {
-                    id: 4,
-                    fullname: "nguyenhongphat0",
-                    avatar: "post/1704797387_1S7A1656.JPG",
-                    images: ["post/1704797387_1S7A1656.JPG", "post/1704797387_1S7A1708.JPG"],
-                    caption: "cdmmmm",
-                    like: 7,
-                    comment: 4,
-                    privacy: 2,
-                },
-                // Add more posts here
-            ],
+            posts: [],
             postsFilter: [],
         };
     },
-    created() {
-        this.postsFilter = this.posts;
-    },
     name: "PostManagement",
     methods: {
+        getAllPosts() {
+            axios
+                .get("admin/post/getAllPosts")
+                .then((response) => {
+                    this.posts = response.data.data
+                        .map((post) => {
+                            post.created_at = coreFunctions.hoursDifference(post.created_at);
+                            return post;
+                        })
+                        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                    this.postsFilter = this.posts;
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        },
         getImageStyle(index) {
             if (index < 1) {
                 return {
@@ -203,6 +165,7 @@ export default {
             }
         },
         deletePost(id) {
+            console.log(id);
             Swal.fire({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",
@@ -221,7 +184,7 @@ export default {
                         return post;
                     });
                     //nhét link api vô đây
-                    axios.post("/admin/delete-post", id).then((res) => {
+                    axios.post("admin/post/deletePost", { id: id }).then((res) => {
                         console.log(res);
                     });
                     this.postsFilter = this.posts;
@@ -241,6 +204,7 @@ export default {
         selectType(event) {
             this.postType = event.target.value;
             if (this.postType == 3) {
+                this.getAllPosts();
                 this.postsFilter = this.posts;
                 return;
             }
@@ -253,6 +217,9 @@ export default {
             //nhét link bài viết vô đây
             this.$router.push({ name: "Profile", params: { id: id } });
         },
+    },
+    created() {
+        this.getAllPosts();
     },
 };
 </script>
