@@ -175,7 +175,6 @@ export default {
             }
         },
         deletePost(id) {
-            console.log(id);
             Swal.fire({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",
@@ -194,9 +193,7 @@ export default {
                         return post;
                     });
                     //nhét link api vô đây
-                    axios.post("admin/post/deletePost", { id: id }).then((res) => {
-                        console.log(res);
-                    });
+                    axios.post("admin/post/deletePost", { id: id });
                     this.postsFilter = this.posts;
                 }
             });
@@ -213,8 +210,6 @@ export default {
         },
         selectType(event) {
             const postType = event.target.value;
-            console.log(this.postType[postType]);
-            // if postType = 5, show all posts
             if (postType == 5) {
                 this.getAllPosts();
                 this.postsFilter = this.posts;
