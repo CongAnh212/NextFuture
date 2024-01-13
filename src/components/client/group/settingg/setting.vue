@@ -1,229 +1,233 @@
 <template>
-    <div class="d-flex align-items-center  p-2 setting" style="font-size: 15px; flex-direction: column;">
-        <main class=" mt-2 px-2 radius-7 box-shadow py-2" style="width: 35%;">
-            <h5><b>Group setup</b></h5>
-            <div class="flex-between mt-2 mb-2">
-                <span class="f-500 text-dark">Name and description</span>
-                <i style="cursor: pointer; font-size: 1.5rem;" class="fas fa-pen"></i>
-            </div>
-            <hr class="m-0">
-            <div v-if="viewPrivacy" class="flex-between my-1">
-                <div class="d-flex" style="flex-direction: column; line-height: 1.5rem;">
-                    <span class="f-500 text-dark">Privacy</span>
-                    <span style="font-size: 0.9em;">{{ infoGroup.privacy == 1 ? 'Public' : "Private" }}</span>
+    <div style=" min-height: calc(100vh - 4.688rem);">
+        <div class="d-flex align-items-center  p-2 setting" style="font-size: 15px; flex-direction: column;">
+            <main class=" mt-2 px-2 radius-7 box-shadow py-2" style="width: 35%;">
+                <h5><b>Group setup</b></h5>
+                <div class="flex-between mt-2 mb-2">
+                    <span class="f-500 text-dark">Name and description</span>
+                    <i style="cursor: pointer; font-size: 1.5rem;" class="fas fa-pen"></i>
                 </div>
-                <i @click="handleClickPrivacy()" style="cursor: pointer; font-size: 1.5rem;" class="fas fa-pen"></i>
-            </div>
-            <!-- form privacy -->
-            <div v-else class=" my-1 ">
-                <div class="f-500 text-dark">Privacy</div>
-                <div @click="handleSelect('rdoPublic', 'savePrivacy')" class=" d-flex   align-items-center bg-hover"
-                    style="height: 65px;">
-                    <div class="me-2 flex-center circle bg-light" style="width:30px;height:30px;">
-                        <i class="fas fa-globe-asia text-dark" style="font-size:20px;"></i>
+                <hr class="m-0">
+                <div v-if="viewPrivacy" class="flex-between my-1">
+                    <div class="d-flex" style="flex-direction: column; line-height: 1.5rem;">
+                        <span class="f-500 text-dark">Privacy</span>
+                        <span style="font-size: 0.9em;">{{ infoGroup.privacy == 1 ? 'Public' : "Private" }}</span>
                     </div>
-                    <div class="d-flex justify-content-between align-items-center " style="flex: 1;">
-                        <div class="d-flex flex-column pt-3 a" style="user-select:none; line-height: 1rem;">
-                            <h5><b style="font-weight:500;">Public</b></h5>
-                            <p style="font-size: 11px;">Anyone can see everyone in the group and what they post</p>
+                    <i @click="handleClickPrivacy()" style="cursor: pointer; font-size: 1.5rem;" class="fas fa-pen"></i>
+                </div>
+                <!-- form privacy -->
+                <div v-else class=" my-1 ">
+                    <div class="f-500 text-dark">Privacy</div>
+                    <div @click="handleSelect('rdoPublic', 'savePrivacy')" class=" d-flex   align-items-center bg-hover"
+                        style="height: 65px;">
+                        <div class="me-2 flex-center circle bg-light" style="width:30px;height:30px;">
+                            <i class="fas fa-globe-asia text-dark" style="font-size:20px;"></i>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center " style="flex: 1;">
+                            <div class="d-flex flex-column pt-3 a" style="user-select:none; line-height: 1rem;">
+                                <h5><b style="font-weight:500;">Public</b></h5>
+                                <p style="font-size: 11px;">Anyone can see everyone in the group and what they post</p>
+                            </div>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="privacy" id="rdoPublic" value="1" />
                         </div>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="privacy" id="rdoPublic" value="1" />
-                    </div>
-                </div>
-                <div @click="handleSelect('rdoPrivate', 'savePrivacy')" class=" d-flex mb-2  align-items-center bg-hover"
-                    style="height: 65px;">
-                    <div class="me-2 flex-center circle bg-light" style="width:30px;height:30px;">
-                        <i class="fas fa-lock text-dark" style="font-size:20px;"></i>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center " style="flex: 1;">
-                        <div class="d-flex flex-column pt-3 a" style="user-select:none;">
-                            <h5><b style="font-weight:500;">Private</b></h5>
-                            <p style="font-size: 11px;">only members can see everyone in the group and what they post</p>
+                    <div @click="handleSelect('rdoPrivate', 'savePrivacy')"
+                        class=" d-flex mb-2  align-items-center bg-hover" style="height: 65px;">
+                        <div class="me-2 flex-center circle bg-light" style="width:30px;height:30px;">
+                            <i class="fas fa-lock text-dark" style="font-size:20px;"></i>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center " style="flex: 1;">
+                            <div class="d-flex flex-column pt-3 a" style="user-select:none;">
+                                <h5><b style="font-weight:500;">Private</b></h5>
+                                <p style="font-size: 11px;">only members can see everyone in the group and what they post
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="privacy" id="rdoPrivate" value="-1" />
                         </div>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="privacy" id="rdoPrivate" value="-1" />
+                    <div class="text-end">
+                        <div @click="handleClickPrivacy()" class="btn  text-primary me-2 btn_cancel">Cancel</div>
+                        <button @click="updatePrivacy" class="btn btn-light savePrivacy" disabled>Save</button>
                     </div>
                 </div>
-                <div class="text-end">
-                    <div @click="handleClickPrivacy()" class="btn  text-primary me-2 btn_cancel">Cancel</div>
-                    <button @click="updatePrivacy" class="btn btn-light savePrivacy" disabled>Save</button>
-                </div>
-            </div>
-            <hr class="m-0">
+                <hr class="m-0">
 
-            <div v-if="viewDisplay" class="flex-between  my-1">
-                <div class="d-flex" style="flex-direction: column; line-height: 1.5rem;">
-                    <span class="f-500 text-dark">Display</span>
-                    <span style="font-size: 0.9em;">{{ infoGroup.display == 2 ? 'Visible' : "Hidden" }}</span>
-                </div>
-                <i @click="handleClickDisplay()" style="cursor: pointer; font-size: 1.5rem;" class="fas fa-pen"></i>
-            </div>
-            <div v-else class="my-1">
-                <div class="f-500 text-dark">Display</div>
-                <div @click="handleSelect('rdoVisible', 'saveDisplay')" class=" d-flex   align-items-center bg-hover"
-                    style="height: 65px;">
-                    <div class="me-2 flex-center circle bg-light" style="width:30px;height:30px;">
-                        <i class="fas fa-eye text-dark" style="font-size:20px;"></i>
+                <div v-if="viewDisplay" class="flex-between  my-1">
+                    <div class="d-flex" style="flex-direction: column; line-height: 1.5rem;">
+                        <span class="f-500 text-dark">Display</span>
+                        <span style="font-size: 0.9em;">{{ infoGroup.display == 2 ? 'Visible' : "Hidden" }}</span>
                     </div>
-                    <div class="d-flex justify-content-between align-items-center " style="flex: 1;">
-                        <div class="d-flex flex-column pt-3 a" style="user-select:none; line-height: 1rem;">
-                            <h5><b style="font-weight:500;">Visible</b></h5>
-                            <p style="font-size: 11px;">Anyone can see this group</p>
+                    <i @click="handleClickDisplay()" style="cursor: pointer; font-size: 1.5rem;" class="fas fa-pen"></i>
+                </div>
+                <div v-else class="my-1">
+                    <div class="f-500 text-dark">Display</div>
+                    <div @click="handleSelect('rdoVisible', 'saveDisplay')" class=" d-flex   align-items-center bg-hover"
+                        style="height: 65px;">
+                        <div class="me-2 flex-center circle bg-light" style="width:30px;height:30px;">
+                            <i class="fas fa-eye text-dark" style="font-size:20px;"></i>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center " style="flex: 1;">
+                            <div class="d-flex flex-column pt-3 a" style="user-select:none; line-height: 1rem;">
+                                <h5><b style="font-weight:500;">Visible</b></h5>
+                                <p style="font-size: 11px;">Anyone can see this group</p>
+                            </div>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="display" id="rdoVisible" value="2" />
                         </div>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="display" id="rdoVisible" value="2" />
-                    </div>
-                </div>
-                <div @click="handleSelect('rdoHidden', 'saveDisplay')" class=" d-flex mb-2  align-items-center bg-hover"
-                    style="height: 65px;">
-                    <div class="me-2 flex-center circle bg-light" style="width:30px;height:30px;">
-                        <i class="fas fa-eye-slash text-dark" style="font-size:20px;"></i>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center " style="flex: 1;">
-                        <div class="d-flex flex-column pt-3 a" style="user-select:none;">
-                            <h5><b style="font-weight:500;">Hidden</b></h5>
-                            <p style="font-size: 11px;">Only group members can see this group</p>
+                    <div @click="handleSelect('rdoHidden', 'saveDisplay')" class=" d-flex mb-2  align-items-center bg-hover"
+                        style="height: 65px;">
+                        <div class="me-2 flex-center circle bg-light" style="width:30px;height:30px;">
+                            <i class="fas fa-eye-slash text-dark" style="font-size:20px;"></i>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center " style="flex: 1;">
+                            <div class="d-flex flex-column pt-3 a" style="user-select:none;">
+                                <h5><b style="font-weight:500;">Hidden</b></h5>
+                                <p style="font-size: 11px;">Only group members can see this group</p>
+                            </div>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="display" id="rdoHidden" value="-2" />
                         </div>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="display" id="rdoHidden" value="-2" />
+                    <div class="text-end">
+                        <div @click="handleClickDisplay()" class="btn  text-primary me-2 btn_cancel">Cancel</div>
+                        <button @click="updateDisplay()" class="btn btn-light saveDisplay" disabled>Save</button>
                     </div>
                 </div>
-                <div class="text-end">
-                    <div @click="handleClickDisplay()" class="btn  text-primary me-2 btn_cancel">Cancel</div>
-                    <button @click="updateDisplay()" class="btn btn-light saveDisplay" disabled>Save</button>
+            </main>
+            <main class=" mt-2 px-2 radius-7 box-shadow py-2" style="width: 35%;">
+                <h5><b>Manage member</b></h5>
+                <div v-if="viewApproval" class="flex-between mt-2">
+                    <div class="d-flex" style="flex-direction: column; line-height: 1.5rem;">
+                        <span class="f-500 text-dark">Need approval to join the group</span>
+                        <span style="font-size: 0.9em;">{{ infoGroup.join_approval == 1 ? 'Turn on' : "Turn off" }}</span>
+                    </div>
+                    <i @click="handleClickApproval()" style="cursor: pointer; font-size: 1.5rem;" class="fas fa-pen"></i>
                 </div>
-            </div>
-        </main>
-        <main class=" mt-2 px-2 radius-7 box-shadow py-2" style="width: 35%;">
-            <h5><b>Manage member</b></h5>
-            <div v-if="viewApproval" class="flex-between mt-2">
-                <div class="d-flex" style="flex-direction: column; line-height: 1.5rem;">
-                    <span class="f-500 text-dark">Need approval to join the group</span>
-                    <span style="font-size: 0.9em;">{{ infoGroup.join_approval == 1 ? 'Turn on' : "Turn off" }}</span>
-                </div>
-                <i @click="handleClickApproval()" style="cursor: pointer; font-size: 1.5rem;" class="fas fa-pen"></i>
-            </div>
-            <div v-else class="my-1 mt-2">
-                <div class="f-500 text-dark">Need approval to join the group</div>
-                <div @click="handleSelect('rdoOnApproval', 'saveApproval')" class=" d-flex   align-items-center bg-hover"
-                    style="height: 50px;">
-                    <div class="d-flex justify-content-between align-items-center " style="flex: 1;">
-                        <div class="d-flex flex-column pt-3 a" style="user-select:none; line-height: 1rem;">
-                            <h5><b style="font-weight:500;">Turn on</b></h5>
-                            <p style="font-size: 11px;">Approval is required to allow entry into the group</p>
+                <div v-else class="my-1 mt-2">
+                    <div class="f-500 text-dark">Need approval to join the group</div>
+                    <div @click="handleSelect('rdoOnApproval', 'saveApproval')"
+                        class=" d-flex   align-items-center bg-hover" style="height: 50px;">
+                        <div class="d-flex justify-content-between align-items-center " style="flex: 1;">
+                            <div class="d-flex flex-column pt-3 a" style="user-select:none; line-height: 1rem;">
+                                <h5><b style="font-weight:500;">Turn on</b></h5>
+                                <p style="font-size: 11px;">Approval is required to allow entry into the group</p>
+                            </div>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="approval" id="rdoOnApproval" value="1" />
                         </div>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="approval" id="rdoOnApproval" value="1" />
-                    </div>
-                </div>
-                <div @click="handleSelect('rdoOffApproval', 'saveApproval')"
-                    class=" d-flex mb-2  align-items-center bg-hover" style="height: 50px;">
-                    <div class="d-flex justify-content-between align-items-center " style="flex: 1;">
-                        <div class="d-flex flex-column pt-3 a" style="user-select:none;">
-                            <h5><b style="font-weight:500;">Turn off</b></h5>
-                            <p style="font-size: 11px;">No approval required to join the group</p>
+                    <div @click="handleSelect('rdoOffApproval', 'saveApproval')"
+                        class=" d-flex mb-2  align-items-center bg-hover" style="height: 50px;">
+                        <div class="d-flex justify-content-between align-items-center " style="flex: 1;">
+                            <div class="d-flex flex-column pt-3 a" style="user-select:none;">
+                                <h5><b style="font-weight:500;">Turn off</b></h5>
+                                <p style="font-size: 11px;">No approval required to join the group</p>
+                            </div>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="approval" id="rdoOffApproval" value="0" />
                         </div>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="approval" id="rdoOffApproval" value="0" />
+                    <div class="text-end">
+                        <div @click="handleClickApproval()" class="btn  text-primary me-2 btn_cancel">Cancel</div>
+                        <button @click="updateApproval()" class="btn btn-light saveApproval" disabled>Save</button>
                     </div>
                 </div>
-                <div class="text-end">
-                    <div @click="handleClickApproval()" class="btn  text-primary me-2 btn_cancel">Cancel</div>
-                    <button @click="updateApproval()" class="btn btn-light saveApproval" disabled>Save</button>
+                <hr class="m-0">
+                <div class="flex-between my-1">
+                    <div class="d-flex" style="flex-direction: column; line-height: 1.5rem;">
+                        <span class="f-500 text-dark">Who can approve requests to join the group</span>
+                        <span style="font-size: 0.9em;">Lê Công Tôm and admin</span>
+                    </div>
+                    <i style="cursor: pointer; font-size: 1.5rem;" class="fas fa-pen"></i>
                 </div>
-            </div>
-            <hr class="m-0">
-            <div class="flex-between my-1">
-                <div class="d-flex" style="flex-direction: column; line-height: 1.5rem;">
-                    <span class="f-500 text-dark">Who can approve requests to join the group</span>
-                    <span style="font-size: 0.9em;">Lê Công Tôm and admin</span>
+            </main>
+            <main class=" mt-2 px-2 radius-7 box-shadow py-2" style="width: 35%;">
+                <h5><b>Manage discussion content</b></h5>
+                <div class="flex-between mt-2">
+                    <div class="d-flex" style="flex-direction: column; line-height: 1.5rem;">
+                        <span class="f-500 text-dark">Who can approve posts</span>
+                        <span style="font-size: 0.9em;">Lê Công Tôm and admin</span>
+                    </div>
+                    <i style="cursor: pointer; font-size: 1.5rem;" class="fas fa-pen"></i>
                 </div>
-                <i style="cursor: pointer; font-size: 1.5rem;" class="fas fa-pen"></i>
-            </div>
-        </main>
-        <main class=" mt-2 px-2 radius-7 box-shadow py-2" style="width: 35%;">
-            <h5><b>Manage discussion content</b></h5>
-            <div class="flex-between mt-2">
-                <div class="d-flex" style="flex-direction: column; line-height: 1.5rem;">
-                    <span class="f-500 text-dark">Who can approve posts</span>
-                    <span style="font-size: 0.9em;">Lê Công Tôm and admin</span>
+                <hr class="m-0">
+                <div class="flex-between my-1">
+                    <div class="d-flex" style="flex-direction: column; line-height: 1.5rem;">
+                        <span class="f-500 text-dark">Anonymous posting</span>
+                        <span style="font-size: 0.9em;">Turn on</span>
+                    </div>
+                    <i style="cursor: pointer; font-size: 1.5rem;" class="fas fa-pen"></i>
                 </div>
-                <i style="cursor: pointer; font-size: 1.5rem;" class="fas fa-pen"></i>
-            </div>
-            <hr class="m-0">
-            <div class="flex-between my-1">
-                <div class="d-flex" style="flex-direction: column; line-height: 1.5rem;">
-                    <span class="f-500 text-dark">Anonymous posting</span>
-                    <span style="font-size: 0.9em;">Turn on</span>
-                </div>
-                <i style="cursor: pointer; font-size: 1.5rem;" class="fas fa-pen"></i>
-            </div>
-            <hr class="m-0">
+                <hr class="m-0">
 
-            <div v-if="viewPostApproval" class="flex-between my-1">
-                <div class="d-flex" style="flex-direction: column; line-height: 1.5rem;">
-                    <span class="f-500 text-dark">Is article approval required</span>
-                    <span style="font-size: 0.9em;">{{ infoGroup.post_approval == 1 ? 'Turn on' : "Turn off" }}</span>
+                <div v-if="viewPostApproval" class="flex-between my-1">
+                    <div class="d-flex" style="flex-direction: column; line-height: 1.5rem;">
+                        <span class="f-500 text-dark">Is article approval required</span>
+                        <span style="font-size: 0.9em;">{{ infoGroup.post_approval == 1 ? 'Turn on' : "Turn off" }}</span>
+                    </div>
+                    <i @click="handleClickPostApproval" style="cursor: pointer; font-size: 1.5rem;" class="fas fa-pen"></i>
                 </div>
-                <i @click="handleClickPostApproval" style="cursor: pointer; font-size: 1.5rem;" class="fas fa-pen"></i>
-            </div>
-            <div v-else class="my-1 mt-2">
-                <div class="f-500 text-dark">Is article approval required</div>
-                <div @click="handleSelect('rdoOnPostApproval', 'savePostApproval')"
-                    class=" d-flex   align-items-center bg-hover" style="height: 50px;">
-                    <div class="d-flex justify-content-between align-items-center " style="flex: 1;">
-                        <div class="d-flex flex-column pt-3 a" style="user-select:none; line-height: 1rem;">
-                            <h5><b style="font-weight:500;">Turn on</b></h5>
-                            <p style="font-size: 13px;">Needs approval to post</p>
+                <div v-else class="my-1 mt-2">
+                    <div class="f-500 text-dark">Is article approval required</div>
+                    <div @click="handleSelect('rdoOnPostApproval', 'savePostApproval')"
+                        class=" d-flex   align-items-center bg-hover" style="height: 50px;">
+                        <div class="d-flex justify-content-between align-items-center " style="flex: 1;">
+                            <div class="d-flex flex-column pt-3 a" style="user-select:none; line-height: 1rem;">
+                                <h5><b style="font-weight:500;">Turn on</b></h5>
+                                <p style="font-size: 13px;">Needs approval to post</p>
+                            </div>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="postApproval" id="rdoOnPostApproval"
+                                value="1" />
                         </div>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="postApproval" id="rdoOnPostApproval" value="1" />
-                    </div>
-                </div>
-                <div @click="handleSelect('rdoOffPostApproval', 'savePostApproval')"
-                    class=" d-flex mb-2  align-items-center bg-hover" style="height: 50px;">
-                    <div class="d-flex justify-content-between align-items-center " style="flex: 1;">
-                        <div class="d-flex flex-column pt-3 a" style="user-select:none;">
-                            <h5><b style="font-weight:500;">Turn off</b></h5>
-                            <p style="font-size: 13px;">You do not need to be approved to post</p>
+                    <div @click="handleSelect('rdoOffPostApproval', 'savePostApproval')"
+                        class=" d-flex mb-2  align-items-center bg-hover" style="height: 50px;">
+                        <div class="d-flex justify-content-between align-items-center " style="flex: 1;">
+                            <div class="d-flex flex-column pt-3 a" style="user-select:none;">
+                                <h5><b style="font-weight:500;">Turn off</b></h5>
+                                <p style="font-size: 13px;">You do not need to be approved to post</p>
+                            </div>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="postApproval" id="rdoOffPostApproval"
+                                value="0" />
                         </div>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="postApproval" id="rdoOffPostApproval"
-                            value="0" />
+                    <div class="text-end">
+                        <div @click="handleClickPostApproval()" class="btn  text-primary me-2 btn_cancel">Cancel</div>
+                        <button @click="updatePostApproval()" class="btn btn-light savePostApproval" disabled>Save</button>
                     </div>
                 </div>
-                <div class="text-end">
-                    <div @click="handleClickPostApproval()" class="btn  text-primary me-2 btn_cancel">Cancel</div>
-                    <button @click="updatePostApproval()" class="btn btn-light savePostApproval" disabled>Save</button>
+                <hr class="m-0">
+                <div class="flex-between my-1">
+                    <div class="d-flex" style="flex-direction: column; line-height: 1.5rem;">
+                        <span class="f-500 text-dark">Approve content editing</span>
+                        <span style="font-size: 0.9em;">Turn off</span>
+                    </div>
+                    <i style="cursor: pointer; font-size: 1.5rem;" class="fas fa-pen"></i>
                 </div>
-            </div>
-            <hr class="m-0">
-            <div class="flex-between my-1">
-                <div class="d-flex" style="flex-direction: column; line-height: 1.5rem;">
-                    <span class="f-500 text-dark">Approve content editing</span>
-                    <span style="font-size: 0.9em;">Turn off</span>
-                </div>
-                <i style="cursor: pointer; font-size: 1.5rem;" class="fas fa-pen"></i>
-            </div>
-            <hr class="m-0">
+                <hr class="m-0">
 
-            <div class="flex-between my-1">
-                <div class="d-flex" style="flex-direction: column; line-height: 1.5rem;">
-                    <span class="f-500 text-dark">Who can post</span>
-                    <span style="font-size: 0.9em;">Everyone</span>
+                <div class="flex-between my-1">
+                    <div class="d-flex" style="flex-direction: column; line-height: 1.5rem;">
+                        <span class="f-500 text-dark">Who can post</span>
+                        <span style="font-size: 0.9em;">Everyone</span>
+                    </div>
+                    <i style="cursor: pointer; font-size: 1.5rem; pointer-events: visible; ob" class="fas fa-pen"></i>
                 </div>
-                <i style="cursor: pointer; font-size: 1.5rem; pointer-events: visible; ob" class="fas fa-pen"></i>
-            </div>
-        </main>
+            </main>
+        </div>
     </div>
 </template>
 <script>

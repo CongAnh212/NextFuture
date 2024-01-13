@@ -5,7 +5,11 @@
                     :src="urlImg + data.cover_image" alt="" style="object-fit: cover; height: 100%;"></div>
             <div class="d-flex justify-content-center" style="flex: 1 1 0%; flex-direction: column; line-height: 1.25rem;">
                 <b style="font-size: 15px;">{{ data.group_name }}</b>
-                <p class="p-0 m-0"> {{ data.privacy == 1 ? 'Public' : 'Private' }} group - {{ data.member }} members</p>
+                <p class="p-0 m-0"> {{ data.privacy == 1 ? 'Public' : 'Private' }} group -
+                    <span class="members_hover" @click="fullMemberActive('member')">
+                        {{ data.member }} members
+                    </span>
+                </p>
             </div>
         </div>
         <div class="w-100 d-flex">
@@ -28,21 +32,23 @@
             </div>
         </div>
         <hr class="mt-0 pt-0">
-        <div @click="community('home-group', $event)" class="w-100  d-flex p-2 community-active"
+        <div @click="community('home-group', $event)" class="w-100  d-flex p-2 home-active group-active"
             style="border-radius: 7px; cursor: pointer;">
             <i class=" del-event fas fa-home  me-2 " style="font-size: 20px; padding-top: 0.2rem;"></i>
             <span class="del-event">Community homepage</span>
         </div>
-        <div @click="community('overview', $event)" class="w-100  d-flex p-2 " style="border-radius: 7px; cursor: pointer;">
+        <div @click="community('overview', $event)" class="w-100  d-flex p-2 overview-active"
+            style="border-radius: 7px; cursor: pointer;">
             <i class=" del-event fas fa-layer-group me-2 " style="font-size: 20px; padding-top: 0.2rem;"></i>
             <span class="del-event">Overview</span>
         </div>
         <hr class="pt-0">
-        <div @click="community('setting', $event)" class="w-100  d-flex p-2 " style="border-radius: 7px; cursor: pointer;">
+        <div @click="community('setting', $event)" class="w-100  d-flex p-2 setting-active"
+            style="border-radius: 7px; cursor: pointer;">
             <i class=" del-event fas fa-cog me-2 " style="font-size: 20px; padding-top: 0.2rem;"></i>
             <span class="del-event">Group management</span>
         </div>
-        <div @click="community('request_group', $event)" class="w-100  d-flex p-2 "
+        <div @click="community('request_group', $event)" class="w-100  d-flex p-2 member-requests-active"
             style="border-radius: 7px; cursor: pointer;">
             <i class="fa-solid fa-user-pen me-2" style="font-size: 20px; padding-top: 0.2rem;"></i>
             <span class="del-event">Request to join the group ({{ count }})</span>
@@ -57,7 +63,7 @@
                 <p class="p-0 m-0"> {{ data.privacy == 1 ? 'Public' : 'Private' }} group - {{ data.member }} members</p>
             </div>
             <router-link class="circle btn-light flex-center bg-hover" style="width: 40px; height: 40px; cursor: pointer;"
-                :to="{ name : 'group' }">
+                :to="{ name: 'group' }">
                 <i class="fas fa-sign-out-alt"></i>
             </router-link>
         </div>
@@ -79,6 +85,7 @@ export default {
             data_come_in: [],
             count: 0,
             viewType: null,
+            send_all_member: {}
         }
     },
 
@@ -87,7 +94,6 @@ export default {
         this.getInfo();
         this.getDataComeIn();
         this.checkRole();
-
     },
     props: {
         approve_Connection: {
@@ -101,9 +107,19 @@ export default {
         getPrivacy: {
             type: Number,
             required: true
+        },
+        send_active_overview_group: {
+            type: Object,
+            required: true
         }
     },
     watch: {
+        send_active_overview_group(value) {
+            setTimeout(() => {
+                $('.group-active').removeClass('group-active')
+                $('.' + value.path + '-active').addClass('group-active')
+            }, 1);
+        },
         approve_Connection(newData, oldData) {
             // console.log('newData: ', newData);
             // console.log('oldData: ', oldData);
@@ -129,17 +145,36 @@ export default {
             this.getInfo();
         },
         getPrivacy(newData, oldData) {
-            console.log('oldData: ', oldData);
-            console.log('newData: ', newData);
             this.data.privacy = newData;
-        }
+        },
+
     },
     methods: {
+        fullMemberActive(a) {
+            this.send_all_member = {
+                path: a,
+                status: true,
+            }
+            this.$emit('fullMemberActive', this.send_all_member)
+            this.send_all_member.status = false
+            this.$router.push({ name: a })
+        },
         checkRole() {
             axios
                 .post('groups/check-role', { id_group: this.id_group })
                 .then((res) => {
                     this.viewType = res.data.viewType
+                    var currentPath = window.location.href.split('/').pop();
+                    if (currentPath == 'member' || currentPath == this.id_group) {
+                        setTimeout(() => {
+                            $('.' + currentPath + '-active').addClass('group-active')
+                        }, 1);
+                    } else {
+                        setTimeout(() => {
+                            $('.group-active').removeClass('group-active')
+                            $('.' + currentPath + '-active').addClass('group-active')
+                        }, 1);
+                    }
                 })
         },
         getInfo() {
@@ -159,8 +194,8 @@ export default {
         },
         community(a, event) {
             const el = event.target;
-            $('.community-active').removeClass('community-active')
-            el.classList.add('community-active');
+            $('.group-active').removeClass('group-active')
+            el.classList.add('group-active');
             this.$router.push({ name: a, params: { id_group: this.id_group } })
         },
         setList(event) {

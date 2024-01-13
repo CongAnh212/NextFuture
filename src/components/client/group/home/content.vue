@@ -1,80 +1,82 @@
 <template>
-    <div v-if="isView">
-        <div class="w-100  main-group">
-            <div class="w-100 h-100">
-                <div class="w-100 bg-primary flex-center respon_cover">
-                    <img :src="urlImg + data.cover_image" class="w-100 " style="object-fit: cover; width: 100%;">
-                </div>
-                <div class="w-100 px-2 pt-3 c">
-                    <h3><b style="color: rgb(0, 0, 0);">{{ data.group_name }}</b></h3>
-                    <div v-if="!isViewInvite" class="flex-between"> <!-- xử lý lời mời -->
-                        <div class="d-flex" style="position: relative; cursor: pointer;">
-                            <router-link
-                                :to="{ name: 'detailProfile', params: { username: info.username == null ? ' ' : info.username } }"
-                                @mouseover="over(v)" v-if="member" v-for="(v, k) in member"
-                                class="circle bg-primary img-hover flex-center"
-                                style="height: 2.5rem; width: 2.5rem; outline: 2px solid rgb(255, 255, 255); overflow: hidden; margin-right: -5px;">
-                                <img :src="urlImg + v.avatar" class="img-fluid"
-                                    style="object-fit: cover; width: 100%; height: 100%;" alt="">
-                            </router-link>
-                            <div v-else></div>
-                            <div class="bg-white modal-component pb-1" ref="modalComponent">
-                                <div class=" d-flex align-items-center py-3 px-3" style="gap: 15px;">
-                                    <div>
-                                        <router-link style="overflow: hidden; width: 7rem; height: 7rem;"
-                                            class="circle flex-center"
-                                            :to="{ name: 'detailProfile', params: { username: info.username == null ? ' ' : info.username } }">
-                                            <img style="object-fit: cover; width: 100%; height: 100%;"
-                                                :src="urlImg + info.avatar">
-                                        </router-link>
-                                    </div>
-                                    <div style="flex:1">
-                                        <div style="font-size: 18px; line-height: 1rem;">
-                                            <router-link
+    <div style="min-height: calc(100vh - 4.688rem);">
+        <div v-if="isView">
+            <div class="w-100  main-group">
+                <div class="w-100 h-100">
+                    <div class="w-100 bg-primary flex-center respon_cover">
+                        <img :src="urlImg + data.cover_image" class="w-100 " style="object-fit: cover; width: 100%;">
+                    </div>
+                    <div class="w-100 px-2 pt-3 c">
+                        <h3><b style="color: rgb(0, 0, 0);">{{ data.group_name }}</b></h3>
+                        <div v-if="!isViewInvite" class="flex-between"> <!-- xử lý lời mời -->
+                            <div class="d-flex align-items-center" style="position: relative; cursor: pointer;">
+                                <router-link
+                                    :to="{ name: 'detailProfile', params: { username: info.username == null ? ' ' : info.username } }"
+                                    @mouseover="over(v)" v-if="member" v-for="(v, k) in member"
+                                    class="circle bg-primary imge-hover flex-center"
+                                    style="height: 2.5rem; width: 2.5rem; outline: 2px solid rgb(255, 255, 255); overflow: hidden; margin-right: -5px;">
+                                    <img :src="urlImg + v.avatar" style="object-fit: cover; width: 100%; height: 100%;"
+                                        alt="">
+                                </router-link>
+                                <div v-else></div>
+                                <div class="bg-white modal-component pb-1" ref="modalComponent">
+                                    <div class=" d-flex align-items-center py-3 px-3" style="gap: 15px;">
+                                        <div>
+                                            <router-link style="overflow: hidden; width: 7rem; height: 7rem;"
+                                                class="circle flex-center"
                                                 :to="{ name: 'detailProfile', params: { username: info.username == null ? ' ' : info.username } }">
-                                                <b class="text-dark">{{ info.fullname }}</b>
+                                                <img style="object-fit: cover; width: 100%; height: 100%;"
+                                                    :src="urlImg + info.avatar">
                                             </router-link>
                                         </div>
-                                        <div class="text-dark py-2">
-                                            <i class="fa-solid fa-user-group me-2 text-secondary"
-                                                style="font-size: 15px;"></i>
-                                            <span style="font-size: 15px;" v-if="info.mutual >= 2">
-                                                {{ info.mutual }} mutual friends include
-                                                <b>
-                                                    <router-link
-                                                        :to="{ name: 'detailProfile', params: { username: info.friends[0].username } }">
-                                                        {{ info.friends[0].fullname }}
-                                                    </router-link>
-                                                </b> and
-                                                <b>
-                                                    <router-link
-                                                        :to="{ name: 'detailProfile', params: { username: info.friends[1].username } }">
-                                                        {{ info.friends[1].fullname }}
-                                                    </router-link>
-                                                </b>
-                                            </span>
-                                            <span v-else-if="info.mutual == 1">
-                                                {{ info.mutual }} mutual friend is
-                                                <b>
-                                                    <router-link
-                                                        :to="{ name: 'detailProfile', params: { username: info.friends[0].username } }">
-                                                        {{ info.friends[0].fullname }}
-                                                    </router-link>
-                                                </b>
-                                            </span>
-                                            <span v-else>
-                                                <b class="text-primary">{{ info.follower }}</b> followers
-                                            </span>
-                                        </div>
-                                        <div class="text-dark">
-                                            <i class="fa-solid fa-house-chimney me-2 text-secondary"
-                                                style="font-size: 15px;"></i>
-                                            <span style="font-size: 15px;">Live in <b class="text-primary">{{ info.address
-                                            }}</b></span>
+                                        <div style="flex:1">
+                                            <div style="font-size: 18px; line-height: 1rem;">
+                                                <router-link
+                                                    :to="{ name: 'detailProfile', params: { username: info.username == null ? ' ' : info.username } }">
+                                                    <b class="text-dark">{{ info.fullname }}</b>
+                                                </router-link>
+                                            </div>
+                                            <div class="text-dark py-2">
+                                                <i class="fa-solid fa-user-group me-2 text-secondary"
+                                                    style="font-size: 15px;"></i>
+                                                <span style="font-size: 15px;" v-if="info.mutual >= 2">
+                                                    {{ info.mutual }} mutual friends include
+                                                    <b>
+                                                        <router-link
+                                                            :to="{ name: 'detailProfile', params: { username: info.friends[0].username } }">
+                                                            {{ info.friends[0].fullname }}
+                                                        </router-link>
+                                                    </b> and
+                                                    <b>
+                                                        <router-link
+                                                            :to="{ name: 'detailProfile', params: { username: info.friends[1].username } }">
+                                                            {{ info.friends[1].fullname }}
+                                                        </router-link>
+                                                    </b>
+                                                </span>
+                                                <span v-else-if="info.mutual == 1">
+                                                    {{ info.mutual }} mutual friend is
+                                                    <b>
+                                                        <router-link
+                                                            :to="{ name: 'detailProfile', params: { username: info.friends[0].username } }">
+                                                            {{ info.friends[0].fullname }}
+                                                        </router-link>
+                                                    </b>
+                                                </span>
+                                                <span v-else>
+                                                    <b class="text-primary">{{ info.follower }}</b> followers
+                                                </span>
+                                            </div>
+                                            <div class="text-dark">
+                                                <i class="fa-solid fa-house-chimney me-2 text-secondary"
+                                                    style="font-size: 15px;"></i>
+                                                <span style="font-size: 15px;">Live in <b class="text-primary">{{
+                                                    info.address
+                                                }}</b></span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- <div class="flex-center " style="gap: 7px;">
+                                    <!-- <div class="flex-center " style="gap: 7px;">
                                     <button v-if="info.status == 1" class="btn btn-light f-500"
                                         style="width: 140px;">Friend</button>
                                     <button class="btn btn-primary f-500" style="width: 140px;"> Message</button>
@@ -82,72 +84,99 @@
                                         <i class="fa-solid fa-ellipsis"></i>
                                     </button>
                                 </div> -->
+                                </div>
                             </div>
-                        </div>
-                        <div v-if="viewType == 1 || viewType == 2" class="d-flex">
-                            <div @click="open()" class="btn-primary px-2 f-500 radius-7 text-white me-2 invite"
-                                data-bs-toggle="modal" data-bs-target="#inviteModal" style="cursor: pointer;">
-                                <span style="font-size: 20px;">+
-                                </span>
-                                <span class="del-event">Invite</span>
-                            </div>
+                            <div v-if="viewType == 1 || viewType == 2" class="d-flex">
+                                <div @click="open()" class="btn-primary px-2 f-500 radius-7 text-white me-2 invite"
+                                    data-bs-toggle="modal" data-bs-target="#inviteModal" style="cursor: pointer;">
+                                    <span style="font-size: 20px;">+
+                                    </span>
+                                    <span class="del-event">Invite</span>
+                                </div>
 
-                            <div class="btn-light px-2 f-500 radius-7 text-dark align-self-center py-1"
-                                style="cursor: pointer;">
-                                <i class="fas fa-share m-0 p-0 me-1"></i>
-                                <span class="del-event">Share</span>
+                                <div class="btn-light px-2 f-500 radius-7 text-dark align-self-center py-1"
+                                    style="cursor: pointer;">
+                                    <i class="fas fa-share m-0 p-0 me-1"></i>
+                                    <span class="del-event">Share</span>
+                                </div>
                             </div>
-                        </div>
-                        <div v-else class="d-flex">
-                            <div v-if="checkRequest == 0" @click="joinGroup"
-                                class="btn-primary px-2 f-500 radius-7 text-white me-2 invite "
-                                style="cursor: pointer; padding: 0.5rem">
-                                <i class="fas fa-users me-2"></i>
-                                <span class="del-event">Join Group</span>
+                            <div v-else class="d-flex">
+                                <div v-if="checkRequest == 0" @click="joinGroup"
+                                    class="btn-primary px-2 f-500 radius-7 text-white me-2 invite "
+                                    style="cursor: pointer; padding: 0.5rem">
+                                    <i class="fas fa-users me-2"></i>
+                                    <span class="del-event">Join Group</span>
+                                </div>
+                                <div v-else @click="undoRequest"
+                                    class="btn-primary px-2 f-500 radius-7 text-white me-2 invite "
+                                    style="cursor: pointer; padding: 0.5rem">
+                                    <i class="fas fa-undo-alt me-2"></i>
+                                    <span class="del-event">
+                                        Cancel request
+                                    </span>
+                                </div>
+                                <div @click="copyLink" class="btn-light px-2 f-500 radius-7 text-dark me-2 invite "
+                                    style="cursor: pointer; padding: 0.5rem">
+                                    <i class="fas fa-copy me-2"></i>
+                                    <span class="del-event">Copy Link</span>
+                                </div>
                             </div>
-                            <div v-else @click="undoRequest" class="btn-primary px-2 f-500 radius-7 text-white me-2 invite "
-                                style="cursor: pointer; padding: 0.5rem">
-                                <i class="fas fa-undo-alt me-2"></i>
-                                <span class="del-event">
-                                    Cancel request
-                                </span>
-                            </div>
-                            <div @click="copyLink" class="btn-light px-2 f-500 radius-7 text-dark me-2 invite "
-                                style="cursor: pointer; padding: 0.5rem">
-                                <i class="fas fa-copy me-2"></i>
-                                <span class="del-event">Copy Link</span>
-                            </div>
-                        </div>
-                        <div class="modal fade" id="inviteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header ">
-                                        <h1 class="modal-title fs-5 " id="exampleModalLabel">Invite friends to join
-                                        </h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-7 ">
-                                                <div class="w-100">
-                                                    <div class="iq-search-bar device-search w-100 mt-1 mb-1"
-                                                        style="padding:0px !important;">
-                                                        <div action="#" class="searchbox w-100"><a
-                                                                class="search-link my-auto h-100 flex-center" href="#"><i
-                                                                    class="ri-search-line my-auto text-light"></i></a><input
-                                                                type="text" class="text search-input"
-                                                                placeholder="Search for friends by name"
-                                                                style="border-radius:50px;"></div>
+                            <div class="modal fade" id="inviteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header ">
+                                            <h1 class="modal-title fs-5 " id="exampleModalLabel">Invite friends to join
+                                            </h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-7 ">
+                                                    <div class="w-100">
+                                                        <div class="iq-search-bar device-search w-100 mt-1 mb-1"
+                                                            style="padding:0px !important;">
+                                                            <div action="#" class="searchbox w-100"><a
+                                                                    class="search-link my-auto h-100 flex-center"
+                                                                    href="#"><i
+                                                                        class="ri-search-line my-auto text-light"></i></a><input
+                                                                    type="text" class="text search-input"
+                                                                    placeholder="Search for friends by name"
+                                                                    style="border-radius:50px;"></div>
+                                                        </div>
+
                                                     </div>
+                                                    <h4>Suggest</h4>
+                                                    <div style="max-height: 50vh; overflow: auto;">
 
+                                                        <div @click="choose(k, v)" v-for="(v, k) in list_friends"
+                                                            class="d-flex p-2 py-1 radius-7 bg-hover text-dark"
+                                                            style="cursor: pointer;">
+                                                            <div class="circle "
+                                                                style="width: 40px; height: 40px; overflow: hidden;">
+                                                                <img :src="urlImg + v.avatar"
+                                                                    style="object-fit: cover; width: 100%;" alt="">
+                                                            </div>
+                                                            <div class="  d-flex align-items-center px-2 del-event"
+                                                                style="width: 40px; height: 40px; flex: 1; font-weight: 600;">
+                                                                {{ v.fullname }}
+                                                            </div>
+                                                            <div class="  flex-center" style="width: 40px; height: 40px;">
+                                                                <div class="form-check flex-center">
+                                                                    <input class="form-check-input check_input"
+                                                                        type="checkbox" :value="k" :id="'invite' + k"
+                                                                        style="cursor: pointer;">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <h4>Suggest</h4>
-                                                <div style="max-height: 50vh; overflow: auto;">
-
-                                                    <div @click="choose(k, v)" v-for="(v, k) in list_friends"
-                                                        class="d-flex p-2 py-1 radius-7 bg-hover text-dark"
+                                                <div class="col-5 " style="background-color: #33333315;">
+                                                    <p style="font-weight: 500; color: #333333b3;">selected {{
+                                                        this.list_invite.length }} friends</p>
+                                                    <div @click="choose(k, v)" v-for="(v, k) in list_invite"
+                                                        class="d-flex p-2 py-2 radius-7 bg-hover text-dark"
                                                         style="cursor: pointer;">
                                                         <div class="circle "
                                                             style="width: 40px; height: 40px; overflow: hidden;">
@@ -159,157 +188,137 @@
                                                             {{ v.fullname }}
                                                         </div>
                                                         <div class="  flex-center" style="width: 40px; height: 40px;">
-                                                            <div class="form-check flex-center">
-                                                                <input class="form-check-input check_input" type="checkbox"
-                                                                    :value="k" :id="'invite' + k" style="cursor: pointer;">
-                                                            </div>
+                                                            <i class="fas fa-times"></i>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-5 " style="background-color: #33333315;">
-                                                <p style="font-weight: 500; color: #333333b3;">selected {{
-                                                    this.list_invite.length }} friends</p>
-                                                <div @click="choose(k, v)" v-for="(v, k) in list_invite"
-                                                    class="d-flex p-2 py-2 radius-7 bg-hover text-dark"
-                                                    style="cursor: pointer;">
-                                                    <div class="circle "
-                                                        style="width: 40px; height: 40px; overflow: hidden;">
-                                                        <img :src="urlImg + v.avatar"
-                                                            style="object-fit: cover; width: 100%;" alt="">
-                                                    </div>
-                                                    <div class="  d-flex align-items-center px-2 del-event"
-                                                        style="width: 40px; height: 40px; flex: 1; font-weight: 600;">
-                                                        {{ v.fullname }}
-                                                    </div>
-                                                    <div class="  flex-center" style="width: 40px; height: 40px;">
-                                                        <i class="fas fa-times"></i>
-                                                    </div>
-                                                </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cancel</button>
+                                            <button :disabled="list_invite.length == 0" @click="sendInvite()" type="button"
+                                                class="btn btn-primary" data-bs-dismiss="modal">Send invite</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else>
+                            <div class="card radius-7">
+                                <div class="card-body  radius-7"
+                                    style="padding: 1rem 1.2rem; background-color: rgb(192, 249, 255);">
+                                    <div class="flex-between">
+                                        <div class=" d-flex" style="flex: 1">
+                                            <div class="circle" style="width: 40px; height: 40px; overflow: hidden;">
+                                                <img :src="urlImg + infoClient.avatar"
+                                                    style="object-fit: cover; width: 100%;" alt="">
+                                            </div>
+                                            <div class=" px-2 " style="flex: 1; line-height: 1.2rem;">
+                                                <b>{{ infoClient.fullname }} has invited you to join this group.</b>
+                                                <br>
+                                                <span>This invitation was sent {{ dateCountdown(infoClient.time) }}
+                                                    ago</span>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Cancel</button>
-                                        <button :disabled="list_invite.length == 0" @click="sendInvite()" type="button"
-                                            class="btn btn-primary" data-bs-dismiss="modal">Send invite</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div v-else>
-                        <div class="card radius-7">
-                            <div class="card-body  radius-7"
-                                style="padding: 1rem 1.2rem; background-color: rgb(192, 249, 255);">
-                                <div class="flex-between">
-                                    <div class=" d-flex" style="flex: 1">
-                                        <div class="circle" style="width: 40px; height: 40px; overflow: hidden;">
-                                            <img :src="urlImg + infoClient.avatar" style="object-fit: cover; width: 100%;"
-                                                alt="">
-                                        </div>
-                                        <div class=" px-2 " style="flex: 1; line-height: 1.2rem;">
-                                            <b>{{ infoClient.fullname }} has invited you to join this group.</b>
-                                            <br>
-                                            <span>This invitation was sent {{ dateCountdown(infoClient.time) }} ago</span>
+                                        <div class=" d-flex" style="width: 40%; gap: 10px;">
+                                            <button @click="acceptInvite()" style="flex: 1;" class="btn btn-primary">Join
+                                                group</button>
+                                            <button @click="removeInvite()" style="flex: 1;" class="btn btn-white">Decline
+                                                the
+                                                invitation</button>
                                         </div>
                                     </div>
-                                    <div class=" d-flex" style="width: 40%; gap: 10px;">
-                                        <button @click="acceptInvite()" style="flex: 1;" class="btn btn-primary">Join
-                                            group</button>
-                                        <button @click="removeInvite()" style="flex: 1;" class="btn btn-white">Decline the
-                                            invitation</button>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="w-100 bg-dark pb-0 mb-0">
+                        <div class="text-dark flex-between" style="display:flex;gap:20px; margin-top: 5px;">
+                            <div v-if="viewType == 1 || viewType == 2" class="d-flex"> <!-- Left navbar -->
+                                <div class="flex-center border-bottomm ct " style="width: 100%; cursor: pointer;">
+                                    <div @click="setView('discuss')" class="py-2 p-2 px-3 bb f-500 discuss"
+                                        style="border-radius: 7px; ">
+                                        <span class="del-event">Discuss</span>
+                                    </div>
+                                </div>
+                                <div class="flex-center ct" style="width: 100%; cursor: pointer;">
+                                    <div @click="setView('member')" class="py-2 p-2 px-3  bg-hover bb f-500 member"
+                                        style="border-radius: 7px;">
+                                        <span class="del-event">Member</span>
+                                    </div>
+                                </div>
+                                <div class="flex-center ct" style="width: 100%; cursor: pointer;">
+                                    <div @click="setView('event')" class="py-2 p-2 px-3  bg-hover bb f-500 event"
+                                        style="border-radius: 7px;">
+                                        <span class="del-event">Event</span>
+                                    </div>
+                                </div>
+                                <div class="flex-center ct" style="width: 100%; cursor: pointer;">
+                                    <div @click="setView('photo')" class="py-2 p-2 px-3  bg-hover bb f-500 photo"
+                                        style="border-radius: 7px;">
+                                        <span class="del-event">Photos</span>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <hr class="w-100 bg-dark pb-0 mb-0">
-                    <div class="text-dark flex-between" style="display:flex;gap:20px; margin-top: 5px;">
-                        <div v-if="viewType == 1 || viewType == 2" class="d-flex"> <!-- Left navbar -->
-                            <div class="flex-center border-bottomm ct " style="width: 100%; cursor: pointer;">
-                                <div @click="setView('discuss')" class="py-2 p-2 px-3 bb f-500 discuss"
-                                    style="border-radius: 7px; ">
-                                    <span class="del-event">Discuss</span>
+                            <div v-else-if="viewType == 0 && data.privacy == 1" class="d-flex"> <!-- Left navbar -->
+                                <div class="flex-center border-bottomm ct " style="width: 100%; cursor: pointer;">
+                                    <div @click="setView('discuss')" class="py-2 p-2 px-3 bb f-500 discuss"
+                                        style="border-radius: 7px; ">
+                                        <span class="del-event">Discuss</span>
+                                    </div>
+                                </div>
+                                <div class="flex-center ct" style="width: 100%; cursor: pointer;">
+                                    <div @click="setView('introduce')" class="py-2 p-2 px-3  bg-hover bb f-500 introduce"
+                                        style="border-radius: 7px;">
+                                        <span class="del-event">Introduce</span>
+                                    </div>
+                                </div>
+                                <div class="flex-center ct" style="width: 100%; cursor: pointer;">
+                                    <div @click="setView('member')" class="py-2 p-2 px-3  bg-hover bb f-500 member"
+                                        style="border-radius: 7px;">
+                                        <span class="del-event">Member</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="flex-center ct" style="width: 100%; cursor: pointer;">
-                                <div @click="setView('member')" class="py-2 p-2 px-3  bg-hover bb f-500 member"
-                                    style="border-radius: 7px;">
-                                    <span class="del-event">Member</span>
+                            <div v-else class="d-flex"> <!-- Left navbar -->
+                                <div class="flex-center border-bottomm ct " style="width: 100%; cursor: pointer;">
+                                    <div @click="setView('discuss')" class="py-2 p-2 px-3 bb f-500 discuss"
+                                        style="border-radius: 7px; ">
+                                        <span class="del-event">Discuss</span>
+                                    </div>
+                                </div>
+                                <div class="flex-center ct" style="width: 100%; cursor: pointer;">
+                                    <div @click="setView('introduce')" class="py-2 p-2 px-3  bg-hover bb f-500 introduce"
+                                        style="border-radius: 7px;">
+                                        <span class="del-event">Introduce</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="flex-center ct" style="width: 100%; cursor: pointer;">
-                                <div @click="setView('event')" class="py-2 p-2 px-3  bg-hover bb f-500 event"
-                                    style="border-radius: 7px;">
-                                    <span class="del-event">Event</span>
+                            <div class="btn-light px-2 " data-bs-toggle="dropdown" aria-expanded="false"
+                                style="border-radius: 5px; cursor: pointer;">
+                                <div class="dropdown">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">send invite</a></li>
+                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    </ul>
                                 </div>
-                            </div>
-                            <div class="flex-center ct" style="width: 100%; cursor: pointer;">
-                                <div @click="setView('photo')" class="py-2 p-2 px-3  bg-hover bb f-500 photo"
-                                    style="border-radius: 7px;">
-                                    <span class="del-event">Photos</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div v-else-if="viewType == 0 && data.privacy == 1" class="d-flex"> <!-- Left navbar -->
-                            <div class="flex-center border-bottomm ct " style="width: 100%; cursor: pointer;">
-                                <div @click="setView('discuss')" class="py-2 p-2 px-3 bb f-500 discuss"
-                                    style="border-radius: 7px; ">
-                                    <span class="del-event">Discuss</span>
-                                </div>
-                            </div>
-                            <div class="flex-center ct" style="width: 100%; cursor: pointer;">
-                                <div @click="setView('introduce')" class="py-2 p-2 px-3  bg-hover bb f-500 introduce"
-                                    style="border-radius: 7px;">
-                                    <span class="del-event">Introduce</span>
-                                </div>
-                            </div>
-                            <div class="flex-center ct" style="width: 100%; cursor: pointer;">
-                                <div @click="setView('member')" class="py-2 p-2 px-3  bg-hover bb f-500 member"
-                                    style="border-radius: 7px;">
-                                    <span class="del-event">Member</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div v-else class="d-flex"> <!-- Left navbar -->
-                            <div class="flex-center border-bottomm ct " style="width: 100%; cursor: pointer;">
-                                <div @click="setView('discuss')" class="py-2 p-2 px-3 bb f-500 discuss"
-                                    style="border-radius: 7px; ">
-                                    <span class="del-event">Discuss</span>
-                                </div>
-                            </div>
-                            <div class="flex-center ct" style="width: 100%; cursor: pointer;">
-                                <div @click="setView('introduce')" class="py-2 p-2 px-3  bg-hover bb f-500 introduce"
-                                    style="border-radius: 7px;">
-                                    <span class="del-event">Introduce</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="btn-light px-2 " data-bs-toggle="dropdown" aria-expanded="false"
-                            style="border-radius: 5px; cursor: pointer;">
-                            <div class="dropdown">
-                                <i class="fas fa-ellipsis-h"></i>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">send invite</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <router-view v-if="view == 'discuss'" :info="data" :viewType="viewType" name="discuss"></router-view>
+            <router-view v-else-if="view == 'member'" :viewType="viewType" name="member"></router-view>
+            <router-view v-else-if="view == 'introduce'" :info="data" name="introduce"></router-view>
         </div>
-        <router-view v-if="view == 'discuss'" :info="data" :viewType="viewType" name="discuss"></router-view>
-        <router-view v-else-if="view == 'member'" :viewType="viewType" name="member"></router-view>
-        <router-view v-else-if="view == 'introduce'" :info="data" name="introduce"></router-view>
-    </div>
 
-    <div v-else>
-        <div class="col-sm-12 text-center">
-            <img src="../../../../assets/client/images/page-img/page-load-loader.gif" alt="loader" style="height: 100px;">
+        <div v-else>
+            <div class="col-sm-12 text-center">
+                <img src="../../../../assets/client/images/page-img/page-load-loader.gif" alt="loader"
+                    style="height: 100px;">
+            </div>
         </div>
     </div>
 </template>
@@ -338,10 +347,30 @@ export default {
             checkRequest: null,
             process: null,
             my_info: {},
+            wait: {
+                status: false,
+                path: ''
+            },
         }
 
     },
+    props: {
+        send_active_all_member: {
+            type: Object,
+            required: true
+        },
+    },
     watch: {
+        send_active_all_member: {
+            handler(value) {
+                if (value != null) {
+                    this.wait.status = true,
+                        this.wait.path = value.path
+                }
+            },
+            deep: true,
+            immediate: true
+        },
         '$route.params.id_group'(id_group) {
             this.id_group = id_group;
             this.getInfo();
@@ -350,15 +379,12 @@ export default {
             handler(newValue, oldValue) {
                 if (oldValue) {
                     this.id_notification = this.$route.query.id_notification;
-                    console.log("this.id_notification: ", this.id_notification);
                     if (this.id_notification) {
                         this.getInfoInvite(this.id_notification);
                         this.isViewInvite = true;
-                        console.log("this.isViewInvite: ", this.isViewInvite);
                     }
                     this.isView = true;
                     setTimeout(() => {
-
                         const currentPath = this.$route.fullPath.toString().split('/').pop()
                         if (currentPath == 'discuss' || currentPath == 'member' || currentPath == 'event' || currentPath == 'photo' || currentPath == 'introduce') {
                             this.setView(currentPath)
@@ -379,7 +405,6 @@ export default {
         this.checkRole();
         this.checkRequestGroup();
         this.getMyInfo();
-        // console.log('id_notification from propsádads:', this.$route.params.id_notification);
     },
     methods: {
         getMyInfo() {
@@ -424,6 +449,15 @@ export default {
                 .post('groups/check-role', { id_group: this.id_group })
                 .then((res) => {
                     this.viewType = res.data.viewType
+                    if (this.wait.status == true) {
+                        setTimeout(() => {
+                            $('.ct').removeClass('border-bottomm');
+                            const parent = $('.' + this.wait.path).parent();
+                            parent.addClass('border-bottomm');
+                            $('.bb:not(.bg-hover)').addClass('bg-hover');
+                            $('.' + this.wait.path).removeClass('bg-hover');
+                        }, 1);
+                    }
                 })
         },
         copyLink() {
@@ -518,7 +552,6 @@ export default {
                 my_id: this.infoClient.id,
                 id_group: this.data.id
             }
-            console.log("a: ", a);
             axios
                 .post('notification/accept-invite', a)
                 .then((res) => {

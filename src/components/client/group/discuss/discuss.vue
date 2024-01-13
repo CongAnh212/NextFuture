@@ -23,8 +23,8 @@
                                     style="border:none;">
                             </form>
                         </div>
-                        <div class="modal fade show" id="post-modal" tabindex="-1" aria-labelledby="post-modalLabel"
-                            style="display: block;" aria-hidden="true">
+                        <div class="modal fade " id="post-modal" tabindex="-1" aria-labelledby="post-modalLabel"
+                            style="display: none;" aria-hidden="true">
                             <div class="modal-dialog   modal-fullscreen-sm-down modal-dialog-centered modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">

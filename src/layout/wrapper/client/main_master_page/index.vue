@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper bg-white" >
+    <div class="wrapper bg-white">
         <HeaderClient :notify="notify"></HeaderClient>
         <div class="">
             <div class="iq-sidebar-fix sidebar-default ">
@@ -11,7 +11,9 @@
                                     :sentFriendProfile="dataProfileRequestFriend" @suggest="handleSuggest"
                                     :sentFriendProfileSuggest="dataProfileSuggest" @del_suggest="handleDelSuggest"
                                     :getPrivacy="dataPrivacy" :delFriendProfile="delDataProfileAllFriend"
-                                    :approve_Connection="dataApproveConnection" :refuse_Connection="dataRefuseConnection">
+                                    :approve_Connection="dataApproveConnection" :refuse_Connection="dataRefuseConnection"
+                                    :send_active_overview_group="send_active_overview_group"
+                                    @fullMemberActive="handleFullMemberActive">
                                 </router-view>
                             </ul>
                         </nav>
@@ -32,7 +34,8 @@
             <router-view name="content" :sentFriend="dataRequestFriend" @profile_request_friend="handleProfileRequestFriend"
                 :sentFriendSuggest="dataSuggest" @profile_suggest="handleProfileSuggest" :delFriendSuggest="delDataSuggest"
                 @removeNotify="handleNotify" @profile_del_friend="handleDelProfileAllFriend" @sentPrivacy="handlePrivacy"
-                @approve_connection="handleApproveConnection" @refuse_connection="handleRefuseConnection">
+                @approve_connection="handleApproveConnection" @refuse_connection="handleRefuseConnection"
+                @send_active="handleSendActive" :send_active_all_member="send_all_member_active">
 
             </router-view>
         </div>
@@ -72,8 +75,11 @@ export default {
             dataApproveConnection: null,    // cái này là duyệt lời mời từ Request_Group qua list đọc của mục Group
             //--------------------------------------------------------------------------------------------//
             dataRefuseConnection: null,     // cái này là từ chối lời mời từ Request_Group qua list đọc mục Group
-            notify: null                   // cái này để xoá thông báo ở header
-
+            notify: null,              // cái này để xoá thông báo ở header
+            //--------------------------------------------------------------------------------------------//
+            send_active_overview_group: null,       //truyền active từ overview request group qua request to join the group
+            //--------------------------------------------------------------------------------------------//
+            send_all_member_active: null,   //truyền active từ list members qua content member
         }
     },
     methods: {
@@ -108,6 +114,12 @@ export default {
         },
         handleNotify(value) {
             this.notify = value
+        },
+        handleSendActive(value) {
+            this.send_active_overview_group = value
+        },
+        handleFullMemberActive(value) {
+            this.send_all_member_active = value
         }
     }
 }
