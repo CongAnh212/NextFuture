@@ -53,6 +53,11 @@
             <i class="fa-solid fa-user-pen me-2" style="font-size: 20px; padding-top: 0.2rem;"></i>
             <span class="del-event">Request to join the group ({{ count }})</span>
         </div>
+        <div @click="community('browse-posts', $event)" class="w-100  d-flex p-2 "
+            style="border-radius: 7px; cursor: pointer;">
+            <i class="fa-solid fa-user-pen me-2" style="font-size: 20px; padding-top: 0.2rem;"></i>
+            <span class="del-event">Browse posts ({{ count }})</span>
+        </div>
     </template>
     <template v-else-if="viewType == 0 || viewType == 2">
         <div class="w-100 d-flex align-items-center" style="border-radius: 10px; padding: 0.45rem 0rem;">
