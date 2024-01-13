@@ -354,6 +354,15 @@ const routes = [
     },
   },
   {
+    path: "/group/:id_group/browse-posts",
+    name: "browse-posts",
+    meta: { layout: "main", requiresAuth: true },
+    components: {
+      default: () => import("../components/client/group/home/list.vue"),
+      content: () => import("../components/client/group/browse-posts/browse-posts.vue"),
+    },
+  },
+  {
     path: "/group/:id_group/member-requests",
     name: "request_group",
 

@@ -23,8 +23,8 @@
                                     style="border:none;">
                             </form>
                         </div>
-                        <div class="modal fade show" id="post-modal" tabindex="-1" aria-labelledby="post-modalLabel"
-                            style="display: block;" aria-hidden="true">
+                        <div class="modal fade " id="post-modal" tabindex="-1" aria-labelledby="post-modalLabel"
+                            style="display: none;" aria-hidden="true">
                             <div class="modal-dialog   modal-fullscreen-sm-down modal-dialog-centered modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -36,7 +36,7 @@
                                         <div class="d-flex align-items-center mb-3">
                                             <div style="width: 3.5rem; height: 3.5rem; overflow: hidden;"
                                                 class="flex-center circle">
-                                                <img :src="urlImg + myInfo.avatar" alt="userimg"
+                                                <img :src="privacy ? 'https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/aefd0479fc45dabb5cddc4a2ec569f5c~c5_100x100.jpeg?lk3s=a5d48078&x-expires=1705305600&x-signature=nxsirG0aY2uaT9McFvVx9cyL7fs%3D' : urlImg + myInfo.avatar" alt="userimg"
                                                     style="width: 100%; height: 100%; object-fit: cover;">
                                             </div>
                                             <form class="post-text ms-3 w-100" action="javascript:void(); " style="flex:1">
@@ -76,60 +76,16 @@
                                                 <div class="d-flex align-items-center">
                                                     <div style="width: 3.5rem; height: 3.5rem; overflow: hidden; margin-right: 0.3rem;"
                                                         class="flex-center circle">
-                                                        <img :src="urlImg + myInfo.avatar" alt="userimg"
+                                                        <img :src="privacy ? 'https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/aefd0479fc45dabb5cddc4a2ec569f5c~c5_100x100.jpeg?lk3s=a5d48078&x-expires=1705305600&x-signature=nxsirG0aY2uaT9McFvVx9cyL7fs%3D' : urlImg + myInfo.avatar" alt="userimg"
                                                             style="width: 100%; height: 100%; object-fit: cover; ">
                                                     </div>
                                                     <h6>Your Story</h6>
                                                 </div>
-                                                <div class="card-post-toolbar">
-                                                    <div class="dropdown">
-                                                        <span class="" data-bs-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false" role="button">
-                                                            <span class="btn btn-primary">Privacy</span>
-                                                        </span>
-                                                        <div class="dropdown-menu m-0 p-0 dropdownn" style=" z-index: 99;">
-                                                            <a @click="setPrivacyIndex(1)" id="privacy-1"
-                                                                class="dropdown-item px-3 py-1" href="#">
-                                                                <div class="d-flex align-items-top">
-                                                                    <i class="ri-save-line h4"></i>
-                                                                    <div class="data ms-2">
-                                                                        <h6>Public</h6>
-                                                                        <p class="mb-0">Anyone on or off Facebook</p>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                            <a @click="setPrivacyIndex(2)" id="privacy-2"
-                                                                class="dropdown-item px-3 py-1" href="#">
-                                                                <div class="d-flex align-items-top">
-                                                                    <i class="ri-close-circle-line h4"></i>
-                                                                    <div class="data ms-2">
-                                                                        <h6>Friends</h6>
-                                                                        <p class="mb-0">Your Friend on facebook</p>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                            <a @click="setPrivacyIndex(3)" id="privacy-3"
-                                                                class="dropdown-item px-3 py-1" href="#">
-                                                                <div class="d-flex align-items-top">
-                                                                    <i class="ri-user-unfollow-line h4"></i>
-                                                                    <div class="data ms-2">
-                                                                        <h6>Friends except</h6>
-                                                                        <p class="mb-0">Don't show to some friends</p>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                            <a @click="setPrivacyIndex(4)" id="privacy-4"
-                                                                class="dropdown-item px-3 py-1" href="#">
-                                                                <div class="d-flex align-items-top">
-                                                                    <i class="ri-notification-line h4"></i>
-                                                                    <div class="data ms-2">
-                                                                        <h6>Only Me</h6>
-                                                                        <p class="mb-0">Only me</p>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
+                                                <div class="form-check form-switch">
+                                                    <label class="form-check-label f-500" for="flexSwitchCheckChecked">
+                                                        Post nonymously</label>
+                                                    <input class="form-check-input" type="checkbox"
+                                                        id="flexSwitchCheckChecked" checked="false" v-model="privacy">
                                                 </div>
                                             </div>
                                         </div>
@@ -229,16 +185,10 @@ export default {
         return {
             myInfo: {},
             post: {
-                images: []
+                images: [],
             },
             urlImg: url,
-            privacy: '1',
-            privacyMapping: {
-                1: '#privacy-1',
-                2: '#privacy-2',
-                3: '#privacy-3',
-                4: '#privacy-4'
-            },
+            privacy: false
         }
     },
     watch: {
@@ -267,7 +217,6 @@ export default {
     },
     methods: {
         posting() {
-            console.log(123);
             var check = false
             if (this.post.images.length == 0 && !this.post.caption) {
                 check = true
@@ -281,7 +230,6 @@ export default {
             });
             formData.append('privacy', this.privacy)
             formData.append('id_group', this.$route.params.id_group)
-
             if (check) {
                 Swal.fire({
                     icon: "error",
@@ -300,8 +248,6 @@ export default {
                         },
                     })
                     .then((res) => {
-                        console.log('res: ', res);
-                        console.log("hello canyh");
                         if (res.data.status) {
                             this.post = {
                                 images: []
@@ -309,6 +255,7 @@ export default {
                             this.$refs.btnCloseModal.click();
                             $('.fileinput-remove-button').click();
                             // this.loadPost();
+                            console.log(res.data.message);
 
                         } else {
                             console.log(res.data.message);
@@ -320,16 +267,6 @@ export default {
             }
 
 
-        },
-        setPrivacy() {
-            $('.active-privacy').removeClass('active-privacy');
-            if (this.privacyMapping[this.privacy]) {
-                $(this.privacyMapping[this.privacy]).addClass('active-privacy');
-            }
-        },
-        setPrivacyIndex(i) {
-            this.privacy = i;
-            this.setPrivacy();
         },
         getImage(event) {
             const files = event.target.files;

@@ -30148,3 +30148,28 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-right {
 .text-hover:hover{
   text-decoration: underline;
 }
+.avatar-3{
+  overflow: hidden;
+  width: 3rem;
+  height: 3rem;
+  -webkit-border-radius: 50% !important;
+  border-radius: 50% !important;
+}
+.avatar-3 > img{
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.avatar-4 {
+  overflow: hidden;
+  width: 4rem;
+  height: 4rem;
+  -webkit-border-radius: 50% !important;
+  border-radius: 50% !important;
+}
+
+.avatar-4>img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
