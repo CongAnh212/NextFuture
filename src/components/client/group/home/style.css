@@ -2,12 +2,12 @@
   border-bottom: 3px solid var(--bs-primary);
 }
 
-.community-active > i,
-.community-active > span {
+.group-active > i,
+.group-active > span {
   color: var(--bs-primary);
 }
 
-.community-active {
+.group-active {
   background-color: rgba(12, 237, 237, 0.151);
 }
 
@@ -36,9 +36,13 @@
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
-.img-hover:hover ~ .modal-component {
+.imge-hover:hover ~ .modal-component {
   display: block !important;
 }
 .modal-component:hover {
   display: block !important;
+}
+.members_hover:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
