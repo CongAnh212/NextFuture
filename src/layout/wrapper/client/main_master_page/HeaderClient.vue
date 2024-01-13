@@ -45,7 +45,7 @@
                   </div>
                   <div class="card-body p-0" style="max-height: 65vh; overflow: auto;">
                     <template v-for="(v, k) in request_friend">
-                      <div class="iq-friend-request">
+                      <div v-if="k < 5" class="iq-friend-request">
                         <div class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between pe-3">
                           <div class="d-flex align-items-center">
                             <router-link style="width: 3rem; height: 3rem;overflow: hidden; border-radius: 0.5rem;"
@@ -97,101 +97,108 @@
                     </div>
                     <small class="badge bg-light text-dark">{{ list_notifications.length }}</small>
                   </div>
-                  <div v-if="isView" class="card-body p-0 " style="max-height: 65vh; overflow: auto;">
-                    <a v-for="(v, k) in list_notifications" class="iq-sub-card bg-hover " @click="readNotification(v)">
-                      <router-link v-if="v.type == 2"
-                        :to="{ name: 'home-group', params: { id_group: v.id_group }, query: { id_notification: v.id } }">
-                        <div class="d-flex align-items-center">
-                          <div v-if="v.status == 1">
-                            <img src="../../../../assets/img/output-onlinegiftools.gif"
-                              style="width: 25px; height: 25px; margin-right:0.25rem;">
-                          </div>
-                          <div v-else style="width: 25px; height: 25px;">
-                          </div>
-                          <div style="overflow: hidden; width: 3rem; height: 3rem; border-radius: 0.5rem;"
-                            class="flex-center">
-                            <img :src="urlImg + v.cover_image" style="object-fit: cover; width: 100%; height: 100%;">
-                          </div>
-                          <div class="ms-3 w-100" style="flex: 1;">
-                            <h6 class="mb-0 f-500 " :class="{ 'text-primary': v.status == 1 }"
-                              :style="{ 'font-weight': 'bold' }">
-                              {{ v.sender }}
-                            </h6>
-                            <div class="d-flex text-dark justify-content-between align-items-center pe-3">
-                              <p class="mb-0">Invited you to the
-                                <b :class="{ 'text-primary': v.status == 1 }">
-                                  {{ v.group_name }}
-                                </b>
-                                group
-                              </p>
+                  <div v-if="list_notifications.length > 0">
+                    <div v-if="isView" class="card-body p-0 " style="max-height: 65vh; overflow: auto;">
+                      <a v-for="(v, k) in list_notifications" class="iq-sub-card bg-hover " @click="readNotification(v)">
+                        <router-link v-if="v.type == 2"
+                          :to="{ name: 'home-group', params: { id_group: v.id_group }, query: { id_notification: v.id } }">
+                          <div class="d-flex align-items-center">
+                            <div v-if="v.status == 1">
+                              <img src="../../../../assets/img/output-onlinegiftools.gif"
+                                style="width: 25px; height: 25px; margin-right:0.25rem;">
                             </div>
-                          </div>
-                          <small class="float-right font-size-12" :class="{ 'text-dark': v.status == 0 }">
-                            {{ formatTime(v.created_at) }}
-                            agos
-                          </small>
-                        </div>
-                      </router-link>
-                      <router-link v-if="v.type == 7" to="">
-                        <div class="d-flex align-items-center">
-                          <div v-if="v.status == 1">
-                            <img src="../../../../assets/img/output-onlinegiftools.gif"
-                              style="width: 25px; height: 25px;">
-                          </div>
-                          <div v-else style="width: 25px; height: 25px;">
-                          </div>
-                          <div style="overflow: hidden; width: 3rem; height: 3rem;" class="flex-center">
-                            <img class="avatar-40 rounded" :src="urlImg + v.avatar" style="object-fit: cover;">
-                          </div>
-                          <div class="ms-3 w-100" style="flex: 1;">
-                            <h6 class="mb-0 f-500 " :class="{ 'text-primary': v.status == 1 }"
-                              :style="{ 'font-weight': 'bold' }">{{ v.sender }}</h6>
-                            <div class="d-flex text-dark justify-content-between align-items-center pe-3">
-                              <p class="mb-0">Tagged you in a post by
-                                <b :class="{ 'text-primary': v.status == 1 }">
-                                  {{ v.name_poster }}
-                                </b>
-                              </p>
+                            <div v-else style="width: 25px; height: 25px;">
                             </div>
-                          </div>
-                          <small class="float-right font-size-12" :class="{ 'text-dark': v.status == 0 }">
-                            {{ formatTime(v.created_at) }}
-                            agos
-                          </small>
-                        </div>
-                      </router-link>
-                      <router-link v-if="v.type == 1" :to="{ name: 'detailProfile', params: { username: v.username } }">
-                        <div v-if="v.type == 1" class="d-flex align-items-center">
-                          <div v-if="v.status == 1">
-                            <img src="../../../../assets/img/output-onlinegiftools.gif"
-                              style="width: 25px; height: 25px;">
-                          </div>
-                          <div v-else style="width: 25px; height: 25px;">
-                          </div>
-                          <div style="overflow: hidden; width: 3rem; height: 3rem;" class="flex-center">
-                            <img class="avatar-40 rounded" :src="urlImg + v.avatar" style="object-fit: cover;">
-                          </div>
-                          <div class="ms-3 w-100" style="flex: 1;">
-                            <h6 class="mb-0 f-500 " :class="{ 'text-primary': v.status == 1 }"
-                              :style="{ 'font-weight': 'bold' }">
-                              {{ v.sender }}
-                            </h6>
-                            <div class="d-flex text-dark justify-content-between align-items-center pe-3">
-                              <p class="mb-0">sent you a friend request
-                              </p>
+                            <div style="overflow: hidden; width: 3rem; height: 3rem; border-radius: 0.5rem;"
+                              class="flex-center">
+                              <img :src="urlImg + v.cover_image" style="object-fit: cover; width: 100%; height: 100%;">
                             </div>
+                            <div class="ms-3 w-100" style="flex: 1;">
+                              <h6 class="mb-0 f-500 " :class="{ 'text-primary': v.status == 1 }"
+                                :style="{ 'font-weight': 'bold' }">
+                                {{ v.sender }}
+                              </h6>
+                              <div class="d-flex text-dark justify-content-between align-items-center pe-3">
+                                <p class="mb-0">Invited you to the
+                                  <b :class="{ 'text-primary': v.status == 1 }">
+                                    {{ v.group_name }}
+                                  </b>
+                                  group
+                                </p>
+                              </div>
+                            </div>
+                            <small class="float-right font-size-12" :class="{ 'text-dark': v.status == 0 }">
+                              {{ formatTime(v.created_at) }}
+                              agos
+                            </small>
                           </div>
-                          <small class="float-right font-size-12" :class="{ 'text-dark': v.status == 0 }">
-                            {{ formatTime(v.created_at) }}
-                            agos
-                          </small>
-                        </div>
-                      </router-link>
-                    </a>
+                        </router-link>
+                        <router-link v-if="v.type == 7" to="">
+                          <div class="d-flex align-items-center">
+                            <div v-if="v.status == 1">
+                              <img src="../../../../assets/img/output-onlinegiftools.gif"
+                                style="width: 25px; height: 25px;">
+                            </div>
+                            <div v-else style="width: 25px; height: 25px;">
+                            </div>
+                            <div style="overflow: hidden; width: 3rem; height: 3rem;" class="flex-center">
+                              <img class="avatar-40 rounded" :src="urlImg + v.avatar" style="object-fit: cover;">
+                            </div>
+                            <div class="ms-3 w-100" style="flex: 1;">
+                              <h6 class="mb-0 f-500 " :class="{ 'text-primary': v.status == 1 }"
+                                :style="{ 'font-weight': 'bold' }">{{ v.sender }}</h6>
+                              <div class="d-flex text-dark justify-content-between align-items-center pe-3">
+                                <p class="mb-0">Tagged you in a post by
+                                  <b :class="{ 'text-primary': v.status == 1 }">
+                                    {{ v.name_poster }}
+                                  </b>
+                                </p>
+                              </div>
+                            </div>
+                            <small class="float-right font-size-12" :class="{ 'text-dark': v.status == 0 }">
+                              {{ formatTime(v.created_at) }}
+                              agos
+                            </small>
+                          </div>
+                        </router-link>
+                        <router-link v-if="v.type == 1" :to="{ name: 'detailProfile', params: { username: v.username } }">
+                          <div v-if="v.type == 1" class="d-flex align-items-center">
+                            <div v-if="v.status == 1">
+                              <img src="../../../../assets/img/output-onlinegiftools.gif"
+                                style="width: 25px; height: 25px;">
+                            </div>
+                            <div v-else style="width: 25px; height: 25px;">
+                            </div>
+                            <div style="overflow: hidden; width: 3rem; height: 3rem;" class="flex-center">
+                              <img class="avatar-40 rounded" :src="urlImg + v.avatar" style="object-fit: cover;">
+                            </div>
+                            <div class="ms-3 w-100" style="flex: 1;">
+                              <h6 class="mb-0 f-500 " :class="{ 'text-primary': v.status == 1 }"
+                                :style="{ 'font-weight': 'bold' }">
+                                {{ v.sender }}
+                              </h6>
+                              <div class="d-flex text-dark justify-content-between align-items-center pe-3">
+                                <p class="mb-0">sent you a friend request
+                                </p>
+                              </div>
+                            </div>
+                            <small class="float-right font-size-12" :class="{ 'text-dark': v.status == 0 }">
+                              {{ formatTime(v.created_at) }}
+                              agos
+                            </small>
+                          </div>
+                        </router-link>
+                      </a>
+                    </div>
+                    <div v-else class="card-body p-0 flex-center">
+                      <img src="../../../../assets/client/images/page-img/page-load-loader.gif" alt="loader"
+                        style="height: 100px;">
+                    </div>
                   </div>
                   <div v-else class="card-body p-0 flex-center">
-                    <img src="../../../../assets/client/images/page-img/page-load-loader.gif" alt="loader"
-                      style="height: 100px;">
+                    <div class="f-500">
+                      There aren't any notifications
+                    </div>
                   </div>
                 </div>
               </div>

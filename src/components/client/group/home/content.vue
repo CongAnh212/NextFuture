@@ -109,7 +109,7 @@
                                 style="cursor: pointer; padding: 0.5rem">
                                 <i class="fas fa-undo-alt me-2"></i>
                                 <span class="del-event">
-                                    Undo request
+                                    Cancel request
                                 </span>
                             </div>
                             <div @click="copyLink" class="btn-light px-2 f-500 radius-7 text-dark me-2 invite "
@@ -325,7 +325,7 @@ export default {
             id_group: '',
             data: {},
             member: [],
-            isView: false,
+            isView: null,
             isViewInvite: false,
             view: 'discuss',
             id_notification: null,
@@ -337,6 +337,7 @@ export default {
             viewType: null,
             checkRequest: null,
             process: null,
+            my_info: {},
         }
 
     },
@@ -349,9 +350,11 @@ export default {
             handler(newValue, oldValue) {
                 if (oldValue) {
                     this.id_notification = this.$route.query.id_notification;
+                    console.log("this.id_notification: ", this.id_notification);
                     if (this.id_notification) {
                         this.getInfoInvite(this.id_notification);
                         this.isViewInvite = true;
+                        console.log("this.isViewInvite: ", this.isViewInvite);
                     }
                     this.isView = true;
                     setTimeout(() => {
@@ -375,9 +378,17 @@ export default {
         this.getListFriend();
         this.checkRole();
         this.checkRequestGroup();
+        this.getMyInfo();
         // console.log('id_notification from propsádads:', this.$route.params.id_notification);
     },
     methods: {
+        getMyInfo() {
+            axios
+                .get('profile/data')
+                .then((res) => {
+                    this.my_info = res.data.myInfo
+                });
+        },
         dateCountdown(a) {
             return baseFunction.hoursDifference(a);
         },
@@ -399,7 +410,6 @@ export default {
                         this.isViewInvite = true
                     }
                 })
-
         },
         joinGroup() {
             axios
@@ -503,11 +513,22 @@ export default {
                 status: true,
                 notify: this.notification
             };
+            var a = {
+                id_client: this.my_info.id,
+                my_id: this.infoClient.id,
+                id_group: this.data.id
+            }
+            console.log("a: ", a);
             axios
-                .post('notification/accept-invite', this.notification)
+                .post('notification/accept-invite', a)
                 .then((res) => {
                     baseFunction.displaySuccess(res);
                     this.isViewInvite = false;
+                    if (this.data.join_approval == 1) {
+                        this.viewType = 3;
+                    } else {
+                        this.viewType = 1;
+                    }
                     this.$emit('removeNotify', payload);
                 })
                 .catch((res) => {
