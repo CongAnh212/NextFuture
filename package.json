@@ -19,6 +19,7 @@
     "dayjs": "^1.11.10",
     "html2canvas": "^1.4.1",
     "jquery": "^3.7.1",
+    "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "primevue": "^3.46.0",
     "rotate-icon": "^1.0.3",

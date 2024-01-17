@@ -251,7 +251,6 @@ export default {
   components: { ListPost },
   data() {
     return {
-      myInfo: {},
       stories: [],
       urlImg: url,
       post: {
@@ -277,6 +276,12 @@ export default {
       list_online_friends: null,
     };
   },
+  props: {
+    myInfo : {
+      type: Object,
+      required: true
+    }
+  },
   watch: {
     list_online_friends: {
       handler(newVal, oldVal) {
@@ -286,8 +291,7 @@ export default {
     },
     myInfo: {
       handler(newValue, oldValue) {
-        // Xử lý khi giá trị của data thay đổi
-        if (oldValue) {
+        if (newValue) {
           this.isView = true;
         }
         this.handleInputBootstrap()
@@ -299,7 +303,6 @@ export default {
   created() {
     this.list_online_friends = state.onlineUsers
     console.log(window.localStorage.getItem('token')); //check token
-    this.getInfo();
     this.dataStory();
     this.setPrivacy();
     this.loadPost();
@@ -379,13 +382,6 @@ export default {
         $element.addClass('show');
 
       }
-    },
-    getInfo() {
-      axios
-        .get('profile/data')
-        .then((res) => {
-          this.myInfo = res.data.myInfo;
-        });
     },
     dataStory() {
       axios

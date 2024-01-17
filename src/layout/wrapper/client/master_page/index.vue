@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <HeaderClient></HeaderClient>
+        <HeaderClient :myInfo="myInfo"></HeaderClient>
         <div class="bg-white" style="margin-top:4.688rem;">
             <router-view></router-view>
         </div>
@@ -32,11 +32,29 @@ import "../../../../assets/client/js/lottie.js";
 import "../../../../assets/client/vendor/vanillajs-datepicker/dist/js/datepicker.min.js";
 
 import HeaderClient from '../main_master_page/HeaderClient.vue';
+import axios from '../../../../core/coreRequest'
 export default {
     name: "app",
     components: {
         HeaderClient
-    }
+    },
+    data() {
+        return {
+            myInfo: null
+        }
+    },
+    mounted() {
+        this.getMyInfo()
+    },
+    methods: {
+        getMyInfo() {
+            axios
+                .get('profile/data')
+                .then((res) => {
+                    this.myInfo = res.data.myInfo;
+                });
+        }
+    },
 }
 </script>
 <style>

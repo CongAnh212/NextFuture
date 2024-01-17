@@ -1,7 +1,7 @@
 <template>
     <div style="min-height: calc(100vh - 4.688rem);">
         <div v-if="isView">
-            <div class="w-100  main-group">
+            <div class="w-100  main-group " style="border-bottom: 3px solid #3e3e3e10;">
                 <div class="w-100 h-100">
                     <div class="w-100 bg-primary flex-center respon_cover">
                         <img :src="urlImg + data.cover_image" class="w-100 " style="object-fit: cover; width: 100%;">
@@ -233,7 +233,8 @@
                             </div>
                         </div>
                         <hr class="w-100 bg-dark pb-0 mb-0">
-                        <div class="text-dark flex-between" style="display:flex;gap:20px; margin-top: 5px;">
+                        <div class="text-dark flex-between"
+                            style="display:flex;gap:20px; margin-top: 5px; margin-bottom: -3px;">
                             <div v-if="viewType == 1 || viewType == 2" class="d-flex"> <!-- Left navbar -->
                                 <div class="flex-center border-bottomm ct " style="width: 100%; cursor: pointer;">
                                     <div @click="setView('discuss')" class="py-2 p-2 px-3 bb f-500 discuss"
@@ -309,7 +310,8 @@
                     </div>
                 </div>
             </div>
-            <router-view v-if="view == 'discuss'" :info="data" :viewType="viewType" name="discuss"></router-view>
+            <router-view v-if="view == 'discuss'" :info="data" :viewType="viewType" name="discuss"
+                :myInfo="myInfo"></router-view>
             <router-view v-else-if="view == 'member'" :viewType="viewType" name="member"></router-view>
             <router-view v-else-if="view == 'introduce'" :info="data" name="introduce"></router-view>
         </div>
@@ -346,7 +348,6 @@ export default {
             viewType: null,
             checkRequest: null,
             process: null,
-            my_info: {},
             wait: {
                 status: false,
                 path: ''
@@ -359,13 +360,27 @@ export default {
             type: Object,
             required: true
         },
+        myInfo: {
+            type: Object,
+            required: true
+        },
+        infoGroup: {
+            type: Object
+        }
     },
     watch: {
+        infoGroup(newValue, oldV) {
+            if (newValue) {
+                this.isView = true;
+                this.data = newValue.info;
+                this.member = newValue.member;
+            }
+        },
         send_active_all_member: {
             handler(value) {
                 if (value != null) {
-                    this.wait.status = true,
-                        this.wait.path = value.path
+                    this.wait.status = true
+                    this.wait.path = value.path
                 }
             },
             deep: true,
@@ -373,7 +388,6 @@ export default {
         },
         '$route.params.id_group'(id_group) {
             this.id_group = id_group;
-            this.getInfo();
         },
         data: {
             handler(newValue, oldValue) {
@@ -383,7 +397,7 @@ export default {
                         this.getInfoInvite(this.id_notification);
                         this.isViewInvite = true;
                     }
-                    this.isView = true;
+
                     setTimeout(() => {
                         const currentPath = this.$route.fullPath.toString().split('/').pop()
                         if (currentPath == 'discuss' || currentPath == 'member' || currentPath == 'event' || currentPath == 'photo' || currentPath == 'introduce') {
@@ -400,20 +414,11 @@ export default {
     },
     mounted() {
         this.id_group = this.$route.params.id_group;
-        this.getInfo();
         this.getListFriend();
         this.checkRole();
         this.checkRequestGroup();
-        this.getMyInfo();
     },
     methods: {
-        getMyInfo() {
-            axios
-                .get('profile/data')
-                .then((res) => {
-                    this.my_info = res.data.myInfo
-                });
-        },
         dateCountdown(a) {
             return baseFunction.hoursDifference(a);
         },
@@ -504,14 +509,7 @@ export default {
                     });
                 });
         },
-        getInfo() {
-            axios
-                .get('groups/' + this.id_group)
-                .then((res) => {
-                    this.data = res.data.info;
-                    this.member = res.data.member;
-                });
-        },
+
         open() {
             this.list_invite.splice(0);
             $('.check_input').prop('checked', false);
@@ -548,7 +546,7 @@ export default {
                 notify: this.notification
             };
             var a = {
-                id_client: this.my_info.id,
+                id_client: this.myInfo.id,
                 my_id: this.infoClient.id,
                 id_group: this.data.id
             }
