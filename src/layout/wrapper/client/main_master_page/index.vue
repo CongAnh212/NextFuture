@@ -13,7 +13,7 @@
                                     :getPrivacy="dataPrivacy" :delFriendProfile="delDataProfileAllFriend"
                                     :approve_Connection="dataApproveConnection" :refuse_Connection="dataRefuseConnection"
                                     :send_active_overview_group="send_active_overview_group"
-                                    @fullMemberActive="handleFullMemberActive">
+                                    @fullMemberActive="handleFullMemberActive" :send_rename_group="send_rename_group">
                                 </router-view>
                             </ul>
                         </nav>
@@ -35,8 +35,8 @@
                 :sentFriendSuggest="dataSuggest" @profile_suggest="handleProfileSuggest" :delFriendSuggest="delDataSuggest"
                 @removeNotify="handleNotify" @profile_del_friend="handleDelProfileAllFriend" @sentPrivacy="handlePrivacy"
                 @approve_connection="handleApproveConnection" @refuse_connection="handleRefuseConnection"
-                @send_active="handleSendActive" :send_active_all_member="send_all_member_active">
-
+                @send_active="handleSendActive" :send_active_all_member="send_all_member_active"
+                @sendRenameGroup="handleSendRenameGroup">
             </router-view>
         </div>
     </div>
@@ -80,6 +80,8 @@ export default {
             send_active_overview_group: null,       //truyền active từ overview request group qua request to join the group
             //--------------------------------------------------------------------------------------------//
             send_all_member_active: null,   //truyền active từ list members qua content member
+            //--------------------------------------------------------------------------------------------//
+            send_rename_group: null,        //truyền thay đổi tên của group
         }
     },
     methods: {
@@ -120,6 +122,9 @@ export default {
         },
         handleFullMemberActive(value) {
             this.send_all_member_active = value
+        },
+        handleSendRenameGroup(value) {
+            this.send_rename_group = value
         }
     }
 }
