@@ -1,15 +1,15 @@
 <template >
-    <div style="min-height: calc(100vh - 4.688rem);">
+    <div v-if="dataComeIn" style="min-height: calc(100vh - 4.688rem);">
         <div class="bg-white mb-4">
             <div class="flex-center pt-4 pb-2" style="gap:17%">
                 <div>
                     <h5>
                         <b>
-                            Request to join the group ({{ data_come_in.length }})
+                            Request to join the group ({{ dataComeIn.length }})
                         </b>
                     </h5>
                 </div>
-                <div v-if="data_come_in.length >= 2">
+                <div v-if="dataComeIn.length >= 2">
                     <button class="btn btn-primary me-2" @click="approveConnectionAll()">
                         Approve all
                     </button>
@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <div v-for="(v, k) in data_come_in" class="flex-center" style="width: 100%;">
+        <div v-for="(v, k) in dataComeIn" class="flex-center" style="width: 100%;">
             <div class="card" style="width: 63%;">
                 <div class="card-body">
                     <div class="d-flex" style="gap: 20%;">
@@ -43,7 +43,8 @@
                             </div>
                         </div>
                         <div class="flex-center">
-                            <button class="btn btn-primary me-2 btn-sm" style="width: 150px;" @click="approveConnection(v)">
+                            <button class="btn btn-primary me-2 btn-sm" style="width: 150px;"
+                                @click="approveConnection(v, k)">
                                 Approve
                             </button>
                             <button class="btn btn-secondary  btn-sm" style="width: 150px;"
@@ -69,23 +70,21 @@
 import axios, { url } from '../../../../core/coreRequest';
 import coreFuntion from '../../../../core/coreFunction'
 export default {
+    props: {
+        dataComeIn: Array
+
+    },
+    watch: {
+
+    },
     data() {
         return {
-            data_come_in: [],
             urlImg: url,
         }
     },
     mounted() {
-        this.getDataComeIn();
     },
     methods: {
-        getDataComeIn() {
-            axios
-                .post('groups/data-come-in-group', { id_group: this.$route.params.id_group })
-                .then((res) => {
-                    this.data_come_in = res.data.data
-                })
-        },
         formatTime(a) {
             return coreFuntion.hoursDifference(a)
         },
@@ -103,25 +102,25 @@ export default {
                 .post('groups/approve-connection', payload)
                 .then((res) => {
                     coreFuntion.displaySuccess(res)
-                    this.getDataComeIn()
+                    this.dataComeIn.splice(k, 1)
                 })
         },
         approveConnectionAll() {
             var payLoad = {
-                ...this.data_come_in,
+                ...this.dataComeIn,
                 status: true,
-                add_member: this.data_come_in.length
+                add_member: this.dataComeIn.length
             }
             this.$emit("approve_connection", payLoad)
             var payload = {
-                ...this.data_come_in,
+                ...this.dataComeIn,
                 id_group: this.$route.params.id_group
             }
             axios
                 .post('groups/approve-connection-all', payload)
                 .then((res) => {
                     coreFuntion.displaySuccess(res)
-                    this.getDataComeIn()
+                    this.dataComeIn.splice(0, this.dataComeIn.length)
                 })
         },
         refuseConnection(v) {
@@ -143,12 +142,12 @@ export default {
         },
         refuseConnectionAll() {
             var payLoad = {
-                ...this.data_come_in,
+                ...this.dataComeIn,
                 status: true
             }
             this.$emit("refuse_connection", payLoad)
             var payload = {
-                ...this.data_come_in,
+                ...this.dataComeIn,
                 id_group: this.$route.params.id_group
             }
             axios

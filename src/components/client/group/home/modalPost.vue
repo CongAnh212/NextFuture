@@ -1,7 +1,6 @@
 <template >
     <div class="modal fade" id="modalPost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog  modal-dialog-centered "
-            :class="{ 'modal-xxl': arrayImages.length > 0, 'modal-base': !arrayImages.length }">
+        <div class="modal-dialog modal-xxl  modal-dialog-centered ">
             <div class="modal-content" style="position: relative;">
                 <div style="position: absolute; top:-25px; right: -10%;" class="text-white">
                     <div type="button" data-bs-dismiss="modal" aria-label="Close"
@@ -10,7 +9,7 @@
                     </div>
                 </div>
                 <div class="d-flex bg-white" style="height: 90vh;width: 100%; ">
-                    <div v-if="arrayImages.length > 0" style="height: 100%; overflow: hidden;aspect-ratio: 1/1; cursor: pointer; position: relative; ">
+                    <div style="height: 100%; overflow: hidden;aspect-ratio: 1/1; cursor: pointer; position: relative; ">
                         <div @click="indexImage--" v-if="indexImage != 0"
                             class="bg-hover circle flex-center text-dark bg-hover ms-2"
                             style="position: absolute; top: 50%; transform: translateY(-50%); width: 2rem; height: 2rem; background-color: #ddddddac;">
@@ -215,8 +214,8 @@
     </div>
 </template>
 <script>
-import axios, { url } from '../../../core/coreRequest';
-import baseFunction from '../../../core/coreFunction';
+import axios, { url } from '../../../../core/coreRequest';
+import baseFunction from '../../../../core/coreFunction';
 export default {
     props: {
         post: {
@@ -225,10 +224,10 @@ export default {
         index: {
             type: Number
         },
-
+        
     },
     watch: {
-
+       
         post: {
             handler(newValue, oldValue) {
                 if (oldValue) {
@@ -280,23 +279,19 @@ export default {
             this.list_comment[k].limit += 3
             if (this.list_comment[k].replies > 3) {
                 this.list_comment[k].replies -= 3
-
             } else {
                 this.list_comment[k].replies = 0
-
             }
             this.list_comment_reply = this.containReplyComment.slice(0, this.list_comment[k].limit);
         },
         viewReplies(v, k) {
-
             axios
-                .post('comment/data-reply', v)
+                .post('groups/comment/data-reply', v)
                 .then((res) => {
                     this.containReplyComment = res.data.dataReply;
                     this.list_comment[k].limit += 3
                     if (this.list_comment[k].replies > 3) {
                         this.list_comment[k].replies -= 3
-
                     } else {
                         this.list_comment[k].replies = 0
                     }
@@ -316,7 +311,6 @@ export default {
                 fullname: v.fullname,
                 username: v.username
             }
-
             this.comments = '@' + v.fullname + ' '
             this.focusComment()
         },
@@ -329,7 +323,7 @@ export default {
                 this.list_comment[k].liked = true
             }
 
-            axios.post('comment/like', v)
+            axios.post('groups/comment/like', v)
 
         },
         unLikeComment(v, k, rep) {
@@ -341,7 +335,7 @@ export default {
                 this.list_comment[k].liked = false
             }
 
-            axios.post('comment/un-like', v)
+            axios.post('groups/comment/un-like', v)
         },
         hoursDifference(time) {
             return baseFunction.hoursDifference(time)
@@ -353,14 +347,14 @@ export default {
                 $('icon-liked').addClass('large')
             }, 1);
             axios
-                .post('post/like', this.post)
+                .post('groups/post/like', this.post)
         },
         unLikePost() {
             this.post.liked = !this.post.liked
             this.post.likes--
             $('.icon-liked').removeClass('large')
             axios
-                .post('post/un-like', this.post)
+                .post('groups/post/un-like', this.post)
         },
         createComment(id, username = '') {
             if (!event.shiftKey && this.comments != null) {
@@ -382,7 +376,7 @@ export default {
                     'id_replier': this.isReply ? this.replier.id : null
                 }
                 axios
-                    .post('comment/create', payload)
+                    .post('groups/comment/create', payload)
                     .then((res) => {
                         this.comments = [];
                         this.isReply = false;
@@ -393,7 +387,7 @@ export default {
         },
         loadComment() {
             axios
-                .post('comment/data', this.post)
+                .post('groups/comment/data', this.post)
                 .then((res) => {
                     this.list_comment = res.data.dataComment;
                     // this.list_comment_reply = this.list_comment.filter(comment => comment.id_replier !== null);
@@ -401,7 +395,6 @@ export default {
                         ...value,
                         limit: 0
                     }));
-
                     this.showComment = true;
                 });
         },
@@ -464,12 +457,8 @@ export default {
     },
 }
 </script>
-<style >
+<style>
 .modal-xxl {
     max-width: 80%;
-}
-
-.modal-base {
-    max-width: 40%;
 }
 </style>

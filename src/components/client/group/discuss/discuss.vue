@@ -111,9 +111,12 @@
                         </ul>
                     </div>
                 </div>
+                <div class="">
+                    <ListPostComponent :listPost="listPost" :myInfo="myInfo" v-if="listPost.length > 0" />
+                </div>
             </div>
 
-            <div class=" col-5">
+            <div class=" col-5" style="height: fit-content; position: sticky; top: 6rem;">
                 <div class="card " style="border-radius: 10px;">
                     <div class="card-body b " style="border-radius: 10px; box-shadow: 0px 0px 5px #33333324;">
 
@@ -180,15 +183,19 @@
 <script>
 import axios, { url } from '../../../../core/coreRequest';
 import Swal from 'sweetalert2'
+import ListPostComponent from '../home/list_post.vue'
 export default {
+    components: {
+        ListPostComponent
+    },
     data() {
         return {
-            myInfo: {},
             post: {
                 images: [],
             },
             urlImg: url,
-            privacy: false
+            privacy: false,
+            listPost: [],
         }
     },
     watch: {
@@ -200,20 +207,23 @@ export default {
             immediate: true, // Kích hoạt handler ngay từ khi component được khởi tạo
         },
     },
-
     props: {
         info: {
             type: Object,
             required: true,
         },
-        viewType: {
+        viewType: { 
             type: Number,
+            required: true
+        },
+        myInfo: {
+            type: Object,
             required: true
         }
     },
     mounted() {
-        this.getInfo()
         this.handleInputBootstrap()
+        this.getPostGroup()
     },
     methods: {
         posting() {
@@ -293,13 +303,14 @@ export default {
                 });
             }, 100);
         },
-        getInfo() {
+        getPostGroup() {
             axios
-                .get('profile/data')
+                .post('groups/post/data', {id: this.$route.params.id_group})
                 .then((res) => {
-                    this.myInfo = res.data.myInfo
-                });
-        }
+                    this.listPost = res.data.listPost
+                    // console.log('this.listPost: ', this.listPost);
+                })
+        },
     },
 }
 </script>

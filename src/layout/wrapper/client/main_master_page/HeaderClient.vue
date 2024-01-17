@@ -1,5 +1,5 @@
 <template>
-  <div class="iq-top-navbar" style="position: fixed;">
+  <div v-if="myInfo" class="iq-top-navbar" style="position: fixed;">
 
     <div class="iq-navbar-custom">
 
@@ -10,11 +10,32 @@
             <span translate="no">NextFuture</span>
           </router-link>
         </div>
-        <div class="iq-search-bar device-search">
-          <form action="#" class="searchbox">
+        <div class="iq-search-bar device-search " style="position: relative;">
+          <div class="searchbox">
             <a class="search-link" href="#"><i class="ri-search-line"></i></a>
-            <input type="text" class="text search-input" placeholder="Search here...">
-          </form>
+            <input @input="search" type="text" class="text search-input" placeholder="Search here...">
+          </div>
+          <!-- *************************************search************************************* -->
+          <div class=" w-100" id="modalSearch"
+            style="position: absolute; margin-left: -0.95rem; padding: 0 1rem; margin-top: -1rem; display: none; ">
+            <div class=" p-2"
+              style="background-color: #f9f9f9; box-shadow:  5px 5px  5px #4242422e, 10px 10px  10px #bdbdbd15;">
+              <div v-for="(v, k) in listSearch" @click="handleClickSearch(v)"
+                class="bg-hover d-flex align-items-center px-2 py-1 c-pointer" style="height: fit-content;">
+                <div class="avatar-3  flex-center bg-white me-2" style="width: 2rem; height: 2rem;">
+                  <i class="fas fa-search"></i>
+                </div>
+                <div class="d-flex flex-column" style="line-height: 1rem; flex: 1;">
+                  <b>{{ v.fullname }}</b>
+                  <span>{{ v.nickname }}</span>
+                </div>
+                <div class="flex-center bg-pink "
+                  style="border-radius: 10px; width: 2.5rem; height: 2.5rem; overflow: hidden;">
+                  <img :src="urlImg + v.avatar" style="object-fit: cover; width: 100%; height: 100%;">
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-label="Toggle navigation">
@@ -315,11 +336,11 @@
 import axios, { url } from "../../../../core/coreRequest";
 import baseFunction from "../../../../core/coreFunction";
 import { state, socket } from "../../../../socket";
+import _ from 'lodash';
 
 export default {
   data() {
     return {
-      myInfo: {},
       urlImg: url,
       request_friend: [],
       list_notifications: [],
@@ -327,12 +348,17 @@ export default {
       count: 0,
       del: {},
       new_notification: 0,
+      listSearch: [],
     }
   },
   props: {
     notify: {
       type: Object,
       required: true,
+    },
+    myInfo: {
+      type: Object,
+      required: true
     }
   },
   watch: {
@@ -346,9 +372,16 @@ export default {
       immediate: true
     },
     notify(newValue, oldValue) {
-      console.log('oldValue: ', oldValue);
-      console.log('newValue: ', newValue);
       this.getNotification();
+    },
+    myInfo: {
+      handler(newValue, oldValue) {
+        if (newValue) {
+          this.getInfo();
+        }
+      },
+      deep: true,
+      immediate: true
     }
   },
   created() {
@@ -359,13 +392,35 @@ export default {
     })
   },
   mounted() {
-    console.log('HeaderClient.vue: mounted')
     state.connected = true
-    this.getInfo();
     this.getRequestFriend();
     this.getNotification();
   },
   methods: {
+    search: _.debounce(function (event) {
+      // dùng để show ra list search khi có giá trị trả về
+
+      if (event.target.value.trim() === '' || !event.target.value) {
+        $('#modalSearch').css('display', 'none');
+
+      } else {
+        axios
+          .post('search', { keySearch: event.target.value })
+          .then((res) => {
+            this.listSearch = res.data.dataSearch
+            if (this.listSearch.length > 0) {
+              $('#modalSearch').css('display', 'block');
+            } else {
+              $('#modalSearch').css('display', 'none');
+
+            }
+          })
+      }
+
+    }, 300),
+    handleClickSearch(v) {
+      this.$router.push({ name: "detailProfile", params: { username: v.username } })
+    },
     formatTime(a) {
       return baseFunction.hoursDifference(a);
     },
@@ -390,58 +445,56 @@ export default {
     },
     async getInfo() {
       try {
-        const response = await axios.get('profile/data')
-        this.myInfo = response.data.myInfo;
         await localStorage.setItem('information-my-profile', JSON.stringify(this.myInfo))
 
-                if (Object.keys(this.myInfo).length > 0) {
-                    await this.connectToSocket(this.myInfo);
-                }
-            } catch (error) {
-                console.error("Lỗi lấy thông tin người dùng:", error);
-            }
-        },
-        myProfile() {
-            this.$router.push({
-                name: "detailProfile",
-                params: { username: this.myInfo.username },
-            });
-        },
-        getRequestFriend() {
-            axios.get("follower/request-friend").then((res) => {
-                if (res.data.status == 1) {
-                    this.request_friend = res.data.data;
-                    this.count = res.data.count;
-                }
-            });
-        },
-        confirm(v) {
-            axios.post("follower/accept-friend", v).then((res) => {
-                if (res.data.status) {
-                    this.getRequestFriend();
-                }
-            });
-        },
-        delRequest(v) {
-            axios.post("follower/delete-friend", v).then((res) => {
-                if (res.data.status) {
-                    this.getRequestFriend();
-                } else {
-                    baseFunction.displaySuccess(res);
-                }
-            });
-        },
-        readNotification(v) {
-            axios.post("notification/update-status", v).then((res) => {
-                if (res.data.status) {
-                    this.getNotification();
-                }
-            });
-        },
-        connectToSocket(user) {
-            socket.emit("newUser", user);
-        },
+        if (Object.keys(this.myInfo).length > 0) {
+          await this.connectToSocket(this.myInfo);
+        }
+      } catch (error) {
+        console.error("Lỗi lấy thông tin người dùng:", error);
+      }
     },
+    myProfile() {
+      this.$router.push({
+        name: "detailProfile",
+        params: { username: this.myInfo.username },
+      });
+    },
+    getRequestFriend() {
+      axios.get("follower/request-friend").then((res) => {
+        if (res.data.status == 1) {
+          this.request_friend = res.data.data;
+          this.count = res.data.count;
+        }
+      });
+    },
+    confirm(v) {
+      axios.post("follower/accept-friend", v).then((res) => {
+        if (res.data.status) {
+          this.getRequestFriend();
+        }
+      });
+    },
+    delRequest(v) {
+      axios.post("follower/delete-friend", v).then((res) => {
+        if (res.data.status) {
+          this.getRequestFriend();
+        } else {
+          baseFunction.displaySuccess(res);
+        }
+      });
+    },
+    readNotification(v) {
+      axios.post("notification/update-status", v).then((res) => {
+        if (res.data.status) {
+          this.getNotification();
+        }
+      });
+    },
+    connectToSocket(user) {
+      socket.emit("newUser", user);
+    },
+  },
 };
 </script>
 <style></style>

@@ -22,7 +22,7 @@
                         {{ (listChecked.length == 0 || listChecked.length == listPost.length) ? 'Refuse all' : 'Refuse' }}
                     </button>
                 </div>
-                
+
             </div>
             <div class="flex-center pb-3">
                 <div class="" style="width: 50vw;">
@@ -63,8 +63,9 @@
                                         }"><b style="color: #000; font-size: 1.1rem">
                                                 {{ v.username }}</b>
                                         </router-link>
-                                        <div v-else class="text-hover text-dark c-pointer"><b
-                                                style="color: #000; font-size: 1.1rem">Anonymous member</b></div>
+                                        <div v-else class="text-hover text-dark c-pointer">
+                                            <b style="color: #000; font-size: 1.1rem">Anonymous member</b>
+                                        </div>
 
                                         <i class="fa-solid fa-circle mx-1" style="font-size: 0.3em"></i>
                                         <small>{{ formatTime(v.created_at) }}</small>
@@ -118,18 +119,28 @@ import baseFunction from '../../../../core/coreFunction'
 import ViewImageComponent from '../../home/viewImage.vue'
 export default {
     components: { ViewImageComponent },
+    props: {
+        myInfo: Object,
+        listPost: Object,
+    },
+    watch: {
+        listPost: {
+            handler(newV, oldV) {
+                this.loading = 1
+            },
+            deep: true,
+            immediate: true
+        },
+    },
     data() {
         return {
-            listPost: [],
             loading: 0,
-            myInfo: {},
             urlImg: url,
             listChecked: [],
         }
     },
     mounted() {
-        this.getPost()
-        this.getMyInfo()
+        console.log('mounted post: ', this.listPost);
     },
     methods: {
         approvePost(v, k) {
@@ -184,22 +195,6 @@ export default {
         },
         formatTime(a) {
             return baseFunction.hoursDifference(a)
-        },
-        getPost() {
-            console.log('this.$route.params.id_group: ', this.$route.params.id_group);
-            axios
-                .post('groups/post/data', { id: this.$route.params.id_group })
-                .then((res) => {
-                    this.listPost = res.data.listPost
-                    this.loading = 1
-                })
-        },
-        getMyInfo() {
-            axios
-                .get('profile/data')
-                .then((res) => {
-                    this.myInfo = res.data.myInfo
-                });
         },
     },
 }

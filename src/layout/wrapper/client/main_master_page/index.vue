@@ -1,19 +1,20 @@
 <template>
     <div class="wrapper bg-white">
-        <HeaderClient :notify="notify"></HeaderClient>
+        <HeaderClient :notify="notify" :myInfo='myInfo'></HeaderClient>
         <div class="">
             <div class="iq-sidebar-fix sidebar-default ">
                 <div id="sidebar-scrollbar" data-scrollbar="true" tabindex="-1" style="overflow: hidden; outline: none;">
                     <div class="scroll-content">
                         <nav class="iq-sidebar-menu">
                             <ul id="iq-sidebar-toggle" class="iq-menu">
-                                <router-view @request_friend="handleRequestFriend"
+                                <router-view :myInfo='myInfo' @request_friend="handleRequestFriend"
                                     :sentFriendProfile="dataProfileRequestFriend" @suggest="handleSuggest"
                                     :sentFriendProfileSuggest="dataProfileSuggest" @del_suggest="handleDelSuggest"
                                     :getPrivacy="dataPrivacy" :delFriendProfile="delDataProfileAllFriend"
                                     :approve_Connection="dataApproveConnection" :refuse_Connection="dataRefuseConnection"
                                     :send_active_overview_group="send_active_overview_group"
-                                    @fullMemberActive="handleFullMemberActive">
+                                    @fullMemberActive="handleFullMemberActive"
+                                    @sendFromListHomeGroup="handleGetDataFromListHoneGroup">
                                 </router-view>
                             </ul>
                         </nav>
@@ -31,11 +32,14 @@
             </div>
         </div>
         <div class="px-0 mx-0" style="position: absolute; right: 0; width: 79%;top: 4.25rem; background-color: #ffffff;">
-            <router-view name="content" :sentFriend="dataRequestFriend" @profile_request_friend="handleProfileRequestFriend"
-                :sentFriendSuggest="dataSuggest" @profile_suggest="handleProfileSuggest" :delFriendSuggest="delDataSuggest"
-                @removeNotify="handleNotify" @profile_del_friend="handleDelProfileAllFriend" @sentPrivacy="handlePrivacy"
+            <router-view :myInfo='myInfo' name="content" :sentFriend="dataRequestFriend"
+                @profile_request_friend="handleProfileRequestFriend" :sentFriendSuggest="dataSuggest"
+                @profile_suggest="handleProfileSuggest" :delFriendSuggest="delDataSuggest" @removeNotify="handleNotify"
+                @profile_del_friend="handleDelProfileAllFriend" @sentPrivacy="handlePrivacy"
                 @approve_connection="handleApproveConnection" @refuse_connection="handleRefuseConnection"
-                @send_active="handleSendActive" :send_active_all_member="send_all_member_active">
+                @send_active="handleSendActive" :send_active_all_member="send_all_member_active" :infoGroup="infoGroup"
+                :dataComeIn="dataComeIn"
+                :listPost="listPost">
 
             </router-view>
         </div>
@@ -52,6 +56,7 @@ import "../../../../assets/client/js/lottie.js";
 import "../../../../assets/client/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"
 
 import HeaderClient from '.././main_master_page/HeaderClient.vue';
+import axios from '../../../../core/coreRequest'
 export default {
     name: "app",
     components: {
@@ -59,6 +64,10 @@ export default {
     },
     data() {
         return {
+            myInfo: null,
+            infoGroup: null,
+            dataComeIn: null,               // list xin vào nhóm
+            listPost: null,                 // list bài cần duyệt
             dataRequestFriend: null,        // cái này là từ list gửi cho profile đọc bên mục Suggest
             dataProfileRequestFriend: null, // cài này là từ profile gửi cho list đọc bên mục Suggest
             //--------------------------------------------------------------------------------------------//
@@ -82,7 +91,22 @@ export default {
             send_all_member_active: null,   //truyền active từ list members qua content member
         }
     },
+    created() {
+        this.getMyInfo()
+    },
     methods: {
+        getMyInfo() {
+            axios
+                .get('profile/data')
+                .then((res) => {
+                    this.myInfo = res.data.myInfo;
+                });
+        },
+        handleGetDataFromListHoneGroup(value) {
+            this.dataComeIn = value.getDataComeIn
+            this.infoGroup = value.infoGroup
+            this.listPost = value.listPost
+        },
         handleRequestFriend(value) {
             this.dataRequestFriend = value
         },

@@ -46,7 +46,7 @@
         <div @click="community('setting', $event)" class="w-100  d-flex p-2 setting-active"
             style="border-radius: 7px; cursor: pointer;">
             <i class=" del-event fas fa-cog me-2 " style="font-size: 20px; padding-top: 0.2rem;"></i>
-            <span class="del-event">Group management</span>
+        <span class="del-event">Group1i management</span>
         </div>
         <div @click="community('request_group', $event)" class="w-100  d-flex p-2 member-requests-active"
             style="border-radius: 7px; cursor: pointer;">
@@ -56,7 +56,7 @@
         <div @click="community('browse-posts', $event)" class="w-100  d-flex p-2 "
             style="border-radius: 7px; cursor: pointer;">
             <i class="fa-solid fa-user-pen me-2" style="font-size: 20px; padding-top: 0.2rem;"></i>
-            <span class="del-event">Browse posts ({{ count }})</span>
+            <span class="del-event">Browse posts ({{ countPost }})</span>
         </div>
     </template>
     <template v-else-if="viewType == 0 || viewType == 2">
@@ -87,16 +87,19 @@ export default {
             id_group: '',
             data: {},
             urlImg: url,
-            data_come_in: [],
             count: 0,
             viewType: null,
-            send_all_member: {}
+            send_all_member: {},
+            infoGroup: {},
+            listPost: [],
+            countPost: 0,
         }
     },
 
     mounted() {
         this.id_group = this.$route.params.id_group;
         this.getInfo();
+        this.getPost();
         this.getDataComeIn();
         this.checkRole();
     },
@@ -187,14 +190,29 @@ export default {
                 .get('groups/' + this.id_group)
                 .then((res) => {
                     this.data = res.data.info;
+                    this.infoGroup = res.data
                 });
+        },
+        getPost() {
+            console.log('this.$route.params.id_group: ', this.$route.params.id_group);
+            axios
+                .post('groups/post/data-approve', { id: this.$route.params.id_group })
+                .then((res) => {
+                    this.listPost = res.data.listPost
+                    this.countPost = this.listPost.length
+                })
         },
         getDataComeIn() {
             axios
                 .post('groups/data-come-in-group', { id_group: this.id_group })
                 .then((res) => {
-                    this.data_come_in = res.data.data
-                    this.count = this.data_come_in.length
+                    this.count = res.data.data.length
+                    var send = {
+                        getDataComeIn: res.data.data,
+                        infoGroup: this.infoGroup,
+                        listPost: this.listPost
+                    }
+                    this.$emit('sendFromListHomeGroup', send)
                 })
         },
         community(a, event) {

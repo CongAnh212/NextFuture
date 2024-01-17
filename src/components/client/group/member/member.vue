@@ -154,7 +154,7 @@
                 </div>
 
             </div>
-            <div class="card mt-3" style="border-radius: 15px; width: 45%;">
+            <div class="card mt-3 " style="border-radius: 15px; width: 45%; height: fit-content; position: sticky; top: 6rem;">
                 <div class="card-body">
                     <b class="text-dark">Administrators ({{ member_admin.length }})</b>
                     <div v-for='(v, k) in member_admin' class="d-flex align-items-center mb-2 mt-2" style=" ">
