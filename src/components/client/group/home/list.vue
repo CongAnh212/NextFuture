@@ -21,8 +21,13 @@
         <div class="w-100 d-flex  pt-2">
             <div class="text-center " style="flex: 1">
                 <div class=" flex-center " style="width: 100%; cursor: pointer; ">
-                    <div class=" py-1 pe-0 bg-hover aa" @click="setList" style="width: 98%; border-radius: 7px;">Browse
-                    </div>
+                    <router-link :to="{ name: 'group' }" class=" py-1 pe-0 bg-hover aa"
+                        style="width: 98%; border-radius: 7px;">
+                        <div>
+                            <i class="fa-solid fa-arrow-left me-1"></i>
+                            Back to groups
+                        </div>
+                    </router-link>
                 </div>
             </div>
             <div class="text-center " style="flex: 1">
@@ -53,7 +58,7 @@
             <i class="fa-solid fa-user-pen me-2" style="font-size: 20px; padding-top: 0.2rem;"></i>
             <span class="del-event">Request to join the group ({{ count }})</span>
         </div>
-        <div @click="community('browse-posts', $event)" class="w-100  d-flex p-2 "
+        <div @click="community('browse-posts', $event)" class="w-100 browse-posts-active d-flex p-2 "
             style="border-radius: 7px; cursor: pointer;">
             <i class="fa-solid fa-user-pen me-2" style="font-size: 20px; padding-top: 0.2rem;"></i>
             <span class="del-event">Browse posts ({{ countPost }})</span>
@@ -119,6 +124,10 @@ export default {
         send_active_overview_group: {
             type: Object,
             required: true
+        },
+        send_rename_group: {
+            type: String,
+            required: true
         }
     },
     watch: {
@@ -155,6 +164,9 @@ export default {
         getPrivacy(newData, oldData) {
             this.data.privacy = newData;
         },
+        send_rename_group(newData, oldData) {
+            this.data.group_name = newData
+        }
 
     },
     methods: {
@@ -163,6 +175,8 @@ export default {
                 path: a,
                 status: true,
             }
+            $('.group-active').removeClass('group-active')
+            $('.home-active').addClass('group-active')
             this.$emit('fullMemberActive', this.send_all_member)
             this.send_all_member.status = false
             this.$router.push({ name: a })
