@@ -3,9 +3,17 @@
         <div class="d-flex align-items-center  p-2 setting" style="font-size: 15px; flex-direction: column;">
             <main class=" mt-2 px-2 radius-7 box-shadow py-2" style="width: 35%;">
                 <h5><b>Group setup</b></h5>
-                <div class="flex-between mt-2 mb-2">
-                    <span class="f-500 text-dark">Name and description</span>
-                    <i style="cursor: pointer; font-size: 1.5rem;" class="fas fa-pen"></i>
+                <div v-if="viewRenameGroup" class="flex-between mt-2 mb-2">
+                    <span class="f-500 text-dark">Rename the group</span>
+                    <i @click="handleClickRenameGroup()" style="cursor: pointer; font-size: 1.5rem;" class="fas fa-pen"></i>
+                </div>
+                <div v-else class="my-1">
+                    <input @input="handleInputRenameGroup()" v-model="group_name" type="text" class=" form-control mb-2">
+                    <div class="text-end ">
+                        <div @click="handleClickRenameGroup()" class="btn  text-primary me-2 btn_cancel f-500 ">Cancel</div>
+                        <button class="btn btn-light f-500 saveRenameGroup" @click="updateRenameGroup()"
+                            disabled>Save</button>
+                    </div>
                 </div>
                 <hr class="m-0">
                 <div v-if="viewPrivacy" class="flex-between my-1">
@@ -50,8 +58,8 @@
                         </div>
                     </div>
                     <div class="text-end">
-                        <div @click="handleClickPrivacy()" class="btn  text-primary me-2 btn_cancel">Cancel</div>
-                        <button @click="updatePrivacy" class="btn btn-light savePrivacy" disabled>Save</button>
+                        <div @click="handleClickPrivacy()" class="btn  text-primary me-2 btn_cancel f-500">Cancel</div>
+                        <button @click="updatePrivacy" class="btn btn-light f-500 savePrivacy" disabled>Save</button>
                     </div>
                 </div>
                 <hr class="m-0">
@@ -96,8 +104,8 @@
                         </div>
                     </div>
                     <div class="text-end">
-                        <div @click="handleClickDisplay()" class="btn  text-primary me-2 btn_cancel">Cancel</div>
-                        <button @click="updateDisplay()" class="btn btn-light saveDisplay" disabled>Save</button>
+                        <div @click="handleClickDisplay()" class="btn  text-primary me-2 btn_cancel f-500">Cancel</div>
+                        <button @click="updateDisplay()" class="btn btn-light f-500 saveDisplay" disabled>Save</button>
                     </div>
                 </div>
             </main>
@@ -137,8 +145,8 @@
                         </div>
                     </div>
                     <div class="text-end">
-                        <div @click="handleClickApproval()" class="btn  text-primary me-2 btn_cancel">Cancel</div>
-                        <button @click="updateApproval()" class="btn btn-light saveApproval" disabled>Save</button>
+                        <div @click="handleClickApproval()" class="btn  text-primary me-2 btn_cancel f-500">Cancel</div>
+                        <button @click="updateApproval()" class="btn btn-light f-500 saveApproval" disabled>Save</button>
                     </div>
                 </div>
                 <hr class="m-0">
@@ -205,8 +213,9 @@
                         </div>
                     </div>
                     <div class="text-end">
-                        <div @click="handleClickPostApproval()" class="btn  text-primary me-2 btn_cancel">Cancel</div>
-                        <button @click="updatePostApproval()" class="btn btn-light savePostApproval" disabled>Save</button>
+                        <div @click="handleClickPostApproval()" class="btn  text-primary me-2 btn_cancel f-500">Cancel</div>
+                        <button @click="updatePostApproval()" class="btn btn-light f-500 savePostApproval"
+                            disabled>Save</button>
                     </div>
                 </div>
                 <hr class="m-0">
@@ -233,6 +242,7 @@
 <script>
 import axios from '../../../../core/coreRequest'
 import baseFunction from '../../../../core/coreFunction'
+import Swal from 'sweetalert2';
 export default {
     data() {
         return {
@@ -240,7 +250,9 @@ export default {
             viewDisplay: true,
             viewApproval: true,
             viewPostApproval: true,
+            viewRenameGroup: true,
             infoGroup: {},
+            group_name: '',
         }
     },
     created() {
@@ -251,6 +263,57 @@ export default {
         }, 2000);
     },
     methods: {
+        updateRenameGroup() {
+            var check = true
+            if (this.group_name == '') {
+                check = false
+            }
+            if (check) {
+                var payload = {
+                    group_name: this.group_name,
+                    id_group: this.$route.params.id_group,
+                }
+                axios
+                    .post('groups/rename-group', payload)
+                    .then((res) => {
+                        if (res.data.status == 1) {
+                            baseFunction.displaySuccess(res)
+                            this.infoGroup['group_name'] = this.group_name
+                            this.$emit('sendRenameGroup', this.group_name)
+                        }
+                    })
+            } else {
+                this.group_name = this.infoGroup.group_name
+                $('.saveRenameGroup').prop('disabled', true);
+                $('.saveRenameGroup').addClass('btn-light');
+                $('.saveRenameGroup').removeClass('btn-primary');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Group name cannot be empty',
+                    showConfirmButton: false,
+                })
+                setTimeout(() => {
+                    Swal.close();
+                }, 1500);
+            }
+        },
+        handleInputRenameGroup() {
+            if (this.group_name.trim() == this.infoGroup.group_name) {
+                $('.saveRenameGroup').prop('disabled', true);
+                $('.saveRenameGroup').addClass('btn-light');
+                $('.saveRenameGroup').removeClass('btn-primary');
+            } else {
+                $('.saveRenameGroup').prop('disabled', false);
+                $('.saveRenameGroup').removeClass('btn-light');
+                $('.saveRenameGroup').addClass('btn-primary');
+            }
+        },
+        handleClickRenameGroup() {
+            this.group_name = this.infoGroup.group_name;
+            this.viewRenameGroup = !this.viewRenameGroup
+            this.hiddenEdit(!this.viewRenameGroup);
+        },
         handleClickPrivacy() {
             this.viewPrivacy = !this.viewPrivacy;
             this.hiddenEdit(!this.viewPrivacy)
@@ -333,6 +396,7 @@ export default {
                 .post('groups/current-group', { id_group: this.$route.params.id_group })
                 .then((res) => {
                     this.infoGroup = res.data.data;
+                    this.group_name = this.infoGroup.group_name
                 })
 
         },

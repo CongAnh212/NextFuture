@@ -11,7 +11,8 @@
                     </small>
                 </div>
                 <div class="d-flex" style="">
-                    <div class="d-flex align-items-center hover-item" style="margin-right:1em ; flex:1">
+                    <div class="d-flex align-items-center hover-item" style="margin-right:1em ; flex:1;cursor: pointer;"
+                        @click="active('browse-posts', 'browse-posts')">
                         <div class="d-flex align-items-center p-1" style="flex:1; ">
                             <div class="flex-center circle"
                                 style="height: 3rem; width: 3rem; background-color: rgb(101,205,238); margin-right: 0.5em;">
@@ -19,11 +20,11 @@
                             </div>
                             <div class="d-flex" style="flex-direction: column;">
                                 <b class="text-dark">Post are pending</b>
-                                <small>0 new entries today</small>
+                                <small><b class="text-dark">{{ total_come_in_one_day_post ?? 0 }}</b> new entries today</small>
                             </div>
                         </div>
                         <div class="p-1">
-                            <b class="me-2 text-dark">10</b>
+                            <b class="me-2 text-dark">{{ total_come_in_post ?? 0 }}</b>
                             <i class="fa-solid fa-chevron-right text-dark"></i>
                         </div>
                     </div>
@@ -36,11 +37,14 @@
                             </div>
                             <div class="d-flex" style="flex-direction: column;">
                                 <b class="text-dark">Request membership</b>
-                                <small class="text-dark">0 new entries today</small>
+                                <small class="text-dark">
+                                    <b>{{ total_come_in_one_day ?? 0 }}</b> new entries
+                                    today
+                                </small>
                             </div>
                         </div>
                         <div class="p-1">
-                            <b class="me-2 text-dark">{{ count ? count : ' ' }}</b>
+                            <b class="me-2 text-dark">{{ total_come_in ?? 0 }}</b>
                             <i class="fa-solid fa-chevron-right text-dark"></i>
                         </div>
                     </div>
@@ -56,8 +60,10 @@ export default {
     data() {
         return {
             send: {},
-            data_come_in: [],
-            count: 0,
+            total_come_in: 0,
+            total_come_in_one_day: 0,
+            total_come_in_post: 0,
+            total_come_in_one_day_post: 0,
         }
     },
     mounted() {
@@ -76,10 +82,12 @@ export default {
         },
         getDataComeIn() {
             axios
-                .post('groups/data-come-in-group', { id_group: this.id_group })
+                .post('groups/overview/data-overview', { id_group: this.id_group })
                 .then((res) => {
-                    this.data_come_in = res.data.data
-                    this.count = this.data_come_in.length
+                    this.total_come_in = res.data.data_over_view
+                    this.total_come_in_one_day = res.data.data_over_view_one_day
+                    this.total_come_in_post = res.data.data_over_view_post
+                    this.total_come_in_one_day_post = res.data.data_over_view_one_day_post
                 })
         },
     },
