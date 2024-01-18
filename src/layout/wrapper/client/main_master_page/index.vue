@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper bg-white">
-        <HeaderClient :notify="notify" :myInfo='myInfo'></HeaderClient>
+        <HeaderClient :notify="notify" :myInfo='myInfo' @sendKeySearch="handleSendKeySearch"></HeaderClient>
         <div class="">
             <div class="iq-sidebar-fix sidebar-default ">
                 <div id="sidebar-scrollbar" data-scrollbar="true" tabindex="-1" style="overflow: hidden; outline: none;">
@@ -15,7 +15,9 @@
                                     :send_active_overview_group="send_active_overview_group"
                                     @fullMemberActive="handleFullMemberActive"
                                     @sendFromListHomeGroup="handleGetDataFromListHoneGroup"
-                                    :send_rename_group="send_rename_group">
+                                    :send_rename_group="send_rename_group"
+                                    @sendActiceFromSearch="handleSendActiveFromSearch"
+                                    :seeMoreSearch="seeMoreSearch">
 
                                 </router-view>
                             </ul>
@@ -33,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <div class="px-0 mx-0" style="position: absolute; right: 0; width: 79%;top: 4.25rem; background-color: #ffffff;">
+        <div class="px-0 mx-0" style="position: absolute; right: 0; width: 79%;top: 4.688rem; min-height: calc(100vh - 4.688rem);">
             <router-view :myInfo='myInfo' name="content" :sentFriend="dataRequestFriend"
                 @profile_request_friend="handleProfileRequestFriend" :sentFriendSuggest="dataSuggest"
                 @profile_suggest="handleProfileSuggest" :delFriendSuggest="delDataSuggest" @removeNotify="handleNotify"
@@ -42,7 +44,11 @@
                 @send_active="handleSendActive" :send_active_all_member="send_all_member_active" :infoGroup="infoGroup"
                 @sendRenameGroup="handleSendRenameGroup"
                 :dataComeIn="dataComeIn"
-                :listPost="listPost">
+                :listPost="listPost"
+                :keySearch="keySearch" 
+                :typeViewSearch="typeViewSearch"
+                @sendFromSearchComponent="handleSeeMoreSearch"
+                >
 
             </router-view>
         </div>
@@ -70,7 +76,10 @@ export default {
             myInfo: null,
             infoGroup: null,
             dataComeIn: null,               // list xin vào nhóm
+            typeViewSearch: null,           // loại search
             listPost: null,                 // list bài cần duyệt
+            seeMoreSearch: null,            // dùng để chuyển view bằng cách click see more
+            keySearch: null,                
             dataRequestFriend: null,        // cái này là từ list gửi cho profile đọc bên mục Suggest
             dataProfileRequestFriend: null, // cài này là từ profile gửi cho list đọc bên mục Suggest
             //--------------------------------------------------------------------------------------------//
@@ -106,6 +115,14 @@ export default {
                 .then((res) => {
                     this.myInfo = res.data.myInfo;
                 });
+        },
+        handleSendActiveFromSearch(value) {
+            this.typeViewSearch = value
+            
+        },
+        handleSeeMoreSearch(value) {
+            this.seeMoreSearch = value
+            
         },
         handleGetDataFromListHoneGroup(value) {
             this.dataComeIn = value.getDataComeIn
@@ -152,6 +169,9 @@ export default {
         },
         handleSendRenameGroup(value) {
             this.send_rename_group = value
+        },
+        handleSendKeySearch(value) {
+            this.keySearch = value            
         }
     }
 }

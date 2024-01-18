@@ -369,12 +369,16 @@ export default {
         }
     },
     watch: {
-        infoGroup(newValue, oldV) {
-            if (newValue) {
-                this.isView = true;
-                this.data = newValue.info;
-                this.member = newValue.member;
-            }
+        infoGroup: {
+            handler(newValue, oldValue) {
+                if (newValue) {
+                    this.isView = true;
+                    this.data = newValue.info;
+                    this.member = newValue.member;
+                }
+            },
+            immediate: true
+
         },
         send_active_all_member: {
             handler(value) {
@@ -417,6 +421,7 @@ export default {
         this.getListFriend();
         this.checkRole();
         this.checkRequestGroup();
+        console.log(123);
     },
     methods: {
         dateCountdown(a) {

@@ -13,14 +13,14 @@
         <div class="iq-search-bar device-search " style="position: relative;">
           <div class="searchbox">
             <a class="search-link" href="#"><i class="ri-search-line"></i></a>
-            <input @input="search" type="text" class="text search-input" placeholder="Search here...">
+            <input @input="search" @keyup.enter="viewSearch()" ref="search" type="text" class="text search-input" placeholder="Search here...">
           </div>
           <!-- *************************************search************************************* -->
           <div class=" w-100" id="modalSearch"
             style="position: absolute; margin-left: -0.95rem; padding: 0 1rem; margin-top: -1rem; display: none; ">
             <div class=" p-2"
               style="background-color: #f9f9f9; box-shadow:  5px 5px  5px #4242422e, 10px 10px  10px #bdbdbd15;">
-              <div v-for="(v, k) in listSearch" @click="handleClickSearch(v)"
+              <div v-for="(v, k) in listSearchClient" @click="handleClickSearch(v, 'client')"
                 class="bg-hover d-flex align-items-center px-2 py-1 c-pointer" style="height: fit-content;">
                 <div class="avatar-3  flex-center bg-white me-2" style="width: 2rem; height: 2rem;">
                   <i class="fas fa-search"></i>
@@ -32,6 +32,21 @@
                 <div class="flex-center bg-pink "
                   style="border-radius: 10px; width: 2.5rem; height: 2.5rem; overflow: hidden;">
                   <img :src="urlImg + v.avatar" style="object-fit: cover; width: 100%; height: 100%;">
+                </div>
+              </div>
+              <hr v-if="listSearchGroup.length > 0 && listSearchClient.length > 0">
+              <div v-for="(v, k) in listSearchGroup" @click="handleClickSearch(v, 'group')"
+                class="bg-hover d-flex align-items-center px-2 py-1 c-pointer" style="height: fit-content;">
+                <div class="avatar-3  flex-center bg-white me-2" style="width: 2rem; height: 2rem;">
+                  <i class="fas fa-search"></i>
+                </div>
+                <div class="d-flex flex-column" style="line-height: 1rem; flex: 1;">
+                  <b>{{ v.group_name }}</b>
+                  <!-- <span>{{ v.nickname }}</span> -->
+                </div>
+                <div class="flex-center bg-pink "
+                  style="border-radius: 10px; width: 2.5rem; height: 2.5rem; overflow: hidden;">
+                  <img :src="urlImg + v.cover_image" style="object-fit: cover; width: 100%; height: 100%;">
                 </div>
               </div>
             </div>
@@ -348,7 +363,8 @@ export default {
       count: 0,
       del: {},
       new_notification: 0,
-      listSearch: [],
+      listSearchClient: [],
+      listSearchGroup: [],
     }
   },
   props: {
@@ -399,16 +415,21 @@ export default {
   methods: {
     search: _.debounce(function (event) {
       // dùng để show ra list search khi có giá trị trả về
-
+      var routeName = this.$route.name
+      if (routeName == 'search') {
+         
+        return
+      }
       if (event.target.value.trim() === '' || !event.target.value) {
         $('#modalSearch').css('display', 'none');
 
       } else {
         axios
-          .post('search', { keySearch: event.target.value })
+          .post('search-nav', { keySearch: event.target.value })
           .then((res) => {
-            this.listSearch = res.data.dataSearch
-            if (this.listSearch.length > 0) {
+            this.listSearchClient = res.data.dataSearchClient
+            this.listSearchGroup = res.data.dataSearchGroup
+            if (this.listSearchClient.length > 0 || this.listSearchGroup.length > 0) {
               $('#modalSearch').css('display', 'block');
             } else {
               $('#modalSearch').css('display', 'none');
@@ -418,8 +439,20 @@ export default {
       }
 
     }, 300),
-    handleClickSearch(v) {
-      this.$router.push({ name: "detailProfile", params: { username: v.username } })
+    viewSearch() {
+      this.$router.push({ name: "search" })
+      $('#modalSearch').css('display', 'none');
+      this.$emit('sendKeySearch', this.$refs.search.value)
+    },
+    handleClickSearch(v, type) {
+      if (type == 'client') {
+        this.$router.push({ name: "detailProfile", params: { username: v.username } })
+      } else {
+        this.$router.push({ name: "home-group", params: { id_group: v.id } })
+      }
+      this.$refs.search.value = '';
+
+      $('#modalSearch').css('display', 'none');
     },
     formatTime(a) {
       return baseFunction.hoursDifference(a);
