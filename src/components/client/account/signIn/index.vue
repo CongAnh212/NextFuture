@@ -69,13 +69,13 @@ export default {
                         });
                         setTimeout(() => {
                             Swal.close();
-                        }, 1500);
+                        }, 2000);
                     }
                 })
         },
         login() {
             if (!this.sign_in.password || !this.sign_in.username) {
-                 Swal.fire({
+                Swal.fire({
                     icon: "error",
                     title: "Oops...",
                     text: "Please enter complete information",
@@ -83,7 +83,7 @@ export default {
                 });
                 setTimeout(() => {
                     Swal.close();
-                }, 1500);
+                }, 2000);
             } else {
                 this.signIn()
             }

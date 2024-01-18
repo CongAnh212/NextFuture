@@ -2,15 +2,16 @@
     <div v-if="myInfo">
         <li>
             <router-link :to="{ name: 'detailProfile', params: { username: myInfo.username ? myInfo.username : ' ' } }"
-                class="px-0 mt-3">
-                <div style="width: 2.75rem; height: 2.75rem; overflow: hidden;" class="circle flex-center me-1">
-                    <img :src="urlImg + myInfo.avatar" class="img-fluid " alt="user"
-                        style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <div>
-                    <span class="text-dark" style="font-weight: 600; font-size: 17px;">
-                        {{ myInfo.fullname }}
-                    </span>
+                class="px-0 mt-3 user-hover p-1">
+                <div class="p-1 flex-center">
+                    <div style="width: 2.75rem; height: 2.75rem; overflow: hidden;" class="circle flex-center me-3">
+                        <img :src="urlImg + myInfo.avatar" alt="user" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="flex-center">
+                        <span class="text-dark" style="font-weight: 600; font-size: 1.5em;">
+                            {{ myInfo.fullname }}
+                        </span>
+                    </div>
                 </div>
             </router-link>
         </li>
@@ -129,4 +130,6 @@ export default {
     },
 }
 </script>
-<style></style>
+<style>
+@import './style.css'
+</style>
