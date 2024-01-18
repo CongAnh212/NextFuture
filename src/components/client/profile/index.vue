@@ -1,5 +1,6 @@
 <template>
-    <div class='container' style="min-height: calc(100vh - 4.688rem);">
+    <div class='bg-white w-100 d-flex justify-content-center' style="min-height: calc(100vh - 4.688rem); ">
+        <div style="width: 50%;"  >
         <div class="row">
             <div class="col-sm-12 ">
                 <div class="flex-center my-4">
@@ -186,6 +187,7 @@
                 </TabView>
             </div>
         </div>
+            </div>
     </div>
 </template>
 <script>

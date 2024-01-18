@@ -383,15 +383,25 @@ const routes = [
         import("../components/client/group/request_group/request_group.vue"),
     },
   },
+  //***********************************************/ Search  / ***********************************************//
   {
-    path: "/test",
-    name: "test",
+    path: "/search",
+    name: "search",
     meta: { layout: "main", requiresAuth: true },
     components: {
-      default: () => import("../components/test/list.vue"),
-      content: () => import("../components/test/content.vue"),
+      default: () => import("../components/client/search/list.vue"),
+      content: () => import("../components/client/search/searchComponent.vue"),
     },
   },
+  // {
+  //   path: "/search",
+  //   name: "search.everyone",
+  //   meta: { layout: "main", requiresAuth: true },
+  //   components: {
+  //     default: () => import("../components/client/search/list.vue"),
+  //     content: () => import("../components/client/search/searchEveryoneComponent.vue"),
+  //   },
+  // },
 ];
 
 const router = createRouter({

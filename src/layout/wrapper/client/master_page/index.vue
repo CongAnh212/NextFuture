@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <HeaderClient :myInfo="myInfo"></HeaderClient>
-        <div class="bg-white" style="margin-top:4.688rem;">
+        <div class="" style="margin-top:4.688rem; min-height: calc(100vh - 4.688rem);">
             <router-view></router-view>
         </div>
     </div>
