@@ -47,10 +47,10 @@
                         </div>
 
                         <div class="form-control d-flex justify-content-between me-2" style="cursor: pointer"
-                            @click="selectRadio('3')">
+                            @click="selectRadio('-1')">
                             <label style="cursor: pointer">Other</label>
-                            <input value="3" v-model="sign_up.gender" name="gender" type="radio"
-                                :checked="selectedGender == 3" />
+                            <input value="-1" v-model="sign_up.gender" name="gender" type="radio"
+                                :checked="selectedGender == -1" />
                         </div>
                     </div>
                 </div>
@@ -80,25 +80,95 @@ export default {
         return {
             sign_up: {},
             selectedGender: null,
+            hash_active: 0,
         }
     },
     methods: {
+        activeMail() {
+            const enterConfirmationCode = async () => {
+                const result = await Swal.fire({
+                    title: "Enter your confirmation code",
+                    input: "text",
+                    inputPlaceholder: "Enter your code",
+                    inputAttributes: {
+                        maxlength: "6",
+                        autocapitalize: "off",
+                        autocorrect: "off",
+                    },
+                    showCancelButton: true,
+                    confirmButtonText: "Activate",
+                    cancelButtonText: "Cancel",
+                    preConfirm: (hash_active) => {
+                        if (!hash_active) {
+                            Swal.showValidationMessage("Please enter the confirmation code");
+                        }
+                        return hash_active;
+                    },
+                });
+
+                return result;
+            };
+
+            const activateAccount = async (hash_active) => {
+                try {
+                    const response = await axios.post('http://127.0.0.1:8000/api/active-mail', { hash_active });
+                    return response.data;
+                } catch (error) {
+                    console.error("Error activating account:", error);
+                    return { status: 0, message: "Something went wrong while activating your account" };
+                }
+            };
+
+            const processActivation = async () => {
+                let isActivationSuccessful = false;
+
+                while (!isActivationSuccessful) {
+                    const result = await enterConfirmationCode();
+
+                    if (result.isConfirmed) {
+                        const response = await activateAccount(result.value);
+
+                        if (response.status === 1) {
+                            isActivationSuccessful = true;
+                            Swal.fire({
+                                icon: "success",
+                                title: "Account activated",
+                                text: response.message,
+                            }).then(() => {
+                                this.$router.push({ name: 'sign-in' });
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Activation failed",
+                                text: `${response.message}. Please try again.`,
+                                input: "text",
+                            });
+                        }
+                    } else {
+                        break;
+                    }
+                }
+            };
+            processActivation();
+        },
+
         signUp() {
             var payload = {
-                ...this.sign_up, gender: this.selectedGender
-            }
-            axios
-                .post('http://127.0.0.1:8000/api/sign-up', payload)
+                ...this.sign_up,
+                gender: this.selectedGender,
+            };
+            axios.post('http://127.0.0.1:8000/api/sign-up', payload)
                 .then((res) => {
                     if (res.data.status) {
                         Swal.fire({
-                            title: 'Success',
-                            text: 'Sign Up Success',
-                            icon: 'success',
+                            title: 'Check mail',
+                            text: 'Check your mail and enter the verification code to activate your account',
+                            icon: 'info',
                             confirmButtonText: 'OK'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                this.$router.push({ name: 'sign-in' });
+                                this.activeMail()
                             }
                         })
                     } else {
@@ -115,15 +185,11 @@ export default {
                         toastr.error(v[0]);
                     });
                 })
-                
         },
         selectRadio(value) {
             this.selectedGender = value;
-            console.log(value);
         },
     },
 }
 </script>
-<style >
-@import './style.css';
-</style>
+<style ></style>

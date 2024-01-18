@@ -51,7 +51,7 @@
         <div @click="community('setting', $event)" class="w-100  d-flex p-2 setting-active"
             style="border-radius: 7px; cursor: pointer;">
             <i class=" del-event fas fa-cog me-2 " style="font-size: 20px; padding-top: 0.2rem;"></i>
-        <span class="del-event">Group1i management</span>
+            <span class="del-event">Group management</span>
         </div>
         <div @click="community('request_group', $event)" class="w-100  d-flex p-2 member-requests-active"
             style="border-radius: 7px; cursor: pointer;">
