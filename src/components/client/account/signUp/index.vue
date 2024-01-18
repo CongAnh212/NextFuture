@@ -40,10 +40,10 @@
                         </div>
 
                         <div class="form-control d-flex justify-content-between me-2" style="cursor: pointer"
-                            @click="selectRadio('2')">
+                            @click="selectRadio('0')">
                             <label style="cursor: pointer">Female</label>
-                            <input value="2" v-model="sign_up.gender" name="gender" type="radio"
-                                :checked="selectedGender == 2" />
+                            <input value="0" v-model="sign_up.gender" name="gender" type="radio"
+                                :checked="selectedGender == 0" />
                         </div>
 
                         <div class="form-control d-flex justify-content-between me-2" style="cursor: pointer"
@@ -55,7 +55,11 @@
                     </div>
                 </div>
                 <div class="d-inline-block w-100 mt-2">
-                    <button type="submit" class="btn btn-primary w-100" @click="signUp()">Sign Up</button>
+                    <button v-if="!loading" type="submit" class="btn btn-primary w-100" @click="signUp()">Sign Up</button>
+                    <button v-else class="btn btn-secondary w-100 " disabled>
+                        <img src="../../../../assets/client/images/page-img/loading.gif" alt="loader" style="height: 20px;">
+                        Sign Up
+                    </button>
                 </div>
                 <div class="sign-info text-center">
                     <span class="dark-color d-inline-block line-height-2">Already Have Account ?
@@ -81,6 +85,7 @@ export default {
             sign_up: {},
             selectedGender: null,
             hash_active: 0,
+            loading: 0
         }
     },
     methods: {
@@ -154,6 +159,7 @@ export default {
         },
 
         signUp() {
+            this.loading = 1
             var payload = {
                 ...this.sign_up,
                 gender: this.selectedGender,
@@ -161,6 +167,7 @@ export default {
             axios.post('http://127.0.0.1:8000/api/sign-up', payload)
                 .then((res) => {
                     if (res.data.status) {
+                        this.loading = 0
                         Swal.fire({
                             title: 'Check mail',
                             text: 'Check your mail and enter the verification code to activate your account',

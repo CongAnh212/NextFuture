@@ -395,7 +395,7 @@ export default {
         },
         data: {
             handler(newValue, oldValue) {
-                if (oldValue) {
+                if (newValue) {
                     this.id_notification = this.$route.query.id_notification;
                     if (this.id_notification) {
                         this.getInfoInvite(this.id_notification);
@@ -404,9 +404,11 @@ export default {
 
                     setTimeout(() => {
                         const currentPath = this.$route.fullPath.toString().split('/').pop()
+                        console.log('currentPath: ', currentPath);
                         if (currentPath == 'discuss' || currentPath == 'member' || currentPath == 'event' || currentPath == 'photo' || currentPath == 'introduce') {
                             this.setView(currentPath)
                         } else {
+                            console.log('oke');
                             this.setView('discuss')
                         }
                     }, 1);
@@ -520,6 +522,8 @@ export default {
             $('.check_input').prop('checked', false);
         },
         setView(a) {
+            console.log('a: ', a);
+            
             $('.ct').removeClass('border-bottomm');
             const parent = $('.' + a).parent();
             parent.addClass('border-bottomm');

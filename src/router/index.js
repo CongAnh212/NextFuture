@@ -4,7 +4,7 @@ const routes = [
   {
     path: "/admin",
     name: "admin",
-    meta: { layout: "admin" },
+    meta: { layout: "admin", requiresAuth: true },
     components: {
       content: () => import("../components/admin/index.vue"),
     },
