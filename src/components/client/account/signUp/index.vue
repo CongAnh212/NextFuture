@@ -40,10 +40,10 @@
                         </div>
 
                         <div class="form-control d-flex justify-content-between me-2" style="cursor: pointer"
-                            @click="selectRadio('2')">
+                            @click="selectRadio('0')">
                             <label style="cursor: pointer">Female</label>
-                            <input value="2" v-model="sign_up.gender" name="gender" type="radio"
-                                :checked="selectedGender == 2" />
+                            <input value="0" v-model="sign_up.gender" name="gender" type="radio"
+                                :checked="selectedGender == 0" />
                         </div>
 
                         <div class="form-control d-flex justify-content-between me-2" style="cursor: pointer"
@@ -81,13 +81,50 @@ export default {
             sign_up: {},
             selectedGender: null,
             hash_active: 0,
+            count_time: 60,
+            intervalId: null,
+            email: '',
         }
     },
+    mounted() {
+        const storedData = sessionStorage.getItem("storedData");
+        if (storedData) {
+            const parsedData = JSON.parse(storedData);
+            this.count_time = parsedData.count_time;
+            this.email = parsedData.email;
+            this.startInterval();
+        }
+    },
+    beforeDestroy() {
+        this.stopInterval();
+    },
     methods: {
+        startInterval() {
+            this.intervalId = setInterval(() => {
+                this.count_time--;
+
+                // Lưu trạng thái vào sessionStorage
+                sessionStorage.setItem("storedData", JSON.stringify({ count_time: this.count_time, email: this.sign_up.email }));
+
+                if (this.count_time === 0) {
+                    axios.post('http://127.0.0.1:8000/api/delete-active', { email: this.email })
+                        .then(() => {
+                            this.stopInterval();
+                        });
+                }
+            }, 1000);
+        },
+        stopInterval() {
+            clearInterval(this.intervalId);
+            // Xóa dữ liệu lưu trữ khi công việc hoàn thành
+            sessionStorage.removeItem("storedData");
+        },
         activeMail() {
+            this.startInterval();
             const enterConfirmationCode = async () => {
                 const result = await Swal.fire({
                     title: "Enter your confirmation code",
+                    inputLabel: 'This code will expire after 1 minute',
                     input: "text",
                     inputPlaceholder: "Enter your code",
                     inputAttributes: {
@@ -98,23 +135,25 @@ export default {
                     showCancelButton: true,
                     confirmButtonText: "Activate",
                     cancelButtonText: "Cancel",
+                    allowOutsideClick: false,
                     preConfirm: (hash_active) => {
                         if (!hash_active) {
                             Swal.showValidationMessage("Please enter the confirmation code");
+                            const mess = document.querySelector('.swal2-validation-message');
+                            if (mess) {
+                                mess.style.margin = '0 -1.28rem';
+                            }
                         }
                         return hash_active;
                     },
                 });
-
                 return result;
             };
-
             const activateAccount = async (hash_active) => {
                 try {
                     const response = await axios.post('http://127.0.0.1:8000/api/active-mail', { hash_active });
                     return response.data;
                 } catch (error) {
-                    console.error("Error activating account:", error);
                     return { status: 0, message: "Something went wrong while activating your account" };
                 }
             };
@@ -127,23 +166,29 @@ export default {
 
                     if (result.isConfirmed) {
                         const response = await activateAccount(result.value);
-
                         if (response.status === 1) {
                             isActivationSuccessful = true;
                             Swal.fire({
                                 icon: "success",
                                 title: "Account activated",
                                 text: response.message,
+                                allowOutsideClick: false,
                             }).then(() => {
                                 this.$router.push({ name: 'sign-in' });
                             });
                         } else {
-                            Swal.fire({
+                            const alertResult = await Swal.fire({
                                 icon: "error",
-                                title: "Activation failed",
-                                text: `${response.message}. Please try again.`,
-                                input: "text",
+                                text: response.message,
+                                showCancelButton: true,
+                                confirmButtonText: "Retry",
+                                cancelButtonText: "Cancel",
+                                allowOutsideClick: false,
                             });
+
+                            if (!alertResult.isConfirmed) {
+                                break;
+                            }
                         }
                     } else {
                         break;
@@ -151,6 +196,7 @@ export default {
                 }
             };
             processActivation();
+
         },
 
         signUp() {
@@ -158,6 +204,7 @@ export default {
                 ...this.sign_up,
                 gender: this.selectedGender,
             };
+            this.email = this.sign_up.email;
             axios.post('http://127.0.0.1:8000/api/sign-up', payload)
                 .then((res) => {
                     if (res.data.status) {
@@ -181,7 +228,6 @@ export default {
                 })
                 .catch((err) => {
                     $.each(err.response.data.errors, function (k, v) {
-                        console.log(v[0]);
                         toastr.error(v[0]);
                     });
                 })

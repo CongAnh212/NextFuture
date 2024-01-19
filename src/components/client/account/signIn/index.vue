@@ -22,7 +22,7 @@
                     </div>
                     <button type="button" class="btn btn-primary float-end" @click="login()">Sign in</button>
                 </div>
-                <div class="sign-info">
+                <div class="sign-info text-center">
                     <span class="dark-color d-inline-block line-height-2">Don't have an account?
                         <router-link :to="{ name: 'sign-up' }">
                             Sign up
