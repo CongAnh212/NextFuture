@@ -1,21 +1,13 @@
 <template>
     <div style="" class="d-flex flex-column overflow-y-auto">
         <div style="" class="mb-1">
-            <div
-                class="shadow-sm fs-4 fw-bold"
-                style="background-color: white; padding: 1rem 2rem 0">
+            <div class="shadow-sm fs-4 fw-bold" style="background-color: white; padding: 1rem 2rem 0">
                 Account management
             </div>
-            <div
-                class="d-flex gap-3 align-items-center"
-                style="background-color: white; padding: 1rem 2rem">
-                <div
-                    class="d-flex flex-dir-row gap-2 shadow-sm rounded-2 align-items-center"
-                    style="padding: 0.5rem 1rem">
+            <div class="d-flex gap-3 align-items-center" style="background-color: white; padding: 1rem 2rem">
+                <div class="d-flex flex-dir-row gap-2 shadow-sm rounded-2 align-items-center" style="padding: 0.5rem 1rem">
                     <div style="padding: 0 10px">
-                        <div
-                            class="d-flex align-items-center justify-content-center"
-                            style="
+                        <div class="d-flex align-items-center justify-content-center" style="
                                 background-color: rgba(212, 208, 208, 0.5);
                                 border-radius: 50%;
                                 height: 50px;
@@ -45,19 +37,13 @@
                     </div>
                 </div>
                 <div class="flex-1">
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Search"
-                        v-model="searchTerm"
+                    <input type="text" class="form-control" placeholder="Search" v-model="searchTerm"
                         @input="searchFilter" />
                 </div>
             </div>
         </div>
         <div class="d-flex flex-column" style="height: 70vh; overflow-y: auto">
-            <div
-                class="d-grid"
-                style="
+            <div class="d-grid" style="
                     grid-template-columns: 300px 150px 150px 200px 150px 180px;
                     padding: 1rem 1rem 0 1rem;
                     border-bottom: 0.2px solid rgba(212, 208, 208, 1);
@@ -69,34 +55,24 @@
                 <p>Phone number</p>
                 <p style="padding-left: 1rem">Action</p>
             </div>
-            <div
-                v-for="(account, index) in accountsFilter"
-                :key="index"
-                class="bg-white overflow-y-auto position-relative"
+            <div v-for="(account, index) in accountsFilter" :key="index" class="bg-white overflow-y-auto position-relative"
                 style="border-bottom: 0.2px solid rgba(212, 208, 208, 0.4)">
                 <button class="admin--button-overlay" @click="visitAccount(account.username)" />
-                <div
-                    class="d-grid"
-                    :style="{
-                        padding: '1rem 1rem',
-                        gridTemplateColumns: '300px 150px 150px 200px 150px 170px',
-                        backgroundColor: '#f8f9fa',
-                    }">
+                <div class="d-grid" :style="{
+                    padding: '1rem 1rem',
+                    gridTemplateColumns: '300px 150px 150px 200px 150px 170px',
+                    backgroundColor: '#f8f9fa',
+                }">
                     <div class="d-flex align-items-center gap-2">
-                        <img
-                            :src="urlImg + account.avatar"
-                            alt="avatar"
-                            :style="{
-                                width: '35px',
-                                height: '35px',
-                                objectFit: 'cover',
-                                borderRadius: '50%',
-                            }" />
+                        <img :src="urlImg + account.avatar" alt="avatar" :style="{
+                            width: '35px',
+                            height: '35px',
+                            objectFit: 'cover',
+                            borderRadius: '50%',
+                        }" />
                         <div>
                             <div class="d-flex align-items-center gap-2">
-                                <div
-                                    class="fs-5"
-                                    style="
+                                <div class="fs-5" style="
                                         color: black;
                                         max-width: 120px;
                                         text-wrap: nowrap;
@@ -107,8 +83,7 @@
                                 </div>
                                 <div class="fs-6 d-flex">
                                     {{ "(" }}
-                                    <div
-                                        style="
+                                    <div style="
                                             max-width: 70px;
                                             text-wrap: nowrap;
                                             overflow: hidden;
@@ -119,21 +94,18 @@
                                     {{ ")" }}
                                 </div>
                             </div>
-                            <div
-                                :style="getStatusType(account.status, account.is_active)"
-                                style="font-weight: 600">
+                            <div :style="getStatusType(account.status, account.is_active)" style="font-weight: 600">
                                 {{
                                     account.status === 0
-                                        ? "Banned"
-                                        : account.is_active === true
+                                    ? "Banned"
+                                    : account.is_active === true
                                         ? "Active"
                                         : "Inactive"
                                 }}
                             </div>
                         </div>
                     </div>
-                    <div
-                        style="
+                    <div style="
                             max-width: 100px;
                             text-wrap: nowrap;
                             overflow: hidden;
@@ -141,8 +113,7 @@
                         ">
                         {{ account.username }}
                     </div>
-                    <div
-                        style="
+                    <div style="
                             max-width: 140px;
                             text-wrap: nowrap;
                             overflow: hidden;
@@ -150,8 +121,7 @@
                         ">
                         {{ account.password }}
                     </div>
-                    <div
-                        style="
+                    <div style="
                             text-wrap: nowrap;
                             overflow: hidden;
                             text-overflow: ellipsis;
@@ -159,8 +129,7 @@
                         ">
                         {{ account.email }}
                     </div>
-                    <div
-                        style="
+                    <div style="
                             max-width: 120px;
                             text-wrap: nowrap;
                             overflow: hidden;
@@ -206,8 +175,8 @@ export default {
             return statusType === 0
                 ? this.colorType.Banned
                 : activeType === true
-                ? this.colorType.Active
-                : this.colorType.Inactive;
+                    ? this.colorType.Active
+                    : this.colorType.Inactive;
         },
         visitAccount(username) {
             this.$router.push({ name: "detailProfile", params: { username: username } });
@@ -328,6 +297,7 @@ export default {
     position: relative;
     padding: 0.5rem 1rem;
 }
+
 .admin--button-overlay {
     position: absolute;
     top: 0;
@@ -338,12 +308,14 @@ export default {
     background-color: rgba(212, 208, 208, 0);
     z-index: 1;
 }
+
 .admin--button-overlay:hover {
     border: none;
     width: 100%;
     border-radius: 5px;
     background-color: rgba(212, 208, 208, 0.2);
 }
+
 .admin--ban-button {
     padding: 0.3rem 1rem;
     margin-right: 1rem;
@@ -352,10 +324,12 @@ export default {
     color: var(--ban-color);
     font-weight: bold;
 }
+
 .admin--ban-button:hover {
     background-color: var(--ban-color);
     color: var(--hover-color);
 }
+
 .admin--visit-button {
     padding: 0.3rem 1rem;
     border: none;
@@ -363,6 +337,7 @@ export default {
     color: black;
     font-weight: bold;
 }
+
 .admin--visit-button:hover {
     background-color: #88e1f4;
     color: var(--hover-color);

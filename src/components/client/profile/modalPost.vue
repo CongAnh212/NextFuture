@@ -106,7 +106,7 @@
                                         </div>
                                         <div class="text-dark f-500" style="flex:1;margin-top: -7px;">
                                             <router-link class="text-dark text-hover"
-                                                :to="{ name: 'detailProfile', params: { username: v.username } }">
+                                                :to="{ name: 'detailProfile', params: { username: v.username ? v.username : ' ' } }">
                                                 <span style="font-weight: 600; font-size: 17px;">{{ v.fullname }}</span>
                                             </router-link>
                                             <br>
@@ -386,7 +386,15 @@ export default {
                     .then((res) => {
                         this.comments = [];
                         this.isReply = false;
-                        this.loadComment();
+                        var comment = res.data.comment
+                        comment['liked'] = false
+                        comment['likes'] = 0
+                        comment['limit'] = 0
+                        console.log('comment: ', comment);
+                        this.list_comment.unshift(comment);
+                        if(comment.id_replier){
+                           this.loadComment()
+                        }
                     })
             }
 

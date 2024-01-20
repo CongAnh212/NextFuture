@@ -58,7 +58,7 @@
                                         data-bs-toggle="dropdown"
                                         aria-expanded="false"
                                         style="align-self: center; cursor: pointer"></i>
-                                    <ul class="dropdown-menu">
+                                    <ul class="dropdown-menu" style="user-select: none;">
                                         <li>
                                             <a
                                                 class="dropdown-item d-flex align-items-center"
@@ -73,11 +73,11 @@
                                                 Edit privacy
                                             </a>
                                         </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
+                                        <li @click="deletePost(v, k)">
+                                            <div class="dropdown-item" >
                                                 <i class="fa-solid fa-x me-1"></i>
                                                 Delete post
-                                            </a>
+                                            </div>
                                         </li>
                                     </ul>
                                 </div>
@@ -170,6 +170,17 @@ export default {
     mounted() {
     },
     methods: {
+        deletePost(v, k) {
+            axios
+                .post('post/delete', v)
+                .then((res) => {
+                    if (res.data.status) {
+                        
+                        this.listPost.splice(k, 1)
+                    }
+                    baseFunction.displaySuccess(res)
+                })
+        },
         test() {},
         // handleUpdateTypeClick(value) {
         //     this.typeClick = 0
