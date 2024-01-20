@@ -134,11 +134,11 @@
                           </div>
                           <div class="card-post-toolbar">
                             <div class="dropdown">
-                              <span  class="dropdown-toggle" data-bs-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false" role="button">
+                              <span class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false" role="button">
                                 <span class="btn btn-primary">Privacy</span>
                               </span>
-                              <div class="dropdown-menu m-0 p-0 dropdownn" >
+                              <div class="dropdown-menu m-0 p-0 dropdownn">
                                 <a @click="setPrivacyIndex(1)" id="privacy-1" class="dropdown-item px-3 py-1" href="#">
                                   <div class="d-flex align-items-top">
                                     <i class="ri-save-line h4"></i>
@@ -215,7 +215,7 @@
                   <img class="rounded-circle " :src="urlImg + v.avatar" alt=""
                     style="object-fit: cover; width: 100%; height: 100%;">
                 </div>
-                <div class="ms-3">
+                <div class="ms-3" style="flex: 1;">
                   <h6 class="mb-0">{{ v.fullname }}</h6>
                   <p class="mb-0">{{ v.isOnline ? 'Just now' : 'Offline' }}</p>
                 </div>
@@ -277,7 +277,7 @@ export default {
     };
   },
   props: {
-    myInfo : {
+    myInfo: {
       type: Object,
       required: true
     }
@@ -330,12 +330,12 @@ export default {
         $('.file-input').removeClass('hide-important');
       }
     },
-    updateOnlineUser(onlineUsers) {
+    async updateOnlineUser(onlineUsers) {
+      console.log(123123);
       if (onlineUsers) {
         if (this.list_friend.length > 0 && onlineUsers) {
           this.list_friend.forEach(friend => {
             const onlineUser = onlineUsers[onlineUsers.length - 1].find((user) => user.id === friend.id);
-
             if (onlineUser) {
               friend.isOnline = true;
             } else {
@@ -356,6 +356,7 @@ export default {
           this.list_friend.forEach((friend) => {
             friend.isOnline = false;
           });
+          this.updateOnlineUser(this.list_online_friends)
         });
     },
     hoursDifference(a) {
@@ -435,25 +436,27 @@ export default {
             },
           })
           .then((res) => {
+            console.log('res: ', res.data.post);
             if (res.data.status) {
               this.post = {
                 images: []
               };
               this.$refs.btnCloseModal.click();
               $('.fileinput-remove-button').click();
-              this.loadPost();
-
+              var post = res.data.post
+              post['avatar'] = this.myInfo.avatar
+              post['fullname'] = this.myInfo.fullname
+              post['likes'] = 0
+              this.list_post.unshift(res.data.post);
+              console.log('this.list_post: ', this.list_post);
             } else {
               console.log(res.data.message);
             }
-
           })
           .catch((err) => {
             console.log(err);
           });
       }
-
-
     },
     loadPost() {
       axios

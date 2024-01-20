@@ -20,7 +20,7 @@
                                     name: 'detailProfile',
                                     params: { username: v.username ? v.username : ' ' },
                                 }"><b style="color: #000; font-size: 1.1rem">
-                                        {{ v.username }}</b>
+                                        {{ v.fullname }}</b>
                                 </router-link>
                                 <div v-else class="text-hover text-dark c-pointer">
                                     <b style="color: #000; font-size: 1.1rem">Anonymous member</b>

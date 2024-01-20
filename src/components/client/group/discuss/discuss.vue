@@ -264,19 +264,20 @@ export default {
                             };
                             this.$refs.btnCloseModal.click();
                             $('.fileinput-remove-button').click();
-                            // this.loadPost();
-                            console.log(res.data.message);
 
+
+                            if (this.info.post_approval == 0) {
+                                var post = res.data.post
+                                post['fullname'] = this.myInfo.fullname
+                                post['username'] = this.myInfo.username
+                                post['avatar'] = this.myInfo.avatar
+                                this.listPost.unshift(res.data.post);
+                            }
                         } else {
                             console.log(res.data.message);
                         }
                     })
-                    .catch((err) => {
-                        console.log(err);
-                    });
             }
-
-
         },
         getImage(event) {
             const files = event.target.files;

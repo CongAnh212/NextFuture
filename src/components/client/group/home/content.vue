@@ -404,11 +404,9 @@ export default {
 
                     setTimeout(() => {
                         const currentPath = this.$route.fullPath.toString().split('/').pop()
-                        console.log('currentPath: ', currentPath);
                         if (currentPath == 'discuss' || currentPath == 'member' || currentPath == 'event' || currentPath == 'photo' || currentPath == 'introduce') {
                             this.setView(currentPath)
                         } else {
-                            console.log('oke');
                             this.setView('discuss')
                         }
                     }, 1);
@@ -423,7 +421,6 @@ export default {
         this.getListFriend();
         this.checkRole();
         this.checkRequestGroup();
-        console.log(123);
     },
     methods: {
         dateCountdown(a) {
@@ -522,8 +519,6 @@ export default {
             $('.check_input').prop('checked', false);
         },
         setView(a) {
-            console.log('a: ', a);
-            
             $('.ct').removeClass('border-bottomm');
             const parent = $('.' + a).parent();
             parent.addClass('border-bottomm');

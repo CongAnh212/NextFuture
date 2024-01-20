@@ -19,7 +19,9 @@
                         style="width: 9rem;;height: fit-content;">Message</button>
                     <button v-else-if="v.relationship == 'b'" class="btn btn-primary"
                         style="width: 9rem;;height: fit-content;">Confirm</button>
-                    <button v-else class="btn btn-primary" style="width: 9rem;;height: fit-content;">Add Friend</button>
+                    <button v-else class="btn btn-primary" style="width: 9rem;;height: fit-content;"
+                    @click="addFriend(v, k)">
+                    Add Friend</button>
                 </div>
                 <button @click="handleClickSeeMore('client')" v-if="listSearchClient.length == 5"
                     class="btn btn-light w-100"><b>See more</b></button>
@@ -125,6 +127,13 @@ export default {
         },
         handleClickSeeMore(a) {
             this.$emit('sendFromSearchComponent', a)
+        },
+        addFriend(v, k) {
+            axios
+                .post('follower/add-friend', v)
+                .then((res) => {
+                    this.listSearchClient[k].relationship = 'a'
+                })
         }
     },
 }

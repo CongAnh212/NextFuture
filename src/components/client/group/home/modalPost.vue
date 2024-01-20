@@ -1,6 +1,7 @@
 <template >
     <div class="modal fade" id="modalPost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xxl  modal-dialog-centered ">
+        <div class="modal-dialog modal-dialog-centered "
+                :class="{ 'modal-xxl': arrayImages.length > 0, 'modal-base': !arrayImages.length }">
             <div class="modal-content" style="position: relative;">
                 <div style="position: absolute; top:-25px; right: -10%;" class="text-white">
                     <div type="button" data-bs-dismiss="modal" aria-label="Close"
@@ -9,7 +10,7 @@
                     </div>
                 </div>
                 <div class="d-flex bg-white" style="height: 90vh;width: 100%; ">
-                    <div style="height: 100%; overflow: hidden;aspect-ratio: 1/1; cursor: pointer; position: relative; ">
+                    <div v-if="post.images" style="height: 100%; overflow: hidden;aspect-ratio: 1/1; cursor: pointer; position: relative; ">
                         <div @click="indexImage--" v-if="indexImage != 0"
                             class="bg-hover circle flex-center text-dark bg-hover ms-2"
                             style="position: absolute; top: 50%; transform: translateY(-50%); width: 2rem; height: 2rem; background-color: #ddddddac;">
@@ -460,5 +461,8 @@ export default {
 <style>
 .modal-xxl {
     max-width: 80%;
+}
+.modal-base {
+    max-width: 40%;
 }
 </style>
