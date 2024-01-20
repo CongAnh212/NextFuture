@@ -1,0 +1,20 @@
+.resent-mail {
+  color: grey;
+  text-decoration: underline;
+  cursor: not-allowed;
+}
+.swal2-html-container {
+  margin: 0 !important;
+}
+.border-top-loading-resent {
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 2.5%;
+  margin: 0;
+  left: 0;
+  background-color: rgb(35, 108, 176);
+}
+.swal2-show {
+  overflow: hidden;
+}

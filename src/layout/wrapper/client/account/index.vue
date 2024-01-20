@@ -13,12 +13,12 @@
                     <div class="col-md-6 text-center pt-5">
                         <div class="sign-in-detail text-white">
                             <a class="sign-in-logo mb-5 d-flex justify-content-center" href="#"><img
-                                    src="../../../../assets/img/main-logo-white.png" class="img-fluid me-1"
-                                    alt="logo">
+                                    src="../../../../assets/img/main-logo-white.png" class="img-fluid me-1" alt="logo">
                                 <h2 class="text-white  align-content-center">NextFuture</h2>
                             </a>
                             <div class="sign-slider overflow-hidden ">
-                                <div id="carouselExampleRide" class="carousel slide" data-bs-ride="true">
+                                <div id="carouselExampleRide" class="carousel slide" data-bs-ride="carousel"
+                                    data-bs-interval="3000">
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
                                             <img src="../../../../assets/client/images/login/1.png" class="d-block w-100"
