@@ -84,15 +84,21 @@ export default {
             count_time: 60,
             intervalId: null,
             email: '',
+            check: false,
         }
     },
     mounted() {
         const storedData = sessionStorage.getItem("storedData");
-        if (storedData) {
+        if (storedData !== null) {
             const parsedData = JSON.parse(storedData);
             this.count_time = parsedData.count_time;
-            this.email = parsedData.email;
+            if (parsedData.count_time <= 0) {
+                this.count_time = 60;
+            }
+            this.email = this.sign_up.email;
             this.startInterval();
+        } else {
+            console.log('Fail');
         }
     },
     beforeDestroy() {
@@ -102,11 +108,8 @@ export default {
         startInterval() {
             this.intervalId = setInterval(() => {
                 this.count_time--;
-
-                // Lưu trạng thái vào sessionStorage
                 sessionStorage.setItem("storedData", JSON.stringify({ count_time: this.count_time, email: this.sign_up.email }));
-
-                if (this.count_time === 0) {
+                if (this.count_time == 0) {
                     axios.post('http://127.0.0.1:8000/api/delete-active', { email: this.email })
                         .then(() => {
                             this.stopInterval();
@@ -116,15 +119,45 @@ export default {
         },
         stopInterval() {
             clearInterval(this.intervalId);
-            // Xóa dữ liệu lưu trữ khi công việc hoàn thành
             sessionStorage.removeItem("storedData");
+            this.check = true
+            $('.resent-mail').css({
+                'cursor': 'pointer',
+                'color': 'rgb(35, 108, 176)',
+            });
+        },
+        resentHashActiveMail() {
+            if (this.check) {
+                $('.border-top-loading-resent').css({
+                    'width': 100 + '%',
+                    'transition': 'width 5s ease-out',
+                });
+                setTimeout(() => {
+                    $('.border-top-loading-resent').css({
+                        'width': 0,
+                        'transition': 'none',
+                    });
+                }, 5000)
+                this.check = true
+                $('.resent-mail').css({
+                    'cursor': 'not-allowed',
+                    'color': 'grey',
+                });
+                axios
+                    .post('http://127.0.0.1:8000/api/resent-mail', { email: this.sign_up.email })
+                    .then(() => {
+                        this.count_time = 60;
+                        this.startInterval();
+                    })
+            }
+            this.check = false
         },
         activeMail() {
             this.startInterval();
             const enterConfirmationCode = async () => {
                 const result = await Swal.fire({
                     title: "Enter your confirmation code",
-                    inputLabel: 'This code will expire after 1 minute',
+                    inputLabel: `This code will expire after 1 minute`,
                     input: "text",
                     inputPlaceholder: "Enter your code",
                     inputAttributes: {
@@ -132,10 +165,31 @@ export default {
                         autocapitalize: "off",
                         autocorrect: "off",
                     },
+                    html: `
+                        <div class='resent-mail'>Resent mail</div>
+                        <div class="border-top-loading-resent"></div>
+                    `,
                     showCancelButton: true,
                     confirmButtonText: "Activate",
                     cancelButtonText: "Cancel",
                     allowOutsideClick: false,
+                    didOpen: () => {
+                        if (this.count_time == 0) {
+                            $('.resent-mail').css({
+                                'cursor': 'pointer',
+                                'color': 'rgb(35, 108, 176)',
+                            });
+                        } else {
+                            $('.resent-mail').css({
+                                'cursor': 'not-allowed',
+                                'color': 'grey',
+                            });
+                        }
+                        const resentMailLabel = document.querySelector('.swal2-popup .resent-mail');
+                        if (resentMailLabel) {
+                            resentMailLabel.addEventListener('click', this.resentHashActiveMail);
+                        }
+                    },
                     preConfirm: (hash_active) => {
                         if (!hash_active) {
                             Swal.showValidationMessage("Please enter the confirmation code");
@@ -174,6 +228,7 @@ export default {
                                 text: response.message,
                                 allowOutsideClick: false,
                             }).then(() => {
+
                                 this.$router.push({ name: 'sign-in' });
                             });
                         } else {
@@ -196,7 +251,6 @@ export default {
                 }
             };
             processActivation();
-
         },
 
         signUp() {
@@ -238,4 +292,6 @@ export default {
     },
 }
 </script>
-<style ></style>
+<style>
+@import './style.css';
+</style>

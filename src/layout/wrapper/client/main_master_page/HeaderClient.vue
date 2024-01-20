@@ -13,7 +13,8 @@
         <div class="iq-search-bar device-search " style="position: relative;">
           <div class="searchbox">
             <a class="search-link" href="#"><i class="ri-search-line"></i></a>
-            <input @input="search" @keyup.enter="viewSearch()" ref="search" type="text" class="text search-input" placeholder="Search here...">
+            <input @input="search" @keyup.enter="viewSearch()" ref="search" type="text" class="text search-input"
+              placeholder="Search here...">
           </div>
           <!-- *************************************search************************************* -->
           <div class=" w-100" id="modalSearch"
@@ -417,7 +418,7 @@ export default {
       // dùng để show ra list search khi có giá trị trả về
       var routeName = this.$route.name
       if (routeName == 'search') {
-         
+
         return
       }
       if (event.target.value.trim() === '' || !event.target.value) {
