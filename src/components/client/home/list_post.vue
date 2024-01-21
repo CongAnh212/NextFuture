@@ -41,25 +41,28 @@
                                     <i class="fas fa-ellipsis-h ms-1" data-bs-toggle="dropdown" aria-expanded="false"
                                         style="align-self: center; cursor: pointer"></i>
                                     <ul class="dropdown-menu" style="user-select: none;">
-                                        <li>
-                                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <li data-bs-toggle="modal" data-bs-target="#editPostModal"
+                                            @click="edit.post = Object.assign({}, v), edit.index = k">
+                                            <a class="dropdown-item d-flex align-items-center">
                                                 <i class="fa-solid fa-pen me-1"></i>
                                                 Edit post
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item">
                                                 <i class="fa-solid fa-lock me-1"></i>
                                                 Edit privacy
                                             </a>
                                         </li>
-                                        <li @click="deletePost(v, k)">
+                                        <li data-bs-toggle="modal" data-bs-target="#deletePostModal"
+                                            @click="del.post = v, del.index = k">
                                             <div class="dropdown-item">
                                                 <i class="fa-solid fa-x me-1"></i>
                                                 Delete post
                                             </div>
                                         </li>
                                     </ul>
+
                                 </div>
                             </div>
                         </div>
@@ -96,6 +99,95 @@
     <div v-if="currentPost !== undefined">
         <ModalPost :post="currentPost" :index="indexOpenModal" />
     </div>
+    <div class="modal fade" id="editPostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header d-flex">
+                    <div class=" flex-1 text-center">
+                        <h1 class="modal-title " id="exampleModalLabel" style="font-size: 1.5rem;">Edit Post</h1>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" v-if="edit.post">
+                    <div class="d-flex mb-2">
+                        <div class="avatar-3 me-2">
+                            <img :src="urlImg + myInfo.avatar" alt="">
+                        </div>
+                        <div class="d-flex flex-column flex-1 text-dark">
+                            <b>{{ myInfo.fullname }}</b>
+                            <div class="dropdown">
+                                <div class="bg-light px-2 c-pointer radius-5 d-flex align-items-center"
+                                    data-bs-toggle="dropdown" aria-expanded="false"
+                                    style="width: fit-content; padding: 0.01rem 1rem; user-select: none;">
+                                    <div v-if="edit.post.privacy == 1">
+                                        <i class="fas fa-globe-asia "></i>
+                                        <span class="mx-2 f-500">Public</span>
+                                    </div>
+                                    <div v-else-if="edit.post.privacy == 2">
+                                        <i class="fas fa-user-friends "></i>
+                                        <span class="mx-2 f-500">Friends</span>
+                                    </div>
+                                    <div v-else-if="edit.post.privacy == 4">
+                                        <i class="fas fa-lock "></i>
+                                        <span class="mx-2 f-500">private</span>
+                                    </div>
+                                    <i class="fas fa-caret-down"></i>
+                                </div>
+                                <ul class="dropdown-menu text-dark c-pointer">
+                                    <li @click="editPrivacy(1)">
+                                        <span class="dropdown-item">
+                                            <i class="fas fa-globe-asia me-2 " style="width: 1.1rem;" />
+                                            <b>Public</b>
+                                        </span>
+                                    </li>
+                                    <li @click="editPrivacy(2)">
+                                        <span class="dropdown-item">
+                                            <i class="fas fa-user-friends me-2 " style="width: 1.1rem;" />
+                                            <b>Friends</b>
+                                        </span>
+                                    </li>
+                                    <li @click="editPrivacy(4)">
+                                        <span class="dropdown-item">
+                                            <i class="fas fa-lock me-2 " style="width: 1.1rem;" />
+                                            <b>private</b>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <textarea @input="disableBtnUpdate" v-model="edit.post.caption" class="form-control"
+                        :style="{ maxHeight: '400px', overflowY: 'auto' }" rows="10" required="required">
+                    </textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-update-post" data-bs-dismiss="modal"
+                        disabled @click="updatePost">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deletePostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header d-flex">
+                    <div class=" flex-1 text-center">
+                        <h1 class="modal-title " id="exampleModalLabel" style="font-size: 1.5rem;">Delete Post</h1>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body f-500 text-dark" style="font-size: 1.3rem;">
+                    Are you sure you want to delete this post?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" style="background-color: #ff3040;"
+                        @click="deletePost(del.post, del.index)" data-bs-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 <script>
 import ModalPost from "../profile/modalPost.vue";
@@ -111,6 +203,8 @@ export default {
             urlImg: url,
             indexOpenModal: 0,
             typeClick: 0,
+            del: {},
+            edit: {}
         };
     },
     props: {
@@ -125,6 +219,16 @@ export default {
     mounted() {
     },
     methods: {
+        updatePost() {
+            axios
+                .post('post/update', this.edit.post)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.listPost[this.edit.index].privacy = res.data.post.privacy
+                        this.listPost[this.edit.index].caption = res.data.post.caption
+                    }
+                })
+        },
         deletePost(v, k) {
             axios
                 .post('post/delete', v)
@@ -166,6 +270,18 @@ export default {
             $(".icon-liked").removeClass("large");
             axios.post("post/un-like", v);
         },
+        editPrivacy(a) {
+            this.edit.post.privacy = a
+            this.disableBtnUpdate()
+        },
+        disableBtnUpdate() {
+            if (this.edit.post.privacy != this.listPost[this.edit.index].privacy ||
+                this.listPost[this.edit.index].caption.trim() != this.edit.post.caption.trim()) {
+                $('.btn-update-post').prop('disabled', false)
+            } else {
+                $('.btn-update-post').prop('disabled', true)
+            }
+        }
     },
 };
 </script>
