@@ -4,45 +4,28 @@
             <div class="d-flex" style="position: relative">
                 <div class="d-flex flex-column align-items-center">
                     <div class="circle-50" style="overflow: hidden">
-                        <img
-                            :src="urlImg + v.avatar"
-                            style="object-fit: cover; width: 100%; height: 100%"
-                            alt="" />
+                        <img :src="urlImg + v.avatar" style="object-fit: cover; width: 100%; height: 100%" alt="" />
                     </div>
-                    <div
-                        class="flex-1 radius-10 my-1"
-                        style="border-left: 3px solid #3f3f3f4e; width: 0" />
-                    <div
-                        class="circle flex-center"
-                        style="width: 1.75rem; height: 1.75rem; overflow: hidden">
-                        <img
-                            :src="urlImg + myInfo.avatar"
-                            style="object-fit: cover; height: 100%; width: 100%"
-                            alt="" />
+                    <div class="flex-1 radius-10 my-1" style="border-left: 3px solid #3f3f3f4e; width: 0" />
+                    <div class="circle flex-center" style="width: 1.75rem; height: 1.75rem; overflow: hidden">
+                        <img :src="urlImg + myInfo.avatar" style="object-fit: cover; height: 100%; width: 100%" alt="" />
                     </div>
                 </div>
                 <div class="flex-1 ps-3" style="position: relative">
                     <div class="flex-between">
                         <div class="d-flex flex-column">
                             <div class="flex-center">
-                                <router-link
-                                    class="text-hover text-dark"
-                                    :to="{
-                                        name: 'detailProfile',
-                                        params: { username: v.username ? v.username : ' ' },
-                                    }"
-                                    ><b style="color: #000; font-size: 1.1rem">{{ v.fullname }}</b>
+                                <router-link class="text-hover text-dark" :to="{
+                                    name: 'detailProfile',
+                                    params: { username: v.username ? v.username : ' ' },
+                                }"><b style="color: #000; font-size: 1.1rem">{{ v.fullname }}</b>
                                 </router-link>
                                 <small class="flex-center">
                                     <i class="fa-solid fa-circle mx-1" style="font-size: 0.3em"></i>
                                     <div>
                                         <i v-if="v.privacy == 1" class="fas fa-globe-asia"></i>
-                                        <i
-                                            v-else-if="v.privacy == 2"
-                                            class="fa-solid fa-user-group"></i>
-                                        <i
-                                            v-else-if="v.privacy == 3"
-                                            class="fa-solid fa-user-xmark"></i>
+                                        <i v-else-if="v.privacy == 2" class="fa-solid fa-user-group"></i>
+                                        <i v-else-if="v.privacy == 3" class="fa-solid fa-user-xmark"></i>
                                         <i v-else class="fas fa-lock"></i>
                                     </div>
                                 </small>
@@ -53,66 +36,48 @@
                             <div class="flex-center" style="height: 3rem">
                                 <small>{{ formatTime(v.created_at) }}</small>
                                 <div v-if="v.id_client == myInfo.id" class="dropdown">
-                                    <i
-                                        class="fas fa-ellipsis-h ms-1"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
+                                    <i class="fas fa-ellipsis-h ms-1" data-bs-toggle="dropdown" aria-expanded="false"
                                         style="align-self: center; cursor: pointer"></i>
                                     <ul class="dropdown-menu" style="user-select: none;">
-                                        <li>
-                                            <a
-                                                class="dropdown-item d-flex align-items-center"
-                                                href="#">
+                                        <li data-bs-toggle="modal" data-bs-target="#editPostModal"
+                                            @click="edit.post = Object.assign({}, v), edit.index = k">
+                                            <a class="dropdown-item d-flex align-items-center">
                                                 <i class="fa-solid fa-pen me-1"></i>
                                                 Edit post
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item">
                                                 <i class="fa-solid fa-lock me-1"></i>
                                                 Edit privacy
                                             </a>
                                         </li>
-                                        <li @click="deletePost(v, k)">
-                                            <div class="dropdown-item" >
+                                        <li data-bs-toggle="modal" data-bs-target="#deletePostModal"
+                                            @click="del.post = v, del.index = k">
+                                            <div class="dropdown-item">
                                                 <i class="fa-solid fa-x me-1"></i>
                                                 Delete post
                                             </div>
                                         </li>
                                     </ul>
+
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <view-image
-                        v-if="v.images"
-                        :images="v.images"
-                        :k="k"
-                        class="mt-1"
-                        style="
+                    <view-image v-if="v.images" :images="v.images" :k="k" class="mt-1" style="
                             position: relative;
                             left: calc(-100px + 1.25rem);
                             width: calc(100% + 80px);
-                        "
-                        @openModal="getIndexOpenModal" />
+                        " @openModal="getIndexOpenModal" />
 
                     <div class="d-flex" style="gap: 1px; font-size: 1.5rem">
-                        <i
-                            v-if="!v.liked"
-                            @click="likePost(v, k)"
-                            class="far fa-heart c-pointer bg-hover p-2 circle icon-like"
-                            style="margin-left: -10px"></i>
-                        <i
-                            v-else
-                            @click="unLikePost(v, k)"
-                            class="fas fa-heart c-pointer bg-hover p-2 circle icon-liked"
-                            :id="'icon-liked-' + k"
-                            style="color: #ff3040; margin-left: -10px"></i>
-                        <i
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalPost"
-                            @click="currentPost = v"
+                        <i v-if="!v.liked" @click="likePost(v, k)"
+                            class="far fa-heart c-pointer bg-hover p-2 circle icon-like" style="margin-left: -10px"></i>
+                        <i v-else @click="unLikePost(v, k)" class="fas fa-heart c-pointer bg-hover p-2 circle icon-liked"
+                            :id="'icon-liked-' + k" style="color: #ff3040; margin-left: -10px"></i>
+                        <i data-bs-toggle="modal" data-bs-target="#modalPost" @click="currentPost = v"
                             class="far fa-comment c-pointer bg-hover p-2 circle"></i>
                         <i class="far fa-paper-plane c-pointer bg-hover p-2 circle"></i>
                     </div>
@@ -120,18 +85,9 @@
                     <div class="d-dlex f-500">
                         <span v-if="v.likes > 0" class="likes">{{ v.likes }} likes</span>
                         <span v-if="v.likes > 0 && v.comments > 0">- </span>
-                        <span
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalPost"
-                            @click="currentPost = v"
-                            v-if="v.comments > 0"
-                            class="comments"
-                            >{{ v.comments }} comments</span
-                        >
-                        <span
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalPost"
-                            class="btnOpenModalComment"></span>
+                        <span data-bs-toggle="modal" data-bs-target="#modalPost" @click="currentPost = v"
+                            v-if="v.comments > 0" class="comments">{{ v.comments }} comments</span>
+                        <span data-bs-toggle="modal" data-bs-target="#modalPost" class="btnOpenModalComment"></span>
                     </div>
                 </div>
             </div>
@@ -140,6 +96,95 @@
     </template>
     <div v-if="currentPost !== undefined">
         <ModalPost :post="currentPost" :index="indexOpenModal" />
+    </div>
+    <div class="modal fade" id="editPostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header d-flex">
+                    <div class=" flex-1 text-center">
+                        <h1 class="modal-title " id="exampleModalLabel" style="font-size: 1.5rem;">Edit Post</h1>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" v-if="edit.post">
+                    <div class="d-flex mb-2">
+                        <div class="avatar-3 me-2">
+                            <img :src="urlImg + myInfo.avatar" alt="">
+                        </div>
+                        <div class="d-flex flex-column flex-1 text-dark">
+                            <b>{{ myInfo.fullname }}</b>
+                            <div class="dropdown">
+                                <div class="bg-light px-2 c-pointer radius-5 d-flex align-items-center"
+                                    data-bs-toggle="dropdown" aria-expanded="false"
+                                    style="width: fit-content; padding: 0.01rem 1rem; user-select: none;">
+                                    <div v-if="edit.post.privacy == 1">
+                                        <i class="fas fa-globe-asia "></i>
+                                        <span class="mx-2 f-500">Public</span>
+                                    </div>
+                                    <div v-else-if="edit.post.privacy == 2">
+                                        <i class="fas fa-user-friends "></i>
+                                        <span class="mx-2 f-500">Friends</span>
+                                    </div>
+                                    <div v-else-if="edit.post.privacy == 4">
+                                        <i class="fas fa-lock "></i>
+                                        <span class="mx-2 f-500">private</span>
+                                    </div>
+                                    <i class="fas fa-caret-down"></i>
+                                </div>
+                                <ul class="dropdown-menu text-dark c-pointer">
+                                    <li @click="editPrivacy(1)">
+                                        <span class="dropdown-item">
+                                            <i class="fas fa-globe-asia me-2 " style="width: 1.1rem;" />
+                                            <b>Public</b>
+                                        </span>
+                                    </li>
+                                    <li @click="editPrivacy(2)">
+                                        <span class="dropdown-item">
+                                            <i class="fas fa-user-friends me-2 " style="width: 1.1rem;" />
+                                            <b>Friends</b>
+                                        </span>
+                                    </li>
+                                    <li @click="editPrivacy(4)">
+                                        <span class="dropdown-item">
+                                            <i class="fas fa-lock me-2 " style="width: 1.1rem;" />
+                                            <b>private</b>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <textarea @input="disableBtnUpdate" v-model="edit.post.caption" class="form-control"
+                        :style="{ maxHeight: '400px', overflowY: 'auto' }" rows="10" required="required">
+                    </textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-update-post" data-bs-dismiss="modal"
+                        disabled @click="updatePost">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deletePostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header d-flex">
+                    <div class=" flex-1 text-center">
+                        <h1 class="modal-title " id="exampleModalLabel" style="font-size: 1.5rem;">Delete Post</h1>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body f-500 text-dark" style="font-size: 1.3rem;">
+                    Are you sure you want to delete this post?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" style="background-color: #ff3040;"
+                        @click="deletePost(del.post, del.index)" data-bs-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -156,6 +201,8 @@ export default {
             urlImg: url,
             indexOpenModal: 0,
             typeClick: 0,
+            del: {},
+            edit: {}
         };
     },
     props: {
@@ -170,18 +217,28 @@ export default {
     mounted() {
     },
     methods: {
+        updatePost() {
+            axios
+                .post('post/update', this.edit.post)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.listPost[this.edit.index].privacy = res.data.post.privacy
+                        this.listPost[this.edit.index].caption = res.data.post.caption
+                    }
+                })
+        },
         deletePost(v, k) {
             axios
                 .post('post/delete', v)
                 .then((res) => {
                     if (res.data.status) {
-                        
+
                         this.listPost.splice(k, 1)
                     }
                     baseFunction.displaySuccess(res)
                 })
         },
-        test() {},
+        test() { },
         // handleUpdateTypeClick(value) {
         //     this.typeClick = 0
         // },
@@ -211,6 +268,18 @@ export default {
             $(".icon-liked").removeClass("large");
             axios.post("post/un-like", v);
         },
+        editPrivacy(a) {
+            this.edit.post.privacy = a
+            this.disableBtnUpdate()
+        },
+        disableBtnUpdate() {
+            if (this.edit.post.privacy != this.listPost[this.edit.index].privacy ||
+                this.listPost[this.edit.index].caption.trim() != this.edit.post.caption.trim()) {
+                $('.btn-update-post').prop('disabled', false)
+            } else {
+                $('.btn-update-post').prop('disabled', true)
+            }
+        }
     },
 };
 </script>
