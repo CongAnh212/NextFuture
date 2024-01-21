@@ -30,7 +30,9 @@
                                     </div>
                                 </small>
                             </div>
-                            <span v-if="v.caption" class="f-500 text-dark">{{ v.caption }}</span>
+                            <span v-if="v.caption" class="f-500 text-dark" style=" white-space: pre-line;">
+                                {{ v.caption }}
+                            </span>
                         </div>
                         <div class="d-flex flex-column">
                             <div class="flex-center" style="height: 3rem">

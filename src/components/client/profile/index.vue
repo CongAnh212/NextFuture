@@ -1,193 +1,197 @@
 <template>
     <div class='bg-white w-100 d-flex justify-content-center' style="min-height: calc(100vh - 4.688rem); ">
-        <div style="width: 50%;"  >
-        <div class="row">
-            <div class="col-sm-12 ">
-                <div class="flex-center my-4">
-                    <div class=" p-5">
-                        <div v-if="!info.avatar" style='width: 9.5rem; height: 9.5rem; overflow: hidden;'
-                            class="circle flex-center ">
-                            <img src="https://i.pinimg.com/236x/93/a0/0a/93a00a3684652031a0c398c5d54d3d10.jpg"
-                                alt="profile-img" class="img-fluid" style=" object-fit:cover;width: 100%;">
-                        </div>
-                        <div v-else style='width: 9.5rem; height: 9.5rem; overflow: hidden;' class="circle flex-center ">
-                            <img :src="urlImg + info.avatar" alt="profile-img" class=" img-fluid"
-                                style=" object-fit:cover;width: 100%; height: 100%;">
-                        </div>
-                    </div>
-                    <div>
-                        <div class="d-flex align-items-center">
-                            <div class="pe-3">
-                                <h3 class="text-dark">{{ info.nickname }}</h3>
+        <div style="width: 50%;">
+            <div class="row">
+                <div class="col-sm-12 ">
+                    <div class="flex-center my-4">
+                        <div class=" p-5">
+                            <div v-if="!info.avatar" style='width: 9.5rem; height: 9.5rem; overflow: hidden;'
+                                class="circle flex-center ">
+                                <img src="https://i.pinimg.com/236x/93/a0/0a/93a00a3684652031a0c398c5d54d3d10.jpg"
+                                    alt="profile-img" class="img-fluid" style=" object-fit:cover;width: 100%;">
                             </div>
-                            <div class="social-info">
-                                <ul
-                                    class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
-                                    <li v-if="status == 'friend'" class='d-flex'>
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown"
-                                                aria-expanded="false" style='width:130px'>
-                                                <i class="fa-solid fa-user-check me-1"></i>
-                                                Friend
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <button class="dropdown-item" @click="unFriend()">Unfriend</button>
-                                                </li>
-                                                <li>
-                                                    <button class="dropdown-item">Unfollow</button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <button class='btn btn-primary ms-2' style='width:130px'>
-                                            <i class="fa-brands fa-facebook-messenger me-1"></i>
-                                            Messenger
-                                        </button>
-                                    </li>
-                                    <li v-if="status == 'follower'" class='d-flex'>
-                                        <div class="dropdown">
-                                            <button class="btn btn-primary" type="button" data-bs-toggle="dropdown"
-                                                aria-expanded="false" style='width:130px'>
-                                                <i class="fa-solid fa-user-check me-1"></i>
-                                                Confirm
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <button class="dropdown-item" @click='confirm()'>
-                                                        Confirm request
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button class="dropdown-item" @click='delRequest()'>
-                                                        Delete request
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <button class='btn btn-secondary ms-2' style='width:130px'>
-                                            <i class="fa-brands fa-facebook-messenger me-1"></i>
-                                            Messenger
-                                        </button>
-                                    </li>
-                                    <li v-if="status == 'request_friend'" class='d-flex'>
-                                        <button class='btn btn-primary ms-2' style='width:130px' @click='unRequest()'>
-                                            <i class="fa-solid fa-user-xmark me-1"></i>
-                                            Cancel
-                                        </button>
-                                        <button class='btn btn-secondary ms-2' style='width:130px'>
-                                            <i class="fa-brands fa-facebook-messenger me-1"></i>
-                                            Messenger
-                                        </button>
-                                    </li>
-                                    <li v-if="status == 'stranger'" class='d-flex'>
-                                        <button class='btn btn-primary ms-2' style='width:130px' @click="addFriend()">
-                                            <i class="fa-solid fa-user-plus me-1"></i>
-                                            Add friend
-                                        </button>
-                                        <button class='btn btn-secondary ms-2' style='width:130px'>
-                                            <i class="fa-brands fa-facebook-messenger me-1"></i>
-                                            Messenger
-                                        </button>
-                                    </li>
-                                    <li v-if="status == 'self'" class='flex-center'>
-                                        <router-link :to="{ name: 'editProfile' }"
-                                            class="btn btn-light ms-2 f-500 text-dark btn-sm" style='width:130px'>
-                                            <span class="flex-center h-100">Edit profile</span>
-                                        </router-link>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="profile-info pb-2 pt-2  position-relative">
-                            <div class="social-links  w-100">
-                                <ul class="social-data-block d-flex  list-inline p-0 m-0 ">
-                                    <li class="text-center ">
-                                        <h5> <b>{{ lengthPost }}</b> posts</h5>
-                                    </li>
-                                    <li class="text-center ps-3">
-                                        <h5 style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalFollower">
-                                            <b>
-                                                {{ followers.length }}
-                                            </b> followers
-                                        </h5>
-                                        <ModalFollower :listFollower="followers" v-if="checkListFollwer"></ModalFollower>
-                                    </li>
-                                    <li class="text-center ps-3">
-                                        <h5 style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalFriend">
-                                            <b>
-                                                {{ friends.length }}
-                                            </b> friends
-                                        </h5>
-                                        <ModalFriend :listFriend="friends" v-if="checkListFriend" />
-                                    </li>
-                                </ul>
+                            <div v-else style='width: 9.5rem; height: 9.5rem; overflow: hidden;'
+                                class="circle flex-center ">
+                                <img :src="urlImg + info.avatar" alt="profile-img" class=" img-fluid"
+                                    style=" object-fit:cover;width: 100%; height: 100%;">
                             </div>
                         </div>
                         <div>
-                            <h5 class="f-500 text-dark pb-2">{{ info.fullname }}</h5>
-                        </div>
-                        <div v-if="info.bio" class='text-dark f-500' style=" white-space: pre-line;">
-                            {{ info.bio }}
-                        </div>
-                        <div v-else></div>
-                        <div style="gap: 0.5em; width: 20rem;">
+                            <div class="d-flex align-items-center">
+                                <div class="pe-3">
+                                    <h3 class="text-dark">{{ info.nickname }}</h3>
+                                </div>
+                                <div class="social-info">
+                                    <ul
+                                        class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
+                                        <li v-if="status == 'friend'" class='d-flex'>
+                                            <div class="dropdown">
+                                                <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown"
+                                                    aria-expanded="false" style='width:130px'>
+                                                    <i class="fa-solid fa-user-check me-1"></i>
+                                                    Friend
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <button class="dropdown-item" @click="unFriend()">Unfriend</button>
+                                                    </li>
+                                                    <li>
+                                                        <button class="dropdown-item">Unfollow</button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <button class='btn btn-primary ms-2' style='width:130px'>
+                                                <i class="fa-brands fa-facebook-messenger me-1"></i>
+                                                Messenger
+                                            </button>
+                                        </li>
+                                        <li v-if="status == 'follower'" class='d-flex'>
+                                            <div class="dropdown">
+                                                <button class="btn btn-primary" type="button" data-bs-toggle="dropdown"
+                                                    aria-expanded="false" style='width:130px'>
+                                                    <i class="fa-solid fa-user-check me-1"></i>
+                                                    Confirm
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <button class="dropdown-item" @click='confirm()'>
+                                                            Confirm request
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button class="dropdown-item" @click='delRequest()'>
+                                                            Delete request
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <button class='btn btn-secondary ms-2' style='width:130px'>
+                                                <i class="fa-brands fa-facebook-messenger me-1"></i>
+                                                Messenger
+                                            </button>
+                                        </li>
+                                        <li v-if="status == 'request_friend'" class='d-flex'>
+                                            <button class='btn btn-primary ms-2' style='width:130px' @click='unRequest()'>
+                                                <i class="fa-solid fa-user-xmark me-1"></i>
+                                                Cancel
+                                            </button>
+                                            <button class='btn btn-secondary ms-2' style='width:130px'>
+                                                <i class="fa-brands fa-facebook-messenger me-1"></i>
+                                                Messenger
+                                            </button>
+                                        </li>
+                                        <li v-if="status == 'stranger'" class='d-flex'>
+                                            <button class='btn btn-primary ms-2' style='width:130px' @click="addFriend()">
+                                                <i class="fa-solid fa-user-plus me-1"></i>
+                                                Add friend
+                                            </button>
+                                            <button class='btn btn-secondary ms-2' style='width:130px'>
+                                                <i class="fa-brands fa-facebook-messenger me-1"></i>
+                                                Messenger
+                                            </button>
+                                        </li>
+                                        <li v-if="status == 'self'" class='flex-center'>
+                                            <router-link :to="{ name: 'editProfile' }"
+                                                class="btn btn-light ms-2 f-500 text-dark btn-sm" style='width:130px'>
+                                                <span class="flex-center h-100">Edit profile</span>
+                                            </router-link>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="profile-info pb-2 pt-2  position-relative">
+                                <div class="social-links  w-100">
+                                    <ul class="social-data-block d-flex  list-inline p-0 m-0 ">
+                                        <li class="text-center ">
+                                            <h5> <b>{{ lengthPost }}</b> posts</h5>
+                                        </li>
+                                        <li class="text-center ps-3">
+                                            <h5 style="cursor: pointer;" data-bs-toggle="modal"
+                                                data-bs-target="#modalFollower">
+                                                <b>
+                                                    {{ followers.length }}
+                                                </b> followers
+                                            </h5>
+                                            <ModalFollower :listFollower="followers" v-if="checkListFollwer">
+                                            </ModalFollower>
+                                        </li>
+                                        <li class="text-center ps-3">
+                                            <h5 style="cursor: pointer;" data-bs-toggle="modal"
+                                                data-bs-target="#modalFriend">
+                                                <b>
+                                                    {{ friends.length }}
+                                                </b> friends
+                                            </h5>
+                                            <ModalFriend :listFriend="friends" v-if="checkListFriend" />
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                             <div>
-                                <a :href="v.link" v-for="(v, k) in link_address" class="px-2 py-1 me-1"
-                                    style="border-radius: 20px;background-color: rgba(57, 53, 53, 0.084);
+                                <h5 class="f-500 text-dark pb-2">{{ info.fullname }}</h5>
+                            </div>
+                            <div v-if="info.bio" class='text-dark f-500' style="white-space: pre-line;">
+                                {{ info.bio }}
+                            </div>
+                            <div v-else></div>
+                            <div style="gap: 0.5em; width: 20rem;">
+                                <div>
+                                    <a :href="v.link" v-for="(v, k) in link_address" class="px-2 py-1 me-1"
+                                        style="border-radius: 20px;background-color: rgba(57, 53, 53, 0.084);
                                      display: inline-block;word-break: break-all; margin-top: 0.25rem; align-self: center;" target="_blank">
-                                    <i :class="v.icon" class="me-1 text-dark f-500 "></i>
-                                    <span class="text-dark f-500">
-                                        {{ v.name }}
-                                    </span>
-                                </a>
+                                        <i :class="v.icon" class="me-1 text-dark f-500 "></i>
+                                        <span class="text-dark f-500">
+                                            {{ v.name }}
+                                        </span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <TabView class="tabview-custom">
+                        <TabPanel>
+                            <template #header>
+                                <div class="post" @click="handleName('post')">
+                                    <div class="flex align-items-center gap-2 pe-3 pt-3 ps-3">
+                                        <i class="fa-solid fa-table-cells text-dark me-1"></i>
+                                        <span class="text-dark">POSTS</span>
+                                    </div>
+                                </div>
+                            </template>
+                            <div class="m-0 okene">
+                                <RouterView :info="info" name="post" @updateLengthPost="handleLengthPost"></RouterView>
+                            </div>
+                        </TabPanel>
+                        <TabPanel>
+                            <template #header>
+                                <div class="photo" @click="handleName('photo')">
+                                    <div class="flex align-items-center gap-2 pe-3 pt-3 ps-3 ">
+                                        <i class="fa-solid fa-image text-dark me-1"></i>
+                                        <span class="text-dark">PHOTOS</span>
+                                    </div>
+                                </div>
+                            </template>
+                            <div class="m-0 okene">
+                                <RouterView name="photo"></RouterView>
+                            </div>
+                        </TabPanel>
+                        <TabPanel>
+                            <template #header>
+                                <div class="aboutMe" @click="handleName('about_me')">
+                                    <div class="flex align-items-center gap-2 pe-3 pt-3 ps-3">
+                                        <i class="fa-regular fa-address-card text-dark me-1"></i>
+                                        <span class="text-dark">ABOUT</span>
+                                    </div>
+                                </div>
+                            </template>
+                            <div class="m-0 okene">
+                                <RouterView name="about_me"></RouterView>
+                            </div>
+                        </TabPanel>
+                    </TabView>
                 </div>
-                <TabView class="tabview-custom">
-                    <TabPanel>
-                        <template #header>
-                            <div class="post" @click="handleName('post')">
-                                <div class="flex align-items-center gap-2 pe-3 pt-3 ps-3">
-                                    <i class="fa-solid fa-table-cells text-dark me-1"></i>
-                                    <span class="text-dark">POSTS</span>
-                                </div>
-                            </div>
-                        </template>
-                        <div class="m-0 okene">
-                            <RouterView :info="info" name="post" @updateLengthPost="handleLengthPost"></RouterView>
-                        </div>
-                    </TabPanel>
-                    <TabPanel>
-                        <template #header>
-                            <div class="photo" @click="handleName('photo')">
-                                <div class="flex align-items-center gap-2 pe-3 pt-3 ps-3 ">
-                                    <i class="fa-solid fa-image text-dark me-1"></i>
-                                    <span class="text-dark">PHOTOS</span>
-                                </div>
-                            </div>
-                        </template>
-                        <div class="m-0 okene">
-                            <RouterView name="photo"></RouterView>
-                        </div>
-                    </TabPanel>
-                    <TabPanel>
-                        <template #header>
-                            <div class="aboutMe" @click="handleName('about_me')">
-                                <div class="flex align-items-center gap-2 pe-3 pt-3 ps-3">
-                                    <i class="fa-regular fa-address-card text-dark me-1"></i>
-                                    <span class="text-dark">ABOUT</span>
-                                </div>
-                            </div>
-                        </template>
-                        <div class="m-0 okene">
-                            <RouterView name="about_me"></RouterView>
-                        </div>
-                    </TabPanel>
-                </TabView>
             </div>
         </div>
-            </div>
     </div>
 </template>
 <script>
@@ -238,7 +242,6 @@ export default {
             required: true,
         }
     },
-
     mounted() {
         this.username = this.$route.params.username;
         this.getInfo();
@@ -250,7 +253,6 @@ export default {
         this.handleLoadPage(); // hàm này để xử lý load lại trang nhận đúng component
     },
     watch: {
-
         sentFriend(newData, oldData) {
             if (newData.status == true) {
                 this.status = 'request_friend';
@@ -492,5 +494,4 @@ export default {
 .p-highlight {
     margin-top: -0.1em;
     border-top: 0.115em solid black;
-}
-</style>
+}</style>

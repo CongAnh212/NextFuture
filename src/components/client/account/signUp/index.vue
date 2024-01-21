@@ -89,6 +89,7 @@ export default {
             intervalId: null,
             email: '',
             check: false,
+            loading: 0,
         }
     },
     mounted() {
@@ -287,6 +288,7 @@ export default {
                     }
                 })
                 .catch((err) => {
+                    this.loading = 0
                     $.each(err.response.data.errors, function (k, v) {
                         toastr.error(v[0]);
                     });
