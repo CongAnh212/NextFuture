@@ -17,7 +17,7 @@
                         <div class="ms-1 text-center" style="line-height: 1.25rem;flex:1;flex-wrap: wrap; width: 9rem;">
                             <b class="text-dark">{{ data_my_info.nickname }}</b>
                             <br>
-                            <smal class="text-dark f-500">{{ data_my_info.fullname }}</smal>
+                            <small class="text-dark f-500">{{ data_my_info.fullname }}</small>
                         </div>
                     </div>
                 </div>
@@ -32,33 +32,36 @@
                     <div class="d-flex mt-2">
                         <div class="me-2 " style="flex:1">
                             <label class="form-label m-0 text-dark">Full name</label>
-                            <input v-model="data_my_info.fullname" type="text" class="form-control" placeholder="Full name">
+                            <input @change="handleButton()" v-model="data_my_info.fullname" type="text" class="form-control"
+                                placeholder="Full name">
                         </div>
                         <div style="flex:1">
                             <label class="form-label m-0 text-dark">Nick name</label>
-                            <input v-model="data_my_info.nickname" type="text" class="form-control" placeholder="Nick name">
+                            <input @change="handleButton()" v-model="data_my_info.nickname" type="text" class="form-control"
+                                placeholder="Nick name">
                         </div>
                     </div>
                     <div class="d-flex mt-2">
                         <div class="me-2" style="flex:1">
                             <label class="form-label m-0 text-dark">Address</label>
-                            <input v-model="data_my_info.address" type="text" class="form-control" placeholder="Address">
+                            <input @change="handleButton()" v-model="data_my_info.address" type="text" class="form-control"
+                                placeholder="Address">
                         </div>
                         <div style="flex:1">
                             <label class="form-label m-0 text-dark">Phone number</label>
-                            <input v-model="data_my_info.phone_number" type="text" class="form-control"
-                                placeholder="Phone number">
+                            <input @change="handleButton()" v-model="data_my_info.phone_number" type="text"
+                                class="form-control" placeholder="Phone number">
                         </div>
 
                     </div>
                     <div class="mt-2">
                         <label class="form-label m-0 text-dark">Date of birth</label>
-                        <input v-model="data_my_info.date_of_birth" type="date" class="form-control"
-                            placeholder="Date of birth">
+                        <input @change="handleButton()" v-model="data_my_info.date_of_birth" type="date"
+                            class="form-control" placeholder="Date of birth">
                     </div>
                     <div class="mt-2">
                         <label class="form-label m-0 text-dark">Gender</label>
-                        <select class="form-select" v-model="data_my_info.gender">
+                        <select @change="handleButton()" class="form-select" v-model="data_my_info.gender">
                             <option value="1" class="text-dark">Male</option>
                             <option value="0" class="text-dark">Female</option>
                             <option value="-1" class="text-dark">Other</option>
@@ -66,14 +69,17 @@
                     </div>
                     <div class="mt-2">
                         <label class="form-label m-0 text-dark">Bio</label>
-                        <textarea v-model="data_my_info.bio" class="form-control" cols="30" rows="3">
+                        <textarea @change="handleButton()" v-model="data_my_info.bio" class="form-control" cols="30"
+                            rows="3">
 
                         </textarea>
                     </div>
                     <div class="d-flex mt-2">
                         <span style="flex: 1;"></span>
-                        <button class="btn btn-primary f-500" style="width: 11rem;" @click="updateProfile()">Update
-                            profile</button>
+                        <button class="btn btn-primary f-500 updateProfile" style="width: 11rem;" @click="updateProfile()"
+                            disabled>
+                            Update profile
+                        </button>
                     </div>
                 </div>
             </div>
@@ -119,8 +125,7 @@
                         <i class="fa-brands fa-threads text-dark" style="position: absolute; left:46%; top: 0.85em;"></i>
                         <input v-model="links.threads.name" type="text" class="form-control " placeholder="Name">
                     </div>
-                    <div class="d-flex mt-2">
-                        <span style="flex: 1;"></span>
+                    <div class=" mt-2 text-end w-100">
                         <button class="btn btn-primary f-500" style="width: 11rem;" @click="updateLinkAddress()">
                             Update link address
                         </button>
@@ -170,6 +175,7 @@ export default {
             selectedImage: null,
             image: null,
             link_address: {},
+            origin_data: {},
             links: {
                 'status': false,
                 'youtube': { type: 1, link: '', name: '' },
@@ -186,6 +192,20 @@ export default {
         this.linkAddress();
     },
     methods: {
+        handleButton() {
+            let isModified = false;
+            for (let key in this.data_my_info) {
+                if (this.data_my_info[key].trim() !== this.origin_data[key].trim()) {
+                    isModified = true;
+                    break;
+                }
+            }
+            if (isModified) {
+                $('.updateProfile').prop('disabled', false);
+            } else {
+                $('.updateProfile').prop('disabled', true);
+            }
+        },
         linkAddress() {
             axios
                 .get('profile/data-address-link')
@@ -216,7 +236,7 @@ export default {
                 .get('profile/accounts-edit')
                 .then((res) => {
                     this.data_my_info = res.data.data
-                    console.log("data_my_info: ", data_my_info);
+                    this.origin_data = Object.assign({}, res.data.data)
                 });
         },
         openFileInput() {
@@ -227,7 +247,11 @@ export default {
             const imageUrl = URL.createObjectURL(file);
             this.selectedImage = imageUrl;
             this.image = file
-            console.log("  this.image : ", this.image);
+            if (this.image !== this.origin_data.avatar) {
+                $('.updateProfile').prop('disabled', false);
+            } else {
+                $('.updateProfile').prop('disabled', true);
+            }
         },
         updateProfile() {
             const formData = new FormData();
@@ -239,13 +263,14 @@ export default {
             formData.append('date_of_birth', this.data_my_info.date_of_birth)
             formData.append('gender', this.data_my_info.gender)
             formData.append('bio', this.data_my_info.bio)
-
             axios
                 .post('profile/update-profile', formData)
                 .then((res) => {
                     if (res.data.status) {
-                        this.getDataMyInfo();
+                        this.data_my_info = res.data.dataEditProfile
+                        this.image = res.data.dataEditProfile.avatar
                         baseFunction.displaySuccess(res);
+                        this.$emit('updateProfile', res.data.dataEditProfile)
                     }
                 })
         },

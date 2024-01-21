@@ -13,7 +13,8 @@
                     <div class="col-md-6 text-center pt-5">
                         <div class="sign-in-detail text-white">
                             <a class="sign-in-logo mb-5 d-flex justify-content-center" href="#"><img
-                                    src="../../../../assets/img/main-logo-white.png" class="img-fluid me-1" alt="logo">
+                                    src="../../../../assets/client/images/main-logo-white.png" class="img-fluid me-1"
+                                    alt="logo">
                                 <h2 class="text-white  align-content-center">NextFuture</h2>
                             </a>
                             <div class="sign-slider overflow-hidden ">

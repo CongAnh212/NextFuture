@@ -6,7 +6,7 @@
       <nav class="navbar navbar-expand-lg navbar-light p-0">
         <div class="iq-navbar-logo d-flex justify-content-between">
           <router-link :to="{ name: 'homepage' }">
-            <img src="../../../../assets/img/main-logo.png" class="img-fluid" alt="">
+            <img src="../../../../assets/img/logo-main.png" class="img-fluid" alt="">
             <span translate="no">NextFuture</span>
           </router-link>
         </div>
