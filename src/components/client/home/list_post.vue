@@ -14,7 +14,7 @@
                 <div class="flex-1 ps-3" style="position: relative">
                     <div class="flex-between">
                         <div class="d-flex flex-column">
-                            <div class="flex-center">
+                            <div class="d-flex align-items-center">
                                 <router-link class="text-hover text-dark" :to="{
                                     name: 'detailProfile',
                                     params: { username: v.username ? v.username : ' ' },
@@ -162,8 +162,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary btn-update-post" data-bs-dismiss="modal"
-                        disabled @click="updatePost">Update</button>
+                    <button type="button" class="btn btn-primary btn-update-post" data-bs-dismiss="modal" disabled
+                        @click="updatePost">Update</button>
                 </div>
             </div>
         </div>
