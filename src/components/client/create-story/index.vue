@@ -107,9 +107,10 @@
                                 </div>
                             </div>
                         </div>
-                        <li>
-                            <img style="height: 55px; width: 55px;" :src="urlImg + myData.avatar"
-                                class="img-fluid rounded-circle me-3 ms-2" alt="user">
+                        <li class="d-flex align-items-center">
+                            <div class="avatar-3 mx-2">
+                                <img :src="urlImg + myData.avatar" alt="user">
+                            </div>
                             <span><b class="text-dark">{{ myData.fullname }}</b></span>
                         </li>
                         <hr>
@@ -155,7 +156,8 @@
             <div class="radius-10 make-color1 d-flex justify-content-center align-items-center left"
                 style="height: 100%; width: 50%; position: relative; cursor: pointer; flex-direction: column;">
                 <div class="hover-background"></div>
-                <input @change="handleFileChange" id="input-b5" name="input-b5[]" type="file" ref="fileInput" accept=".png, .jpg, .jpeg">
+                <input @change="handleFileChange" id="input-b5" name="input-b5[]" type="file" ref="fileInput"
+                    accept=".png, .jpg, .jpeg">
                 <div class="d-flex justify-content-center align-items-center"
                     style="flex-direction: column; position: absolute;">
                     <div class="rounded-circle d-flex justify-content-center align-items-center hello mb-2"

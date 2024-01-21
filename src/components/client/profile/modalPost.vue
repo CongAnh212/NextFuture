@@ -10,7 +10,8 @@
                     </div>
                 </div>
                 <div class="d-flex bg-white" style="height: 90vh;width: 100%; ">
-                    <div v-if="arrayImages.length > 0" style="height: 100%; overflow: hidden;aspect-ratio: 1/1; cursor: pointer; position: relative; ">
+                    <div v-if="arrayImages.length > 0"
+                        style="height: 100%; overflow: hidden;aspect-ratio: 1/1; cursor: pointer; position: relative; ">
                         <div @click="indexImage--" v-if="indexImage != 0"
                             class="bg-hover circle flex-center text-dark bg-hover ms-2"
                             style="position: absolute; top: 50%; transform: translateY(-50%); width: 2rem; height: 2rem; background-color: #ddddddac;">
@@ -21,9 +22,9 @@
                             style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 2rem; height: 2rem; background-color: #ddddddad;">
                             <i class="fas fa-chevron-right text-center" style="font-size: 20px;" />
                         </div>
-                        <div class="" style="position: absolute; bottom: 0; right: 50%; transform: translateX(-50%); ">
+                        <div style="position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);">
                             <i v-for="i in arrayImages.length" :class="{ 'text-white': i - 1 == indexImage }"
-                                class="fas fa-circle  me-1" style="font-size: 0.3rem; color: #ffffff48;"></i>
+                                class="fas fa-circle  me-1" style="font-size: 0.4rem; color: #ffffff48;"></i>
                         </div>
                         <img style="object-fit: cover; width: 100%;height: 100%; cursor: auto;"
                             :src="urlImg + arrayImages[indexImage]" alt="">
@@ -47,7 +48,7 @@
                                 <i class="fa-solid fa-ellipsis text-dark" style="cursor: pointer;"></i>
                             </div>
                         </div>
-                        <div class="px-2 text-dark f-500" style="font-size: 15px; font-weight: 400;">
+                        <div class="px-2 text-dark f-500" style="font-size: 15px; font-weight: 400; white-space: pre-line;">
                             {{ post.caption }}
                         </div>
                         <div class="px-2 pt-3 pb-2">
@@ -392,8 +393,8 @@ export default {
                         comment['limit'] = 0
                         console.log('comment: ', comment);
                         this.list_comment.unshift(comment);
-                        if(comment.id_replier){
-                           this.loadComment()
+                        if (comment.id_replier) {
+                            this.loadComment()
                         }
                     })
             }

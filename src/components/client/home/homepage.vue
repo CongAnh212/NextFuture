@@ -95,8 +95,9 @@
                             style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                         <form class="post-text ms-3 w-100" action="javascript:void(); " style="flex:1">
-                          <input v-model="post.caption" type="text" class="form-control rounded"
+                          <textarea cols="10" rows="1" v-model="post.caption" class="form-control rounded"
                             placeholder="Write something here..." style="border:none;">
+                          </textarea>
                         </form>
                       </div>
                       <input @change="getImage" id="input-b3" name="input-b3[]" type="file" class="file" multiple
