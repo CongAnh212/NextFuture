@@ -89,6 +89,7 @@ export default {
             intervalId: null,
             email: '',
             check: false,
+            loading: 0,
         }
     },
     mounted() {

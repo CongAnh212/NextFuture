@@ -20,7 +20,11 @@
                         <input v-model="sign_in.remember" type="checkbox" class="form-check-input" id="customCheck11">
                         <label class="form-check-label" for="customCheck11">Remember Me</label>
                     </div>
-                    <button type="button" class="btn btn-primary float-end" @click="login()">Sign in</button>
+                    <button v-if="!loading" type="submit" class="btn btn-primary w-100" @click="signIn()">Sign Up</button>
+                    <button v-else class="btn btn-secondary w-100 " disabled>
+                        <img src="../../../../assets/client/images/page-img/loading.gif" alt="loader" style="height: 20px;">
+                        Sign Up
+                    </button>
                 </div>
                 <div class="sign-info text-center">
                     <span class="dark-color d-inline-block line-height-2">Don't have an account?
@@ -46,12 +50,78 @@ export default {
         return {
             sign_in: {},
             hash_active: 0,
-
+            count_time: 60,
+            intervalId: null,
+            email: '',
+            check: false,
+            loading: 0,
         }
     },
     mounted() {
+        const storedData = sessionStorage.getItem("storedData");
+        if (storedData !== null) {
+            const parsedData = JSON.parse(storedData);
+            this.count_time = parsedData.count_time;
+            if (parsedData.count_time < 0) {
+                this.count_time = 60;
+            }
+            this.email = this.sign_in.username;
+            this.startInterval();
+        } else {
+            console.log('Fail');
+        }
+    },
+    beforeDestroy() {
+        this.stopInterval();
     },
     methods: {
+        startInterval() {
+            this.intervalId = setInterval(() => {
+                this.count_time--;
+                sessionStorage.setItem("storedData", JSON.stringify({ count_time: this.count_time, email: this.sign_in.username }));
+                if (this.count_time == 0) {
+                    axios.post('delete-active', { email: this.email })
+                        .then(() => {
+                            this.stopInterval();
+                        });
+                }
+            }, 1000);
+        },
+        stopInterval() {
+            clearInterval(this.intervalId);
+            sessionStorage.removeItem("storedData");
+            this.check = true
+            $('.resent-mail').css({
+                'cursor': 'pointer',
+                'color': 'rgb(35, 108, 176)',
+            });
+        },
+        resentHashActiveMail() {
+            if (this.check) {
+                $('.border-top-loading-resent').css({
+                    'width': 100 + '%',
+                    'transition': 'width 5s ease-out',
+                });
+                setTimeout(() => {
+                    $('.border-top-loading-resent').css({
+                        'width': 0,
+                        'transition': 'none',
+                    });
+                }, 5000)
+                this.check = true
+                $('.resent-mail').css({
+                    'cursor': 'not-allowed',
+                    'color': 'grey',
+                });
+                axios
+                    .post('resent-mail', { email: this.email })
+                    .then(() => {
+                        this.count_time = 60;
+                        this.startInterval();
+                    })
+            }
+            this.check = false
+        },
         activeMail() {
             const enterConfirmationCode = async () => {
                 const result = await Swal.fire({
@@ -73,6 +143,8 @@ export default {
                     cancelButtonText: "Cancel",
                     allowOutsideClick: false,
                     didOpen: () => {
+                        this.count_time = 60
+                        this.startInterval()
                         const resentMailLabel = document.querySelector('.swal2-popup .resent-mail');
                         if (resentMailLabel) {
                             resentMailLabel.addEventListener('click', this.resentHashActiveMail);
@@ -115,9 +187,6 @@ export default {
                                 title: "Account activated",
                                 text: response.message,
                                 allowOutsideClick: false,
-                            }).then(() => {
-
-                                this.$router.push({ name: 'sign-in' });
                             });
                         } else {
                             const alertResult = await Swal.fire({
@@ -141,16 +210,19 @@ export default {
             processActivation();
         },
         signIn() {
+            this.loading = 1
             axios
                 .post('sign-in', this.sign_in)
                 .then((res) => {
-                    if (res.data.status) {
+                    this.loading = 0
+                    if (res.data.status == 1) {
                         var token = res.data.token;
                         // Lưu token vào localStorage
                         localStorage.setItem('token', token);
                         this.$router.push({ name: "homepage" });
                         // window.location.href = "/newfeeds";
-                    } else {
+                    } else if (res.data.status == -1) {
+                        this.email = res.data.email
                         Swal.fire({
                             icon: "info",
                             title: "Check mail",
@@ -162,6 +234,26 @@ export default {
                                 this.activeMail()
                             }
                         })
+                    } else if (res.data.status = -2) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Erorr...",
+                            text: res.data.message,
+                            showConfirmButton: false
+                        })
+                        setTimeout(() => {
+                            Swal.close();
+                        }, 2000)
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Erorr...",
+                            text: "Account information is incorrect",
+                            showConfirmButton: false
+                        });
+                        setTimeout(() => {
+                            Swal.close();
+                        }, 2000);
                     }
                 })
         },
@@ -179,11 +271,8 @@ export default {
             } else {
                 this.signIn()
             }
-
         }
-
     },
-
 }
 </script>
 <style>
