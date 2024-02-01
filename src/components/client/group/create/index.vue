@@ -324,7 +324,7 @@
                 <div class="w-100 border-preview d-flex flex-column" style="">
                     <div class="w-100" style="background-color: #fff;">
                         <div class=" w-100 bg-primary" style="overflow: hidden; border-radius: 10px;">
-                            <img :src="urlImg + 'cover/cover_image.png'" class="w-100 image-cover" style="">
+                            <img :src="urlImg + 'cover/cover_image.png'" class="w-100 image-cover" style="filter: grayscale(100%);">
                         </div>
                         <div class="w-100 px-2 pt-3 pb-2 c">
                             <h3 v-if="!group_name"><b style="color: #9c9c9c;">Group name</b></h3>

@@ -11,7 +11,7 @@
                         </div>
                     </router-link>
                     <router-link :to="{ name: 'homepage' }">
-                        <img src="../../../../assets/img/main-logo.png" class="img-fluid" alt="">
+                        <img src="../../../../assets/img/logo-main.png" class="img-fluid" alt="">
                     </router-link>
                 </div>
 

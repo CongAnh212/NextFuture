@@ -12,11 +12,11 @@
                             </div>
                         </router-link>
                         <router-link :to="{ name: 'homepage' }">
-                            <img src="../../../../assets/img/main-logo.png" class="img-fluid" alt="">
+                            <img src="../../../../assets/img/logo-main.png" class="img-fluid" alt="">
                         </router-link>
                     </div>
                     <hr style="margin: 0.5rem 0;">
-                    <router-view></router-view> <!-- **************************************************default -->
+                    <router-view @sendStories="handleStory" @viewStory="viewStory"></router-view> <!-- **************************************************default -->
                 </nav>
                 <div class="p-5"></div>
             </div>
@@ -24,7 +24,7 @@
     </div>
 
     <div class="bg-dark" style="height: 100vh; width: 80vw; position: absolute; right: 0px;">
-        <router-view name="content"></router-view><!-- ************************************************ content  -->
+        <router-view name="content" :stories="stories" :curentStory="curentStory"></router-view><!-- ************************************************ content  -->
         <div class="iq-top-navbar delete-bg mt-3" style="position: absolute;width: 20%;">
             <div class="iq-navbar-custom">
                 <nav class="navbar navbar-expand-lg navbar-light p-0">
@@ -171,7 +171,9 @@ export default {
     data() {
         return {
             myData: {},
-            urlImg: url
+            urlImg: url,
+            stories: null,
+            curentStory: 0
         }
     },
     mounted() {
@@ -184,6 +186,13 @@ export default {
                 .then((res) => {
                     this.myData = res.data.myInfo;
                 });
+        },
+        handleStory(value) {
+            this.stories = value
+        },
+        viewStory(value) {
+            this.curentStory = value
+
         }
     },
 }

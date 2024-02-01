@@ -107,6 +107,7 @@ export default {
         this.getPost();
         this.getDataComeIn();
         this.checkRole();
+        console.log('mount in list hsdfsdfome');   
     },
     props: {
         approve_Connection: {
@@ -217,6 +218,7 @@ export default {
                 })
         },
         getDataComeIn() {
+            console.log('checkl');
             axios
                 .post('groups/data-come-in-group', { id_group: this.id_group })
                 .then((res) => {

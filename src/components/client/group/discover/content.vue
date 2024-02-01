@@ -7,7 +7,8 @@
             <div class="d-flex" style="gap: 7px; flex-direction: row; flex-wrap: wrap; position: relative;">
                 <div v-if="showBtnPreNext" class="flex-center"
                     style="position: absolute; z-index: 1; right: 1rem; top:50%; transform: translateY(-60%);">
-                    <button  @click="next" class="btn bg-white circle" style="width: 3.5em;height: 3.5em;box-shadow: 0 0 10px #33333357; ">
+                    <button @click="next" class="btn bg-white circle"
+                        style="width: 3.5em;height: 3.5em;box-shadow: 0 0 10px #33333357; ">
                         <i class="fa-solid fa-chevron-right"></i>
                     </button>
                 </div>
@@ -114,7 +115,7 @@ export default {
     watch: {
         list_popular_group(newValue, orlValue) {
             if (orlValue) {
-                this.showBtnPreNext = true;
+                if (newValue.length > 4) this.showBtnPreNext = true;
             }
         }
     },
@@ -175,9 +176,9 @@ export default {
         },
         prev() {
             if (this.index == 0) {
-            this.index = 5
+                this.index = 5
             } else {
-            this.index--;
+                this.index--;
             }//4 5 0 1 2 3 4 5 0 1 
             this.list_popular_group = this.list_popular_group_temp2.slice(this.index, this.index + 3);
         },

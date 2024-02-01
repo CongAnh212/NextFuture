@@ -114,6 +114,7 @@ export default {
                 .get('profile/data')
                 .then((res) => {
                     this.myInfo = res.data.myInfo;
+                    console.log(123123);
                 });
         },
         handleSendActiveFromSearch(value) {
@@ -125,6 +126,7 @@ export default {
             
         },
         handleGetDataFromListHoneGroup(value) {
+            console.log(1233333333333333333333);
             this.dataComeIn = value.getDataComeIn
             this.infoGroup = value.infoGroup
             this.listPost = value.listPost
