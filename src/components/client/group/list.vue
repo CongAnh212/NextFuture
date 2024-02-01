@@ -88,7 +88,6 @@ export default {
     created() {
         this.getManager();
         this.getJoin();
-
     },
     methods: {
         detail(z) {

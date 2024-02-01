@@ -369,7 +369,8 @@ const routes = [
     meta: { layout: "main", requiresAuth: true },
     components: {
       default: () => import("../components/client/group/home/list.vue"),
-      content: () => import("../components/client/group/browse-posts/browse-posts.vue"),
+      content: () =>
+        import("../components/client/group/browse-posts/browse-posts.vue"),
     },
   },
   {

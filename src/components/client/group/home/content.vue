@@ -87,20 +87,21 @@
                                 </div>
                             </div>
                             <div v-if="viewType == 1 || viewType == 2" class="d-flex">
-                                <div @click="open()" class="btn-primary px-2 f-500 radius-7 text-white me-2 invite"
+                                <div @click="open()"
+                                    class="btn-primary px-2 f-500 radius-7 text-white me-2 invite flex-center"
                                     data-bs-toggle="modal" data-bs-target="#inviteModal" style="cursor: pointer;">
-                                    <span style="font-size: 20px;">+
+                                    <span style="font-size: 20px;">
+                                        +
                                     </span>
                                     <span class="del-event">Invite</span>
                                 </div>
-
-                                <div class="btn-light px-2 f-500 radius-7 text-dark align-self-center py-1"
+                                <div class="btn-light px-2 f-500 radius-7 text-dark flex-center py-1"
                                     style="cursor: pointer;">
                                     <i class="fas fa-share m-0 p-0 me-1"></i>
                                     <span class="del-event">Share</span>
                                 </div>
                             </div>
-                            <div v-else class="d-flex">
+                            <div v-else-if="viewType == 0" class="d-flex">
                                 <div v-if="checkRequest == 0" @click="joinGroup"
                                     class="btn-primary px-2 f-500 radius-7 text-white me-2 invite "
                                     style="cursor: pointer; padding: 0.5rem">
@@ -232,6 +233,21 @@
                                 </div>
                             </div>
                         </div>
+                        <div v-if="post_approval.length > 0" class="bg-xanh d-flex my-2 text-dark align-items-center"
+                            style="border-radius: 7px; padding: 1rem;">
+                            <div style="flex:1;line-height: 1.3rem;">
+                                <b>Posts are pending</b>
+                                <br>
+                                <span class="f-500">
+                                    {{ post_approval.length }} posts
+                                </span>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary">
+                                    Manage posts
+                                </button>
+                            </div>
+                        </div>
                         <hr class="w-100 bg-dark pb-0 mb-0">
                         <div class="text-dark flex-between"
                             style="display:flex;gap:20px; margin-top: 5px; margin-bottom: -3px;">
@@ -300,7 +316,7 @@
                                 <div class="dropdown">
                                     <i class="fas fa-ellipsis-h"></i>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">send invite</a></li>
+                                        <li><a class="dropdown-item" href="#">Send invite</a></li>
                                         <li><a class="dropdown-item" href="#">Another action</a></li>
                                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                                     </ul>
@@ -310,8 +326,8 @@
                     </div>
                 </div>
             </div>
-            <router-view v-if="view == 'discuss'" :info="data" :viewType="viewType" name="discuss"
-                :myInfo="myInfo"></router-view>
+            <router-view v-if="view == 'discuss'" :info="data" :viewType="viewType"
+                @countPostApproval="handleCountPostApproval" name="discuss" :myInfo="myInfo"></router-view>
             <router-view v-else-if="view == 'member'" :viewType="viewType" name="member"></router-view>
             <router-view v-else-if="view == 'introduce'" :info="data" name="introduce"></router-view>
         </div>
@@ -342,7 +358,6 @@ export default {
             id_notification: null,
             infoClient: {},
             notification: {},
-
             moveOver: false,
             info: {},
             viewType: null,
@@ -352,6 +367,7 @@ export default {
                 status: false,
                 path: ''
             },
+            post_approval: [],
         }
 
     },
@@ -366,11 +382,15 @@ export default {
         },
         infoGroup: {
             type: Object
-        }
+        },
+        listPost: {
+            type: Array,
+        },
     },
     watch: {
         infoGroup: {
             handler(newValue, oldValue) {
+                console.log("newValue in content: ", newValue);
                 if (newValue) {
                     this.isView = true;
                     this.data = newValue.info;
@@ -378,7 +398,6 @@ export default {
                 }
             },
             immediate: true
-
         },
         send_active_all_member: {
             handler(value) {
@@ -415,6 +434,15 @@ export default {
             deep: true, // Sử dụng deep watch để theo dõi các thay đổi sâu
             immediate: true, // Kích hoạt handler ngay từ khi component được khởi tạo
         },
+        listPost: {
+            handler(newValue) {
+                if (newValue) {
+                    this.post_approval = this.listPost.filter((item) => {
+                        return item.id_client == this.myInfo.id;
+                    });
+                }
+            }
+        }
     },
     mounted() {
         this.id_group = this.$route.params.id_group;
@@ -423,6 +451,9 @@ export default {
         this.checkRequestGroup();
     },
     methods: {
+        handleCountPostApproval(value) {
+            this.post_approval.push(value)
+        },
         dateCountdown(a) {
             return baseFunction.hoursDifference(a);
         },
@@ -513,7 +544,6 @@ export default {
                     });
                 });
         },
-
         open() {
             this.list_invite.splice(0);
             $('.check_input').prop('checked', false);
@@ -603,6 +633,7 @@ export default {
                 $('.modal-component').css('inset', ' 0px auto auto  0px');
             }
         },
+
     },
 }
 </script>

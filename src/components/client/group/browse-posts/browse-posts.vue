@@ -27,23 +27,27 @@
             <div class="flex-center pb-3">
                 <div class="" style="width: 50vw;">
                     <div class="iq-search-bar device-search w-100 mt-1 mb-1" style="padding:0px !important;">
-                        <div action="#" class="searchbox w-100"><a class="search-link my-auto h-100 flex-center" href="#"><i
-                                    class="ri-search-line my-auto"></i></a><input type="text" class="text search-input"
-                                placeholder="Search by name..." style="border-radius:50px;"></div>
+                        <div action="#" class="searchbox w-100">
+                            <a class="search-link my-auto h-100 flex-center" href="#">
+                                <i class="ri-search-line my-auto">
+                                </i>
+                            </a>
+                            <input v-model="key_search" @input="searchPost()" type="text" class="text search-input"
+                                placeholder="Search by name..." style="border-radius:50px;">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="container ">
-            <template v-for="(v, k) in listPost">
+            <template v-for="(v, k) in list_search_post">
                 <div v-if="true">
                     <div class="d-flex" style="position: relative">
                         <div class="d-flex flex-column align-items-center">
                             <div class="circle-50" style="overflow: hidden">
                                 <img v-if="!v.privacy" :src="urlImg + v.avatar"
                                     style="object-fit: cover; width: 100%; height: 100%" alt="" />
-                                <img v-else
-                                    src="https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/aefd0479fc45dabb5cddc4a2ec569f5c~c5_100x100.jpeg?lk3s=a5d48078&x-expires=1705305600&x-signature=nxsirG0aY2uaT9McFvVx9cyL7fs%3D"
+                                <img v-else src="../../../../assets/img/avatar-an-danh.png"
                                     style="object-fit: cover; width: 100%; height: 100%" alt="" />
                             </div>
                             <div class="flex-1 radius-10 my-1" style="border-left: 3px solid #3f3f3f4e; width: 0" />
@@ -61,7 +65,7 @@
                                             name: 'detailProfile',
                                             params: { username: v.username ? v.username : ' ' },
                                         }"><b style="color: #000; font-size: 1.1rem">
-                                                {{ v.username }}</b>
+                                                {{ v.fullname }}</b>
                                         </router-link>
                                         <div v-else class="text-hover text-dark c-pointer">
                                             <b style="color: #000; font-size: 1.1rem">Anonymous member</b>
@@ -106,8 +110,7 @@
     </div>
     <div v-else class="pt-5 w-100" style="min-height: calc(100vh - 4.688rem);">
         <div style="height: fit-content;" class=" flex-center flex-column"><img style="width: 10rem;"
-                src="	https://www.facebook.com/images/comet/empty_states_icons/files/null_states_files_dark_mode.svg"
-                alt="">
+                src="https://www.facebook.com/images/comet/empty_states_icons/files/null_states_files_dark_mode.svg" alt="">
             <h3><b>There are no posts to review yet</b></h3>
         </div>
 
@@ -121,7 +124,7 @@ export default {
     components: { ViewImageComponent },
     props: {
         myInfo: Object,
-        listPost: Object,
+        listPost: Array,
     },
     watch: {
         listPost: {
@@ -129,7 +132,13 @@ export default {
                 this.loading = 1
             },
             deep: true,
-            immediate: true
+            immediate: true,
+            listPost(oldData) {
+                if (oldData) {
+                    this.key_search = ""
+                    this.list_search_post = this.listPost
+                }
+            }
         },
     },
     data() {
@@ -137,18 +146,33 @@ export default {
             loading: 0,
             urlImg: url,
             listChecked: [],
+            key_search: '',
+            list_search_post: [],
         }
     },
     mounted() {
-        console.log('mountedokljmnjkm; post: ', this.listPost);
+        this.list_search_post = this.listPost;
+        console.log(" this.list_search_post : ", this.list_search_post);
+        this.key_search = '';
+        console.log("mouted");
+
     },
     methods: {
+        searchPost() {
+            const lowercaseSearch = this.key_search.toLowerCase();
+            this.list_search_post = this.listPost.filter((value) => {
+                const lowercaseFullname = value.fullname.toLowerCase();
+                const lowercaseCaption = value.caption.toLowerCase();
+                return lowercaseFullname.includes(lowercaseSearch) || lowercaseCaption.includes(lowercaseSearch);
+            });
+        },
         approvePost(v, k) {
             axios
                 .post('groups/post/approve', v)
                 .then((res) => {
                     this.listPost.splice(k, 1)
                     baseFunction.displaySuccess(res)
+                    this.searchPost();
                 })
         },
         approveSelect() {
@@ -158,18 +182,23 @@ export default {
             axios
                 .post('groups/post/approve-select', { listID: this.listChecked })
                 .then((res) => {
-                    this.listPost = this.listPost.filter((value) => !this.listChecked.includes(value.id));
+                    console.log("Before filtering: ", this.list_search_post);
+                    this.list_search_post = this.list_search_post.filter((value) => !this.listChecked.includes(value.id));
+                    console.log("After filtering: ", this.list_search_post);
                     this.listChecked = []
                     $('.false-checkbox').prop('checked', false);
                     baseFunction.displaySuccess(res)
+                    this.searchPost();
                 })
         },
         refusePost(v, k) {
+            console.log(123);
             axios
                 .post('groups/post/refuse', v)
                 .then((res) => {
                     this.listPost.splice(k, 1)
                     baseFunction.displaySuccess(res)
+                    this.searchPost();
                 })
         },
         refuseSelect() {
@@ -183,6 +212,7 @@ export default {
                     this.listChecked = []
                     $('.false-checkbox').prop('checked', false);
                     baseFunction.displaySuccess(res)
+                    this.searchPost();
                 })
         },
         selectPost(v, k) {

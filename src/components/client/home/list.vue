@@ -34,7 +34,7 @@
             </router-link>
         </li>
         <hr>
-        <h4 style="margin: 0px;">
+        <h4 v-if="list_group.length > 0" style="margin: 0px;">
             <b>
                 Your shortcut
             </b>

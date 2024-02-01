@@ -21,14 +21,19 @@
             <div class="flex-center pb-3">
                 <div class="" style="width: 50vw;">
                     <div class="iq-search-bar device-search w-100 mt-1 mb-1" style="padding:0px !important;">
-                        <div action="#" class="searchbox w-100"><a class="search-link my-auto h-100 flex-center" href="#"><i
-                                    class="ri-search-line my-auto"></i></a><input type="text" class="text search-input"
-                                placeholder="Search by name..." style="border-radius:50px;"></div>
+                        <div action="#" class="searchbox w-100">
+                            <a class="search-link my-auto h-100 flex-center" href="#">
+                                <i class="ri-search-line my-auto">
+                                </i>
+                            </a>
+                            <input v-model="key_search" @input="searchRequestGroup()" type="text" class="text search-input"
+                                placeholder="Search by name..." style="border-radius:50px;">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div v-for="(v, k) in dataComeIn" class="flex-center" style="width: 100%;">
+        <div v-for="(v, k) in list_search_request_group" class="flex-center" style="width: 100%;">
             <div class="card" style="width: 63%;">
                 <div class="card-body">
                     <div class="d-flex" style="gap: 20%;">
@@ -72,19 +77,34 @@ import coreFuntion from '../../../../core/coreFunction'
 export default {
     props: {
         dataComeIn: Array
-
     },
     watch: {
-
+        dataComeIn(oldData) {
+            if (oldData) {
+                this.key_search = ""
+                this.list_search_request_group = this.dataComeIn
+            }
+        }
     },
     data() {
         return {
             urlImg: url,
+            key_search: '',
+            list_search_request_group: [],
         }
     },
     mounted() {
+        this.list_search_request_group = this.dataComeIn;
+        this.key_search = "";
     },
     methods: {
+        searchRequestGroup() {
+            const lowercaseSearch = this.key_search.toLowerCase();
+            this.list_search_request_group = this.dataComeIn.filter((value) => {
+                const lowercaseFullname = value.fullname.toLowerCase();
+                return lowercaseFullname.includes(lowercaseSearch);
+            });
+        },
         formatTime(a) {
             return coreFuntion.hoursDifference(a)
         },
