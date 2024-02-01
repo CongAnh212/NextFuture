@@ -106,7 +106,8 @@ export default {
     watch: {
         total_group(newValue, oldValue) {
             if (oldValue) {
-                this.showBtn = true;
+                if (newValue.length > 5) this.showBtn = true;
+                
             }
         }
     },

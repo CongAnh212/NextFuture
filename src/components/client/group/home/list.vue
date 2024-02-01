@@ -107,6 +107,7 @@ export default {
         this.getPost();
         this.getDataComeIn();
         this.checkRole();
+        console.log('mount in list hsdfsdfome');   
     },
     props: {
         sendAnonymous: {
@@ -222,7 +223,6 @@ export default {
                 })
         },
         getDataComeIn() {
-            console.log('call /data-come-in-group')
             axios
                 .post('groups/data-come-in-group', { id_group: this.id_group })
                 .then((res) => {

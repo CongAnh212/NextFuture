@@ -1,0 +1,20 @@
+.input-custom {
+    border-radius: 50px;
+    border: 1px solid #fff;
+    background-color: transparent;
+    color: #fff;
+
+    &:focus {
+        background-color: transparent;
+    }
+}
+// #timeline-0{
+//     &::after{
+//         content: '';
+//         background-color: #fff;
+//         border-radius: 50px;
+//         width: 60%;
+//         height: 4px;
+//         display: block;
+//     }
+// }

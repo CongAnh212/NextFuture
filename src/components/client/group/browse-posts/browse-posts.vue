@@ -155,6 +155,7 @@ export default {
         console.log(" this.list_search_post : ", this.list_search_post);
         this.key_search = '';
         console.log("mouted");
+
     },
     methods: {
         searchPost() {
@@ -220,7 +221,6 @@ export default {
             } else {
                 this.listChecked.push(v.id)
             }
-            console.log('this.listChecked: ', this.listChecked);
         },
         formatTime(a) {
             return baseFunction.hoursDifference(a)

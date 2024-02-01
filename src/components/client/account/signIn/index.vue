@@ -9,11 +9,17 @@
                     <input v-model="sign_in.username" type="text" class="form-control mb-0" id="exampleInputEmail1"
                         placeholder="Enter email">
                 </div>
-                <div class="form-group">
-                    <label class="form-label" for="exampleInputPassword1">Password</label>
+                <div class="form-group ">
+                    <label class="form-label" for="exampleInputPassword1">Password</label> 
                     <!-- <a href="#" class="float-end">Forgot password?</a> -->
-                    <input v-model="sign_in.password" type="password" class="form-control mb-0" id="exampleInputPassword1"
-                        placeholder="Password" @keyup.enter="login()">
+                    <div class=" position-relative">
+                        <input v-model="sign_in.password" type="password" class="form-control mb-0" ref="password"
+                            id="exampleInputPassword1" placeholder="Password" @keyup.enter="login()">
+                        <i class="fas  position-absolute c-pointer" :class="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+                            @click="showPass"
+                            style="right: .65rem; top: 50%; transform: translateY(-50%); font-size: 1rem;"></i>
+
+                    </div>
                 </div>
                 <div class="d-inline-block w-100">
                     <div class="form-check d-inline-block mt-2 pt-1">
@@ -55,6 +61,7 @@ export default {
             email: '',
             check: false,
             loading: 0,
+            showPassword: false
         }
     },
     mounted() {
@@ -271,6 +278,10 @@ export default {
             } else {
                 this.signIn()
             }
+        },
+        showPass() {
+            this.showPassword = !this.showPassword
+            this.$refs.password.type = this.showPassword ? 'text' : 'password';
         }
     },
 }

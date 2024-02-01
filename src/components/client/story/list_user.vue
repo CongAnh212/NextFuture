@@ -32,23 +32,18 @@
                 All Stories
             </h5>
         </div>
-        <li v-for="(v, k) in stories" class="bg-hover">
-            <router-link @click="getIndex(k)" :to="{ name : 'detailStory', params: { idStory: v.id } }">
-                <div class="px-0 w-100 d-flex align-items-center">
-                    <img v-if="!v.avatar" src="https://i.pinimg.com/236x/93/a0/0a/93a00a3684652031a0c398c5d54d3d10.jpg"
-                        class="img-fluid rounded-circle me-3 " alt="user"
-                        style="outline: 3px solid rgb(0, 89, 255);height: 50px; width: 50px;margin-left: 5px ;">
-                    <img v-else :src="urlImg + v.avatar" class="img-fluid rounded-circle me-3 " alt="user"
-                        style="outline: 3px solid rgb(0, 89, 255);height: 50px; width: 50px;margin-left: 5px ; object-fit: cover;image-rendering: pixelated;">
-                    <div class="" style="line-height: 1.3;">
-                        <span class="text-dark" style="font-weight: 600; font-size: 14px;">{{ v.fullname }}</span>
-                        <br>
-                        <span class="text-dark" style="white-space: normal; font-size: 12px;">{{
-                            hoursDifference(v.created_at)
-                        }} ago</span>
-                    </div>
+        <li v-for="(v, k) in stories" class="bg-hover p-2 c-pointer" @click="viewStory(k)">
+            <div class="px-0 w-100 d-flex align-items-center">
+                <img :src="urlImg + v.dataStory[0].avatar" class="img-fluid rounded-circle me-3 " alt="user"
+                    style="outline: 3.5px solid var(--bs-primary);height: 50px; width: 50px;margin-left: 5px ; object-fit: cover;image-rendering: pixelated;">
+                <div class="" style="line-height: 1.3;">
+                    <span class="text-dark" style="font-weight: 600; font-size: 14px;">{{ v.dataStory[0].fullname }}</span>
+                    <br>
+                    <span class="text-dark" style="white-space: normal; font-size: 12px;">{{
+                        hoursDifference(v.dataStory[0].created_at)
+                    }} ago</span>
                 </div>
-            </router-link>
+            </div>
         </li>
     </ul>
 </template>
@@ -66,7 +61,6 @@ export default {
         }
     },
     mounted() {
-        // this.startInterval();
         this.getStory();
     },
     beforeDestroy() {
@@ -78,27 +72,16 @@ export default {
                 .get('story/data-all')
                 .then((res) => {
                     this.stories = res.data.allStory;
+                    this.$emit('sendStories', res.data.allStory);
                 });
-        },
-        getIndex(k) {
-            this.currentStoryIndex = k;
         },
         hoursDifference(a) {
             return funcBasic.hoursDifference(a);
         },
-        startInterval() {
-            this.interval = setInterval(() => {
-                this.moveToNextStory();
-            }, 10000); // 5 giây
-        },
-        stopInterval() {
-            clearInterval(this.interval);
-        },
-        moveToNextStory() {
-            this.currentStoryIndex = (this.currentStoryIndex + 1) % this.stories.length;
-            const currentStory = this.stories[this.currentStoryIndex];
-            this.$router.push({ name: 'detailStory', params: { idStory: currentStory.id } });
-        },
+        viewStory(k) {
+            this.$emit('viewStory', k);
+        }
+
     },
 }
 </script>
