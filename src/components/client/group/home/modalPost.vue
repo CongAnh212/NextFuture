@@ -1,7 +1,7 @@
 <template >
     <div class="modal fade" id="modalPost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered "
-                :class="{ 'modal-xxl': arrayImages.length > 0, 'modal-base': !arrayImages.length }">
+            :class="{ 'modal-xxl': arrayImages.length > 0, 'modal-base': !arrayImages.length }">
             <div class="modal-content" style="position: relative;">
                 <div style="position: absolute; top:-25px; right: -10%;" class="text-white">
                     <div type="button" data-bs-dismiss="modal" aria-label="Close"
@@ -10,7 +10,8 @@
                     </div>
                 </div>
                 <div class="d-flex bg-white" style="height: 90vh;width: 100%; ">
-                    <div v-if="post.images" style="height: 100%; overflow: hidden;aspect-ratio: 1/1; cursor: pointer; position: relative; ">
+                    <div v-if="post.images"
+                        style="height: 100%; overflow: hidden;aspect-ratio: 1/1; cursor: pointer; position: relative; ">
                         <div @click="indexImage--" v-if="indexImage != 0"
                             class="bg-hover circle flex-center text-dark bg-hover ms-2"
                             style="position: absolute; top: 50%; transform: translateY(-50%); width: 2rem; height: 2rem; background-color: #ddddddac;">
@@ -59,9 +60,9 @@
                                     <b style="cursor: pointer;">others</b>
                                 </div>
                                 <div v-else style="font-size: 15px; font-weight: 400;">
-                                    {{ post.likes }} likes
+                                    <span v-if="post.likes > 0">{{ post.likes }} likes</span>
                                 </div>
-                                <div>
+                                <div v-if="list_comment.length > 0">
                                     <span style="font-size: 15px;  font-weight: 500;" class="me-1">{{ list_comment
                                         .length }}</span>
                                     <i class="fa-regular fa-comment" style="font-size: 15px; "></i>
@@ -225,10 +226,10 @@ export default {
         index: {
             type: Number
         },
-        
+
     },
     watch: {
-       
+
         post: {
             handler(newValue, oldValue) {
                 if (oldValue) {
@@ -462,6 +463,7 @@ export default {
 .modal-xxl {
     max-width: 80%;
 }
+
 .modal-base {
     max-width: 40%;
 }

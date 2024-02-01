@@ -316,6 +316,7 @@ export default {
                     if (res.data.status == 1) {
                         baseFunction.displaySuccess(res);
                         this.infoGroup.anonymity = payload.anonymity;
+                        this.$emit('sendAnonymous', this.infoGroup.anonymity);
                     }
                     this.handleClickAnonymous()
                 })

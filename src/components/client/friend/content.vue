@@ -67,13 +67,13 @@
                 People you may know
             </h3>
             <router-link :to="{ name: 'suggestions' }">
-                <button type="button" class="me-3 btn seeall text-primary">
+                <button v-if="list_friend.length >= 6" type="button" class="me-3 btn seeall text-primary">
                     <b>See all</b>
                 </button>
             </router-link>
         </div>
         <div ref="myDiv" class="row mx-0">
-            <div class="d-flex" style="gap: 7px; flex-wrap: wrap; ">
+            <div v-if="list_friend.length > 0" class="d-flex" style="gap: 7px; flex-wrap: wrap; ">
                 <template v-for="(v, k) in list_friend">
                     <div v-if="isView" data-aos="slide-up" data-aos-offset="100" data-aos-easing="ease-out-back"
                         class="card mb-3"
@@ -121,6 +121,12 @@
                         </div>
                     </div>
                 </template>
+
+            </div>
+            <div v-else class="flex-center w-100">
+                <h4>
+                    <b>There are no suggestions</b>
+                </h4>
             </div>
 
         </div>

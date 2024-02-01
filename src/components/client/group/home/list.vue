@@ -109,28 +109,32 @@ export default {
         this.checkRole();
     },
     props: {
+        sendAnonymous: {
+            type: Object,
+        },
         approve_Connection: {
             type: Object,
-            required: true,
         },
         refuse_Connection: {
             type: Object,
-            required: true,
         },
         getPrivacy: {
             type: Number,
-            required: true
         },
         send_active_overview_group: {
             type: Object,
-            required: true
         },
         send_rename_group: {
             type: String,
-            required: true
         }
     },
     watch: {
+        sendAnonymous(newData) {
+            console.log("newData: ", newData);
+            if (newData) {
+                this.data.anonymity = newData
+            }
+        },
         send_active_overview_group(value) {
             setTimeout(() => {
                 $('.group-active').removeClass('group-active')
@@ -214,9 +218,11 @@ export default {
                 .then((res) => {
                     this.listPost = res.data.listPost
                     this.countPost = this.listPost.length
+
                 })
         },
         getDataComeIn() {
+            console.log('call /data-come-in-group')
             axios
                 .post('groups/data-come-in-group', { id_group: this.id_group })
                 .then((res) => {

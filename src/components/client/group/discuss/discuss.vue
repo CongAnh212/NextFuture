@@ -15,11 +15,12 @@
                 <div v-else class="card" style="border-radius: 10px; ">
                     <div class="card-body" style=" border-radius: 10px; box-shadow: 0px 0px 5px #33333345;">
                         <div class="w-100 d-flex align-items-center mb-4" style="gap:10px;">
-                            <i class="far fa-user-circle " style="font-size: 30px;"></i>
-
+                            <div class="avatar-3">
+                                <img :src="urlImg + myInfo.avatar">
+                            </div>
                             <form class="post-text ms-3 w-100 btn-temp" data-bs-toggle="modal" data-bs-target="#post-modal"
                                 action="javascript:void();" style="flex:1">
-                                <input type="text" class="form-control rounded" placeholder="what are you thinking ?"
+                                <input type="text" class="form-control rounded" placeholder="What are you thinking ?"
                                     style="border:none;">
                             </form>
                         </div>
@@ -36,7 +37,9 @@
                                         <div class="d-flex align-items-center mb-3">
                                             <div style="width: 3.5rem; height: 3.5rem; overflow: hidden;"
                                                 class="flex-center circle">
-                                                <img :src="privacy ? 'https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/aefd0479fc45dabb5cddc4a2ec569f5c~c5_100x100.jpeg?lk3s=a5d48078&x-expires=1705305600&x-signature=nxsirG0aY2uaT9McFvVx9cyL7fs%3D' : urlImg + myInfo.avatar" alt="userimg"
+                                                <img v-if="privacy" src="../../../../assets/img/avatar-an-danh.png"
+                                                    alt="userimg" style="width: 100%; height: 100%; object-fit: cover;">
+                                                <img v-else :src="urlImg + myInfo.avatar" alt="userimg"
                                                     style="width: 100%; height: 100%; object-fit: cover;">
                                             </div>
                                             <form class="post-text ms-3 w-100" action="javascript:void(); " style="flex:1">
@@ -67,46 +70,46 @@
                                                     Friend
                                                 </div>
                                             </li>
-
-
                                         </ul>
                                         <hr>
-                                        <div class="other-option">
+                                        <div v-if="info.anonymity == 1" class="other-option">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <div class="d-flex align-items-center">
                                                     <div style="width: 3.5rem; height: 3.5rem; overflow: hidden; margin-right: 0.3rem;"
                                                         class="flex-center circle">
-                                                        <img :src="privacy ? 'https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/aefd0479fc45dabb5cddc4a2ec569f5c~c5_100x100.jpeg?lk3s=a5d48078&x-expires=1705305600&x-signature=nxsirG0aY2uaT9McFvVx9cyL7fs%3D' : urlImg + myInfo.avatar" alt="userimg"
-                                                            style="width: 100%; height: 100%; object-fit: cover; ">
+                                                        <img v-if="privacy" src="../../../../assets/img/avatar-an-danh.png"
+                                                            alt="userimg"
+                                                            style="width: 100%; height: 100%; object-fit: cover;">
+                                                        <img v-else :src="urlImg + myInfo.avatar" alt="userimg"
+                                                            style="width: 100%; height: 100%; object-fit: cover;">
                                                     </div>
-                                                    <h6>Your Story</h6>
                                                 </div>
                                                 <div class="form-check form-switch">
                                                     <label class="form-check-label f-500" for="flexSwitchCheckChecked">
-                                                        Post nonymously</label>
+                                                        Post anonymously</label>
                                                     <input class="form-check-input" type="checkbox"
                                                         id="flexSwitchCheckChecked" checked="false" v-model="privacy">
                                                 </div>
                                             </div>
                                         </div>
-                                        <button @click="posting()" class="btn btn-primary d-block w-100 mt-3">Post
+                                        <div v-else></div>
+                                        <button @click="posting()" class="btn btn-primary d-block w-100 mt-3">
+                                            Post
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <hr>
                         <ul class="post-opt-block flex-around list-inline m-0 p-0 ">
-                            <li class="mb-md-0"><a style="cursor: pointer;" class="">
+                            <li data-bs-toggle="modal" data-bs-target="#post-modal" @click="show()" class="mb-md-0"><a
+                                    style="cursor: pointer;" class="">
                                     <img src="/src/assets/client/images/small/07.png" alt="icon" class="img-fluid">
                                     Photo/Video </a>
                             </li>
                             <li class="mb-md-0"><a style="cursor: pointer;" class="">
                                     <img src="/src/assets/client/images/small/08.png" alt="icon" class="img-fluid"> Tag
                                     Friend </a>
-                            </li>
-                            <li class=""><a style="cursor: pointer;" class="">
-                                    <img src="/src/assets/client/images/small/09.png" alt="icon" class="img-fluid">
-                                    Feeling/Activity </a>
                             </li>
                         </ul>
                     </div>
@@ -119,7 +122,6 @@
             <div class=" col-5" style="height: fit-content; position: sticky; top: 6rem;">
                 <div class="card " style="border-radius: 10px;">
                     <div class="card-body b " style="border-radius: 10px; box-shadow: 0px 0px 5px #33333324;">
-
                         <span style="font-weight: 600;">Introduct</span>
                         <div v-if="info.privacy == 1" class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center"
                             style="height: 65px; line-height: 18px;">
@@ -210,18 +212,16 @@ export default {
     props: {
         info: {
             type: Object,
-            required: true,
         },
-        viewType: { 
+        viewType: {
             type: Number,
-            required: true
         },
         myInfo: {
             type: Object,
-            required: true
         }
     },
     mounted() {
+        console.log(this.myInfo);
         this.handleInputBootstrap()
         this.getPostGroup()
     },
@@ -259,24 +259,23 @@ export default {
                     })
                     .then((res) => {
                         if (res.data.status) {
+                            this.$emit('countPostApproval', res.data.post);
                             this.post = {
                                 images: []
                             };
                             this.$refs.btnCloseModal.click();
                             $('.fileinput-remove-button').click();
-
-
                             if (this.info.post_approval == 0) {
                                 var post = res.data.post
                                 post['fullname'] = this.myInfo.fullname
                                 post['username'] = this.myInfo.username
                                 post['avatar'] = this.myInfo.avatar
-                                this.listPost.unshift(res.data.post);
+                                this.listPost.unshift(post);
                             }
                         } else {
                             console.log(res.data.message);
                         }
-                    })
+                    });
             }
         },
         getImage(event) {
@@ -306,10 +305,9 @@ export default {
         },
         getPostGroup() {
             axios
-                .post('groups/post/data', {id: this.$route.params.id_group})
+                .post('groups/post/data', { id: this.$route.params.id_group })
                 .then((res) => {
                     this.listPost = res.data.listPost
-                    // console.log('this.listPost: ', this.listPost);
                 })
         },
     },

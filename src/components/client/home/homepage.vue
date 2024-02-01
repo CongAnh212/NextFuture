@@ -280,7 +280,6 @@ export default {
   props: {
     myInfo: {
       type: Object,
-      required: true
     }
   },
   watch: {

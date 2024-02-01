@@ -84,7 +84,6 @@ export default {
             });
         },
         search_name() {
-            console.log(123);
             const lowercaseSearch = this.key_search.toLowerCase();
 
             this.list_search = this.all_friend.filter((value) => {

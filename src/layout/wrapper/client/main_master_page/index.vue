@@ -16,9 +16,7 @@
                                     @fullMemberActive="handleFullMemberActive"
                                     @sendFromListHomeGroup="handleGetDataFromListHoneGroup"
                                     :send_rename_group="send_rename_group"
-                                    @sendActiceFromSearch="handleSendActiveFromSearch"
-                                    :seeMoreSearch="seeMoreSearch">
-
+                                    @sendActiceFromSearch="handleSendActiveFromSearch" :seeMoreSearch="seeMoreSearch">
                                 </router-view>
                             </ul>
                         </nav>
@@ -35,21 +33,17 @@
                 </div>
             </div>
         </div>
-        <div class="px-0 mx-0" style="position: absolute; right: 0; width: 79%;top: 4.688rem; min-height: calc(100vh - 4.688rem);">
+        <div class="px-0 mx-0"
+            style="position: absolute; right: 0; width: 79%;top: 4.688rem; min-height: calc(100vh - 4.688rem);">
             <router-view :myInfo='myInfo' name="content" :sentFriend="dataRequestFriend"
                 @profile_request_friend="handleProfileRequestFriend" :sentFriendSuggest="dataSuggest"
                 @profile_suggest="handleProfileSuggest" :delFriendSuggest="delDataSuggest" @removeNotify="handleNotify"
                 @profile_del_friend="handleDelProfileAllFriend" @sentPrivacy="handlePrivacy"
                 @approve_connection="handleApproveConnection" @refuse_connection="handleRefuseConnection"
                 @send_active="handleSendActive" :send_active_all_member="send_all_member_active" :infoGroup="infoGroup"
-                @sendRenameGroup="handleSendRenameGroup"
-                :dataComeIn="dataComeIn"
-                :listPost="listPost"
-                :keySearch="keySearch" 
-                :typeViewSearch="typeViewSearch"
-                @sendFromSearchComponent="handleSeeMoreSearch"
-                >
-
+                @sendRenameGroup="handleSendRenameGroup" :dataComeIn="dataComeIn" :listPost="listPost"
+                :keySearch="keySearch" :typeViewSearch="typeViewSearch" @sendFromSearchComponent="handleSeeMoreSearch"
+                @sendAnonymous="handleSendAnonymous">
             </router-view>
         </div>
     </div>
@@ -79,7 +73,7 @@ export default {
             typeViewSearch: null,           // loại search
             listPost: null,                 // list bài cần duyệt
             seeMoreSearch: null,            // dùng để chuyển view bằng cách click see more
-            keySearch: null,                
+            keySearch: null,
             dataRequestFriend: null,        // cái này là từ list gửi cho profile đọc bên mục Suggest
             dataProfileRequestFriend: null, // cài này là từ profile gửi cho list đọc bên mục Suggest
             //--------------------------------------------------------------------------------------------//
@@ -103,9 +97,10 @@ export default {
             send_all_member_active: null,   //truyền active từ list members qua content member
             //--------------------------------------------------------------------------------------------//
             send_rename_group: null,        //truyền thay đổi tên của group
+            //--------------------------------------------------------------------------------------------//
         }
     },
-    created() {
+    mounted() {
         this.getMyInfo()
     },
     methods: {
@@ -118,11 +113,11 @@ export default {
         },
         handleSendActiveFromSearch(value) {
             this.typeViewSearch = value
-            
+
         },
         handleSeeMoreSearch(value) {
             this.seeMoreSearch = value
-            
+
         },
         handleGetDataFromListHoneGroup(value) {
             this.dataComeIn = value.getDataComeIn
@@ -171,7 +166,10 @@ export default {
             this.send_rename_group = value
         },
         handleSendKeySearch(value) {
-            this.keySearch = value            
+            this.keySearch = value
+        },
+        handleSendAnonymous(value) {
+            this.infoGroup.info.anonymity = value
         }
     }
 }

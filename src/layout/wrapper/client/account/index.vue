@@ -12,7 +12,7 @@
                 <div class="row no-gutters">
                     <div class="col-md-6 text-center pt-5">
                         <div class="sign-in-detail text-white">
-                            <a class="sign-in-logo mb-5 d-flex justify-content-center" href="#"><img
+                            <a class="sign-in-logo mb-5 d-flex justify-content-center"><img
                                     src="../../../../assets/client/images/main-logo-white.png" class="img-fluid me-1"
                                     alt="logo">
                                 <h2 class="text-white  align-content-center">NextFuture</h2>

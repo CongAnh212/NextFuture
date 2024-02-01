@@ -20,10 +20,10 @@
                         <input v-model="sign_in.remember" type="checkbox" class="form-check-input" id="customCheck11">
                         <label class="form-check-label" for="customCheck11">Remember Me</label>
                     </div>
-                    <button v-if="!loading" type="submit" class="btn btn-primary w-100" @click="signIn()">Sign Up</button>
+                    <button v-if="!loading" type="submit" class="btn btn-primary w-100" @click="signIn()">Sign In</button>
                     <button v-else class="btn btn-secondary w-100 " disabled>
                         <img src="../../../../assets/client/images/page-img/loading.gif" alt="loader" style="height: 20px;">
-                        Sign Up
+                        Sign In
                     </button>
                 </div>
                 <div class="sign-info text-center">

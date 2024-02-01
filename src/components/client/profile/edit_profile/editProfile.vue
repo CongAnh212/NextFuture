@@ -195,9 +195,13 @@ export default {
         handleButton() {
             let isModified = false;
             for (let key in this.data_my_info) {
-                if (this.data_my_info[key].trim() !== this.origin_data[key].trim()) {
-                    isModified = true;
-                    break;
+                const dataValue = this.data_my_info[key];
+                const originValue = this.origin_data[key];
+                if (typeof dataValue === 'string' && typeof originValue === 'string') {
+                    if (dataValue.replace(/\s/g, '') !== originValue.replace(/\s/g, '')) {
+                        isModified = true;
+                        break;
+                    }
                 }
             }
             if (isModified) {
