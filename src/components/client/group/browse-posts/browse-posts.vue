@@ -140,7 +140,7 @@ export default {
         }
     },
     mounted() {
-        console.log('mounted post: ', this.listPost);
+        console.log('mountedokljmnjkm; post: ', this.listPost);
     },
     methods: {
         approvePost(v, k) {
@@ -191,7 +191,6 @@ export default {
             } else {
                 this.listChecked.push(v.id)
             }
-            console.log('this.listChecked: ', this.listChecked);
         },
         formatTime(a) {
             return baseFunction.hoursDifference(a)

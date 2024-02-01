@@ -1,54 +1,50 @@
 <template>
   <div class=" mt-3" style="width: 80%;">
     <div v-if="isView">
-      <div class="card w-90 shadow-none bg-transparent bg-transparent-card border-0 p-0 mb-0 mx-auto">
-        <div class="d-flex" style="gap: 14px">
-          <router-link :to="{ name: 'story' }">
-            <div class="bg-primary main-story">
-              <div class="hover-background">
-
+      <div class="card shadow-none bg-transparent bg-transparent-card border-0 p-0 mb-0 mx-auto" style="width: 70%;">
+        <div class="d-flex" style="gap: 17px">
+          <router-link :to="{ name: 'story' }" class="bg-primary main-story ms-2">
+            <div class="hover-background">
+            </div>
+            <div class="img-background" style="height: 80%; width: 100%; background-color: red;">
+              <img v-if="!myInfo.avatar" class="img-fluid"
+                src="https://i.pinimg.com/236x/93/a0/0a/93a00a3684652031a0c398c5d54d3d10.jpg" alt="">
+              <img v-else class="img-fluid" :src="urlImg + myInfo.avatar" alt=""  style="filter: blur(0.7px) grayscale(0.12);">
+            </div>
+            <div
+              style="position: absolute; bottom: 0; height: 20%; width: 100%; background-color: #fff; display: flex; justify-content: center;">
+              <div class="btn-create-story d-flex justify-content-center align-items-center" style="color: #fff;">
+                <i class="las la-plus la-2x"></i>
               </div>
-              <div class="img-background" style="height: 80%; width: 100%; background-color: red;">
-                <img v-if="!myInfo.avatar" class="img-fluid"
-                  src="https://i.pinimg.com/236x/93/a0/0a/93a00a3684652031a0c398c5d54d3d10.jpg" alt="">
-                <img v-else class="img-fluid" :src="urlImg + myInfo.avatar" alt="">
-              </div>
-              <div
-                style="position: absolute; bottom: 0; height: 20%; width: 100%; background-color: #fff; display: flex; justify-content: center;">
-                <div class="btn-create-story d-flex justify-content-center align-items-center" style="color: #fff;">
-                  <i class="las la-plus la-2x"></i>
-                </div>
-                <div class="mb-1" style="z-index: 1; position: absolute; bottom: 0px; color: #333;">
-                  <b class="name-in-story ">Create Story</b>
-                </div>
+              <div class="mb-1" style="z-index: 1; position: absolute; bottom: 0px; color: #333;">
+                <b class="name-in-story ">Create Story</b>
               </div>
             </div>
           </router-link>
           <div v-for="(v, k) in stories" class=" bg-primary main-story">
-            <router-link :to="{ name: 'detailStory', params: { idStory: v.id } }">
+            <router-link :to="{ name: 'detailStory', params: { idStory: v.dataStory[0].id } }">
 
               <div class="hover-background">
 
               </div>
               <div class="img-background">
-                <img :src="urlImg + v.image" alt="">
+                <img :src="urlImg + v.dataStory[0].image" alt="">
               </div>
               <div class="avatar">
-                <img v-if="!v.avatar" class="img-fluid"
+                <img v-if="!v.dataStory[0].avatar" class="img-fluid"
                   src="https://i.pinimg.com/236x/93/a0/0a/93a00a3684652031a0c398c5d54d3d10.jpg" alt="">
-                <img v-else class="img-fluid" :src="urlImg + v.avatar" alt="">
+                <img v-else class="img-fluid" :src="urlImg + v.dataStory[0].avatar" alt="">
               </div>
 
             </router-link>
             <div @click="viewStory(v)" class="text-light mb-1  d-flex" style="z-index: 1; flex-wrap: nowrap;">
-              <span><span class="name-in-story w-100 f-500">{{ v.fullname }}</span></span>
+              <span><span class="name-in-story w-100 f-500">{{ v.dataStory[0].fullname }}</span></span>
             </div>
           </div>
         </div>
       </div>
-      <div class="row mt-3">
-        <div class="col-lg-1 row m-0 p-0"></div>
-        <div class="col-lg-10 row m-0 p-0">
+      <div class=" mt-3">
+        <div class=" row m-0 p-0 mx-auto" style="width: 70%;">
           <div class="col-sm-12">
             <div id="post-modal-data" class="card card-block card-stretch card-height">
               <div class="card-body">
@@ -190,9 +186,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-1 row m-0 p-0"></div>
-        <div class="col-lg-1 row m-0 p-0"></div>
-        <div class="col-lg-10 row m-0 p-0">
+        <div class=" row m-0 p-0 mx-auto" style="width: 70%;">
           <list-post :listPost="list_post" :myInfo="myInfo" v-if="list_post" />
         </div>
         <div class="col-sm-12 text-center">
@@ -204,7 +198,7 @@
       <img src="../../../assets/client/images/page-img/page-load-loader.gif" alt="loader" style="height: 100px;">
     </div>
   </div>
-  <div class="right-sidebar-mini " style="box-shadow: 0 0 10px #3333332e;">
+  <div class="right-sidebar-mini " style="box-shadow: 0 0 10px #3333332e; width: 22.25rem;">
     <div class="right-sidebar-panel p-0 ">
       <div class="card shadow-none ">
         <div class="card-body p-0 ">
@@ -332,7 +326,6 @@ export default {
       }
     },
     async updateOnlineUser(onlineUsers) {
-      console.log(123123);
       if (onlineUsers) {
         if (this.list_friend.length > 0 && onlineUsers) {
           this.list_friend.forEach(friend => {
@@ -387,9 +380,9 @@ export default {
     },
     dataStory() {
       axios
-        .get('story/data?3=1')
+        .get('story/data')
         .then((res) => {
-          this.stories = res.data.dataStory.data;
+          this.stories = res.data.dataStory;
         });
     },
     show() {
