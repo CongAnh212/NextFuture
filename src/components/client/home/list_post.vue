@@ -86,7 +86,7 @@
 
                     <div class="d-dlex f-500">
                         <span v-if="v.likes > 0" class="likes">{{ v.likes }} likes</span>
-                        <span v-if="v.likes > 0 && v.comments > 0">- </span>
+                        <span v-if="v.likes > 0 && v.comments > 0"> - </span>
                         <span data-bs-toggle="modal" data-bs-target="#modalPost" @click="currentPost = v"
                             v-if="v.comments > 0" class="comments">{{ v.comments }} comments</span>
                         <span data-bs-toggle="modal" data-bs-target="#modalPost" class="btnOpenModalComment"></span>

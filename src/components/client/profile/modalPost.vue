@@ -59,10 +59,10 @@
                                     and
                                     <b style="cursor: pointer;">others</b>
                                 </div>
-                                <div v-else style="font-size: 15px; font-weight: 400;">
+                                <div v-else-if="post.likes > 0" style="font-size: 15px; font-weight: 400;">
                                     {{ post.likes }} likes
                                 </div>
-                                <div>
+                                <div v-if="list_comment.length > 0">
                                     <span style="font-size: 15px;  font-weight: 500;" class="me-1">{{ list_comment
                                         .length }}</span>
                                     <i class="fa-regular fa-comment" style="font-size: 15px; "></i>
@@ -193,7 +193,7 @@
                                 placeholder="Enter Your Comment" v-model="comments" @input="handleClick()"
                                 @keyup.enter="createComment(post.id)" style="font-weight: 600;">
                             <span @click="enterComment(post.id)" class="text-light post c-pointer"
-                                style="position: absolute; top: 8px; right: 10px; font-weight: 600; user-select: none;">Post</span>
+                                style="position: absolute; top: 50%;transform: translateY(-50%); right: 10px; font-weight: 600; user-select: none;">Post</span>
                             <div class="dropdown " id="dropdownList">
                                 <div class="dropdown-menu" id="listFriend" style="position: absolute; inset:  auto auto  0px 0px  ;
                                             z-index: 1; margin: 0px; transform: translate(0px, -40px);"

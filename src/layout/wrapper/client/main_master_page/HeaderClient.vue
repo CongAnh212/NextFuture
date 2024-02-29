@@ -79,7 +79,7 @@
                     </small>
                   </div>
                   <div class="card-body p-0" style="max-height: 65vh; overflow: auto;">
-                    <template v-for="(v, k) in request_friend" v-if="request_friend > 0">
+                    <template v-for="(v, k) in request_friend" v-if="request_friend.length">
                       <div v-if="k < 5" class="iq-friend-request">
                         <div class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between pe-3">
                           <div class="d-flex align-items-center">
@@ -104,10 +104,10 @@
                               @click="delRequest(v)">Delete</a>
                           </div>
                         </div>
+                        <router-link :to="{ name: 'requests' }" class="flex-center bg-hover">
+                          View More Request
+                        </router-link>
                       </div>
-                      <router-link :to="{ name: 'requests' }" class="flex-center bg-hover">
-                        View More Request
-                      </router-link>
                     </template>
                     <div v-else class="card-body p-0 flex-center">
                       <div class="f-500">
@@ -135,7 +135,8 @@
                     <div class="header-title bg-primary">
                       <h5 class="mb-0 text-white">All Notifications</h5>
                     </div>
-                    <small class="badge bg-light text-dark" v-if="list_notifications.length">{{ list_notifications.length }}</small>
+                    <small class="badge bg-light text-dark" v-if="list_notifications.length">{{ list_notifications.length
+                    }}</small>
                   </div>
                   <div v-if="list_notifications.length > 0">
                     <div v-if="isView" class="card-body p-0 " style="max-height: 65vh; overflow: auto;">
