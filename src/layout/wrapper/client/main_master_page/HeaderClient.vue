@@ -79,13 +79,14 @@
                     </small>
                   </div>
                   <div class="card-body p-0" style="max-height: 65vh; overflow: auto;">
-                    <template v-for="(v, k) in request_friend" v-if="request_friend > 0">
+                    <template v-for="(v, k) in request_friend" v-if="request_friend.length">
                       <div v-if="k < 5" class="iq-friend-request">
                         <div class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between pe-3">
                           <div class="d-flex align-items-center">
                             <router-link style="width: 3rem; height: 3rem;overflow: hidden; border-radius: 0.5rem;"
                               :to="{ name: 'detailProfile', params: { username: v.username } }" class="flex-center">
-                              <img style="width: 100%; height: 100%; object-fit: cover;" :src="urlImg + v.avatar" alt="">
+                              <img style="width: 100%; height: 100%; object-fit: cover;" :src="urlImg + v.avatar"
+                                alt="">
                             </router-link>
                             <div class="ms-3">
                               <h6 class="mb-0 ">
@@ -105,15 +106,16 @@
                           </div>
                         </div>
                       </div>
-                      <router-link :to="{ name: 'requests' }" class="flex-center bg-hover">
-                        View More Request
-                      </router-link>
                     </template>
                     <div v-else class="card-body p-0 flex-center">
                       <div class="f-500">
                         There are no invitations for you
                       </div>
                     </div>
+                    <router-link v-if='request_friend.length > 5' :to="{ name: 'requests' }"
+                      class="flex-center bg-hover">
+                      View More Request
+                    </router-link>
                   </div>
                 </div>
               </div>
@@ -135,11 +137,14 @@
                     <div class="header-title bg-primary">
                       <h5 class="mb-0 text-white">All Notifications</h5>
                     </div>
-                    <small class="badge bg-light text-dark" v-if="list_notifications.length">{{ list_notifications.length }}</small>
+                    <small class="badge bg-light text-dark" v-if="list_notifications.length">{{
+    list_notifications.length
+  }}</small>
                   </div>
                   <div v-if="list_notifications.length > 0">
                     <div v-if="isView" class="card-body p-0 " style="max-height: 65vh; overflow: auto;">
-                      <a v-for="(v, k) in list_notifications" class="iq-sub-card bg-hover " @click="readNotification(v)">
+                      <a v-for="(v, k) in list_notifications" class="iq-sub-card bg-hover "
+                        @click="readNotification(v)">
                         <router-link v-if="v.type == 2"
                           :to="{ name: 'home-group', params: { id_group: v.id_group }, query: { id_notification: v.id } }">
                           <div class="d-flex align-items-center">
@@ -186,7 +191,8 @@
                             </div>
                             <div class="ms-3 w-100" style="flex: 1;">
                               <h6 class="mb-0 f-500 " :class="{ 'text-primary': v.status == 1 }"
-                                :style="{ 'font-weight': 'bold' }">{{ v.sender }}</h6>
+                                :style="{ 'font-weight': 'bold' }">
+                                {{ v.sender }}</h6>
                               <div class="d-flex text-dark justify-content-between align-items-center pe-3">
                                 <p class="mb-0">Tagged you in a post by
                                   <b :class="{ 'text-primary': v.status == 1 }">
@@ -201,7 +207,8 @@
                             </small>
                           </div>
                         </router-link>
-                        <router-link v-if="v.type == 1" :to="{ name: 'detailProfile', params: { username: v.username } }">
+                        <router-link v-if="v.type == 1"
+                          :to="{ name: 'detailProfile', params: { username: v.username } }">
                           <div v-if="v.type == 1" class="d-flex align-items-center">
                             <div v-if="v.status == 1">
                               <img src="../../../../assets/img/output-onlinegiftools.gif"
@@ -275,7 +282,8 @@
             <li class="nav-item dropdown">
               <a href="#" class="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <div class="flex-center circle" style="width: 3rem;height: 3rem;overflow: hidden; margin-right: 0.25rem;">
+                <div class="flex-center circle"
+                  style="width: 3rem;height: 3rem;overflow: hidden; margin-right: 0.25rem;">
                   <img :src="urlImg + myInfo.avatar" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
                 <div class="caption">

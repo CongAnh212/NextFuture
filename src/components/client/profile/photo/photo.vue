@@ -1,4 +1,4 @@
-<template >
+<template>
     <div v-if="isView == 1" class="col-sm-12 pb-4">
         <div class="tab-content">
             <div class="tab-pane fade show active" id="timeline" role="tabpanel">
@@ -24,7 +24,10 @@
         <img src="../../../../assets/client/images/page-img/page-load-loader.gif" alt="loader" style="height: 100px;">
     </div>
     <div v-else class="flex-center flex-column">
-        <img src="../../../../assets/img/camera.png" alt="">
+        <div class="avatar-4 my-3" style="border: 0.18rem solid #000;">
+            <img style="object-fit: cover; width: 100%;height: 100%; padding: 0.7rem"
+                src="../../../../assets/img/camera.png">
+        </div>
         <h2 class="text-dark"><b>No Photos Yet</b></h2>
     </div>
 
@@ -76,4 +79,4 @@ export default {
     },
 }
 </script>
-<style ></style>
+<style></style>
