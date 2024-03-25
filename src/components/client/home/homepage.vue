@@ -382,6 +382,7 @@ export default {
         .get('story/data')
         .then((res) => {
           this.stories = res.data.dataStory;
+          console.log('this.stories: ', this.stories);
         });
     },
     show() {

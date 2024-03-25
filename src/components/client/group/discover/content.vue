@@ -113,7 +113,8 @@ export default {
         this.getPopularGroup();
     },
     watch: {
-        list_popular_group(newValue, orlValue) {
+        list_popular_group_temp(newValue, orlValue) {
+            console.log('newValue: ', newValue);
             if (orlValue) {
                 if (newValue.length > 4) this.showBtnPreNext = true;
             }
