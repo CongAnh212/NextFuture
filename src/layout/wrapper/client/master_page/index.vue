@@ -41,7 +41,7 @@ export default {
     data() {
         return {
             myInfo: null,
-            
+
         }
     },
     mounted() {
@@ -58,7 +58,6 @@ export default {
         handleUpdateProfile(value) {
             var temp = '';
             temp = Object.assign({}, value)
-            console.log("value: ", value);
             this.myInfo = temp
         },
     },

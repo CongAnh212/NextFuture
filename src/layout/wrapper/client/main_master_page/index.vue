@@ -3,7 +3,8 @@
         <HeaderClient :notify="notify" :myInfo='myInfo' @sendKeySearch="handleSendKeySearch"></HeaderClient>
         <div class="">
             <div class="iq-sidebar-fix sidebar-default ">
-                <div id="sidebar-scrollbar" data-scrollbar="true" tabindex="-1" style="overflow: hidden; outline: none;">
+                <div id="sidebar-scrollbar" data-scrollbar="true" tabindex="-1"
+                    style="overflow: hidden; outline: none;">
                     <div class="scroll-content">
                         <nav class="iq-sidebar-menu">
                             <ul id="iq-sidebar-toggle" class="iq-menu">
@@ -11,7 +12,8 @@
                                     :sentFriendProfile="dataProfileRequestFriend" @suggest="handleSuggest"
                                     :sentFriendProfileSuggest="dataProfileSuggest" @del_suggest="handleDelSuggest"
                                     :getPrivacy="dataPrivacy" :delFriendProfile="delDataProfileAllFriend"
-                                    :approve_Connection="dataApproveConnection" :refuse_Connection="dataRefuseConnection"
+                                    :approve_Connection="dataApproveConnection"
+                                    :refuse_Connection="dataRefuseConnection"
                                     :send_active_overview_group="send_active_overview_group"
                                     @fullMemberActive="handleFullMemberActive"
                                     @sendFromListHomeGroup="handleGetDataFromListHoneGroup"
@@ -109,7 +111,6 @@ export default {
                 .get('profile/data')
                 .then((res) => {
                     this.myInfo = res.data.myInfo;
-                    console.log(123123);
                 });
         },
         handleSendActiveFromSearch(value) {
@@ -121,7 +122,6 @@ export default {
 
         },
         handleGetDataFromListHoneGroup(value) {
-            console.log(1233333333333333333333);
             this.dataComeIn = value.getDataComeIn
             this.infoGroup = value.infoGroup
             this.listPost = value.listPost
