@@ -6,7 +6,7 @@
         <div class="row mx-0 ">
             <div class="d-flex" style="gap: 7px; flex-direction: row; flex-wrap: wrap; position: relative;">
                 <div v-if="showBtnPreNext" class="flex-center"
-                    style="position: absolute; z-index: 1; right: 1rem; top:50%; transform: translateY(-60%);">
+                    style="position: absolute; z-index: 1; right: 1.7rem; top:50%; transform: translateY(-60%);">
                     <button @click="next" class="btn bg-white circle"
                         style="width: 3.5em;height: 3.5em;box-shadow: 0 0 10px #33333357; ">
                         <i class="fa-solid fa-chevron-right"></i>
@@ -80,7 +80,8 @@
                         <div class="card-footer">
                             <button v-if="v.status_button == 0" @click="joinGroup(v, k, $event, 'suggest')"
                                 class="btn btn-light w-100 f-500">Join group</button>
-                            <button v-else-if="v.status_button == 1" class="btn  btn-light w-100 f-500 py-0 my-0" disabled>
+                            <button v-else-if="v.status_button == 1" class="btn  btn-light w-100 f-500 py-0 my-0"
+                                disabled>
                                 <img src="../../../../assets/client/images/page-img/page-load-loader.gif" alt="loader"
                                     style="height: 37px;">Join group</button>
                             <button v-else class="btn btn-primary w-100 f-500">Access the group</button>
@@ -113,7 +114,7 @@ export default {
         this.getPopularGroup();
     },
     watch: {
-        list_popular_group(newValue, orlValue) {
+        list_popular_group_temp(newValue, orlValue) {
             if (orlValue) {
                 if (newValue.length > 4) this.showBtnPreNext = true;
             }

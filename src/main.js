@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import App from "./App.vue";
+import App from "./App.vue";  
 import router from "./router";
 import Default from "./Layout/Wrapper/client/master_page/index.vue";
 import Main from "./Layout/Wrapper/client/main_master_page/index.vue";
