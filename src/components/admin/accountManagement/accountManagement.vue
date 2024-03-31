@@ -305,7 +305,6 @@ export default {
             });
         });
     },
-    watch: {},
 };
 </script>
 

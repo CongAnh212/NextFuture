@@ -2,7 +2,21 @@ import { createRouter, createWebHistory } from "vue-router"; // cài vue-router:
 
 const routes = [
   {
-    path: "/admin",
+    path: "/error/404",
+    name: "error404",
+    meta: { layout: "empty", requiresAuth: true },
+    components: {
+      default: () => import("../components/error/404.vue"),
+    },
+  },
+  {
+    path: "/admin-provip-so1-vutru",
+    name: "admin-login",
+    meta: { layout: "account" },
+    component: () => import("../components/admin/signIn/signInAmin.vue"),
+  },
+  {
+    path: "/admin/manage",
     name: "admin",
     meta: { layout: "admin", requiresAuth: true },
     components: {

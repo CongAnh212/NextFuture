@@ -5,7 +5,7 @@
         <div class="iq-navbar-logo d-flex justify-content-between">
           <router-link :to="{ name: 'homepage' }">
             <img src="../../../../assets/img/logo-main.png" class="img-fluid" alt="">
-            <span translate="no">NextFuture</span>
+            <span translate="no" class="fs-3 fw-bold text-black">NextFuture</span>
           </router-link>
         </div>
         <div class="iq-search-bar device-search " style="position: relative;">
@@ -280,7 +280,7 @@
               </div>
             </li>
             <li class="nav-item dropdown">
-              <a href="#" class="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
+              <a href="#" class="d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div class="flex-center circle"
                   style="width: 3rem;height: 3rem;overflow: hidden; margin-right: 0.25rem;">
