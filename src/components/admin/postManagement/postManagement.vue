@@ -1,18 +1,12 @@
 <template>
     <div style="" class="d-flex flex-column overflow-y-auto">
         <div style="" class="mb-1">
-            <div
-                class="shadow-sm fs-4 fw-bold"
-                style="background-color: white; padding: 1rem 2rem 0">
+            <div class="shadow-sm fs-4 fw-bold" style="background-color: white; padding: 1rem 2rem 0">
                 Post management
             </div>
             <div class="d-flex gap-3" style="background-color: white; padding: 1rem 2rem">
                 <div class="flex-1">
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Search by caption"
-                        v-model="searchTerm"
+                    <input type="text" class="form-control" placeholder="Search by caption" v-model="searchTerm"
                         @change="searchPosts" />
                 </div>
                 <div class="flex-1">
@@ -27,28 +21,20 @@
             </div>
         </div>
         <div class="d-flex flex-column" style="height: 70vh; overflow-y: auto">
-            <div
-                v-for="(post, index) in postsFilter"
-                :key="index"
-                class="bg-white p-3 overflow-y-auto position-relative"
+            <div v-for="(post, index) in postsFilter" :key="index"
+                class=" p-3 overflow-y-auto position-relative bg-hover text-dark"
                 style="border-bottom: 0.2px solid rgba(212, 208, 208, 1)">
-                <button class="admin--button-overlay" @click="viewPost(post.id)"></button>
-                <div
-                    class="d-flex justify-content-between align-items-center mb-2"
-                    :style="{
+                <!-- chưa tạo router cho post -->
+                <div class="d-flex justify-content-between align-items-center mb-2 " :style="{
                         padding: '1rem 1rem',
-                        backgroundColor: '#f8f9fa',
                     }">
                     <div class="d-flex align-items-center gap-2">
-                        <img
-                            :src="urlImg + post.avatar"
-                            alt="avatar"
-                            :style="{
-                                width: '50px',
-                                height: '50px',
-                                objectFit: 'cover',
-                                borderRadius: '50%',
-                            }" />
+                        <img :src="urlImg + post.avatar" alt="avatar" :style="{
+                        width: '50px',
+                        height: '50px',
+                        objectFit: 'cover',
+                        borderRadius: '50%',
+                    }" />
                         <div class="fs-5" style="color: black">
                             {{ post.fullname }}
                         </div>
@@ -65,15 +51,10 @@
                 <div>
                     <div class="d-flex align-items-center gap-3">
                         <div class="d-flex gap-2" v-if="post.images && post.images.length > 0">
-                            <img
-                                v-for="(image, index) in post.images"
-                                :key="index"
-                                :src="urlImg + image"
-                                alt="image"
+                            <img v-for="(image, index) in post.images" :key="index" :src="urlImg + image" alt="image"
                                 :style="getImageStyle(index)" />
                             <div v-if="post.images.length > 1" class="position-relative">
-                                <div
-                                    style="
+                                <div style="
                                         width: 90px;
                                         height: 50px;
                                         background-color: rgba(0, 0, 0, 0.5);
@@ -86,9 +67,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div
-                            class="text-wrap"
-                            style="
+                        <div class="text-wrap" style="
                                 overflow: hidden;
                                 text-overflow: ellipsis;
                                 display: -webkit-box;
@@ -241,6 +220,7 @@ export default {
     background-color: rgba(212, 208, 208, 0);
     z-index: 1;
 }
+
 .admin--button-overlay:hover {
     width: 100%;
     height: 100%;
@@ -248,15 +228,22 @@ export default {
     border-radius: 5px;
     background-color: rgba(212, 208, 208, 0.2);
 }
+
 .admin--delete-button {
     padding: 0.3rem 1rem;
     border: none;
-    background-color: #f8f9fa;
+    background-color: transparent;
     color: #f9405f;
     font-weight: bold;
+    border-radius: 5px;
 }
+
 .admin--delete-button:hover {
     background-color: #f9405f;
     color: white;
+}
+
+.bg-hover:hover {
+    background-color: var(--bg-hover-color);
 }
 </style>
