@@ -1,6 +1,6 @@
 <template>
     <div style="min-height: calc(100vh - 4.688rem);">
-        <div v-if="isView">
+        <div v-if="isView && myInfo">
             <div class="w-100  main-group " style="border-bottom: 3px solid #3e3e3e10;">
                 <div class="w-100 h-100">
                     <div class="w-100 bg-primary flex-center respon_cover">
@@ -163,7 +163,8 @@
                                                                 style="width: 40px; height: 40px; flex: 1; font-weight: 600;">
                                                                 {{ v.fullname }}
                                                             </div>
-                                                            <div class="  flex-center" style="width: 40px; height: 40px;">
+                                                            <div class="  flex-center"
+                                                                style="width: 40px; height: 40px;">
                                                                 <div class="form-check flex-center">
                                                                     <input class="form-check-input check_input"
                                                                         type="checkbox" :value="k" :id="'invite' + k"
@@ -198,8 +199,9 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Cancel</button>
-                                            <button :disabled="list_invite.length == 0" @click="sendInvite()" type="button"
-                                                class="btn btn-primary" data-bs-dismiss="modal">Send invite</button>
+                                            <button :disabled="list_invite.length == 0" @click="sendInvite()"
+                                                type="button" class="btn btn-primary" data-bs-dismiss="modal">Send
+                                                invite</button>
                                         </div>
                                     </div>
                                 </div>
@@ -223,9 +225,11 @@
                                             </div>
                                         </div>
                                         <div class=" d-flex" style="width: 40%; gap: 10px;">
-                                            <button @click="acceptInvite()" style="flex: 1;" class="btn btn-primary">Join
+                                            <button @click="acceptInvite()" style="flex: 1;"
+                                                class="btn btn-primary">Join
                                                 group</button>
-                                            <button @click="removeInvite()" style="flex: 1;" class="btn btn-white">Decline
+                                            <button @click="removeInvite()" style="flex: 1;"
+                                                class="btn btn-white">Decline
                                                 the
                                                 invitation</button>
                                         </div>
@@ -243,9 +247,9 @@
                                 </span>
                             </div>
                             <div>
-                                <button class="btn btn-primary">
-                                    Manage posts
-                                </button>
+                                <router-link :to="{ name: 'browse-posts' }">
+                                    <button class="btn btn-primary">Manage posts</button>
+                                </router-link>
                             </div>
                         </div>
                         <hr class="w-100 bg-dark pb-0 mb-0">
@@ -285,8 +289,8 @@
                                     </div>
                                 </div>
                                 <div class="flex-center ct" style="width: 100%; cursor: pointer;">
-                                    <div @click="setView('introduce')" class="py-2 p-2 px-3  bg-hover bb f-500 introduce"
-                                        style="border-radius: 7px;">
+                                    <div @click="setView('introduce')"
+                                        class="py-2 p-2 px-3  bg-hover bb f-500 introduce" style="border-radius: 7px;">
                                         <span class="del-event">Introduce</span>
                                     </div>
                                 </div>
@@ -305,8 +309,8 @@
                                     </div>
                                 </div>
                                 <div class="flex-center ct" style="width: 100%; cursor: pointer;">
-                                    <div @click="setView('introduce')" class="py-2 p-2 px-3  bg-hover bb f-500 introduce"
-                                        style="border-radius: 7px;">
+                                    <div @click="setView('introduce')"
+                                        class="py-2 p-2 px-3  bg-hover bb f-500 introduce" style="border-radius: 7px;">
                                         <span class="del-event">Introduce</span>
                                     </div>
                                 </div>
@@ -387,10 +391,9 @@ export default {
             type: Array,
         },
     },
-    watch: {
+    watch: { 
         infoGroup: {
             handler(newValue, oldValue) {
-                console.log("newValue in content: ", newValue);
                 if (newValue) {
                     this.isView = true;
                     this.data = newValue.info;
@@ -437,9 +440,7 @@ export default {
         listPost: {
             handler(newValue) {
                 if (newValue) {
-                    this.post_approval = this.listPost.filter((item) => {
-                        return item.id_client == this.myInfo.id;
-                    });
+                    this.post_approval = [...newValue]
                 }
             }
         }

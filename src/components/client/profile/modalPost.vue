@@ -153,7 +153,7 @@
                                                                 value.fullname }}</span>
                                                             <br>
                                                             <div class="d-flex align-items-center"
-                                                                style="line-height: 15px; paddi">
+                                                                style="line-height: 15px;">
                                                                 <span style="flex:1" v-html="value.content"></span>
                                                                 <span v-if="value.likes" style="margin-top: 1px;">{{
                                                                     value.likes }}</span>

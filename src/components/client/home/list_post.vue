@@ -46,7 +46,7 @@
                                             <a class="dropdown-item d-flex align-items-center">
                                                 <i class="fa-solid fa-pen me-1"></i>
                                                 Edit post
-                                            </a>
+                                            </a>                             
                                         </li>
                                         <li data-bs-toggle="modal" data-bs-target="#editPrivacyModal"
                                             @click="handleClickPrivacy(v, k)">
