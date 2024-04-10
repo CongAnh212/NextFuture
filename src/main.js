@@ -10,8 +10,13 @@ import empty from "./layout/wrapper/client/empty/index.vue";
 import checkIsLogin from "../src/core/modules.js";
 import AdminNav from "./Layout/Wrapper/admin/AdminNav.vue";
 import PrimeVue from "primevue/config";
+import mitt from 'mitt'
+
 
 const app = createApp(App);
+const emitter = mitt()
+app.config.globalProperties.emitter = emitter;
+
 router.beforeEach(async (to, from, next) => {
   const isLoggedIn = await checkIsLogin();
   if (to.matched.some((record) => record.meta.requiresAuth) && !isLoggedIn) {

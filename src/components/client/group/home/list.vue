@@ -100,14 +100,18 @@ export default {
             countPost: 0,
         }
     },
-
+    created() {
+        this.emitter.on('addPost', (a) => {
+            this.listPost.unshift(a)
+            this.countPost = this.listPost.length
+        })
+    },
     mounted() {
         this.id_group = this.$route.params.id_group;
         this.getInfo();
         this.getPost();
         this.getDataComeIn();
         this.checkRole();
-        console.log('mount in list hsdfsdfome');   
     },
     props: {
         sendAnonymous: {
@@ -213,7 +217,6 @@ export default {
                 });
         },
         getPost() {
-            console.log('this.$route.params.id_group: ', this.$route.params.id_group);
             axios
                 .post('groups/post/data-approve', { id: this.$route.params.id_group })
                 .then((res) => {

@@ -408,15 +408,13 @@ const routes = [
       content: () => import("../components/client/search/searchComponent.vue"),
     },
   },
-  // {
-  //   path: "/search",
-  //   name: "search.everyone",
-  //   meta: { layout: "main", requiresAuth: true },
-  //   components: {
-  //     default: () => import("../components/client/search/list.vue"),
-  //     content: () => import("../components/client/search/searchEveryoneComponent.vue"),
-  //   },
-  // },
+  //***********************************************/ SUGGESTION  / ***********************************************//
+  {
+    path: "/posts/:id_post",
+    name: "detailPost",
+    meta: { requiresAuth: true },
+    component: () => import("../components/client/post/postComponent.vue"),
+  },
 ];
 
 const router = createRouter({

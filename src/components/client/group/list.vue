@@ -14,7 +14,8 @@
     </div>
     <div class="w-100 mt-3" style="overflow: auto;">
         <div @click="setActive('group')" id="discover"
-            class="w-100 d-flex  bg-hover ps-2 align-items-center active-group mb-1" style="height: 45px; cursor: pointer;">
+            class="w-100 d-flex  bg-hover ps-2 align-items-center active-group mb-1"
+            style="height: 45px; cursor: pointer;">
             <div class="bg-light circle me-2 flex-center" style="width:35px;height:35px;">
                 <i class="fas fa-compass text-dark" style="font-size: 1.25rem;"></i>
             </div>
@@ -49,7 +50,8 @@
                 <div class="me-2 flex-center" style="overflow: hidden; width: 53px; height: 53px; border-radius: 15px;">
                     <img :src="urlImg + v.cover_image" style="object-fit: cover; height: 100%;" alt="">
                 </div>
-                <div style="flex: 1; flex-direction: column; line-height: 1.25rem;" class=" d-flex justify-content-center">
+                <div style="flex: 1; flex-direction: column; line-height: 1.25rem;"
+                    class=" d-flex justify-content-center">
                     <b style="font-size: 15px;">{{ v.group_name }}</b>
                     <p class="p-0 m-0">{{ v.member }} members</p>
                 </div>
@@ -63,7 +65,8 @@
                 <div class="me-2 flex-center" style="overflow: hidden; width: 53px; height: 53px; border-radius: 15px;">
                     <img :src="urlImg + v.cover_image" style="object-fit: cover; height: 100%;" alt="">
                 </div>
-                <div style="flex: 1; flex-direction: column; line-height: 1.25rem;" class=" d-flex justify-content-center">
+                <div style="flex: 1; flex-direction: column; line-height: 1.25rem;"
+                    class=" d-flex justify-content-center">
                     <b style="font-size: 15px;">{{ v.group_name }}</b>
                     <p class="p-0 m-0">{{ v.member }} members</p>
                 </div>

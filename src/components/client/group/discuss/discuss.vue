@@ -1,4 +1,4 @@
-<template >
+<template>
     <div class="pt-2" style="padding: 0px 8%;">
         <div class="w-100 px-2 mx-0 pt-2 row" style="flex: 1;  position: relative;   ">
             <div class=" col-7" style="">
@@ -18,8 +18,8 @@
                             <div class="avatar-3">
                                 <img :src="urlImg + myInfo.avatar">
                             </div>
-                            <form class="post-text ms-3 w-100 btn-temp" data-bs-toggle="modal" data-bs-target="#post-modal"
-                                action="javascript:void();" style="flex:1">
+                            <form class="post-text ms-3 w-100 btn-temp" data-bs-toggle="modal"
+                                data-bs-target="#post-modal" action="javascript:void();" style="flex:1">
                                 <input type="text" class="form-control rounded" placeholder="What are you thinking ?"
                                     style="border:none;">
                             </form>
@@ -42,13 +42,14 @@
                                                 <img v-else :src="urlImg + myInfo.avatar" alt="userimg"
                                                     style="width: 100%; height: 100%; object-fit: cover;">
                                             </div>
-                                            <form class="post-text ms-3 w-100" action="javascript:void(); " style="flex:1">
+                                            <form class="post-text ms-3 w-100" action="javascript:void(); "
+                                                style="flex:1">
                                                 <input v-model="post.caption" type="text" class="form-control rounded"
                                                     placeholder="Write something here..." style="border:none;">
                                             </form>
                                         </div>
-                                        <input @change="getImage" id="input-b3" name="input-b3[]" type="file" class="file"
-                                            multiple data-show-upload="false" data-show-caption="true"
+                                        <input @change="getImage" id="input-b3" name="input-b3[]" type="file"
+                                            class="file" multiple data-show-upload="false" data-show-caption="true"
                                             data-msg-placeholder="Select {files} for upload..." accept="image/*">
                                         <!-- ****************************************************************** -->
                                         <hr>
@@ -77,7 +78,8 @@
                                                 <div class="d-flex align-items-center">
                                                     <div style="width: 3.5rem; height: 3.5rem; overflow: hidden; margin-right: 0.3rem;"
                                                         class="flex-center circle">
-                                                        <img v-if="privacy" src="../../../../assets/img/avatar-an-danh.png"
+                                                        <img v-if="privacy"
+                                                            src="../../../../assets/img/avatar-an-danh.png"
                                                             alt="userimg"
                                                             style="width: 100%; height: 100%; object-fit: cover;">
                                                         <img v-else :src="urlImg + myInfo.avatar" alt="userimg"
@@ -129,7 +131,8 @@
                                 style="width:30px;height:30px;">
                                 <i class="fas fa-globe-asia text-dark" style="font-size: 20px;"></i>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center" style="width:calc(100% - 60px);">
+                            <div class="d-flex justify-content-between align-items-center"
+                                style="width:calc(100% - 60px);">
                                 <div class="d-flex flex-column pt-3 a" style="user-select:none;">
                                     <h5><b style="font-weight:500;">Public</b></h5>
                                     <p>Anyone can see everyone in the group and what they post</p>
@@ -142,7 +145,8 @@
                                 style="width:30px;height:30px;">
                                 <i class="fas fa-lock text-dark" style="font-size: 20px;"></i>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center" style="width:calc(100% - 60px);">
+                            <div class="d-flex justify-content-between align-items-center"
+                                style="width:calc(100% - 60px);">
                                 <div class="d-flex flex-column pt-3 a" style="user-select:none;">
                                     <h5><b style="font-weight:500;">Private</b></h5>
                                     <p>only members can see everyone in the group and what they post</p>
@@ -155,7 +159,8 @@
                                 style="width:30px;height:30px;">
                                 <i class="fas fa-eye text-dark" style="font-size: 20px;"></i>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center" style="width:calc(100% - 60px);">
+                            <div class="d-flex justify-content-between align-items-center"
+                                style="width:calc(100% - 60px);">
                                 <div class="d-flex flex-column pt-3 a" style="user-select:none;">
                                     <h5><b style="font-weight:500;">Visible</b></h5>
                                     <p>Anyone can see this group</p>
@@ -168,7 +173,8 @@
                                 style="width:30px;height:30px;">
                                 <i class="fas fa-eye-slash text-dark" style="font-size: 20px;"></i>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center" style="width:calc(100% - 60px);">
+                            <div class="d-flex justify-content-between align-items-center"
+                                style="width:calc(100% - 60px);">
                                 <div class="d-flex flex-column pt-3 a" style="user-select:none;">
                                     <h5><b style="font-weight:500;">Hidden</b></h5>
                                     <p>Only group members can see this group</p>
@@ -186,6 +192,8 @@
 import axios, { url } from '../../../../core/coreRequest';
 import Swal from 'sweetalert2'
 import ListPostComponent from '../home/list_post.vue'
+// import emitter from '../../../../emitter.js'
+
 export default {
     components: {
         ListPostComponent
@@ -221,7 +229,6 @@ export default {
         }
     },
     mounted() {
-        console.log(this.myInfo);
         this.handleInputBootstrap()
         this.getPostGroup()
     },
@@ -265,12 +272,15 @@ export default {
                             };
                             this.$refs.btnCloseModal.click();
                             $('.fileinput-remove-button').click();
+                            var post = res.data.post
+                            post['fullname'] = this.myInfo.fullname
+                            post['username'] = this.myInfo.username
+                            post['avatar'] = this.myInfo.avatar
                             if (this.info.post_approval == 0) {
-                                var post = res.data.post
-                                post['fullname'] = this.myInfo.fullname
-                                post['username'] = this.myInfo.username
-                                post['avatar'] = this.myInfo.avatar
                                 this.listPost.unshift(post);
+                            } else {
+                                // emitter.$emit('addPost', post)
+                                this.emitter.emit('addPost', post)
                             }
                         } else {
                             console.log(res.data.message);
@@ -313,6 +323,6 @@ export default {
     },
 }
 </script>
-<style >
+<style>
 @import '../../home/bs-input.css';
 </style>
