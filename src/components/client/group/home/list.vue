@@ -3,7 +3,8 @@
         <div class="w-100 d-flex " style="border-radius: 10px; padding: 0.45rem 0rem;">
             <div class="me-2 flex-center" style="overflow: hidden; width: 53px; height: 53px; border-radius: 15px;"><img
                     :src="urlImg + data.cover_image" alt="" style="object-fit: cover; height: 100%;"></div>
-            <div class="d-flex justify-content-center" style="flex: 1 1 0%; flex-direction: column; line-height: 1.25rem;">
+            <div class="d-flex justify-content-center"
+                style="flex: 1 1 0%; flex-direction: column; line-height: 1.25rem;">
                 <b style="font-size: 15px;">{{ data.group_name }}</b>
                 <p class="p-0 m-0"> {{ data.privacy == 1 ? 'Public' : 'Private' }} group -
                     <span class="members_hover" @click="fullMemberActive('member')">
@@ -68,19 +69,21 @@
         <div class="w-100 d-flex align-items-center" style="border-radius: 10px; padding: 0.45rem 0rem;">
             <div class="me-2 flex-center" style="overflow: hidden; width: 53px; height: 53px; border-radius: 15px;"><img
                     :src="urlImg + data.cover_image" alt="" style="object-fit: cover; height: 100%;"></div>
-            <div class="d-flex justify-content-center" style="flex: 1 1 0%; flex-direction: column; line-height: 1.25rem;">
+            <div class="d-flex justify-content-center"
+                style="flex: 1 1 0%; flex-direction: column; line-height: 1.25rem;">
                 <b style="font-size: 15px;">{{ data.group_name }}</b>
                 <p class="p-0 m-0"> {{ data.privacy == 1 ? 'Public' : 'Private' }} group - {{ data.member }} members</p>
             </div>
-            <router-link class="circle btn-light flex-center bg-hover" style="width: 40px; height: 40px; cursor: pointer;"
-                :to="{ name: 'group' }">
+            <router-link class="circle btn-light flex-center bg-hover"
+                style="width: 40px; height: 40px; cursor: pointer;" :to="{ name: 'group' }">
                 <i class="fas fa-sign-out-alt"></i>
             </router-link>
         </div>
     </template>
     <template v-else>
         <div class="flex-center">
-            <img src="../../../../assets/client/images/page-img/page-load-loader.gif" alt="loader" style="height: 100px;">
+            <img src="../../../../assets/client/images/page-img/page-load-loader.gif" alt="loader"
+                style="height: 100px;">
         </div>
     </template>
 </template>
@@ -101,10 +104,7 @@ export default {
         }
     },
     created() {
-        this.emitter.on('addPost', (a) => {
-            this.listPost.unshift(a)
-            this.countPost = this.listPost.length
-        })
+
     },
     mounted() {
         this.id_group = this.$route.params.id_group;
@@ -112,6 +112,7 @@ export default {
         this.getPost();
         this.getDataComeIn();
         this.checkRole();
+        this.handleEmitter();
     },
     props: {
         sendAnonymous: {
@@ -179,6 +180,17 @@ export default {
 
     },
     methods: {
+        handleEmitter() {
+            this.emitter.on('addPost', (a) => {
+                this.listPost.unshift(a)
+                this.countPost = this.listPost.length
+            })
+            this.emitter.on('deleteSelectPostInBrowsePost', (data) => {
+                this.listPost = this.listPost.filter((value) => !data.includes(value.id));
+                this.countPost = this.listPost.length
+                this.$emit('reloadListPostToMainMasterPage', this.listPost)
+            })
+        },
         fullMemberActive(a) {
             this.send_all_member = {
                 path: a,

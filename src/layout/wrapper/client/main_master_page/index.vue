@@ -18,7 +18,8 @@
                                     @fullMemberActive="handleFullMemberActive"
                                     @sendFromListHomeGroup="handleGetDataFromListHoneGroup"
                                     :send_rename_group="send_rename_group"
-                                    @sendActiceFromSearch="handleSendActiveFromSearch" :seeMoreSearch="seeMoreSearch">
+                                    @sendActiceFromSearch="handleSendActiveFromSearch" :seeMoreSearch="seeMoreSearch"
+                                    @reloadListPostToMainMasterPage="handleReloadListPostToMainMasterPage">
                                 </router-view>
                             </ul>
                         </nav>
@@ -115,7 +116,9 @@ export default {
         },
         handleSendActiveFromSearch(value) {
             this.typeViewSearch = value
-
+        },
+        handleReloadListPostToMainMasterPage(value) {
+            this.listPost = value
         },
         handleSeeMoreSearch(value) {
             this.seeMoreSearch = value

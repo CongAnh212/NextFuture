@@ -9,7 +9,8 @@
             <div class="img-background" style="height: 80%; width: 100%; background-color: red;">
               <img v-if="!myInfo.avatar" class="img-fluid"
                 src="https://i.pinimg.com/236x/93/a0/0a/93a00a3684652031a0c398c5d54d3d10.jpg" alt="">
-              <img v-else class="img-fluid" :src="urlImg + myInfo.avatar" alt=""  style="filter: blur(0.7px) grayscale(0.12);">
+              <img v-else class="img-fluid" :src="urlImg + myInfo.avatar" alt=""
+                style="filter: blur(0.7px) grayscale(0.12);">
             </div>
             <div
               style="position: absolute; bottom: 0; height: 20%; width: 100%; background-color: #fff; display: flex; justify-content: center;">
@@ -103,7 +104,8 @@
                       <hr>
                       <ul class="d-flex flex-wrap align-items-center list-inline m-0 p-0">
                         <li class="col-md-6 mb-3">
-                          <div @click='show()' style="cursor: pointer; " class="bg-soft-primary rounded p-2 pointer me-3">
+                          <div @click='show()' style="cursor: pointer; "
+                            class="bg-soft-primary rounded p-2 pointer me-3">
                             <a></a><img src="../../../assets/client/images/small/07.png" alt="icon" class="img-fluid">
                             Photo/Video
                           </div>
@@ -217,11 +219,13 @@
               </div>
             </div>
             <div class="scrollbar-track scrollbar-track-x" style="display: none;">
-              <div class="scrollbar-thumb scrollbar-thumb-x" style="width: 260px; transform: translate3d(0px, 0px, 0px);">
+              <div class="scrollbar-thumb scrollbar-thumb-x"
+                style="width: 260px; transform: translate3d(0px, 0px, 0px);">
               </div>
             </div>
             <div class="scrollbar-track scrollbar-track-y" style="display: block;">
-              <div class="scrollbar-thumb scrollbar-thumb-y" style="height: 1rem; transform: translate3d(0px, 0px, 0px);">
+              <div class="scrollbar-thumb scrollbar-thumb-y"
+                style="height: 1rem; transform: translate3d(0px, 0px, 0px);">
               </div>
             </div>
           </div>
@@ -382,7 +386,6 @@ export default {
         .get('story/data')
         .then((res) => {
           this.stories = res.data.dataStory;
-          console.log('this.stories: ', this.stories);
         });
     },
     show() {
@@ -430,7 +433,6 @@ export default {
             },
           })
           .then((res) => {
-            console.log('res: ', res.data.post);
             if (res.data.status) {
               this.post = {
                 images: []
@@ -442,7 +444,6 @@ export default {
               post['fullname'] = this.myInfo.fullname
               post['likes'] = 0
               this.list_post.unshift(res.data.post);
-              console.log('this.list_post: ', this.list_post);
             } else {
               console.log(res.data.message);
             }
@@ -458,7 +459,6 @@ export default {
         .then((res) => {
           if (res.data.status) {
             this.list_post = res.data.dataPost;
-            // console.log('this.list_post: ', this.list_post);
           } else {
             console.log(res.data.message);
           }
