@@ -4,7 +4,7 @@
             <img src="../../../../assets/client/images/page-img/page-load-loader.gif" alt="loader" style="height: 100px;">
         </div>
     </div>
-    <div v-else-if="listPost.length > 0" style="min-height: calc(100vh - 4.688rem);">
+    <div v-else-if="listPost.length > 0 && myInfo" style="min-height: calc(100vh - 4.688rem);">
         <div class="mb-4">
             <div class="flex-center pt-4 pb-2" style="gap:17%">
                 <div>
@@ -129,14 +129,17 @@ export default {
     watch: {
         listPost: {
             handler(newV, oldV) {
+                console.log('newV: ', newV);
+                this.list_search_post = newV
                 this.loading = 1
             },
             deep: true,
             immediate: true,
             listPost(oldData) {
+                console.log('oldData: ', oldData);
                 if (oldData) {
                     this.key_search = ""
-                    this.list_search_post = this.listPost
+                    this.list_search_post = oldData
                 }
             }
         },
@@ -152,10 +155,7 @@ export default {
     },
     mounted() {
         this.list_search_post = this.listPost;
-        console.log(" this.list_search_post : ", this.list_search_post);
         this.key_search = '';
-        console.log("mouted");
-
     },
     methods: {
         searchPost() {
@@ -170,7 +170,7 @@ export default {
             axios
                 .post('groups/post/approve', v)
                 .then((res) => {
-                    this.listPost.splice(k, 1)
+                    this.emitter.emit('deleteSelectPostInBrowsePost', [v.id]) // đưa đến groups/home/list
                     baseFunction.displaySuccess(res)
                     this.searchPost();
                 })
@@ -182,9 +182,7 @@ export default {
             axios
                 .post('groups/post/approve-select', { listID: this.listChecked })
                 .then((res) => {
-                    console.log("Before filtering: ", this.list_search_post);
-                    this.list_search_post = this.list_search_post.filter((value) => !this.listChecked.includes(value.id));
-                    console.log("After filtering: ", this.list_search_post);
+                    this.emitter.emit('deleteSelectPostInBrowsePost', this.listChecked) // đưa đến groups/home/list
                     this.listChecked = []
                     $('.false-checkbox').prop('checked', false);
                     baseFunction.displaySuccess(res)
@@ -192,11 +190,10 @@ export default {
                 })
         },
         refusePost(v, k) {
-            console.log(123);
             axios
                 .post('groups/post/refuse', v)
                 .then((res) => {
-                    this.listPost.splice(k, 1)
+                    this.emitter.emit('deleteSelectPostInBrowsePost', [v.id]) // đưa đến groups/home/list
                     baseFunction.displaySuccess(res)
                     this.searchPost();
                 })
@@ -208,7 +205,7 @@ export default {
             axios
                 .post('groups/post/refuse-select', { listID: this.listChecked })
                 .then((res) => {
-                    this.listPost = this.listPost.filter((value) => !this.listChecked.includes(value.id));
+                    this.emitter.emit('deleteSelectPostInBrowsePost', this.listChecked) // đưa đến groups/home/list
                     this.listChecked = []
                     $('.false-checkbox').prop('checked', false);
                     baseFunction.displaySuccess(res)

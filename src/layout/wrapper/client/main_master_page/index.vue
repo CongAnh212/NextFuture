@@ -3,7 +3,8 @@
         <HeaderClient :notify="notify" :myInfo='myInfo' @sendKeySearch="handleSendKeySearch"></HeaderClient>
         <div class="">
             <div class="iq-sidebar-fix sidebar-default ">
-                <div id="sidebar-scrollbar" data-scrollbar="true" tabindex="-1" style="overflow: hidden; outline: none;">
+                <div id="sidebar-scrollbar" data-scrollbar="true" tabindex="-1"
+                    style="overflow: hidden; outline: none;">
                     <div class="scroll-content">
                         <nav class="iq-sidebar-menu">
                             <ul id="iq-sidebar-toggle" class="iq-menu">
@@ -11,12 +12,14 @@
                                     :sentFriendProfile="dataProfileRequestFriend" @suggest="handleSuggest"
                                     :sentFriendProfileSuggest="dataProfileSuggest" @del_suggest="handleDelSuggest"
                                     :getPrivacy="dataPrivacy" :delFriendProfile="delDataProfileAllFriend"
-                                    :approve_Connection="dataApproveConnection" :refuse_Connection="dataRefuseConnection"
+                                    :approve_Connection="dataApproveConnection"
+                                    :refuse_Connection="dataRefuseConnection"
                                     :send_active_overview_group="send_active_overview_group"
                                     @fullMemberActive="handleFullMemberActive"
                                     @sendFromListHomeGroup="handleGetDataFromListHoneGroup"
                                     :send_rename_group="send_rename_group"
-                                    @sendActiceFromSearch="handleSendActiveFromSearch" :seeMoreSearch="seeMoreSearch">
+                                    @sendActiceFromSearch="handleSendActiveFromSearch" :seeMoreSearch="seeMoreSearch"
+                                    @reloadListPostToMainMasterPage="handleReloadListPostToMainMasterPage">
                                 </router-view>
                             </ul>
                         </nav>
@@ -113,7 +116,9 @@ export default {
         },
         handleSendActiveFromSearch(value) {
             this.typeViewSearch = value
-
+        },
+        handleReloadListPostToMainMasterPage(value) {
+            this.listPost = value
         },
         handleSeeMoreSearch(value) {
             this.seeMoreSearch = value
