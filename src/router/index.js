@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router"; // cài vue-router: npm install vue-router@next --save
+import Conversation from "../components/client/conversation/conversation.vue";
 
 const routes = [
   {
@@ -269,7 +270,6 @@ const routes = [
       {
         path: ":idStory",
         name: "detailStory",
-        props: true,
         components: {
           default: () => import("../components/client/story/list_user.vue"),
           content: () => import("../components/client/story/content.vue"),
@@ -384,14 +384,18 @@ const routes = [
     },
   },
   {
-    path: "/test",
-    name: "test",
-    meta: { layout: "main", requiresAuth: true },
+    path: "/messages/:username?",
+    name: "messages",
+    meta: {layout: "main", requiresAuth: true},
     components: {
-      default: () => import("../components/test/list.vue"),
-      content: () => import("../components/test/content.vue"),
+      default: Conversation,
+      messages: Conversation
     },
-  },
+    props: {
+      default: true,
+      messages: true
+    }
+  }
 ];
 
 const router = createRouter({

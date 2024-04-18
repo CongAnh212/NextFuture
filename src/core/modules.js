@@ -9,7 +9,7 @@ const checkIsLogin = async () => {
         try {
             const res = await axios.get(host + endPoint, { headers: { Authorization: 'Bearer ' + token } });
             if (res.data.status === true) {
-                return true;
+                return true
             }
         } catch (err) {
             console.log(err);

@@ -204,10 +204,9 @@
               </div>
             </li>
             <li class="nav-item dropdown">
-              <a href="#" class="dropdown-toggle" id="mail-drop" data-bs-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
+              <router-link to='/messages'>
                 <i class="ri-mail-line"></i>
-              </a>
+              </router-link>
               <div class="sub-drop dropdown-menu" aria-labelledby="mail-drop">
                 <div class="card shadow-none m-0">
                   <div class="card-header d-flex justify-content-between bg-primary">

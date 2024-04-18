@@ -38,10 +38,10 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                        <button class='btn btn-primary ms-2' style='width:130px'>
+                                        <a :href="'/messages/' + info.username" class='btn btn-primary ms-2' style='width:130px'>
                                             <i class="fa-brands fa-facebook-messenger me-1"></i>
                                             Messenger
-                                        </button>
+                                        </a>
                                     </li>
                                     <li v-if="status == 'follower'" class='d-flex'>
                                         <div class="dropdown">

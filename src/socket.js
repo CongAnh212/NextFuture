@@ -7,7 +7,7 @@ export const state = reactive({
     activeAccounts: 0,
 });
 
-const URL = process.env.NODE_ENV === "production" ? undefined : "http://127.0.0.1:3001";
+const URL = process.env.NODE_ENV === "production" ? undefined : "http://127.0.0.1:3006";
 
 export const socket = io(URL, {
     autoConnect: true,

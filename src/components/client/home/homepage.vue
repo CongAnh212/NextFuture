@@ -285,12 +285,22 @@ export default {
       deep: true
     },
     myInfo: {
+
       handler(newValue, oldValue) {
         // Xử lý khi giá trị của data thay đổi
         if (oldValue) {
           this.isView = true;
         }
-        this.handleInputBootstrap()
+        setTimeout(() => {
+          $("#input-b3").fileinput();
+          $("#input-b3").fileinput({ 'showUpload': false, 'previewFileType': 'any' });
+          $('.file-input').addClass('hide-important');
+          $('.close').addClass('btn btn-secondary');
+          $('.fileinput-remove').on('click', () => {
+            $('.file-input').addClass('hide-important');
+            this.post.images = [];
+          });
+        }, 100);
       },
       deep: true, // Sử dụng deep watch để theo dõi các thay đổi sâu
       immediate: true, // Kích hoạt handler ngay từ khi component được khởi tạo
@@ -459,6 +469,10 @@ export default {
 
 
     },
+    setDropdown() {
+      $('.dropdownn').css('inset', 'auto 0px 0px auto');
+      $('.dropdownn').css('transform', 'translate(0px, -29px)');
+    },
     loadPost() {
       axios
         .get('post/data')
@@ -478,6 +492,6 @@ export default {
 }
 </script>
 <style>
-@import "./style.css";
-@import "./bs-input.css";
+@import './style.css';
+@import './bs-input.css';
 </style>
