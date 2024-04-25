@@ -290,16 +290,17 @@
                                     </div>
                                     <div class="card-body p-0 ">
                                         <div class="iq-sub-card iq-bg-primary-hover">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="rounded card-icon bg-soft-primary">
-                                                        <i class="ri-file-user-line"></i>
-                                                    </div>
-                                                    <div class="ms-3">
-                                                        <p class="mb-0 font-size-12">View personal profile details.</p>
-                                                    </div>
+                                            <div class="d-flex align-items-center">
+                                                <div class="rounded card-icon bg-soft-primary">
+                                                    <i class="ri-file-user-line"></i>
                                                 </div>
+                                                <div class="ms-3">
+                                                    <p class="mb-0 font-size-12">View personal profile details.</p>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <router-link :to="{ name: 'editProfile' }" class="iq-sub-card iq-bg-warning-hover">
+                                        <router-link :to="{ name: 'editProfile' }"
+                                            class="iq-sub-card iq-bg-warning-hover">
                                             <div class="d-flex align-items-center">
                                                 <div class="rounded card-icon bg-soft-warning">
                                                     <i class="ri-profile-line"></i>

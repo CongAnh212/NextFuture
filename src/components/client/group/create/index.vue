@@ -12,7 +12,7 @@
                             </div>
                         </router-link>
                         <router-link :to="{ name: 'homepage' }">
-                            <img src="../../../../assets/img/main-logo.png" class="img-fluid" alt="">
+                            <img src="../../../../assets/img/logo-main.png" class="img-fluid" alt="">
                         </router-link>
                     </div>
                     <hr style="margin: 0.5rem 0;">
@@ -33,7 +33,8 @@
                                 style="width:40px;height:40px; overflow: hidden;">
                                 <img :src="urlImg + myData.avatar" class="img-fluid" style="object-fit: cover;" alt="">
                             </div>
-                            <div class="d-flex justify-content-between align-items-center" style="width:calc(100% - 60px);">
+                            <div class="d-flex justify-content-between align-items-center"
+                                style="width:calc(100% - 60px);">
                                 <div class="d-flex flex-column align-items-center pt-3"
                                     style="user-select:none; line-height: 15px;">
                                     <h6><b style="font-weight:500;">{{ myData.fullname }}</b></h6>
@@ -66,7 +67,8 @@
                                         <div class="bg-light circle  me-2 flex-center" style="width:40px;height:40px;">
                                             <i class="fas fa-globe-asia text-dark" style="font-size: 20px;"></i>
                                         </div>
-                                        <div class="d-flex justify-content-between align-items-center" style="width: 85%;">
+                                        <div class="d-flex justify-content-between align-items-center"
+                                            style="width: 85%;">
                                             <div class="pt-3" style="user-select:none; width: 100%;">
                                                 <h5><b style="font-weight:500;">Public</b></h5>
                                                 <div style=" white-space: normal; font-size: 12px;">
@@ -81,7 +83,8 @@
                                         <div class="bg-light circle  me-2 flex-center" style="width:40px;height:40px;">
                                             <i class="fas fa-lock text-dark" style="font-size: 20px;"></i>
                                         </div>
-                                        <div class="d-flex justify-content-between align-items-center" style="width: 85%;">
+                                        <div class="d-flex justify-content-between align-items-center"
+                                            style="width: 85%;">
                                             <div class="pt-3" style="user-select:none; width: 100%;">
                                                 <h5><b style="font-weight:500;">Private</b></h5>
                                                 <div style=" white-space: normal; font-size: 12px;">
@@ -112,7 +115,8 @@
                                         <div class="bg-light circle  me-2 flex-center" style="width:40px;height:40px;">
                                             <i class="fas fa-eye text-dark" style="font-size: 20px;"></i>
                                         </div>
-                                        <div class="d-flex justify-content-between align-items-center" style="width: 85%;">
+                                        <div class="d-flex justify-content-between align-items-center"
+                                            style="width: 85%;">
                                             <div class="pt-3" style="user-select:none; width: 100%;">
                                                 <h5><b style="font-weight:500;">Visible</b></h5>
                                                 <div style=" white-space: normal; font-size: 12px;">
@@ -127,7 +131,8 @@
                                         <div class="bg-light circle  me-2 flex-center" style="width:40px;height:40px;">
                                             <i class="fas fa-eye-slash text-dark" style="font-size: 20px;"></i>
                                         </div>
-                                        <div class="d-flex justify-content-between align-items-center" style="width: 85%;">
+                                        <div class="d-flex justify-content-between align-items-center"
+                                            style="width: 85%;">
                                             <div class="pt-3" style="user-select:none; width: 100%;">
                                                 <h5><b style="font-weight:500;">Hidden</b></h5>
                                                 <div style=" white-space: normal; font-size: 12px;">
@@ -165,7 +170,8 @@
                 <div class="p-5"></div>
                 <div class="p-5"></div>
                 <div class="nav-bottom flex-center">
-                    <button @click="createGroup()" id="btnCreate" class="btn btn-light w-100 mx-3" disabled>Create</button>
+                    <button @click="createGroup()" id="btnCreate" class="btn btn-light w-100 mx-3"
+                        disabled>Create</button>
                 </div>
             </div>
         </div>
@@ -255,13 +261,15 @@
                                             </div>
                                         </div>
                                         <div class="card-body p-0">
-                                            <div class="iq-sub-card iq-bg-primary-hover"><a href="/profile-client" class="">
+                                            <div class="iq-sub-card iq-bg-primary-hover"><a href="/profile-client"
+                                                    class="">
                                                     <div class="d-flex align-items-center">
                                                         <div class="rounded card-icon bg-soft-primary"><i
                                                                 class="ri-file-user-line"></i></div>
                                                         <div class="ms-3">
                                                             <h6 class="mb-0">My Profile</h6>
-                                                            <p class="mb-0 font-size-12">View personal profile details.</p>
+                                                            <p class="mb-0 font-size-12">View personal profile details.
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </a></div><a href="../app/profile-edit.html"
@@ -274,7 +282,8 @@
                                                         <p class="mb-0 font-size-12">Modify your personal details.</p>
                                                     </div>
                                                 </div>
-                                            </a><a href="../app/account-setting.html" class="iq-sub-card iq-bg-info-hover">
+                                            </a><a href="../app/account-setting.html"
+                                                class="iq-sub-card iq-bg-info-hover">
                                                 <div class="d-flex align-items-center">
                                                     <div class="rounded card-icon bg-soft-info"><i
                                                             class="ri-account-box-line"></i></div>
@@ -290,7 +299,8 @@
                                                             class="ri-lock-line"></i></div>
                                                     <div class="ms-3">
                                                         <h6 class="mb-0">Privacy Settings</h6>
-                                                        <p class="mb-0 font-size-12">Control your privacy parameters. </p>
+                                                        <p class="mb-0 font-size-12">Control your privacy parameters.
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </a>
@@ -324,7 +334,8 @@
                 <div class="w-100 border-preview d-flex flex-column" style="">
                     <div class="w-100" style="background-color: #fff;">
                         <div class=" w-100 bg-primary" style="overflow: hidden; border-radius: 10px;">
-                            <img :src="urlImg + 'cover/cover_image.png'" class="w-100 image-cover" style="filter: grayscale(100%);">
+                            <img :src="urlImg + 'cover/cover_image.png'" class="w-100 image-cover"
+                                style="filter: grayscale(100%);">
                         </div>
                         <div class="w-100 px-2 pt-3 pb-2 c">
                             <h3 v-if="!group_name"><b style="color: #9c9c9c;">Group name</b></h3>
@@ -384,9 +395,11 @@
                                 </div>
                             </div>
                             <div v-else class="card" style="border-radius: 10px;">
-                                <div class="card-body b" style="border-radius: 10px; box-shadow: 0px 0px 5px #33333324;">
+                                <div class="card-body b"
+                                    style="border-radius: 10px; box-shadow: 0px 0px 5px #33333324;">
                                     <span style="font-weight: 600;">Introduct</span>
-                                    <div v-if="privacy == 1" class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center"
+                                    <div v-if="privacy == 1"
+                                        class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center"
                                         style="height: 65px; line-height: 18px;">
                                         <div class="d-flex me-2 justify-content-center align-items-center"
                                             style="width:30px;height:30px;">
@@ -415,7 +428,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div v-if="display == 2" class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center"
+                                    <div v-if="display == 2"
+                                        class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center"
                                         style="height: 65px;">
                                         <div class="d-flex me-2 justify-content-center align-items-center"
                                             style="width:30px;height:30px;">

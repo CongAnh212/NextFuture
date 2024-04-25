@@ -394,6 +394,16 @@ const routes = [
       content: () => import("../components/client/search/searchComponent.vue"),
     },
   },
+  //***********************************************/ Chat  / ***********************************************//
+  {
+    path: "/message",
+    name: "message",
+    meta: { layout: "main", requiresAuth: true },
+    components: {
+      default: () => import("../components/client/chat/conversation_list.vue"),
+      content: () => import("../components/client/chat/conversation_chat_box.vue"),
+    },
+  },
   // {
   //   path: "/search",
   //   name: "search.everyone",

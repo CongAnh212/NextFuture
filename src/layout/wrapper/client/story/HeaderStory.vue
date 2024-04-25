@@ -168,7 +168,8 @@
                                         </a>
                                         <div class="d-inline-block w-100 text-center p-3">
                                             <router-link to="">
-                                                <a @click="signOut()" class="btn btn-primary iq-sign-btn" role="button">Sign
+                                                <a @click="signOut()" class="btn btn-primary iq-sign-btn"
+                                                    role="button">Sign
                                                     out<i class="ri-login-box-line ms-2"></i></a>
                                             </router-link>
                                         </div>

@@ -3,7 +3,8 @@
         <HeaderClient :notify="notify" :myInfo='myInfo' @sendKeySearch="handleSendKeySearch"></HeaderClient>
         <div class="">
             <div class="iq-sidebar-fix sidebar-default ">
-                <div id="sidebar-scrollbar" data-scrollbar="true" tabindex="-1" style="overflow: hidden; outline: none;">
+                <div id="sidebar-scrollbar" data-scrollbar="true" tabindex="-1"
+                    style="overflow: hidden; outline: none;">
                     <div class="scroll-content">
                         <nav class="iq-sidebar-menu">
                             <ul id="iq-sidebar-toggle" class="iq-menu">
@@ -11,12 +12,14 @@
                                     :sentFriendProfile="dataProfileRequestFriend" @suggest="handleSuggest"
                                     :sentFriendProfileSuggest="dataProfileSuggest" @del_suggest="handleDelSuggest"
                                     :getPrivacy="dataPrivacy" :delFriendProfile="delDataProfileAllFriend"
-                                    :approve_Connection="dataApproveConnection" :refuse_Connection="dataRefuseConnection"
+                                    :approve_Connection="dataApproveConnection"
+                                    :refuse_Connection="dataRefuseConnection"
                                     :send_active_overview_group="send_active_overview_group"
                                     @fullMemberActive="handleFullMemberActive"
                                     @sendFromListHomeGroup="handleGetDataFromListHoneGroup"
                                     :send_rename_group="send_rename_group"
-                                    @sendActiceFromSearch="handleSendActiveFromSearch" :seeMoreSearch="seeMoreSearch">
+                                    @sendActiceFromSearch="handleSendActiveFromSearch" :seeMoreSearch="seeMoreSearch"
+                                    @selectConversation="handleSelectConversation">
                                 </router-view>
                             </ul>
                         </nav>
@@ -43,7 +46,7 @@
                 @send_active="handleSendActive" :send_active_all_member="send_all_member_active" :infoGroup="infoGroup"
                 @sendRenameGroup="handleSendRenameGroup" :dataComeIn="dataComeIn" :listPost="listPost"
                 :keySearch="keySearch" :typeViewSearch="typeViewSearch" @sendFromSearchComponent="handleSeeMoreSearch"
-                @sendAnonymous="handleSendAnonymous">
+                @sendAnonymous="handleSendAnonymous" :conversation="conversation">
             </router-view>
         </div>
     </div>
@@ -98,6 +101,7 @@ export default {
             //--------------------------------------------------------------------------------------------//
             send_rename_group: null,        //truyền thay đổi tên của group
             //--------------------------------------------------------------------------------------------//
+            conversation: null,             // truyền cuộc hội thoại
         }
     },
     mounted() {
@@ -109,7 +113,6 @@ export default {
                 .get('profile/data')
                 .then((res) => {
                     this.myInfo = res.data.myInfo;
-                    console.log(123123);
                 });
         },
         handleSendActiveFromSearch(value) {
@@ -172,6 +175,9 @@ export default {
         },
         handleSendAnonymous(value) {
             this.infoGroup.info.anonymity = value
+        },
+        handleSelectConversation(value) {
+            this.conversation = value
         }
     }
 }

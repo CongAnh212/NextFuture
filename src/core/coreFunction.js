@@ -72,6 +72,18 @@ export default {
             toastr.warning(message);
         }
     },
+    handleSwitchingFromTimestampToCountdownHours(a) {
+        const date = new Date(a);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const seconds = date.getSeconds();
+        const normalTime = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+
+        return this.hoursDifference(normalTime);
+    }
 
     // displayErrors(err) {
     //     const time = 500;
