@@ -1,4 +1,4 @@
-<template >
+<template>
     <div v-if="dataComeIn" style="min-height: calc(100vh - 4.688rem);">
         <div class="bg-white mb-4">
             <div class="flex-center pt-4 pb-2" style="gap:17%">
@@ -26,8 +26,8 @@
                                 <i class="ri-search-line my-auto">
                                 </i>
                             </a>
-                            <input v-model="key_search" @input="searchRequestGroup()" type="text" class="text search-input"
-                                placeholder="Search by name..." style="border-radius:50px;">
+                            <input v-model="key_search" @input="searchRequestGroup()" type="text"
+                                class="text search-input" placeholder="Search by name..." style="border-radius:50px;">
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                                 Approve
                             </button>
                             <button class="btn btn-secondary  btn-sm" style="width: 150px;"
-                                @click="refuseConnection(v)">Refuse</button>
+                                @click="refuseConnection(v, k)">Refuse</button>
                         </div>
                     </div>
                     <div style="width: 100%; padding-left: 10%;" class="mt-1">
@@ -143,7 +143,7 @@ export default {
                     this.dataComeIn.splice(0, this.dataComeIn.length)
                 })
         },
-        refuseConnection(v) {
+        refuseConnection(v, k) {
             var payLoad = {
                 ...v,
                 status: false
@@ -157,7 +157,7 @@ export default {
                 .post('groups/refuse-connection', payload)
                 .then((res) => {
                     coreFuntion.displaySuccess(res)
-                    this.getDataComeIn()
+                    this.dataComeIn.splice(k, 1)
                 })
         },
         refuseConnectionAll() {
@@ -174,11 +174,11 @@ export default {
                 .post('groups/refuse-connection-all', payload)
                 .then((res) => {
                     coreFuntion.displaySuccess(res)
-                    this.getDataComeIn()
+                    this.dataComeIn.splice(0, this.dataComeIn.length)
                 })
 
         }
     },
 }
 </script>
-<style ></style>
+<style></style>

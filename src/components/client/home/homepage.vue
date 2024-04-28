@@ -329,19 +329,22 @@ export default {
       }
     },
     async updateOnlineUser(onlineUsers) {
-      if (onlineUsers) {
-        if (this.list_friend.length > 0 && onlineUsers) {
-          this.list_friend.forEach(friend => {
-            const onlineUser = onlineUsers[onlineUsers.length - 1].find((user) => user.id === friend.id);
-            if (onlineUser) {
-              friend.isOnline = true;
-            } else {
-              friend.isOnline = false;
-            }
-          });
+  if (onlineUsers && onlineUsers.length > 0) { 
+    if (this.list_friend.length > 0) {
+      this.list_friend.forEach(friend => {
+        const latestOnlineUsers = onlineUsers[onlineUsers.length - 1];
+        if (latestOnlineUsers) { 
+          const onlineUser = latestOnlineUsers.find((user) => user.id === friend.id);
+          if (onlineUser) {
+            friend.isOnline = true;
+          } else {
+            friend.isOnline = false;
+          }
         }
-      }
-    },
+      });
+    }
+  }
+},
     totalComments(a) {
       return this.list_comment.filter(value => value.id_post == a).length;
     },

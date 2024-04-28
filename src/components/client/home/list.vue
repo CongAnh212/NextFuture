@@ -17,7 +17,7 @@
         </li>
         <li>
             <router-link :to="{ name: 'friends' }">
-                <i class="fa-solid fa-user me-4" style="font-size: 17px;"></i>
+                <i class="fa-solid fa-user-group me-4" style="font-size: 17px;"></i>
                 <span style="font-size: 18px;">Friends</span>
             </router-link>
         </li>

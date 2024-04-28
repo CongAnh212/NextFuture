@@ -72,7 +72,7 @@
                                                     style="font-size: 15px;"></i>
                                                 <span style="font-size: 15px;">Live in <b class="text-primary">{{
                                                     info.address
-                                                }}</b></span>
+                                                        }}</b></span>
                                             </div>
                                         </div>
                                     </div>
@@ -90,7 +90,7 @@
                                 <div @click="open()"
                                     class="btn-primary px-2 f-500 radius-7 text-white me-2 invite flex-center"
                                     data-bs-toggle="modal" data-bs-target="#inviteModal" style="cursor: pointer;">
-                                    <span style="font-size: 20px;">
+                                    <span style="font-size: 20px;font-weight: bold;">
                                         +
                                     </span>
                                     <span class="del-event">Invite</span>
@@ -146,7 +146,6 @@
                                                                     placeholder="Search for friends by name"
                                                                     style="border-radius:50px;"></div>
                                                         </div>
-
                                                     </div>
                                                     <h4>Suggest</h4>
                                                     <div style="max-height: 50vh; overflow: auto;">
@@ -174,10 +173,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-5 " style="background-color: #33333315;">
-                                                    <p style="font-weight: 500; color: #333333b3;">selected {{
+                                                <div class="col-5" style="background-color: #33333315; border-radius: 10px;">
+                                                    <p style="font-weight: 500; color: #333333b3;">Selected {{
                                                         this.list_invite.length }} friends</p>
-                                                    <div @click="choose(k, v)" v-for="(v, k) in list_invite"
+                                                    <div v-for="(v, k) in list_invite"
                                                         class="d-flex p-2 py-2 radius-7 bg-hover text-dark"
                                                         style="cursor: pointer;">
                                                         <div class="circle "
@@ -188,9 +187,6 @@
                                                         <div class="  d-flex align-items-center px-2 del-event"
                                                             style="width: 40px; height: 40px; flex: 1; font-weight: 600;">
                                                             {{ v.fullname }}
-                                                        </div>
-                                                        <div class="  flex-center" style="width: 40px; height: 40px;">
-                                                            <i class="fas fa-times"></i>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -391,7 +387,7 @@ export default {
             type: Array,
         },
     },
-    watch: { 
+    watch: {
         infoGroup: {
             handler(newValue, oldValue) {
                 if (newValue) {

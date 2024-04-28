@@ -28,8 +28,7 @@
                   <b>{{ v.fullname }}</b>
                   <span>{{ v.nickname }}</span>
                 </div>
-                <div class="flex-center bg-pink "
-                  style="border-radius: 10px; width: 2.5rem; height: 2.5rem; overflow: hidden;">
+                <div class="flex-center" style="border-radius: 10px; width: 2.5rem; height: 2.5rem; overflow: hidden;">
                   <img :src="urlImg + v.avatar" style="object-fit: cover; width: 100%; height: 100%;">
                 </div>
               </div>
@@ -138,8 +137,8 @@
                       <h5 class="mb-0 text-white">All Notifications</h5>
                     </div>
                     <small class="badge bg-light text-dark" v-if="list_notifications.length">{{
-    list_notifications.length
-  }}</small>
+                      list_notifications.length
+                      }}</small>
                   </div>
                   <div v-if="list_notifications.length > 0">
                     <div v-if="isView" class="card-body p-0 " style="max-height: 65vh; overflow: auto;">
