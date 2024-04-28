@@ -8,6 +8,7 @@ import {
   query,
   orderByChild,
   equalTo,
+  limitToLast,
 } from "firebase/database";
 
 const firebaseConfig = {
@@ -25,4 +26,13 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 const database = getDatabase();
-export { database, ref, push, onValue, query, orderByChild, equalTo };
+export {
+  database,
+  ref,
+  push,
+  onValue,
+  query,
+  orderByChild,
+  equalTo,
+  limitToLast,
+};
