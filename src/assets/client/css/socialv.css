@@ -30106,6 +30106,9 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-right {
   justify-content: space-around;
   align-items: center;
 }
+.flex-col{
+  flex-direction: column;
+}
 
 .bg-pink {
   background-color: pink;
@@ -30172,4 +30175,13 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-right {
   object-fit: cover;
   height: 100%;
   width: 100%;
+}
+.relative{
+  position: relative;
+}
+.absolute{
+  position: absolute;
+}
+.z-1{
+  z-index: 1;
 }

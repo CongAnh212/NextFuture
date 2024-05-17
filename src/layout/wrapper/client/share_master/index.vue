@@ -16,7 +16,8 @@
                         </router-link>
                     </div>
                     <hr style="margin: 0.5rem 0;">
-                    <router-view @sendStories="handleStory" @viewStory="viewStory"></router-view> <!-- **************************************************default -->
+                    <router-view @sendStories="handleStory" @viewStory="viewStory"></router-view>
+                    <!-- **************************************************default -->
                 </nav>
                 <div class="p-5"></div>
             </div>
@@ -24,7 +25,8 @@
     </div>
 
     <div class="bg-dark" style="height: 100vh; width: 80vw; position: absolute; right: 0px;">
-        <router-view name="content" :stories="stories" :curentStory="curentStory"></router-view><!-- ************************************************ content  -->
+        <router-view name="content" :stories="stories"
+            :curentStory="curentStory"></router-view><!-- ************************************************ content  -->
         <div class="iq-top-navbar delete-bg mt-3" style="position: absolute;width: 20%;">
             <div class="iq-navbar-custom">
                 <nav class="navbar navbar-expand-lg navbar-light p-0">
@@ -116,7 +118,8 @@
                                                                 class="ri-file-user-line"></i></div>
                                                         <div class="ms-3">
                                                             <h6 class="mb-0">My Profile</h6>
-                                                            <p class="mb-0 font-size-12">View personal profile details.</p>
+                                                            <p class="mb-0 font-size-12">View personal profile details.
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </router-link>
@@ -130,7 +133,8 @@
                                                         <p class="mb-0 font-size-12">Modify your personal details.</p>
                                                     </div>
                                                 </div>
-                                            </a><a href="../app/account-setting.html" class="iq-sub-card iq-bg-info-hover">
+                                            </a><a href="../app/account-setting.html"
+                                                class="iq-sub-card iq-bg-info-hover">
                                                 <div class="d-flex align-items-center">
                                                     <div class="rounded card-icon bg-soft-info"><i
                                                             class="ri-account-box-line"></i></div>
@@ -146,13 +150,15 @@
                                                             class="ri-lock-line"></i></div>
                                                     <div class="ms-3">
                                                         <h6 class="mb-0">Privacy Settings</h6>
-                                                        <p class="mb-0 font-size-12">Control your privacy parameters. </p>
+                                                        <p class="mb-0 font-size-12">Control your privacy parameters.
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </a>
                                             <div class="d-inline-block w-100 text-center p-3"><a
                                                     class="btn btn-primary iq-sign-btn" href="../dashboard/sign-in.html"
-                                                    role="button">Sign out<i class="ri-login-box-line ms-2"></i></a></div>
+                                                    role="button">Sign out<i class="ri-login-box-line ms-2"></i></a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

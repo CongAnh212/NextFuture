@@ -17,6 +17,7 @@
     "bootstrap-fileinput": "^5.5.2",
     "bootstrap-vue": "^2.23.1",
     "dayjs": "^1.11.10",
+    "firebase": "^10.11.0",
     "html2canvas": "^1.4.1",
     "jquery": "^3.7.1",
     "lodash": "^4.17.21",
@@ -31,7 +32,8 @@
     "vue-image-crop-upload": "^3.0.3",
     "vue-router": "^4.2.5",
     "vue-toasted": "^1.1.28",
-    "vue3-carousel": "^0.3.1"
+    "vue3-carousel": "^0.3.1",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",

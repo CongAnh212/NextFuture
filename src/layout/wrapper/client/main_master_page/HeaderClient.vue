@@ -136,9 +136,7 @@
                     <div class="header-title bg-primary">
                       <h5 class="mb-0 text-white">All Notifications</h5>
                     </div>
-                    <small class="badge bg-light text-dark" v-if="list_notifications.length">{{
-                      list_notifications.length
-                      }}</small>
+                    <small class="badge bg-light text-dark" v-if="list_notifications.length">{{ list_notifications.length }}</small>
                   </div>
                   <div v-if="list_notifications.length > 0">
                     <div v-if="isView" class="card-body p-0 " style="max-height: 65vh; overflow: auto;">
@@ -478,6 +476,7 @@ export default {
       axios
         .get('sign-out')
         .then((res) => {
+          this.$store.commit('REMOVE_CURRENT_CHAT');
           localStorage.removeItem('token');
           this.$router.push({ name: "sign-in" });
         })

@@ -1,8 +1,8 @@
 <template>
-    <div class="nav align-items-center d-flex justify-content-between px-3 py-2 shadow-sm position-fixed"
-        style="height: 70px; width: 100vw">
-        <router-link :to="{ name: 'admin' }" class="d-flex align-items-center" style="height: 100%">
-            <img src="../../../assets/img/logo-main.png" alt="logo" style="height: 100%; color: rgb(119, 125, 116)" />
+    <div class="nav align-items-center d-flex justify-content-between p-3 shadow-sm position-fixed"
+        style="height: 100px; width: 100vw">
+        <router-link :to="{ name: 'homepage' }" class="d-flex align-items-center" style="height: 45%">
+            <img src="../../../assets/img/main-logo.png" alt="logo" style="height: 100%; color: rgb(119, 125, 116)" />
             <div class="fs-3 m-2 fw-bold text-black">NextFuture</div>
         </router-link>
         <div class="d-flex justify-content-center align-items-center">

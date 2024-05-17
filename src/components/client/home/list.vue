@@ -5,7 +5,8 @@
                 class="px-0 mt-3 user-hover p-1">
                 <div class="p-1 flex-center">
                     <div style="width: 2.75rem; height: 2.75rem; overflow: hidden;" class="circle flex-center me-3">
-                        <img :src="urlImg + myInfo.avatar" alt="user" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img :src="urlImg + myInfo.avatar" alt="user"
+                            style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="flex-center">
                         <span class="text-dark" style="font-weight: 600; font-size: 1.5em;">
@@ -22,10 +23,10 @@
             </router-link>
         </li>
         <li>
-            <a href="../app/group.html" class=" ">
+            <router-link :to="{ name: 'message' }">
                 <i class="fa-brands fa-facebook-messenger me-4" style="font-size: 17px;"></i>
                 <span style="font-size: 18px;">Message</span>
-            </a>
+            </router-link>
         </li>
         <li>
             <router-link :to="{ name: 'group' }">
@@ -55,10 +56,12 @@
         </li>
         <div v-if="list_group.length > 0">
             <li v-if="showBtn">
-                <a class="btn text-dark w-100 bg-hover p-1" style="font-size: 17px; padding-left: 0px;" @click="seeMore()">
+                <a class="btn text-dark w-100 bg-hover p-1" style="font-size: 17px; padding-left: 0px;"
+                    @click="seeMore()">
                     <i v-if="limit_group >= 10" class="fa-solid fa-circle-chevron-up" style="font-size: 35px;"></i>
                     <i v-else class="fa-solid fa-circle-chevron-down" style="font-size: 35px;"></i>
-                    <span class="ms-3" style="font-weight: 600;">{{ limit_group >= 10 ? 'Hide less' : 'See more' }}</span>
+                    <span class="ms-3" style="font-weight: 600;">{{ limit_group >= 10 ? 'Hide less' : 'See more'
+                        }}</span>
                 </a>
             </li>
         </div>
@@ -107,7 +110,7 @@ export default {
         total_group(newValue, oldValue) {
             if (oldValue) {
                 if (newValue.length > 5) this.showBtn = true;
-                
+
             }
         }
     },

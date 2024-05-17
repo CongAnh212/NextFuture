@@ -57,8 +57,12 @@ router.beforeEach(async (to, from, next) => {
   }
 });
 
+import store from "./store";
+
 app.use(router);
 app.use(PrimeVue);
+app.use(store);
+
 app.component("account-layout", Account);
 app.component("default-layout", Default);
 app.component("main-layout", Main);

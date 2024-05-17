@@ -44,7 +44,10 @@ export default {
 
         let unitIndex = 0;
 
-        while (unitIndex < units.length - 1 && diff >= units[unitIndex + 1][1]) {
+        while (
+            unitIndex < units.length - 1 &&
+            diff >= units[unitIndex + 1][1]
+        ) {
             diff /= units[unitIndex + 1][1];
             unitIndex++;
         }
@@ -71,6 +74,55 @@ export default {
         } else {
             toastr.warning(message);
         }
+    },
+    handleSwitchingFromTimestampToCountdownHours(a) {
+        const date = new Date(a);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const seconds = date.getSeconds();
+        const normalTime = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+
+        var parts = normalTime.split(/\/|\s|:/);
+        var datee = new Date(
+            parts[2],
+            parts[1] - 1,
+            parts[0],
+            parts[3],
+            parts[4],
+            parts[5]
+        );
+        var isoDateString = datee.toISOString();
+
+        return this.hoursDifference(isoDateString);
+    },
+    switchtimestamptToNomalTime(a) {
+        const date = new Date(a);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const seconds = date.getSeconds();
+        const normalTime = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+
+        return normalTime;
+    },
+    checkConversation(arr, receiver_id) {
+        let check = false;
+        arr.forEach((element) => {
+            if (
+                element.sender.id == receiver_id ||
+                element.receiver.id == receiver_id
+            ) {
+                check = true;
+                return;
+            }
+        });
+
+        return check;
     },
 
     // displayErrors(err) {

@@ -415,6 +415,15 @@ const routes = [
     meta: { requiresAuth: true },
     component: () => import("../components/client/post/postComponent.vue"),
   },
+  //***********************************************/ Chat  / ***********************************************//
+  {
+    path: "/message",
+    name: "message",
+    meta: { layout: "empty", requiresAuth: true },
+    components: {
+      default: () => import("../components/client/chat/main_component.vue"),
+    },
+  },
 ];
 
 const router = createRouter({

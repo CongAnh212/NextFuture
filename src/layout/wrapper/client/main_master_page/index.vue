@@ -18,8 +18,7 @@
                                     @fullMemberActive="handleFullMemberActive"
                                     @sendFromListHomeGroup="handleGetDataFromListHoneGroup"
                                     :send_rename_group="send_rename_group"
-                                    @sendActiceFromSearch="handleSendActiveFromSearch" :seeMoreSearch="seeMoreSearch"
-                                    @reloadListPostToMainMasterPage="handleReloadListPostToMainMasterPage">
+                                    @sendActiceFromSearch="handleSendActiveFromSearch" :seeMoreSearch="seeMoreSearch">
                                 </router-view>
                             </ul>
                         </nav>
@@ -46,7 +45,7 @@
                 @send_active="handleSendActive" :send_active_all_member="send_all_member_active" :infoGroup="infoGroup"
                 @sendRenameGroup="handleSendRenameGroup" :dataComeIn="dataComeIn" :listPost="listPost"
                 :keySearch="keySearch" :typeViewSearch="typeViewSearch" @sendFromSearchComponent="handleSeeMoreSearch"
-                @sendAnonymous="handleSendAnonymous">
+                @sendAnonymous="handleSendAnonymous" :conversation="conversation">
             </router-view>
         </div>
     </div>
@@ -101,6 +100,7 @@ export default {
             //--------------------------------------------------------------------------------------------//
             send_rename_group: null,        //truyền thay đổi tên của group
             //--------------------------------------------------------------------------------------------//
+            conversation: null,             // truyền cuộc hội thoại
         }
     },
     mounted() {
@@ -175,6 +175,9 @@ export default {
         },
         handleSendAnonymous(value) {
             this.infoGroup.info.anonymity = value
+        },
+        handleSelectConversation(value) {
+            this.conversation = value
         }
     }
 }

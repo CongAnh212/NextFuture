@@ -26,21 +26,23 @@
                                         class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
                                         <li v-if="status == 'friend'" class='d-flex'>
                                             <div class="dropdown">
-                                                <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown"
-                                                    aria-expanded="false" style='width:130px'>
+                                                <button class="btn btn-secondary" type="button"
+                                                    data-bs-toggle="dropdown" aria-expanded="false" style='width:130px'>
                                                     <i class="fa-solid fa-user-check me-1"></i>
                                                     Friend
                                                 </button>
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <button class="dropdown-item" @click="unFriend()">Unfriend</button>
+                                                        <button class="dropdown-item"
+                                                            @click="unFriend()">Unfriend</button>
                                                     </li>
                                                     <li>
                                                         <button class="dropdown-item">Unfollow</button>
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <button class='btn btn-primary ms-2' style='width:130px'>
+                                            <button @click="switchPage()" class='btn btn-primary ms-2'
+                                                style='width:130px'>
                                                 <i class="fa-brands fa-facebook-messenger me-1"></i>
                                                 Messenger
                                             </button>
@@ -65,27 +67,32 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <button class='btn btn-secondary ms-2' style='width:130px'>
+                                            <button @click="switchPage()" class='btn btn-secondary ms-2'
+                                                style='width:130px'>
                                                 <i class="fa-brands fa-facebook-messenger me-1"></i>
                                                 Messenger
                                             </button>
                                         </li>
                                         <li v-if="status == 'request_friend'" class='d-flex'>
-                                            <button class='btn btn-primary ms-2' style='width:130px' @click='unRequest()'>
+                                            <button class='btn btn-primary ms-2' style='width:130px'
+                                                @click='unRequest()'>
                                                 <i class="fa-solid fa-user-xmark me-1"></i>
                                                 Cancel
                                             </button>
-                                            <button class='btn btn-secondary ms-2' style='width:130px'>
+                                            <button @click="switchPage()" class='btn btn-secondary ms-2'
+                                                style='width:130px'>
                                                 <i class="fa-brands fa-facebook-messenger me-1"></i>
                                                 Messenger
                                             </button>
                                         </li>
                                         <li v-if="status == 'stranger'" class='d-flex'>
-                                            <button class='btn btn-primary ms-2' style='width:130px' @click="addFriend()">
+                                            <button class='btn btn-primary ms-2' style='width:130px'
+                                                @click="addFriend()">
                                                 <i class="fa-solid fa-user-plus me-1"></i>
                                                 Add friend
                                             </button>
-                                            <button class='btn btn-secondary ms-2' style='width:130px'>
+                                            <button @click="switchPage()" class='btn btn-secondary ms-2'
+                                                style='width:130px'>
                                                 <i class="fa-brands fa-facebook-messenger me-1"></i>
                                                 Messenger
                                             </button>
@@ -203,6 +210,8 @@ import { socket } from '../../../socket.js';
 import 'primevue/resources/themes/lara-light-green/theme.css'
 import TabView from 'primevue/tabview';
 import TabPanel from 'primevue/tabpanel';
+import { mapGetters } from 'vuex';
+
 export default {
     components: {
         ModalFollower,
@@ -242,7 +251,8 @@ export default {
             required: true,
         }
     },
-    mounted() {
+    async mounted() {
+
         this.username = this.$route.params.username;
         this.getInfo();
         this.getAllProfile();
@@ -251,6 +261,8 @@ export default {
         $('.p-tabview-header-action').addClass('delete-border-bottom');
         this.handleBorderTop(); // hàm này để xử lý load lại trang nhận đúng css
         this.handleLoadPage(); // hàm này để xử lý load lại trang nhận đúng component
+        await this.$store.dispatch('fetchMyInfo')
+        this.$store.dispatch('getConversation')
     },
     watch: {
         sentFriend(newData, oldData) {
@@ -287,6 +299,9 @@ export default {
             }
         },
 
+    },
+    computed: {
+        ...mapGetters(['getListConversation', 'getMyInfo'])
     },
     methods: {
         handleLoadPage() {
@@ -463,11 +478,44 @@ export default {
                     }
                 })
         },
+        async switchPage() {
+            let check = false
+            let conversation = null
+            this.getListConversation.forEach(element => {
+                if (element.sender.id == this.info.id || element.receiver.id == this.info.id) {
+                    check = true
+                    conversation = element
+                    return;
+                }
+            });
+            if (!check) {
+                this.$store.commit('setConversation', {
+                    sender: {
+                        id: this.getMyInfo.id,
+                        fullname: this.getMyInfo.fullname,
+                        avatar: this.getMyInfo.avatar,
+                        username: this.getMyInfo.username
+                    },
+                    receiver: {
+                        id: this.info.id,
+                        fullname: this.info.fullname,
+                        avatar: this.info.avatar,
+                        username: this.info.username
+                    },
+                    timestamp: Date.now(),
+                })
+                this.$store.commit('setListMessage', [])
+            } else {
+                this.$store.commit('setConversation', conversation)
+                await this.$store.dispatch('getMessage', conversation.id)
+            }
+            this.$router.push({ name: 'message' });
+        }
     },
 }
 
 </script>
-<style >
+<style>
 @import './style.css';
 
 .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
@@ -494,4 +542,5 @@ export default {
 .p-highlight {
     margin-top: -0.1em;
     border-top: 0.115em solid black;
-}</style>
+}
+</style>
