@@ -22,7 +22,6 @@
                 </span>
             </span> -->
         </nav>
-
         <div class="w-100 py-4 chat-box-content" :style="{ height: isReply ? '80%' : 'calc(100vh - 12rem)' }">
             <div class="d-flex align-items-center justify-content-center mb-4">
                 <div class="d-flex align-items-center flex-col" style="width: fit-content;">
@@ -74,7 +73,7 @@
                 </div>
             </div>
 
-
+            <div ref="scrollToMe"></div>
         </div>
         <div class="chat-box-footer">
             <div v-if="isReply" class="" style="border-top: 1px solid #dee2e6; padding: 0px 40px; position: relative;">
@@ -117,8 +116,11 @@ export default {
     watch: {
         conversation(newV) {
             this.isReply = false
-
             this.selectUser()
+            this.$nextTick(() => {
+                this.scrollToElement();
+            });
+
         }
     },
     data() {
@@ -181,6 +183,14 @@ export default {
         },
         hiddenReply() {
             this.isReply = false
+        },
+        scrollToElement() {
+            const el = this.$refs.scrollToMe;
+            console.log('oke');
+            if (el) {
+                // Use el.scrollIntoView() to instantly scroll to the element
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
         }
     },
 }
