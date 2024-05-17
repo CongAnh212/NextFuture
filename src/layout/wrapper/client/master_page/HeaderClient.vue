@@ -5,7 +5,7 @@
                 <div class="iq-navbar-logo d-flex justify-content-between">
                     <router-link :to="{ name: 'homepage' }">
                         <img src="../../../../assets/img/logo-main.png" class="img-fluid" alt="">
-                        <span>NextFuture</span>
+                        <span class="f-500">NextFuture</span>
                     </router-link>
                 </div>
                 <div class="iq-search-bar device-search">
@@ -375,6 +375,7 @@ export default {
             axios
                 .get('sign-out')
                 .then((res) => {
+                    this.$store.commit('REMOVE_CURRENT_CHAT');
                     localStorage.removeItem('token');
                     this.$router.push({ name: "sign-in" });
                 })

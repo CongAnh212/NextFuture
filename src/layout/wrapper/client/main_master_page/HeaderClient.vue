@@ -189,7 +189,8 @@
                             </div>
                             <div class="ms-3 w-100" style="flex: 1;">
                               <h6 class="mb-0 f-500 " :class="{ 'text-primary': v.status == 1 }"
-                                :style="{ 'font-weight': 'bold' }">{{ v.sender }}</h6>
+                                :style="{ 'font-weight': 'bold' }">
+                                {{ v.sender }}</h6>
                               <div class="d-flex text-dark justify-content-between align-items-center pe-3">
                                 <p class="mb-0">Tagged you in a post by
                                   <b :class="{ 'text-primary': v.status == 1 }">
@@ -476,6 +477,7 @@ export default {
       axios
         .get('sign-out')
         .then((res) => {
+          this.$store.commit('REMOVE_CURRENT_CHAT');
           localStorage.removeItem('token');
           this.$router.push({ name: "sign-in" });
         })

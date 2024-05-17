@@ -23,10 +23,25 @@
             </span> -->
         </nav>
         <div class="chat-content  relative" style="background-color: rgba(192, 249, 266, .3)">
-            <!-- <img src="https://www.shutterstock.com/image-vector/social-media-sketch-vector-seamless-600nw-1660950727.jpg"
-                class="w-100 h-100 absolute" style="left: 0; bottom: 0; object-fit: fill; opacity: 0.3; "
-                alt=""> -->
-            <template v-if="listMessage">
+            <div class="d-flex align-items-center justify-content-center mt-4 mb-4">
+                <div class="d-flex align-items-center flex-col" style="width: fit-content;">
+                    <div class="avatar-4" style="width: 6rem; height: 6rem;">
+                        <img :src="urlImg + receiver.avatar" alt="">
+                    </div>
+                    <div style="line-height: 20px; margin-top: 13px">
+                        <span class="text-dark" style="font-size: 1.5rem; ">{{ receiver.fullname }}</span>
+                        <span class="d-flex align-items-center gap-1">
+                            <span>{{ receiver.username }}</span>
+                            <i class="fas fa-circle " style="font-size: 3px;"></i>
+                            <span>NextFuture</span>
+                        </span>
+                    </div>
+                    <router-link :to="{ name: 'detailProfile', params: { username: receiver.username } }">
+                        <button class="btn-see-personal-page">See personal page</button>
+                    </router-link>
+                </div>
+            </div>
+            <template v-if="listMessage.length >= 1">
                 <div class="chat " style="" v-for="(v, k) in listMessage"
                     :class="v.sender_id == myInfo.id ? 'd-flex other-user' : 'chat-left'">
                     <div class="z-1">
@@ -43,6 +58,7 @@
                     </div>
                 </div>
             </template>
+
         </div>
         <div class="chat-footer px-3 " style="background-color: rgba(192, 249, 266, .3); ">
             <div class="d-flex align-items-center">
@@ -59,6 +75,7 @@
 <script>
 import axios, { url } from '../../../core/coreRequest'
 import baseFunction from '../../../core/coreFunction'
+import { mapGetters } from 'vuex';
 export default {
     props: {
         myInfo: {
@@ -85,6 +102,10 @@ export default {
         }
     },
     mounted() {
+        if (this.conversation) this.selectUser()
+    },
+    computed: {
+        ...mapGetters(['getListConversation'])
     },
     methods: {
         selectUser() {
@@ -96,15 +117,20 @@ export default {
                 this.receiver = this.conversation.sender
             }
         },
-        sendMessage() {
-            this.$emit('sendMessage', {
+        async sendMessage() {
+            const check = baseFunction.checkConversation(this.getListConversation, this.receiver.id)
+            let conversation = this.conversation;
+            if (!check) conversation = await this.$store.dispatch('createConversation', this.conversation)
+            this.$store.dispatch('sendMessage', {
                 message: this.message,
                 sender_id: this.sender.id,
                 receiver_id: this.receiver.id,
-                conversation_id: this.conversation.id,
+                conversation_id: conversation.id,
                 timestamp: Date.now(),
             })
             this.message = ''
+            this.$store.commit('setConversation', conversation)
+            this.$store.dispatch('getMessage', conversation.id)
         },
         switchtimestamptToNomalTime(a) {
             return baseFunction.switchtimestamptToNomalTime(a).split(' ')[1]
@@ -112,4 +138,15 @@ export default {
     },
 }
 </script>
-<style></style>
+<style scoped>
+.btn-see-personal-page {
+    margin-top: 10px;
+    background-color: var(--bs-primary);
+    color: white;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    padding: 5px 12px;
+    box-shadow: 0px 0px 5px #33333324;
+}
+</style>

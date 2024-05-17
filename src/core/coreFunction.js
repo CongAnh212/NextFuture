@@ -44,7 +44,10 @@ export default {
 
         let unitIndex = 0;
 
-        while (unitIndex < units.length - 1 && diff >= units[unitIndex + 1][1]) {
+        while (
+            unitIndex < units.length - 1 &&
+            diff >= units[unitIndex + 1][1]
+        ) {
             diff /= units[unitIndex + 1][1];
             unitIndex++;
         }
@@ -91,9 +94,9 @@ export default {
             parts[4],
             parts[5]
         );
-            var isoDateString =  datee.toISOString();
-            
-            return  this.hoursDifference(isoDateString);
+        var isoDateString = datee.toISOString();
+
+        return this.hoursDifference(isoDateString);
     },
     switchtimestamptToNomalTime(a) {
         const date = new Date(a);
@@ -106,7 +109,21 @@ export default {
         const normalTime = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
 
         return normalTime;
-    }
+    },
+    checkConversation(arr, receiver_id) {
+        let check = false;
+        arr.forEach((element) => {
+            if (
+                element.sender.id == receiver_id ||
+                element.receiver.id == receiver_id
+            ) {
+                check = true;
+                return;
+            }
+        });
+
+        return check;
+    },
 
     // displayErrors(err) {
     //     const time = 500;

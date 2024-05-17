@@ -15,7 +15,7 @@
                     <a data-bs-toggle="pill" href="#chatbox1">
                         <div class="d-flex align-items-center w-100">
                             <div class="position-relative">
-                                <div class="avatar-3 bg-pink">
+                                <div class="avatar-3 ">
                                     <img :src="urlImg + (v?.sender?.id != myInfo?.id ? v?.sender?.avatar : v?.receiver?.avatar)"
                                         alt="chatuserimage" class=" ">
                                 </div>
@@ -23,16 +23,22 @@
                                         class="ri-checkbox-blank-circle-fill text-success"></i></span>
                             </div>
                             <div class="d-flex align-items-center justify-content-between" style="flex: 1;">
-                                <div class="chat-sidebar-name ms-2">
+                                <div class="chat-sidebar-name ms-2 ">
                                     <h6 class="mb-0">{{ (v?.sender?.id != myInfo?.id ? v?.sender?.fullname :
                                         v?.receiver?.fullname) }}
                                     </h6>
-                                    <span v-if="v.nearMess">{{ v.nearMess.message }}</span>
+                                    <div v-if="v.nearMess" class="d-flex align-items-center gap-1">
+                                        <span>{{ v.nearMess.message }}</span>
+                                        <i class="fas fa-circle "
+                                            style="font-size: 3px; width: fit-content; margin-right: 0;"></i>
+                                        <span class="text-nowrap ">
+                                            {{ handleTime(v.nearMess.timestamp) }}
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="chat-meta float-right text-center mt-2 me-1">
-                                    <div class="chat-msg-counter bg-primary text-white">20</div>
-                                    <span v-if="v.nearMess" class="text-nowrap">{{ handleTime(v.nearMess.timestamp)
-                                        }}</span>
+                                <div class="chat-meta  mt-2 me-1">
+                                    <div class="chat-msg-counter bg-primary text-center text-white">20</div>
+
                                 </div>
                             </div>
                         </div>
@@ -45,6 +51,7 @@
 <script>
 import axios, { url } from '../../../core/coreRequest'
 import baseFunction from '../../../core/coreFunction'
+import { mapGetters } from 'vuex';
 export default {
     props: {
         myInfo: {
@@ -69,7 +76,8 @@ export default {
             return baseFunction.handleSwitchingFromTimestampToCountdownHours(a)
         },
         selectConversation(v) {
-            this.$emit('selectConversation', v)
+            this.$store.dispatch('getMessage', v.id)
+            this.$store.commit('setConversation', v)
         }
     },
 }

@@ -395,15 +395,6 @@ const routes = [
     },
   },
   //***********************************************/ Chat  / ***********************************************//
-  // {
-  //   path: "/message",
-  //   name: "message",
-  //   meta: { layout: "main", requiresAuth: true },
-  //   components: {
-  //     default: () => import("../components/client/chat/conversation_list.vue"),
-  //     content: () => import("../components/client/chat/conversation_chat_box.vue"),
-  //   },
-  // },
   {
     path: "/message",
     name: "message",
@@ -412,15 +403,6 @@ const routes = [
       default: () => import("../components/client/chat/main_component.vue"),
     },
   },
-  // {
-  //   path: "/search",
-  //   name: "search.everyone",
-  //   meta: { layout: "main", requiresAuth: true },
-  //   components: {
-  //     default: () => import("../components/client/search/list.vue"),
-  //     content: () => import("../components/client/search/searchEveryoneComponent.vue"),
-  //   },
-  // },
 ];
 
 const router = createRouter({

@@ -30106,6 +30106,9 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-right {
   justify-content: space-around;
   align-items: center;
 }
+.flex-col{
+  flex-direction: column;
+}
 
 .bg-pink {
   background-color: pink;
