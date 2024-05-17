@@ -9,6 +9,7 @@ import {
   orderByChild,
   equalTo,
   limitToLast,
+  set,
 } from "firebase/database";
 
 const firebaseConfig = {
@@ -34,4 +35,5 @@ export {
     orderByChild,
     equalTo,
     limitToLast,
+    set,
 };

@@ -1,5 +1,12 @@
 export default {
     setListMessage(state, listMessage) {
+        listMessage.forEach((element) => {
+            if (element.reply_id) {
+                element.reply = listMessage.find(
+                    (msg) => msg.id === element.reply_id
+                );
+            }
+        });
         state.listMessage = listMessage;
     },
     setListConversation(state, listConversation) {
@@ -33,7 +40,7 @@ export default {
         console.log("state.listConversation: ", state.listConversation);
     },
     REMOVE_CURRENT_CHAT(state) {
-        console.log('REMOVE_CURRENT_CHAT');
+        console.log("REMOVE_CURRENT_CHAT");
         state.conversation = null;
         state.listConversation = null;
         state.listMessage = null;
