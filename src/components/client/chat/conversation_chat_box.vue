@@ -148,5 +148,5 @@ export default {
     border: none;
     padding: 5px 12px;
     box-shadow: 0px 0px 5px #33333324;
-}
+} 
 </style>
