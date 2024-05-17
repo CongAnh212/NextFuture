@@ -8,6 +8,7 @@ import {
     orderByChild,
     equalTo,
     limitToLast,
+    set,
 } from "../firebase";
 
 export default {
@@ -122,7 +123,7 @@ export default {
                 ref(database, "conversations/"),
                 conversation
             );
-            const conv = { ...conversation, id: res.key }
+            const conv = { ...conversation, id: res.key };
             listConversation.unshift(conv);
             commit("setListConversation", listConversation);
 
@@ -130,5 +131,11 @@ export default {
         } catch (error) {
             console.error("Error creating conversation: ", error);
         }
+    },
+    deleteMessage({ commit }, message) {
+        set(ref(database, "messages/" + message.id), {
+            ...message,
+            isDelete: true,
+        });
     },
 };
