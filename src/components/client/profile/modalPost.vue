@@ -1,4 +1,4 @@
-<template >
+<template>
     <div class="modal fade" id="modalPost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered "
             :class="{ 'modal-xxl': arrayImages.length > 0, 'modal-base': !arrayImages.length }">
@@ -48,7 +48,8 @@
                                 <i class="fa-solid fa-ellipsis text-dark" style="cursor: pointer;"></i>
                             </div>
                         </div>
-                        <div class="px-2 text-dark f-500" style="font-size: 15px; font-weight: 400; white-space: pre-line;">
+                        <div class="px-2 text-dark f-500"
+                            style="font-size: 15px; font-weight: 400; white-space: pre-line;">
                             {{ post.caption }}
                         </div>
                         <div class="px-2 pt-3 pb-2">
@@ -59,12 +60,12 @@
                                     and
                                     <b style="cursor: pointer;">others</b>
                                 </div>
-                                <div v-else style="font-size: 15px; font-weight: 400;">
+                                <div v-else-if="post.likes > 0" style="font-size: 15px; font-weight: 400;">
                                     {{ post.likes }} likes
                                 </div>
-                                <div>
+                                <div v-if="list_comment.length > 0">
                                     <span style="font-size: 15px;  font-weight: 500;" class="me-1">{{ list_comment
-                                        .length }}</span>
+                .length }}</span>
                                     <i class="fa-regular fa-comment" style="font-size: 15px; "></i>
                                 </div>
                             </div>
@@ -100,7 +101,8 @@
                                     <div class="d-flex" style="flex:1">
                                         <div style="height: 35px; width: 35px;margin-left: 0px; overflow: hidden;"
                                             class="circle me-2">
-                                            <div class="circle me-2" style="width: 2rem; height: 2rem; overflow: hidden;">
+                                            <div class="circle me-2"
+                                                style="width: 2rem; height: 2rem; overflow: hidden;">
                                                 <img :src="urlImg + v.avatar" class="" alt="user"
                                                     style="margin-left: 0px; object-fit: cover; width: 100%; height: 100%;">
                                             </div>
@@ -113,7 +115,8 @@
                                             <br>
                                             <div class="d-flex" style="line-height: 15px;">
                                                 <span style="flex:1" v-html="v.content"></span>
-                                                <span v-if="v.likes" class="" style="margin-top: 1px;">{{ v.likes }}</span>
+                                                <span v-if="v.likes" class="" style="margin-top: 1px;">{{ v.likes
+                                                    }}</span>
 
                                                 <i v-if="!v.liked" class="fa-regular c-pointer fa-heart ms-2"
                                                     @click="likeComment(v, k, '')" style="font-size: 17px;"></i>
@@ -122,7 +125,8 @@
                                                     style="color: #FF3040; font-size: 17px;"></i>
                                             </div>
                                             <div class="d-flex pt-1" style="gap: 5%;">
-                                                <small class="text-secondary">{{ hoursDifference(v.created_at) }}</small>
+                                                <small class="text-secondary">{{ hoursDifference(v.created_at)
+                                                    }}</small>
                                                 <small v-if="v.likes" class="text-secondary"
                                                     style="font-weight: bold; cursor: pointer;">
                                                     {{ v.likes }} likes</small>
@@ -139,7 +143,8 @@
                                                     </small>
                                                 </div>
                                             </template>
-                                            <template v-if="list_comment_reply" v-for="(value, key) in list_comment_reply">
+                                            <template v-if="list_comment_reply"
+                                                v-for="(value, key) in list_comment_reply">
                                                 <div v-if="value.id_replier == v.id" class="pt-3" style="flex:1">
                                                     <div class="d-flex mb-2">
                                                         <div style="height: 2rem; width: 2rem;margin-left: 0px; overflow: hidden;"
@@ -150,13 +155,13 @@
                                                         </div>
                                                         <div class="text-dark f-500" style="flex:1;margin-top: -7px;">
                                                             <span style="font-weight: 600; font-size: 17px;">{{
-                                                                value.fullname }}</span>
+                value.fullname }}</span>
                                                             <br>
                                                             <div class="d-flex align-items-center"
-                                                                style="line-height: 15px; paddi">
+                                                                style="line-height: 15px;">
                                                                 <span style="flex:1" v-html="value.content"></span>
                                                                 <span v-if="value.likes" style="margin-top: 1px;">{{
-                                                                    value.likes }}</span>
+                value.likes }}</span>
                                                                 <i v-if="!value.liked"
                                                                     class="fa-regular c-pointer fa-heart ms-2"
                                                                     @click="likeComment(value, key, 'rep')"
@@ -167,13 +172,14 @@
                                                             </div>
                                                             <div class="d-flex pt-1" style="gap: 5%;">
                                                                 <small class="text-secondary">{{
-                                                                    hoursDifference(value.created_at) }}</small>
+                hoursDifference(value.created_at) }}</small>
                                                                 <small v-if="value.likes" class="text-secondary"
                                                                     style="font-weight: bold; cursor: pointer;">{{
-                                                                        value.likes }}
+                value.likes }}
                                                                     likes
                                                                 </small>
-                                                                <small class="text-secondary" @click="replyComment(value)"
+                                                                <small class="text-secondary"
+                                                                    @click="replyComment(value)"
                                                                     style="font-weight: bold; cursor: pointer;">Reply</small>
                                                             </div>
                                                         </div>
@@ -193,7 +199,7 @@
                                 placeholder="Enter Your Comment" v-model="comments" @input="handleClick()"
                                 @keyup.enter="createComment(post.id)" style="font-weight: 600;">
                             <span @click="enterComment(post.id)" class="text-light post c-pointer"
-                                style="position: absolute; top: 8px; right: 10px; font-weight: 600; user-select: none;">Post</span>
+                                style="position: absolute; top: 50%;transform: translateY(-50%); right: 10px; font-weight: 600; user-select: none;">Post</span>
                             <div class="dropdown " id="dropdownList">
                                 <div class="dropdown-menu" id="listFriend" style="position: absolute; inset:  auto auto  0px 0px  ;
                                             z-index: 1; margin: 0px; transform: translate(0px, -40px);"
@@ -473,7 +479,7 @@ export default {
     },
 }
 </script>
-<style >
+<style>
 .modal-xxl {
     max-width: 80%;
 }

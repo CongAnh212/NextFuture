@@ -2,7 +2,7 @@
     <div class="wrapper">
         <HeaderClient :myInfo="myInfo"></HeaderClient>
         <div class="" style="margin-top:4.688rem; min-height: calc(100vh - 4.688rem);">
-            <router-view @updateProfile="handleUpdateProfile"></router-view>
+            <router-view :myInfo="myInfo" @updateProfile="handleUpdateProfile"></router-view>
         </div>
     </div>
 </template>
@@ -41,7 +41,7 @@ export default {
     data() {
         return {
             myInfo: null,
-            
+
         }
     },
     mounted() {
@@ -58,7 +58,6 @@ export default {
         handleUpdateProfile(value) {
             var temp = '';
             temp = Object.assign({}, value)
-            console.log("value: ", value);
             this.myInfo = temp
         },
     },

@@ -5,7 +5,8 @@
                 Account management
             </div>
             <div class="d-flex gap-3 align-items-center" style="background-color: white; padding: 1rem 2rem">
-                <div class="d-flex flex-dir-row gap-2 shadow-sm rounded-2 align-items-center" style="padding: 0.5rem 1rem">
+                <div class="d-flex flex-dir-row gap-2 shadow-sm rounded-2 align-items-center"
+                    style="padding: 0.5rem 1rem">
                     <div style="padding: 0 10px">
                         <div class="d-flex align-items-center justify-content-center" style="
                                 background-color: rgba(212, 208, 208, 0.5);
@@ -42,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex flex-column" style="height: 70vh; overflow-y: auto">
+        <div class="d-flex flex-column pb-4" style="height: 70vh; overflow-y: auto">
             <div class="d-grid" style="
                     grid-template-columns: 300px 150px 150px 200px 150px 180px;
                     padding: 1rem 1rem 0 1rem;
@@ -55,14 +56,14 @@
                 <p>Phone number</p>
                 <p style="padding-left: 1rem">Action</p>
             </div>
-            <div v-for="(account, index) in accountsFilter" :key="index" class="bg-white overflow-y-auto position-relative"
+            <div v-for="(account, index) in accountsFilter" :key="index" class=" overflow-y-auto position-relative "
                 style="border-bottom: 0.2px solid rgba(212, 208, 208, 0.4)">
-                <button class="admin--button-overlay" @click="visitAccount(account.username)" />
-                <div class="d-grid" :style="{
-                    padding: '1rem 1rem',
-                    gridTemplateColumns: '300px 150px 150px 200px 150px 170px',
-                    backgroundColor: '#f8f9fa',
-                }">
+                <!-- <button class="admin--button-overlay" @click="visitAccount(account.username)" /> -->
+                <router-link :to="{ name: 'detailProfile', params: { username: account.username } }"
+                    class="d-grid bg-hover text-dark" :style="{
+                            padding: '1rem 1rem',
+                            gridTemplateColumns: '300px 150px 150px 200px 150px 170px',
+                        }">
                     <div class="d-flex align-items-center gap-2">
                         <img :src="urlImg + account.avatar" alt="avatar" :style="{
                             width: '35px',
@@ -96,12 +97,12 @@
                             </div>
                             <div :style="getStatusType(account.status, account.is_active)" style="font-weight: 600">
                                 {{
-                                    account.status === 0
-                                    ? "Banned"
-                                    : account.is_active === true
-                                        ? "Active"
-                                        : "Inactive"
-                                }}
+                            account.status === 0
+                                ? "Banned"
+                                : account.is_active === true
+                                    ? "Active"
+                                    : "Inactive"
+                        }}
                             </div>
                         </div>
                     </div>
@@ -138,11 +139,16 @@
                         {{ account.phone_number }}
                     </div>
                     <div v-if="account.status">
-                        <button class="admin--ban-button" @click="banAccount(account.id)">
+                        <button class="admin--ban-button " @click.prevent @click="banAccount(account.id)">
                             Ban
                         </button>
                     </div>
-                </div>
+                    <div v-else>
+                        <button class="admin--unban-button " @click.prevent @click="unbanAccount(account.id)">
+                            Unban
+                        </button>
+                    </div>
+                </router-link>
             </div>
         </div>
     </div>
@@ -181,6 +187,27 @@ export default {
         visitAccount(username) {
             this.$router.push({ name: "detailProfile", params: { username: username } });
         },
+        unbanAccount(id) {
+            axios.post("admin/account/unbanAccount", { id: id })
+                .then((res) => {
+                    if (res.data.status == 1) {
+                        Swal.fire({ title: "Unban success!", showConfirmButton: false, timer: 750 });
+
+                        this.accounts = this.accounts.map((acc) => {
+                            if (acc.id == id) {
+                                acc.status = 1
+                            }
+                            return acc
+                        })
+                        this.accountFilters = this.accountFilters.map((account) => {
+                            if (account.id == id) {
+                                account.status = 1;
+                            }
+                            return account;
+                        });
+                    }
+                });
+        },
         banAccount(id) {
             Swal.fire({
                 title: "Do you want to ban this account, you can't undo this?",
@@ -199,14 +226,12 @@ export default {
                     this.accounts = this.accounts.map((account) => {
                         if (account.id == id) {
                             account.status = 0;
-                            account.is_active = 0;
                         }
                         return account;
                     });
-                    this.accountFilters = this.accountFilters.forEach((account) => {
+                    this.accountFilters = this.accountFilters.map((account) => {
                         if (account.id == id) {
                             account.status = 0;
-                            account.is_active = 0;
                         }
                         return account;
                     });
@@ -280,7 +305,6 @@ export default {
             });
         });
     },
-    watch: {},
 };
 </script>
 
@@ -289,6 +313,7 @@ export default {
     --ban-color: #f9405f;
     --active-color: #a4f3b4;
     --hover-color: #242424;
+    --bg-hover-color: #24242412;
 }
 </style>
 
@@ -296,6 +321,10 @@ export default {
 .admin--account-numbers {
     position: relative;
     padding: 0.5rem 1rem;
+}
+
+.bg-hover:hover {
+    background-color: var(--bg-hover-color);
 }
 
 .admin--button-overlay {
@@ -320,14 +349,30 @@ export default {
     padding: 0.3rem 1rem;
     margin-right: 1rem;
     border: none;
-    background-color: #f8f9fa;
+    background-color: transparent;
     color: var(--ban-color);
     font-weight: bold;
+    border-radius: 5px;
+}
+
+.admin--unban-button {
+    padding: 0.3rem 1rem;
+    margin-right: 1rem;
+    border: none;
+    background-color: transparent;
+    color: var(--active-color);
+    font-weight: bold;
+    border-radius: 5px;
 }
 
 .admin--ban-button:hover {
     background-color: var(--ban-color);
-    color: var(--hover-color);
+    color: white;
+}
+
+.admin--unban-button:hover {
+    background-color: var(--active-color);
+    color: white;
 }
 
 .admin--visit-button {

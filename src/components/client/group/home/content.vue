@@ -1,6 +1,6 @@
 <template>
     <div style="min-height: calc(100vh - 4.688rem);">
-        <div v-if="isView">
+        <div v-if="isView && myInfo">
             <div class="w-100  main-group " style="border-bottom: 3px solid #3e3e3e10;">
                 <div class="w-100 h-100">
                     <div class="w-100 bg-primary flex-center respon_cover">
@@ -72,7 +72,7 @@
                                                     style="font-size: 15px;"></i>
                                                 <span style="font-size: 15px;">Live in <b class="text-primary">{{
                                                     info.address
-                                                }}</b></span>
+                                                        }}</b></span>
                                             </div>
                                         </div>
                                     </div>
@@ -90,7 +90,7 @@
                                 <div @click="open()"
                                     class="btn-primary px-2 f-500 radius-7 text-white me-2 invite flex-center"
                                     data-bs-toggle="modal" data-bs-target="#inviteModal" style="cursor: pointer;">
-                                    <span style="font-size: 20px;">
+                                    <span style="font-size: 20px;font-weight: bold;">
                                         +
                                     </span>
                                     <span class="del-event">Invite</span>
@@ -146,7 +146,6 @@
                                                                     placeholder="Search for friends by name"
                                                                     style="border-radius:50px;"></div>
                                                         </div>
-
                                                     </div>
                                                     <h4>Suggest</h4>
                                                     <div style="max-height: 50vh; overflow: auto;">
@@ -163,7 +162,8 @@
                                                                 style="width: 40px; height: 40px; flex: 1; font-weight: 600;">
                                                                 {{ v.fullname }}
                                                             </div>
-                                                            <div class="  flex-center" style="width: 40px; height: 40px;">
+                                                            <div class="  flex-center"
+                                                                style="width: 40px; height: 40px;">
                                                                 <div class="form-check flex-center">
                                                                     <input class="form-check-input check_input"
                                                                         type="checkbox" :value="k" :id="'invite' + k"
@@ -173,10 +173,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-5 " style="background-color: #33333315;">
-                                                    <p style="font-weight: 500; color: #333333b3;">selected {{
+                                                <div class="col-5" style="background-color: #33333315; border-radius: 10px;">
+                                                    <p style="font-weight: 500; color: #333333b3;">Selected {{
                                                         this.list_invite.length }} friends</p>
-                                                    <div @click="choose(k, v)" v-for="(v, k) in list_invite"
+                                                    <div v-for="(v, k) in list_invite"
                                                         class="d-flex p-2 py-2 radius-7 bg-hover text-dark"
                                                         style="cursor: pointer;">
                                                         <div class="circle "
@@ -188,9 +188,6 @@
                                                             style="width: 40px; height: 40px; flex: 1; font-weight: 600;">
                                                             {{ v.fullname }}
                                                         </div>
-                                                        <div class="  flex-center" style="width: 40px; height: 40px;">
-                                                            <i class="fas fa-times"></i>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -198,8 +195,9 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Cancel</button>
-                                            <button :disabled="list_invite.length == 0" @click="sendInvite()" type="button"
-                                                class="btn btn-primary" data-bs-dismiss="modal">Send invite</button>
+                                            <button :disabled="list_invite.length == 0" @click="sendInvite()"
+                                                type="button" class="btn btn-primary" data-bs-dismiss="modal">Send
+                                                invite</button>
                                         </div>
                                     </div>
                                 </div>
@@ -223,9 +221,11 @@
                                             </div>
                                         </div>
                                         <div class=" d-flex" style="width: 40%; gap: 10px;">
-                                            <button @click="acceptInvite()" style="flex: 1;" class="btn btn-primary">Join
+                                            <button @click="acceptInvite()" style="flex: 1;"
+                                                class="btn btn-primary">Join
                                                 group</button>
-                                            <button @click="removeInvite()" style="flex: 1;" class="btn btn-white">Decline
+                                            <button @click="removeInvite()" style="flex: 1;"
+                                                class="btn btn-white">Decline
                                                 the
                                                 invitation</button>
                                         </div>
@@ -243,9 +243,9 @@
                                 </span>
                             </div>
                             <div>
-                                <button class="btn btn-primary">
-                                    Manage posts
-                                </button>
+                                <router-link :to="{ name: 'browse-posts' }">
+                                    <button class="btn btn-primary">Manage posts</button>
+                                </router-link>
                             </div>
                         </div>
                         <hr class="w-100 bg-dark pb-0 mb-0">
@@ -285,8 +285,8 @@
                                     </div>
                                 </div>
                                 <div class="flex-center ct" style="width: 100%; cursor: pointer;">
-                                    <div @click="setView('introduce')" class="py-2 p-2 px-3  bg-hover bb f-500 introduce"
-                                        style="border-radius: 7px;">
+                                    <div @click="setView('introduce')"
+                                        class="py-2 p-2 px-3  bg-hover bb f-500 introduce" style="border-radius: 7px;">
                                         <span class="del-event">Introduce</span>
                                     </div>
                                 </div>
@@ -305,8 +305,8 @@
                                     </div>
                                 </div>
                                 <div class="flex-center ct" style="width: 100%; cursor: pointer;">
-                                    <div @click="setView('introduce')" class="py-2 p-2 px-3  bg-hover bb f-500 introduce"
-                                        style="border-radius: 7px;">
+                                    <div @click="setView('introduce')"
+                                        class="py-2 p-2 px-3  bg-hover bb f-500 introduce" style="border-radius: 7px;">
                                         <span class="del-event">Introduce</span>
                                     </div>
                                 </div>
@@ -390,7 +390,6 @@ export default {
     watch: {
         infoGroup: {
             handler(newValue, oldValue) {
-                console.log("newValue in content: ", newValue);
                 if (newValue) {
                     this.isView = true;
                     this.data = newValue.info;
@@ -437,9 +436,7 @@ export default {
         listPost: {
             handler(newValue) {
                 if (newValue) {
-                    this.post_approval = this.listPost.filter((item) => {
-                        return item.id_client == this.myInfo.id;
-                    });
+                    this.post_approval = [...newValue]
                 }
             }
         }

@@ -8,17 +8,17 @@
                     </div>
                     <div class="flex-1 radius-10 my-1" style="border-left: 3px solid #3f3f3f4e; width: 0" />
                     <div class="circle flex-center" style="width: 1.75rem; height: 1.75rem; overflow: hidden">
-                        <img :src="urlImg + myInfo.avatar" style="object-fit: cover; height: 100%; width: 100%" alt="" />
+                        <img :src="urlImg + myInfo.avatar" style="object-fit: cover; height: 100%; width: 100%"
+                            alt="" />
                     </div>
                 </div>
                 <div class="flex-1 ps-3" style="position: relative">
                     <div class="flex-between">
                         <div class="d-flex flex-column">
                             <div class="d-flex align-items-center">
-                                <router-link class="text-hover text-dark" :to="{
-                                    name: 'detailProfile',
-                                    params: { username: v.username ? v.username : ' ' },
-                                }"><b style="color: #000; font-size: 1.1rem">{{ v.fullname }}</b>
+                                <router-link class="text-hover text-dark"
+                                    :to="{ name: 'detailProfile', params: { username: v.username ? v.username : ' ' } }">
+                                    <b style="color: #000; font-size: 1.1rem">{{ v.fullname }}</b>
                                 </router-link>
                                 <small class="flex-center">
                                     <i class="fa-solid fa-circle mx-1" style="font-size: 0.3em"></i>
@@ -46,9 +46,10 @@
                                             <a class="dropdown-item d-flex align-items-center">
                                                 <i class="fa-solid fa-pen me-1"></i>
                                                 Edit post
-                                            </a>
+                                            </a>                             
                                         </li>
-                                        <li>
+                                        <li data-bs-toggle="modal" data-bs-target="#editPrivacyModal"
+                                            @click="handleClickPrivacy(v, k)">
                                             <a class="dropdown-item">
                                                 <i class="fa-solid fa-lock me-1"></i>
                                                 Edit privacy
@@ -67,6 +68,77 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Modal -->
+                    <div class="modal fade " style="" id="editPrivacyModal" tabindex="-1"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Update privacy</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center bg-hover"
+                                        style="height: 65px;" @click="setPrivacy('rdoPublic')">
+                                        <div class="bg-light circle d-flex me-2 justify-content-center align-items-center"
+                                            style="width:55px;height:55px;"><i
+                                                class="fas fa-globe-asia fa-2x text-dark"></i></div>
+                                        <div class="d-flex justify-content-between align-items-center"
+                                            style="width:calc(100% - 60px);">
+                                            <div class="d-flex flex-column pt-3" style="user-select:none;">
+                                                <h5><b style="font-weight:500;">Public</b></h5>
+                                                <p>anyone on NF social networks</p>
+                                            </div>
+                                            <div><input v-model="edit_privacy" class="form-check-input me-2" value="1"
+                                                    style="cursor:pointer;" name="privacy" type="radio" id="rdoPublic">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center bg-hover"
+                                        style="height: 65px;" @click="setPrivacy('rdoFriend')">
+                                        <div class="bg-light circle d-flex me-2 justify-content-center align-items-center"
+                                            style="width:55px;height:55px;"><i class="fas fa-users fa-2x text-dark"></i>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center"
+                                            style="width:calc(100% - 60px);">
+                                            <div class="d-flex flex-column pt-3" style="user-select:none;">
+                                                <h5><b style="font-weight:500;">Friends</b></h5>
+                                                <p>only your friends on the NF social network</p>
+                                            </div>
+                                            <div>
+                                                <input v-model="edit_privacy" class="form-check-input me-2" value="2"
+                                                    style="cursor:pointer;" name="privacy" type="radio" id="rdoFriend">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center bg-hover"
+                                        style="height: 65px;" @click="setPrivacy('rdoOnlyMe')">
+                                        <div class="bg-light circle d-flex me-2 justify-content-center align-items-center"
+                                            style="width:55px;height:55px;"><i class="fas fa-lock fa-2x text-dark"></i>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center"
+                                            style="width:calc(100% - 60px);">
+                                            <div class="d-flex flex-column pt-3" style="user-select:none;">
+                                                <h5><b style="font-weight:500;">Only me</b></h5>
+                                                <p>only you see on social networks</p>
+                                            </div>
+                                            <div>
+                                                <input v-model="edit_privacy" class="form-check-input me-2" value="4"
+                                                    style="cursor:pointer;" name="privacy" type="radio" id="rdoOnlyMe">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary " id="btnCloseModalPrivacy"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" id="updatePrivacy" disabled
+                                        @click="updatePrivacy">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <view-image v-if="v.images" :images="v.images" :k="k" class="mt-1" style="
                             position: relative;
@@ -77,8 +149,9 @@
                     <div class="d-flex" style="gap: 1px; font-size: 1.5rem">
                         <i v-if="!v.liked" @click="likePost(v, k)"
                             class="far fa-heart c-pointer bg-hover p-2 circle icon-like" style="margin-left: -10px"></i>
-                        <i v-else @click="unLikePost(v, k)" class="fas fa-heart c-pointer bg-hover p-2 circle icon-liked"
-                            :id="'icon-liked-' + k" style="color: #ff3040; margin-left: -10px"></i>
+                        <i v-else @click="unLikePost(v, k)"
+                            class="fas fa-heart c-pointer bg-hover p-2 circle icon-liked" :id="'icon-liked-' + k"
+                            style="color: #ff3040; margin-left: -10px"></i>
                         <i data-bs-toggle="modal" data-bs-target="#modalPost" @click="currentPost = v"
                             class="far fa-comment c-pointer bg-hover p-2 circle"></i>
                         <i class="far fa-paper-plane c-pointer bg-hover p-2 circle"></i>
@@ -86,7 +159,7 @@
 
                     <div class="d-dlex f-500">
                         <span v-if="v.likes > 0" class="likes">{{ v.likes }} likes</span>
-                        <span v-if="v.likes > 0 && v.comments > 0">- </span>
+                        <span v-if="v.likes > 0 && v.comments > 0"> - </span>
                         <span data-bs-toggle="modal" data-bs-target="#modalPost" @click="currentPost = v"
                             v-if="v.comments > 0" class="comments">{{ v.comments }} comments</span>
                         <span data-bs-toggle="modal" data-bs-target="#modalPost" class="btnOpenModalComment"></span>
@@ -158,7 +231,7 @@
                     </div>
                     <textarea @input="disableBtnUpdate" v-model="edit.post.caption" class="form-control"
                         :style="{ maxHeight: '400px', overflowY: 'auto' }" rows="10" required="required">
-                    </textarea>
+                </textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -204,7 +277,9 @@ export default {
             indexOpenModal: 0,
             typeClick: 0,
             del: {},
-            edit: {}
+            edit: {},
+            edit_privacy: null,
+            index: null,
         };
     },
     props: {
@@ -216,9 +291,24 @@ export default {
             type: Object,
         },
     },
+    watch: {
+        edit_privacy(a) {
+            $('#updatePrivacy').prop('disabled', a == this.listPost[this.index].privacy);
+        }
+    },
     mounted() {
     },
     methods: {
+        updatePrivacy() {
+            axios
+                .post('post/update-privacy', { privacy: this.edit_privacy, id: this.listPost[this.index].id })
+                .then((res) => {
+                    if (res.data.status == 1) {
+                        this.listPost[this.index].privacy = this.edit_privacy
+                        $('#btnCloseModalPrivacy').click();
+                    }
+                })
+        },
         updatePost() {
             axios
                 .post('post/update', this.edit.post)
@@ -240,10 +330,13 @@ export default {
                     baseFunction.displaySuccess(res)
                 })
         },
-        test() { },
-        // handleUpdateTypeClick(value) {
-        //     this.typeClick = 0
-        // },
+        setPrivacy(privacy) {
+            $('#' + privacy).click();
+            setTimeout(() => {
+                $('#' + privacy).click();
+                console.log('l123l123l12');
+            }, 1);
+        },
         getIndexOpenModal(value) {
             this.typeClick = 1;
             this.indexOpenModal = value.index;
@@ -275,11 +368,23 @@ export default {
             this.disableBtnUpdate()
         },
         disableBtnUpdate() {
-            if (this.edit.post.privacy != this.listPost[this.edit.index].privacy ||
-                this.listPost[this.edit.index].caption.trim() != this.edit.post.caption.trim()) {
-                $('.btn-update-post').prop('disabled', false)
+            if (this.edit.post.privacy !== this.listPost[this.edit.index].privacy ||
+                ((this.edit.post.caption || '').trim() !== (this.listPost[this.edit.index].caption || '').trim())) {
+                $('.btn-update-post').prop('disabled', false);
             } else {
-                $('.btn-update-post').prop('disabled', true)
+                $('.btn-update-post').prop('disabled', true);
+            }
+
+        },
+        handleClickPrivacy(v, k) {
+            this.index = k;
+            this.edit_privacy = v.privacy
+            if (v.privacy == 1) {
+                this.setPrivacy('rdoPublic')
+            } else if (v.privacy == 2) {
+                this.setPrivacy('rdoFriend')
+            } else {
+                this.setPrivacy('rdoOnlyMe')
             }
         }
     },

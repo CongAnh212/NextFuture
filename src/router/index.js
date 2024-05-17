@@ -2,7 +2,21 @@ import { createRouter, createWebHistory } from "vue-router"; // cài vue-router:
 
 const routes = [
   {
-    path: "/admin",
+    path: "/error/404",
+    name: "error404",
+    meta: { layout: "empty", requiresAuth: true },
+    components: {
+      default: () => import("../components/error/404.vue"),
+    },
+  },
+  {
+    path: "/admin-provip-so1-vutru",
+    name: "admin-login",
+    meta: { layout: "account" },
+    component: () => import("../components/admin/signIn/signInAmin.vue"),
+  },
+  {
+    path: "/admin/manage",
     name: "admin",
     meta: { layout: "admin", requiresAuth: true },
     components: {
@@ -393,6 +407,13 @@ const routes = [
       default: () => import("../components/client/search/list.vue"),
       content: () => import("../components/client/search/searchComponent.vue"),
     },
+  },
+  //***********************************************/ SUGGESTION  / ***********************************************//
+  {
+    path: "/posts/:id_post",
+    name: "detailPost",
+    meta: { requiresAuth: true },
+    component: () => import("../components/client/post/postComponent.vue"),
   },
   //***********************************************/ Chat  / ***********************************************//
   {

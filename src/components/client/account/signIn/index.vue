@@ -10,7 +10,7 @@
                         placeholder="Enter email">
                 </div>
                 <div class="form-group ">
-                    <label class="form-label" for="exampleInputPassword1">Password</label> 
+                    <label class="form-label" for="exampleInputPassword1">Password</label>
                     <!-- <a href="#" class="float-end">Forgot password?</a> -->
                     <div class=" position-relative">
                         <input v-model="sign_in.password" type="password" class="form-control mb-0" ref="password"
@@ -26,9 +26,11 @@
                         <input v-model="sign_in.remember" type="checkbox" class="form-check-input" id="customCheck11">
                         <label class="form-check-label" for="customCheck11">Remember Me</label>
                     </div>
-                    <button v-if="!loading" type="submit" class="btn btn-primary w-100" @click="signIn()">Sign In</button>
+                    <button v-if="!loading" type="submit" class="btn btn-primary w-100" @click="signIn()">Sign
+                        In</button>
                     <button v-else class="btn btn-secondary w-100 " disabled>
-                        <img src="../../../../assets/client/images/page-img/loading.gif" alt="loader" style="height: 20px;">
+                        <img src="../../../../assets/client/images/page-img/loading.gif" alt="loader"
+                            style="height: 20px;">
                         Sign In
                     </button>
                 </div>

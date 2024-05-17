@@ -10,26 +10,51 @@ import empty from "./layout/wrapper/client/empty/index.vue";
 import checkIsLogin from "../src/core/modules.js";
 import AdminNav from "./Layout/Wrapper/admin/AdminNav.vue";
 import PrimeVue from "primevue/config";
+import mitt from 'mitt'
+
 
 const app = createApp(App);
+const emitter = mitt()
+app.config.globalProperties.emitter = emitter;
+
 router.beforeEach(async (to, from, next) => {
   const isLoggedIn = await checkIsLogin();
   if (to.matched.some((record) => record.meta.requiresAuth) && !isLoggedIn) {
-    console.log("no login");
     next("/sign-in");
   } else if (isLoggedIn) {
-    switch (to.name) {
-      case "sign-in" || "sign-up":
-        next({ path: "/" });
-        break;
-      case "homepage":
-        next({ path: "/" });
-        break;
-      default:
-        next();
-        break;
+    if (isLoggedIn == "client") {
+      switch (to.name) {
+        case "sign-in":
+        case "sign-up":
+          next({ path: "/" });
+          break;
+        case "homepage":
+          next({ path: "/" });
+          break;
+        default:
+          console.log("default client");
+          next();
+          break;
+      }
+    } else {
+      switch (to.name) {
+        case "admin-login":
+          next({ path: "/admin/manage" });
+          break;
+        case "admin":
+          next();
+          break;
+        case "error404":
+          next();
+          break;
+        default:
+          next({ name: "error404" });
+          break;
+      }
     }
-  } else next();
+  } else {
+    next();
+  }
 });
 
 import store from "./store";

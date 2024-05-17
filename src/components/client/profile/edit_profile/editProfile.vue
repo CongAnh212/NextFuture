@@ -26,26 +26,26 @@
                         <router-link class='text-dark '
                             :to="{ name: 'detailProfile', params: { username: data_my_info.username ? data_my_info.username : ' ' } }">
                             <i class="fa-solid fa-arrow-left"></i>
+                            Edit profile
                         </router-link>
-                        Edit profile
                     </h5>
                     <div class="d-flex mt-2">
                         <div class="me-2 " style="flex:1">
                             <label class="form-label m-0 text-dark">Full name</label>
-                            <input @change="handleButton()" v-model="data_my_info.fullname" type="text" class="form-control"
-                                placeholder="Full name">
+                            <input @change="handleButton()" v-model="data_my_info.fullname" type="text"
+                                class="form-control" placeholder="Full name">
                         </div>
                         <div style="flex:1">
                             <label class="form-label m-0 text-dark">Nick name</label>
-                            <input @change="handleButton()" v-model="data_my_info.nickname" type="text" class="form-control"
-                                placeholder="Nick name">
+                            <input @change="handleButton()" v-model="data_my_info.nickname" type="text"
+                                class="form-control" placeholder="Nick name">
                         </div>
                     </div>
                     <div class="d-flex mt-2">
                         <div class="me-2" style="flex:1">
                             <label class="form-label m-0 text-dark">Address</label>
-                            <input @change="handleButton()" v-model="data_my_info.address" type="text" class="form-control"
-                                placeholder="Address">
+                            <input @change="handleButton()" v-model="data_my_info.address" type="text"
+                                class="form-control" placeholder="Address">
                         </div>
                         <div style="flex:1">
                             <label class="form-label m-0 text-dark">Phone number</label>
@@ -71,13 +71,12 @@
                         <label class="form-label m-0 text-dark">Bio</label>
                         <textarea @change="handleButton()" v-model="data_my_info.bio" class="form-control" cols="30"
                             rows="3">
-
                         </textarea>
                     </div>
                     <div class="d-flex mt-2">
                         <span style="flex: 1;"></span>
-                        <button class="btn btn-primary f-500 updateProfile" style="width: 11rem;" @click="updateProfile()"
-                            disabled>
+                        <button class="btn btn-primary f-500 updateProfile" style="width: 11rem;"
+                            @click="updateProfile()" disabled>
                             Update profile
                         </button>
                     </div>
@@ -99,30 +98,36 @@
                     <div class="d-flex mt-2" style="position: relative;">
                         <input v-model="links.facebook.link" type="text" class="form-control me-2 pe-4"
                             placeholder="Link facebook">
-                        <i class="fa-brands fa-facebook text-dark" style="position: absolute; left:46%; top: 0.85em;"></i>
+                        <i class="fa-brands fa-facebook text-dark"
+                            style="position: absolute; left:46%; top: 0.85em;"></i>
                         <input v-model="links.facebook.name" type="text" class="form-control " placeholder="Name">
                     </div>
                     <div class="d-flex mt-2" style="position: relative;">
                         <input v-model="links.instagram.link" type="text" class="form-control me-2 pe-4"
                             placeholder="Link instagram">
-                        <i class="fa-brands fa-instagram text-dark" style="position: absolute; left:46%; top: 0.85em;"></i>
+                        <i class="fa-brands fa-instagram text-dark"
+                            style="position: absolute; left:46%; top: 0.85em;"></i>
                         <input v-model="links.instagram.name" type="text" class="form-control " placeholder="Name">
                     </div>
                     <div class="d-flex mt-2" style="position: relative;">
                         <input v-model="links.youtube.link" type="text" class="form-control me-2 pe-4"
                             placeholder="Link youtube">
-                        <i class="fa-brands fa-youtube text-dark" style="position: absolute; left:46%; top: 0.85em;"></i>
+                        <i class="fa-brands fa-youtube text-dark"
+                            style="position: absolute; left:46%; top: 0.85em;"></i>
                         <input v-model="links.youtube.name" type="text" class="form-control " placeholder="Name">
                     </div>
                     <div class="d-flex mt-2" style="position: relative;">
-                        <input v-model="links.x.link" type="text" class="form-control me-2 pe-4" placeholder="Link twitter">
-                        <i class="fa-brands fa-x-twitter text-dark" style="position: absolute; left:46%; top: 0.85em;"></i>
+                        <input v-model="links.x.link" type="text" class="form-control me-2 pe-4"
+                            placeholder="Link twitter">
+                        <i class="fa-brands fa-x-twitter text-dark"
+                            style="position: absolute; left:46%; top: 0.85em;"></i>
                         <input v-model="links.x.name" type="text" class="form-control " placeholder="Name">
                     </div>
                     <div class="d-flex mt-2" style="position: relative;">
                         <input v-model="links.threads.link" type="text" class="form-control me-2 pe-4"
                             placeholder="Link threads">
-                        <i class="fa-brands fa-threads text-dark" style="position: absolute; left:46%; top: 0.85em;"></i>
+                        <i class="fa-brands fa-threads text-dark"
+                            style="position: absolute; left:46%; top: 0.85em;"></i>
                         <input v-model="links.threads.name" type="text" class="form-control " placeholder="Name">
                     </div>
                     <div class=" mt-2 text-end w-100">
@@ -140,22 +145,33 @@
                 <div class="w-100" style="padding-left: 0.5rem;">
                     <h5 class="text-dark f-500">Change password</h5>
                     <div class="d-flex mt-2" style="position: relative;">
-                        <input type="password" class="form-control pe-4 " placeholder="Old password">
-                        <i class="fa-solid fa-eye text-dark" style="position: absolute; left:95%; top: 0.85em;"></i>
+                        <input @input="check_disable" v-model='pass.old' type="password" class="form-control pe-4"
+                            placeholder="Old password" ref="passwordOld">
+                        <i class="fas position-absolute c-pointer text-dark"
+                            :class="showPasswordOld ? 'fa-eye-slash' : 'fa-eye'" @click="showPass('old')"
+                            style="right: 0.85em; top: 50%; transform: translateY(-50%); font-size: 1rem;"></i>
                     </div>
                     <div class="d-flex mt-2" style="position: relative;">
-                        <input type="password" class="form-control pe-4 " placeholder="New password">
-                        <i class="fa-solid fa-eye-slash text-dark" style="position: absolute; left:95%; top: 0.85em;"></i>
+                        <input @input="check_disable" v-model='pass.new' type="password" class="form-control pe-4"
+                            placeholder="New password" ref="passwordNew">
+                        <i class="fas position-absolute c-pointer text-dark"
+                            :class="showPasswordNew ? 'fa-eye-slash' : 'fa-eye'" @click="showPass('new')"
+                            style="right: 0.85em; top: 50%; transform: translateY(-50%); font-size: 1rem;"></i>
                     </div>
                     <div class="d-flex mt-2" style="position: relative;">
-                        <input type="password" class="form-control pe-4 " placeholder="Enter a new password">
-                        <i class="fa-solid fa-eye-slash text-dark" style="position: absolute; left:95%; top: 0.85em;"></i>
-                    </div>
-                    <div class="d-flex mt-2">
-                        <span style="flex: 1;"></span>
-                        <button class="btn btn-primary f-500" style="width: 11rem;">Change password</button>
+                        <input @input="check_disable" v-model='pass.renewpass' type="password" class="form-control pe-4"
+                            placeholder="Enter a new password" ref="passwordConfirm">
+                        <i class="fas position-absolute c-pointer text-dark"
+                            :class="showPasswordConfirm ? 'fa-eye-slash' : 'fa-eye'" @click="showPass('confirm')"
+                            style="right: 0.85em; top: 50%; transform: translateY(-50%); font-size: 1rem;"></i>
                     </div>
 
+                    <div class="d-flex mt-2">
+                        <span style="flex: 1;"></span>
+                        <button :disabled="change_pass_status == 0" class="btn btn-primary f-500" style="width: 11rem;"
+                            @click="changePassword()">Change
+                            password</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -170,6 +186,7 @@ import Swal from 'sweetalert2'
 export default {
     data() {
         return {
+            change_pass_status: 0,
             data_my_info: {},
             urlImg: url,
             selectedImage: null,
@@ -185,6 +202,14 @@ export default {
                 'x': { type: 5, link: '', name: '' },
                 'tiktok': { type: 6, link: '', name: '' },
             },
+            showPasswordOld: false,
+            showPasswordNew: false,
+            showPasswordConfirm: false,
+            pass: {
+                new: '',
+                old: '',
+                renewpass: '',
+            },
         }
     },
     mounted() {
@@ -192,16 +217,42 @@ export default {
         this.linkAddress();
     },
     methods: {
+        check_disable() {
+            if (this.pass.old && this.pass.new && this.pass.renewpass) {
+                this.change_pass_status = 1
+            } else {
+                this.change_pass_status = 0
+
+            }
+        },
+        showPass(field) {
+            if (field === 'old') {
+                this.showPasswordOld = !this.showPasswordOld;
+                this.$refs.passwordOld.type = this.showPasswordOld ? 'text' : 'password';
+            } else if (field === 'new') {
+                this.showPasswordNew = !this.showPasswordNew;
+                this.$refs.passwordNew.type = this.showPasswordNew ? 'text' : 'password';
+            } else if (field === 'confirm') {
+                this.showPasswordConfirm = !this.showPasswordConfirm;
+                this.$refs.passwordConfirm.type = this.showPasswordConfirm ? 'text' : 'password';
+            }
+        },
         handleButton() {
             let isModified = false;
             for (let key in this.data_my_info) {
+                if (key === 'created_at') {
+                    continue;
+                }
                 const dataValue = this.data_my_info[key];
                 const originValue = this.origin_data[key];
-                if (typeof dataValue === 'string' && typeof originValue === 'string') {
-                    if (dataValue.replace(/\s/g, '') !== originValue.replace(/\s/g, '')) {
-                        isModified = true;
-                        break;
+                if (dataValue != originValue) {
+                    if (typeof dataValue === 'string' && typeof originValue === 'string') {
+                        if (dataValue.trim() == originValue.trim()) {
+                            continue
+                        }
                     }
+                    isModified = true;
+                    break;
                 }
             }
             if (isModified) {
@@ -239,7 +290,7 @@ export default {
             axios
                 .get('profile/accounts-edit')
                 .then((res) => {
-                    this.data_my_info = res.data.data
+                    this.data_my_info = Object.assign({}, res.data.data)
                     this.origin_data = Object.assign({}, res.data.data)
                 });
         },
@@ -271,9 +322,12 @@ export default {
                 .post('profile/update-profile', formData)
                 .then((res) => {
                     if (res.data.status) {
-                        this.data_my_info = res.data.dataEditProfile
+                        this.data_my_info = Object.assign({}, res.data.dataEditProfile)
+                        this.origin_data = Object.assign({}, res.data.dataEditProfile)
                         this.image = res.data.dataEditProfile.avatar
                         baseFunction.displaySuccess(res);
+                        $('.updateProfile').prop('disabled', true);
+
                         this.$emit('updateProfile', res.data.dataEditProfile)
                     }
                 })
@@ -351,7 +405,6 @@ export default {
                             check = true
                         }
                     } else {
-                        console.log("this.links[key]: ", this.links[key]);
                     }
                 }
             });
@@ -364,8 +417,39 @@ export default {
                         }
                     })
             }
-        }
+        },
+        changePassword() {
+            this.change_pass_status = 0
+            let check = false
+            if (this.pass.new == this.pass.renewpass && this.pass.old != this.pass.new) {
+                check = true
+            } else {
+                if (this.pass.new != this.pass.renewpass) {
+                    baseFunction.displaySuccess({
+                        data: {
+                            message: 'Re-enter the password that does not overlap with the new password',
+                            status: 0
+                        }
+                    })
+                } else {
+                    baseFunction.displaySuccess({
+                        data: {
+                            message: 'The new password must not be the same as the old password',
+                            status: 0
+                        }
+                    })
+                }
+            }
+            if (check) {
+                axios
+                    .post('profile/change-password', this.pass)
+                    .then((res) => {
+                        this.change_pass_status = 1
 
+                        baseFunction.displaySuccess(res);
+                    })
+            }
+        }
     },
 }
 </script>

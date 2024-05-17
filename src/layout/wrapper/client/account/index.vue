@@ -15,9 +15,9 @@
                             <a class="sign-in-logo mb-5 d-flex justify-content-center"><img
                                     src="../../../../assets/client/images/main-logo-white.png" class="img-fluid me-1"
                                     alt="logo">
-                                <h2 class="text-white  align-content-center">NextFuture</h2>
+                                <h2 class="text-white  align-content-center" translate="no">NextFuture</h2>
                             </a>
-                            <div class="sign-slider overflow-hidden ">
+                            <div v-if="checkRole == 'client'" class="sign-slider overflow-hidden ">
                                 <div id="carouselExampleRide" class="carousel slide" data-bs-ride="carousel"
                                     data-bs-interval="3000">
                                     <div class="carousel-inner">
@@ -58,6 +58,24 @@
                                     </button>
                                 </div>
                             </div>
+                            <div v-else>
+                                <div id="carouselExampleRide" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                            <img src="../../../../assets/img/admin-account.jpg" class="d-block w-100"
+                                                style="border-radius: 5px;">
+                                            <h3 class="mb-1 text-white fs-3">
+                                                Manage
+                                                <span translate="no">NextFuture</span>
+                                            </h3>
+                                            <p class="f-500">
+                                                The NextFuture management platform streamlines web activities, providing
+                                                easy data tracking, analysis, and business communication optimization
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <router-view></router-view>
@@ -71,7 +89,17 @@ import 'bootstrap';
 
 export default {
     name: "app",
-
+    data() {
+        return {
+            checkRole: null
+        }
+    },
+    created() {
+        this.checkRole = this.$route.path == '/sign-in' ? 'client' : 'admin'
+    },
+    methods: {
+        //
+    },
 }
 </script>
 <style></style>

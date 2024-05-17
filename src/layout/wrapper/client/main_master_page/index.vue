@@ -18,8 +18,7 @@
                                     @fullMemberActive="handleFullMemberActive"
                                     @sendFromListHomeGroup="handleGetDataFromListHoneGroup"
                                     :send_rename_group="send_rename_group"
-                                    @sendActiceFromSearch="handleSendActiveFromSearch" :seeMoreSearch="seeMoreSearch"
-                                    @selectConversation="handleSelectConversation">
+                                    @sendActiceFromSearch="handleSendActiveFromSearch" :seeMoreSearch="seeMoreSearch">
                                 </router-view>
                             </ul>
                         </nav>
@@ -117,14 +116,15 @@ export default {
         },
         handleSendActiveFromSearch(value) {
             this.typeViewSearch = value
-
+        },
+        handleReloadListPostToMainMasterPage(value) {
+            this.listPost = value
         },
         handleSeeMoreSearch(value) {
             this.seeMoreSearch = value
 
         },
         handleGetDataFromListHoneGroup(value) {
-            console.log(1233333333333333333333);
             this.dataComeIn = value.getDataComeIn
             this.infoGroup = value.infoGroup
             this.listPost = value.listPost

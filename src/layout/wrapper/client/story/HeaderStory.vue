@@ -23,95 +23,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav  ms-auto navbar-list">
                         <li class="nav-item dropdown">
-                            <a href="#" class="search-toggle   dropdown-toggle" id="notification-drop"
-                                data-bs-toggle="dropdown">
-                                <i class="ri-notification-4-line"></i>
-                            </a>
-                            <div class="sub-drop dropdown-menu" aria-labelledby="notification-drop">
-                                <div class="card shadow-none m-0">
-                                    <div class="card-header d-flex justify-content-between bg-primary">
-                                        <div class="header-title bg-primary">
-                                            <h5 class="mb-0 text-white">All Notifications</h5>
-                                        </div>
-                                        <small class="badge  bg-light text-dark">4</small>
-                                    </div>
-                                    <div class="card-body p-0">
-                                        <a href="#" class="iq-sub-card">
-                                            <div class="d-flex align-items-center">
-                                                <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../../assets/client/images/user/01.jpg" alt="">
-                                                </div>
-                                                <div class="ms-3 w-100">
-                                                    <h6 class="mb-0 ">Emma Watson Bni</h6>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <p class="mb-0">95 MB</p>
-                                                        <small class="float-right font-size-12">Just Now</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="iq-sub-card">
-                                            <div class="d-flex align-items-center">
-                                                <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../../assets/client/images/user/02.jpg" alt="">
-                                                </div>
-                                                <div class="ms-3 w-100">
-                                                    <h6 class="mb-0 ">New customer is join</h6>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <p class="mb-0">Cyst Bni</p>
-                                                        <small class="float-right font-size-12">5 days ago</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="iq-sub-card">
-                                            <div class="d-flex align-items-center">
-                                                <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../../assets/client/images/user/03.jpg" alt="">
-                                                </div>
-                                                <div class="ms-3 w-100">
-                                                    <h6 class="mb-0 ">Two customer is left</h6>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <p class="mb-0">Cyst Bni</p>
-                                                        <small class="float-right font-size-12">2 days ago</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="iq-sub-card">
-                                            <div class="d-flex align-items-center">
-                                                <div class="">
-                                                    <img class="avatar-40 rounded"
-                                                        src="../../../../assets/client/images/user/04.jpg" alt="">
-                                                </div>
-                                                <div class="w-100 ms-3">
-                                                    <h6 class="mb-0 ">New Mail from Fenny</h6>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <p class="mb-0">Cyst Bni</p>
-                                                        <small class="float-right font-size-12">3 days ago</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a href="#" class="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
+                            <a href="#" class="d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img :src="urlImg + myData.avatar" class="img-fluid rounded-circle me-3" alt="user">
-                                <div class="caption">
+                                <div class="flex-center"
+                                    style="border-radius: 100%; width: 3rem; height: 3rem; overflow: hidden;">
+                                    <img :src="urlImg + myData.avatar" style="object-fit: cover; width: 100%; height: 100%;">
+                                </div>
+                                <div class="caption ms-2">
                                     <h6 class="mb-0 line-height">{{ myData.fullname }}</h6>
                                 </div>
                             </a>
                             <div class="sub-drop dropdown-menu caption-menu" aria-labelledby="drop-down-arrow">
                                 <div class="card shadow-none m-0">
-                                    <div class="card-header  bg-primary">
+                                    <div class="card-header bg-primary">
                                         <div class="header-title">
                                             <h5 class="mb-0 text-white">Hello {{ myData.fullname }}</h5>
                                             <span class="text-white font-size-12">Available</span>
@@ -132,7 +56,8 @@
                                                 </div>
                                             </router-link>
                                         </div>
-                                        <a href="../app/profile-edit.html" class="iq-sub-card iq-bg-warning-hover">
+                                        <router-link :to="{ name: 'editProfile' }"
+                                            class="iq-sub-card iq-bg-warning-hover">
                                             <div class="d-flex align-items-center">
                                                 <div class="rounded card-icon bg-soft-warning">
                                                     <i class="ri-profile-line"></i>
@@ -142,30 +67,7 @@
                                                     <p class="mb-0 font-size-12">Modify your personal details.</p>
                                                 </div>
                                             </div>
-                                        </a>
-                                        <a href="../app/account-setting.html" class="iq-sub-card iq-bg-info-hover">
-                                            <div class="d-flex align-items-center">
-                                                <div class="rounded card-icon bg-soft-info">
-                                                    <i class="ri-account-box-line"></i>
-                                                </div>
-                                                <div class="ms-3">
-                                                    <h6 class="mb-0 ">Account settings</h6>
-                                                    <p class="mb-0 font-size-12">Manage your account parameters.</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="../app/privacy-setting.html" class="iq-sub-card iq-bg-danger-hover">
-                                            <div class="d-flex align-items-center">
-                                                <div class="rounded card-icon bg-soft-danger">
-                                                    <i class="ri-lock-line"></i>
-                                                </div>
-                                                <div class="ms-3">
-                                                    <h6 class="mb-0 ">Privacy Settings</h6>
-                                                    <p class="mb-0 font-size-12">Control your privacy parameters.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
+                                        </router-link>
                                         <div class="d-inline-block w-100 text-center p-3">
                                             <router-link to="">
                                                 <a @click="signOut()" class="btn btn-primary iq-sign-btn"

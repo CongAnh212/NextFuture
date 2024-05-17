@@ -43,6 +43,7 @@ export default {
     border: none;
     background-color: #f8f9fa;
 }
+
 .admin__nav--button:hover {
     background-color: #c0e4ec;
 }
